@@ -1,0 +1,5 @@
+
+
+Z:/project/AX/AX301/AX301_CD_20190114/CD/01_?бь?бу?им3им??идy3им?a/demo/03_pll_test/ipcore/pll.v
+
+Dec 05 09AM:48:30>: File Z:/project/AX/AX301/AX301_CD_20190114/CD/01_?бь?бу?им3им??идy3им?a/demo/03_pll_test/ipcore/pll.cnxerr could not be opened

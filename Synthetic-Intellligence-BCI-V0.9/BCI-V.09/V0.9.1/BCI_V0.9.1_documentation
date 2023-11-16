@@ -1,0 +1,54 @@
+This document outlines the design specifications for a Brain-Computer Interface (BCI) system intended for the transmission and reception of neural signals between a biological brain/organoid and a computer system. The design is focused on the electronic components, signal processing units, and interfacing protocols, specifically employing Cyclone IV FPGAs for digital signal processing.
+System Components
+Analog Front-End (AFE)
+
+    Instrumentation Amplifiers (IA): Each of the 64 channels is equipped with a separate PCB hosting an AD620 module to amplify neural signals. This configuration ensures clean signal acquisition with minimal interference.
+    Analog-to-Digital Converters (ADC): For every two channels, a separate PCB with a PCM1802 module is used, taking advantage of its stereo input capability to convert the analog signals into digital data with high fidelity.
+    Digital-to-Analog Converters (DAC): Similarly, every two channels share a PCB with a CS4344 module for converting digital signals back into analog form, maintaining the stereo output feature of the DACs.
+
+Digital Processing Unit
+
+    Field-Programmable Gate Arrays (FPGA): Cyclone IV FPGAs are responsible for the real-time processing and routing of neural signals, as well as the gain of the amps, and the system clocks.
+
+Communication Protocols
+
+    I2S
+
+Power Supply Design
+
+    Linear Regulators: To ensure clean power delivery, 3.3V and 5V linear regulators are used across the system. These regulators provide stable voltage levels and reduce noise, which is critical for maintaining signal integrity.
+
+Printed Circuit Board (PCB) Design
+
+    Capacitors: A combination of 1 µF, 100 nF, and 10 nF capacitors are strategically placed across the PCBs to filter out noise and stabilize the power supply lines, further enhancing signal quality.
+    
+    
+    
+
+Additional documentation of the breakout boards and FPGA:
+
+AD620 documentation:
+https://www.electroschematics.com/module/
+https://protosupplies.com/product/ad620-instrumentation-amplifier-module/
+
+AD620 purchase link:
+https://pt.aliexpress.com/item/1005003617853134.html?spm=a2g0o.cart.0.0.39037f06n6T8mc&mp=1&gatewayAdapt=glo2bra
+
+CS4344 documentation:
+https://store.siqma.com/cs4344-dac-module.html
+
+CS4344 purchase link:
+https://pt.aliexpress.com/item/1005004996846258.html?spm=a2g0o.cart.0.0.39037f06n6T8mc&mp=1&gatewayAdapt=glo2bra
+
+PCM1802 documentation:
+https://raspberrypi.stackexchange.com/questions/107778/how-to-use-rpi-python-to-control-pcm1802-24-bit-hifi-stereo-adc-and-max4466-micr
+https://www.pjrc.com/pcm1802-breakout-board-needs-hack/
+
+PCM1802 purchase link:
+https://pt.aliexpress.com/item/32867094207.html?spm=a2g0o.cart.0.0.39037f06n6T8mc&mp=1&gatewayAdapt=glo2bra
+
+Cyclone IV documentation:
+https://www.intel.com/content/www/us/en/docs/programmable/767845/current/cyclone-iv-featured-documentation-quick.html
+
+Cyclone IV purchase link:
+https://pt.aliexpress.com/item/4000837637863.html?spm=a2g0o.cart.0.0.39037f06n6T8mc&mp=1&gatewayAdapt=glo2bra

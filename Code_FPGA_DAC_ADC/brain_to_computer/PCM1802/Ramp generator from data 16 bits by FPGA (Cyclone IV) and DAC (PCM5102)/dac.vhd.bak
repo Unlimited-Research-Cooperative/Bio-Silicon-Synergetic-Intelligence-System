@@ -1,0 +1,28 @@
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity DAC is
+	port (
+		BCK : in std_logic; -- clock input
+		DIN : in std_logic; -- input data of sound (serial)
+		LCK : in std_logic := '0'; -- Audio data world clock input
+		FMT : in std_logic := '0' -- Sound Form : I2S (low)
+	);
+end DAC;
+
+architecture behavioral of DAC is
+	constant bit_max : integer := 16;
+	signal count : integer range 0 to bit_max := 0;
+	
+	begin
+		process(BCK)
+			begin
+				if (BCK'event and BCK = '0') then  -- falling edge
+					if (count > max-1) then
+						LCK <= not(LCK); -- left or right channel
+						count <= 0;
+						
+					end if;
+				end if;
+		end process;
+end behavioral;

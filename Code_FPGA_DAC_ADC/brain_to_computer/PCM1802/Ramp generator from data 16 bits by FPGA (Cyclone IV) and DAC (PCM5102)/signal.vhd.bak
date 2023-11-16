@@ -1,0 +1,49 @@
+library ieee;
+use std_logic_1164.all;
+
+entity generator is
+	port (
+		CLK : in std_logic;
+		BCK : out std_logic;
+		DIN : out std_logic;
+		LCK : out std_logic;
+	);
+end generator;
+
+architecture stractural of generator is
+	component Parallel_Serial_Converter is
+		port (
+			CLK : in std_logic;
+			parallel_in : in std_logic_vector(15 downto 0); -- 16 bit
+			serial_out : out std_logic := '0'
+		);
+	end component;
+	
+	component clock_divider is
+		port (
+			CLK_IN : in std_logic;
+			CLK_OUT : out std_logic
+		);
+	end component;
+	
+	component DAC is
+		port (
+			BCK : in std_logic; -- clock input
+			DIN : out std_logic; -- input data of sound (serial)
+			LCK : out std_logic := '0'; -- Audio data world clock input
+			FMT : out std_logic := '0' -- Sound Form : I2S (low)
+		);
+	end component;
+	
+begin
+	signal audio_data : std_logic_vector(15 downto 0);
+	signal CLK_divider : std_logic;
+	
+	U0 : clock_divider
+		port map (CLK, CLK_divider);
+	U1 : Parallel_Serial_Converter
+		port map (CLK_divider, audio_data, DIN);
+	U2 : DAC
+		port map ();
+		
+end stractural;

@@ -1,0 +1,28 @@
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity Parallel_Serial_Converter is
+	port (
+		CLK : in std_logic;
+		parallel_in : in std_logic_vector(16 downto 0);
+		serial_out : out std_logic;
+	);
+end Parallel_Serial_Converter;
+
+architecture behavioral of Parallel_Serial_Converter is
+	constant max : integer := 17; 
+	constant count : integer range 0 to max := 0;
+	
+	begin
+		process(CLK)
+			if (CLK'event and CLK = '1') then
+				if (count < max) then 
+					serial_out <= parallel_in(16 - count);
+					count <= count + 1;
+				else 
+					count <= 0;
+					
+				end if;
+			end if;
+		end process;
+end behavioral;

@@ -1,0 +1,16 @@
+Fitter Status : Successful - Fri Jun 01 11:46:06 2018
+Quartus Prime Version : 17.1.0 Build 590 10/25/2017 SJ Lite Edition
+Revision Name : sd_card_test
+Top-level Entity Name : sd_card_test
+Family : Cyclone IV E
+Device : EP4CE6F17C8
+Timing Models : Final
+Total logic elements : 566 / 6,272 ( 9 % )
+    Total combinational functions : 557 / 6,272 ( 9 % )
+    Dedicated logic registers : 266 / 6,272 ( 4 % )
+Total registers : 266
+Total pins : 21 / 180 ( 12 % )
+Total virtual pins : 0
+Total memory bits : 0 / 276,480 ( 0 % )
+Embedded Multiplier 9-bit elements : 0 / 30 ( 0 % )
+Total PLLs : 0 / 2 ( 0 % )

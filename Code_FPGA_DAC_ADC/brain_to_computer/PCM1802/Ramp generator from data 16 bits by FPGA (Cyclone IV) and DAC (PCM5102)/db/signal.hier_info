@@ -1,0 +1,93 @@
+|generator
+CLK => clock_divider:U0.CLK_IN
+BCK << clock_divider:U0.CLK_OUT
+DIN << Parallel_Serial_Converter:U2.serial_out
+LCK << clock_ws:U3.LCK
+
+
+|generator|clock_divider:U0
+CLK_IN => tmp.CLK
+CLK_IN => count[0].CLK
+CLK_IN => count[1].CLK
+CLK_IN => count[2].CLK
+CLK_IN => count[3].CLK
+CLK_IN => count[4].CLK
+CLK_OUT <= tmp.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|generator|clock_ws:U3
+BCK => lr.CLK
+BCK => count[0].CLK
+BCK => count[1].CLK
+BCK => count[2].CLK
+BCK => count[3].CLK
+BCK => count[4].CLK
+LCK <= lr.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|generator|generate_sin:U4
+BCK => data_16bit_vector[0].CLK
+BCK => data_16bit_vector[1].CLK
+BCK => data_16bit_vector[2].CLK
+BCK => data_16bit_vector[3].CLK
+BCK => data_16bit_vector[4].CLK
+BCK => data_16bit_vector[5].CLK
+BCK => data_16bit_vector[6].CLK
+BCK => data_16bit_vector[7].CLK
+BCK => data_16bit_vector[8].CLK
+BCK => data_16bit_vector[9].CLK
+BCK => data_16bit_vector[10].CLK
+BCK => data_16bit_vector[11].CLK
+BCK => data_16bit_vector[12].CLK
+BCK => data_16bit_vector[13].CLK
+BCK => data_16bit_vector[14].CLK
+BCK => data_16bit_vector[15].CLK
+BCK => count[0].CLK
+BCK => count[1].CLK
+BCK => count[2].CLK
+BCK => count[3].CLK
+BCK => count[4].CLK
+DIN[0] <= data_16bit_vector[0].DB_MAX_OUTPUT_PORT_TYPE
+DIN[1] <= data_16bit_vector[1].DB_MAX_OUTPUT_PORT_TYPE
+DIN[2] <= data_16bit_vector[2].DB_MAX_OUTPUT_PORT_TYPE
+DIN[3] <= data_16bit_vector[3].DB_MAX_OUTPUT_PORT_TYPE
+DIN[4] <= data_16bit_vector[4].DB_MAX_OUTPUT_PORT_TYPE
+DIN[5] <= data_16bit_vector[5].DB_MAX_OUTPUT_PORT_TYPE
+DIN[6] <= data_16bit_vector[6].DB_MAX_OUTPUT_PORT_TYPE
+DIN[7] <= data_16bit_vector[7].DB_MAX_OUTPUT_PORT_TYPE
+DIN[8] <= data_16bit_vector[8].DB_MAX_OUTPUT_PORT_TYPE
+DIN[9] <= data_16bit_vector[9].DB_MAX_OUTPUT_PORT_TYPE
+DIN[10] <= data_16bit_vector[10].DB_MAX_OUTPUT_PORT_TYPE
+DIN[11] <= data_16bit_vector[11].DB_MAX_OUTPUT_PORT_TYPE
+DIN[12] <= data_16bit_vector[12].DB_MAX_OUTPUT_PORT_TYPE
+DIN[13] <= data_16bit_vector[13].DB_MAX_OUTPUT_PORT_TYPE
+DIN[14] <= data_16bit_vector[14].DB_MAX_OUTPUT_PORT_TYPE
+DIN[15] <= data_16bit_vector[15].DB_MAX_OUTPUT_PORT_TYPE
+
+
+|generator|Parallel_Serial_Converter:U2
+CLK => serial_out~reg0.CLK
+CLK => count[0].CLK
+CLK => count[1].CLK
+CLK => count[2].CLK
+CLK => count[3].CLK
+CLK => count[4].CLK
+parallel_in[0] => Mux0.IN4
+parallel_in[1] => Mux0.IN5
+parallel_in[2] => Mux0.IN6
+parallel_in[3] => Mux0.IN7
+parallel_in[4] => Mux0.IN8
+parallel_in[5] => Mux0.IN9
+parallel_in[6] => Mux0.IN10
+parallel_in[7] => Mux0.IN11
+parallel_in[8] => Mux0.IN12
+parallel_in[9] => Mux0.IN13
+parallel_in[10] => Mux0.IN14
+parallel_in[11] => Mux0.IN15
+parallel_in[12] => Mux0.IN16
+parallel_in[13] => Mux0.IN17
+parallel_in[14] => Mux0.IN18
+parallel_in[15] => Mux0.IN19
+serial_out <= serial_out~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+

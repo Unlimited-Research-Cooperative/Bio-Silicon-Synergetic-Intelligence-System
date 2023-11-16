@@ -1,0 +1,64 @@
+Quartus Prime Archive log --	D:/intel_project/AX301/AX301_BOOT_PRJ_restored/AX301_BOOT_SDRAM.qarlog
+
+Archive:	D:/intel_project/AX301/AX301_BOOT_PRJ_restored/AX301_BOOT_SDRAM.qar
+Date:		Wed Mar 28 08:57:10 2018
+Quartus Prime		17.1.0 Build 590 10/25/2017 SJ Lite Edition
+
+	=========== Files Selected: ===========
+D:/intel_project/AX301/AX301_BOOT_PRJ_restored/SDC1.sdc
+D:/intel_project/AX301/AX301_BOOT_PRJ_restored/assignment_defaults.qdf
+D:/intel_project/AX301/AX301_BOOT_PRJ_restored/ax301_ax4010.tcl
+D:/intel_project/AX301/AX301_BOOT_PRJ_restored/ax_debounce.v
+D:/intel_project/AX301/AX301_BOOT_PRJ_restored/buzzer_src/music_hz.v
+D:/intel_project/AX301/AX301_BOOT_PRJ_restored/buzzer_src/music_rom.v
+D:/intel_project/AX301/AX301_BOOT_PRJ_restored/buzzer_src/music_top.v
+D:/intel_project/AX301/AX301_BOOT_PRJ_restored/buzzer_src/sin512.mif
+D:/intel_project/AX301/AX301_BOOT_PRJ_restored/db/stp1_auto_stripped.stp
+D:/intel_project/AX301/AX301_BOOT_PRJ_restored/eeprom_src/i2c_eeprom_test.v
+D:/intel_project/AX301/AX301_BOOT_PRJ_restored/eeprom_src/key_debounce.v
+D:/intel_project/AX301/AX301_BOOT_PRJ_restored/i2c_master/i2c_config.v
+D:/intel_project/AX301/AX301_BOOT_PRJ_restored/i2c_master/i2c_master_bit_ctrl.v
+D:/intel_project/AX301/AX301_BOOT_PRJ_restored/i2c_master/i2c_master_byte_ctrl.v
+D:/intel_project/AX301/AX301_BOOT_PRJ_restored/i2c_master/i2c_master_defines.v
+D:/intel_project/AX301/AX301_BOOT_PRJ_restored/i2c_master/i2c_master_top.v
+D:/intel_project/AX301/AX301_BOOT_PRJ_restored/i2c_master/timescale.v
+D:/intel_project/AX301/AX301_BOOT_PRJ_restored/output_files/stp1.stp
+D:/intel_project/AX301/AX301_BOOT_PRJ_restored/ov5640_src/cmos_8_16bit.v
+D:/intel_project/AX301/AX301_BOOT_PRJ_restored/ov5640_src/cmos_write_req_gen.v
+D:/intel_project/AX301/AX301_BOOT_PRJ_restored/ov5640_src/color_bar.v
+D:/intel_project/AX301/AX301_BOOT_PRJ_restored/ov5640_src/frame_fifo_read.v
+D:/intel_project/AX301/AX301_BOOT_PRJ_restored/ov5640_src/frame_fifo_write.v
+D:/intel_project/AX301/AX301_BOOT_PRJ_restored/ov5640_src/frame_read_write.v
+D:/intel_project/AX301/AX301_BOOT_PRJ_restored/ov5640_src/ip_core/afifo_16_512.v
+D:/intel_project/AX301/AX301_BOOT_PRJ_restored/ov5640_src/ip_core/sys_pll.v
+D:/intel_project/AX301/AX301_BOOT_PRJ_restored/ov5640_src/ip_core/video_pll.v
+D:/intel_project/AX301/AX301_BOOT_PRJ_restored/ov5640_src/lut_ov5640_rgb565_1024_768.v
+D:/intel_project/AX301/AX301_BOOT_PRJ_restored/ov5640_src/sdram/sdram_core.v
+D:/intel_project/AX301/AX301_BOOT_PRJ_restored/ov5640_src/top.v
+D:/intel_project/AX301/AX301_BOOT_PRJ_restored/ov5640_src/video_define.v
+D:/intel_project/AX301/AX301_BOOT_PRJ_restored/ov5640_src/video_timing_data.v
+D:/intel_project/AX301/AX301_BOOT_PRJ_restored/rtc_src/ds1302.v
+D:/intel_project/AX301/AX301_BOOT_PRJ_restored/rtc_src/ds1302_io.v
+D:/intel_project/AX301/AX301_BOOT_PRJ_restored/rtc_src/ds1302_test.v
+D:/intel_project/AX301/AX301_BOOT_PRJ_restored/rtc_src/seg_bcd.v
+D:/intel_project/AX301/AX301_BOOT_PRJ_restored/rtc_src/top.v
+D:/intel_project/AX301/AX301_BOOT_PRJ_restored/sdbmp_src/bmp_read.v
+D:/intel_project/AX301/AX301_BOOT_PRJ_restored/sdbmp_src/sd_card/sd_card_cmd.v
+D:/intel_project/AX301/AX301_BOOT_PRJ_restored/sdbmp_src/sd_card/sd_card_sec_read_write.v
+D:/intel_project/AX301/AX301_BOOT_PRJ_restored/sdbmp_src/sd_card/sd_card_top.v
+D:/intel_project/AX301/AX301_BOOT_PRJ_restored/sdbmp_src/sd_card_bmp.v
+D:/intel_project/AX301/AX301_BOOT_PRJ_restored/sdbmp_src/top.v
+D:/intel_project/AX301/AX301_BOOT_PRJ_restored/seg_src/seg_decoder.v
+D:/intel_project/AX301/AX301_BOOT_PRJ_restored/seg_src/seg_scan.v
+D:/intel_project/AX301/AX301_BOOT_PRJ_restored/spi_master.v
+D:/intel_project/AX301/AX301_BOOT_PRJ_restored/top.qpf
+D:/intel_project/AX301/AX301_BOOT_PRJ_restored/top.qsf
+D:/intel_project/AX301/AX301_BOOT_PRJ_restored/top.v
+D:/intel_project/AX301/AX301_BOOT_PRJ_restored/total.tcl
+D:/intel_project/AX301/AX301_BOOT_PRJ_restored/uart_src/uart_rx.v
+D:/intel_project/AX301/AX301_BOOT_PRJ_restored/uart_src/uart_test.v
+D:/intel_project/AX301/AX301_BOOT_PRJ_restored/uart_src/uart_tx.v
+	======= Total: 53 files to archive =======
+
+	================ Status: ===============
+All files archived successfully.

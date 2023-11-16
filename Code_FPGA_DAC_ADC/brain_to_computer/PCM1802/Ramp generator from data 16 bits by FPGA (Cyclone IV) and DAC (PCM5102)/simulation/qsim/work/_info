@@ -1,0 +1,313 @@
+m255
+K3
+13
+cModel Technology
+Z0 dC:\Users\Punch\Documents\Signal\simulation\qsim
+vclock_divider
+Z1 IETj:dK5=]d]8DPH3SPkU?2
+Z2 VW^LESO6IPAbOM^g3HiSO^2
+Z3 dC:\Users\Punch\Documents\Signal\simulation\qsim
+Z4 w1603135685
+Z5 8signal.vo
+Z6 Fsignal.vo
+L0 31
+Z7 OV;L;10.1d;51
+r1
+31
+Z8 !s90 -work|work|signal.vo|
+Z9 o-work work -O0
+Z10 !s100 Vo>7n6I;ZZG[jB8Ween=b3
+Z11 !s108 1603135685.985000
+Z12 !s107 signal.vo|
+!i10b 1
+!s85 0
+!s101 -O0
+vclock_divider_vlg_check_tst
+Z13 !s100 kL;VN0DmeYQX@]ziJEL4E1
+Z14 IkMIQVN9i4nPHJ8jbN>NFE3
+Z15 V2Gg9F7_``kzMYBK?meTWd2
+R3
+Z16 w1603135684
+Z17 8clock_divider.vwf.vt
+Z18 Fclock_divider.vwf.vt
+L0 57
+R7
+r1
+31
+Z19 !s108 1603135686.070000
+Z20 !s107 clock_divider.vwf.vt|
+Z21 !s90 -work|work|clock_divider.vwf.vt|
+R9
+!i10b 1
+!s85 0
+!s101 -O0
+vclock_divider_vlg_sample_tst
+Z22 !s100 ckCZX<@OfahkZV=c=R9z;1
+Z23 IM7^_cjmom[c<J0H;FlCGR3
+Z24 V5h>hK>zI8m8bEjVn=`NLP1
+R3
+R16
+R17
+R18
+L0 29
+R7
+r1
+31
+R19
+R20
+R21
+R9
+!i10b 1
+!s85 0
+!s101 -O0
+vclock_divider_vlg_vec_tst
+Z25 !s100 2i]1;067`De]QP^=`M^;T1
+Z26 I8CeK2;POTz585m6QioZJK1
+Z27 Vad=CL6[N77GJ9ToT7on382
+R3
+R16
+R17
+R18
+Z28 L0 152
+R7
+r1
+31
+R19
+R20
+R21
+R9
+!i10b 1
+!s85 0
+!s101 -O0
+vclock_ws
+Z29 Icih?^3Az5Bz6lzVkPL]V51
+Z30 V92cW8gaFFi3mD9;Ye53SL3
+R3
+Z31 w1603195468
+R5
+R6
+L0 31
+R7
+r1
+31
+R8
+R9
+Z32 !s100 l2A40z7NGML<Q:N>meB4^3
+Z33 !s108 1603195469.431000
+R12
+!i10b 1
+!s85 0
+!s101 -O0
+vclock_ws_vlg_check_tst
+Z34 I4:z^odGaF1K7H665SH24J3
+Z35 VfA_3B]Hh0k1C[3_V2?GBe3
+R3
+Z36 w1603195467
+Z37 8clock_ws.vwf.vt
+Z38 Fclock_ws.vwf.vt
+L0 57
+R7
+r1
+31
+Z39 !s108 1603195469.543000
+Z40 !s107 clock_ws.vwf.vt|
+Z41 !s90 -work|work|clock_ws.vwf.vt|
+R9
+Z42 !s100 eS@ogG=nU8Kh1fzTFL]]_3
+!i10b 1
+!s85 0
+!s101 -O0
+vclock_ws_vlg_sample_tst
+Z43 I9]beW4f0deUjTB6cC5F`X0
+Z44 Vo^C<GcbliDaLEeIIESA3Y2
+R3
+R36
+R37
+R38
+L0 29
+R7
+r1
+31
+R39
+R40
+R41
+R9
+Z45 !s100 ajk^;10DYGAG4PjLIc<SK0
+!i10b 1
+!s85 0
+!s101 -O0
+vclock_ws_vlg_vec_tst
+Z46 I5CNLAiHRm:1BjXN6nc4e:2
+Z47 VnU:_c4@ib[HZeoX0FSS_H2
+R3
+R36
+R37
+R38
+R28
+R7
+r1
+31
+R39
+R40
+R41
+R9
+Z48 !s100 ocVaR?PZ;^17D824KUmY<2
+!i10b 1
+!s85 0
+!s101 -O0
+vgenerator
+Z49 !s100 Oza_Ln<TT<blM7W@KeIJ?1
+Z50 I1jjH?e8Ta>Rila22]:i502
+Z51 VFQG^?7f`2:?U[`mc>_n>?3
+Z52 dC:\Users\Punch\Downloads\Signal\simulation\qsim
+Z53 w1603363053
+R5
+R6
+L0 31
+R7
+r1
+31
+R8
+R9
+!i10b 1
+!s85 0
+Z54 !s108 1603363054.593000
+R12
+!s101 -O0
+vgenerator_vlg_check_tst
+!i10b 1
+Z55 !s100 Vola]IGilm1=KCjAFYeM91
+Z56 IIXm39U``?f^Zcf;YTQcRd3
+Z57 VFPFz^;5OO_m>XS=lDF<N@0
+R52
+Z58 w1603363052
+Z59 8test.vwf.vt
+Z60 Ftest.vwf.vt
+L0 57
+R7
+r1
+!s85 0
+31
+Z61 !s108 1603363054.665000
+Z62 !s107 test.vwf.vt|
+Z63 !s90 -work|work|test.vwf.vt|
+!s101 -O0
+R9
+vgenerator_vlg_sample_tst
+!i10b 1
+Z64 !s100 ;DH99;;_c3>loMKTKT`HH3
+Z65 IV5QW1YLi1WnnlbWAbkQgX1
+Z66 V0YRJ68GieAdi@^Y0emed@3
+R52
+R58
+R59
+R60
+L0 29
+R7
+r1
+!s85 0
+31
+R61
+R62
+R63
+!s101 -O0
+R9
+vgenerator_vlg_vec_tst
+!i10b 1
+Z67 !s100 @Y21hind@TOQoW5ClhCKA3
+Z68 IPWn0AF?dWcg:kB6g2fl^;0
+Z69 VB;>nMz?dD<07OhQ7B7B[M0
+R52
+R58
+R59
+R60
+Z70 L0 206
+R7
+r1
+!s85 0
+31
+R61
+R62
+R63
+!s101 -O0
+R9
+vParallel_Serial_Converter
+Z71 !s100 G9G6IGagAP>k2i666THC83
+Z72 ITlmP`4Eelc7WnXE@lXOog3
+Z73 VSE>]POK2:4b>^0DHd=;NQ1
+R3
+Z74 w1603136856
+R5
+R6
+L0 31
+R7
+r1
+31
+R8
+R9
+Z75 n@parallel_@serial_@converter
+Z76 !s108 1603136857.541000
+R12
+!i10b 1
+!s85 0
+!s101 -O0
+vParallel_Serial_Converter_vlg_check_tst
+Z77 !s100 <TJXkN^B`LWhI]jbF1W5i3
+Z78 IEJ5T<IdOX]EDQFH=K9`ZE2
+Z79 VKg>`iHjShJM93jn4ImGCf0
+R3
+Z80 w1603136855
+Z81 8parallel_serial.vwf.vt
+Z82 Fparallel_serial.vwf.vt
+L0 59
+R7
+r1
+31
+Z83 !s108 1603136857.625000
+Z84 !s107 parallel_serial.vwf.vt|
+Z85 !s90 -work|work|parallel_serial.vwf.vt|
+R9
+Z86 n@parallel_@serial_@converter_vlg_check_tst
+!i10b 1
+!s85 0
+!s101 -O0
+vParallel_Serial_Converter_vlg_sample_tst
+Z87 !s100 zWok4_n8mF@^ZRCma30Vc1
+Z88 IGXX8HJl0D7H9k]_IY]FEg1
+Z89 V=J9zMYn@6[95K;AD24>840
+R3
+R80
+R81
+R82
+L0 29
+R7
+r1
+31
+R83
+R84
+R85
+R9
+Z90 n@parallel_@serial_@converter_vlg_sample_tst
+!i10b 1
+!s85 0
+!s101 -O0
+vParallel_Serial_Converter_vlg_vec_tst
+Z91 !s100 `bka@>K2UF>O;CaFZcYV41
+Z92 Im17JdniBcDI8gjVPbkkcg2
+Z93 VQozBiQm`^13XBBXiB`WcV3
+R3
+R80
+R81
+R82
+Z94 L0 154
+R7
+r1
+31
+R83
+R84
+R85
+R9
+Z95 n@parallel_@serial_@converter_vlg_vec_tst
+!i10b 1
+!s85 0
+!s101 -O0
