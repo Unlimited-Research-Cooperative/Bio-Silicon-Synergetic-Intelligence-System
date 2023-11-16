@@ -40,7 +40,7 @@ Implanting human cortical organoids into a rat brain, for computational experime
   <img src="https://raw.githubusercontent.com/Unlimited-Research-Cooperative/Human-Brain-Rat/main/images/idea_flow.png" alt="idea_flow.png">
 </p>
 note: 
-the files below have not been uploaded to this repo, but can be requested:
+the files below have not been uploaded to this repo, due to large file size, but can be requested:
 Code_FPGA_DAC_ADC/brain_to_computer/CycloneIV/demo/15_sd_card_audio/audio/大海.wav
 Code_FPGA_DAC_ADC/brain_to_computer/CycloneIV/demo/11_sd_card_test/spiflash.stp
 <br>
