@@ -8,10 +8,13 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
+    - name: Install jq
+      run: sudo apt-get install jq
+
     - name: Prepare commit information
       run: |
         COMMIT_MESSAGE=$(git log -1 --pretty=format:"%s")
-        COMMIT_AUTHOR=$(git log -1 --pretty=format:"%an (%ae)")
+        COMMIT_AUTHOR=$(git log -1 --pretty=format:"%an <%ae>")
         echo "Commit Message: $COMMIT_MESSAGE"
         echo "Commit Author: $COMMIT_AUTHOR"
 
