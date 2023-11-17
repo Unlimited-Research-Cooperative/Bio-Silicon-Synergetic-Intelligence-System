@@ -30,15 +30,6 @@
 Implanting human cortical organoids into a rat brain, for computational experiments towards synthetic biological intelligence
 <br>
 <br>
-Basic BCI system:
-
-carbo nanotube coated electrodes, used for self-organizing signal optimisation and connection mapping, for outgoing and incoming data. the carbon nanotubes, current, brain, and AI will work synergetically to create a more efficient system, and a bio-silicon connectome
-
-electrode site specific signals from the brain will be mapped via an AI, in a continous bidirectional learning process, using both the brain and the silicon computer
-
-brain will be primarily used for processing, by inputting data as an artifical sense, and outputting the processed data back from the brain to silicon computer
-
-symbolic
 
 <h1 align="center">BCI_V0.9.1_highlevel_schematic</h1>
 <p align="center">
@@ -49,7 +40,7 @@ symbolic
   <img src="https://raw.githubusercontent.com/Unlimited-Research-Cooperative/Human-Brain-Rat/main/images/idea_flow.png" alt="idea_flow.png">
 </p>
 note: 
-the files below have not been uploaded to this repo, due to large file size, but can be requested:
+the files below have not been uploaded to this repo, but can be requested:
 Code_FPGA_DAC_ADC/brain_to_computer/CycloneIV/demo/15_sd_card_audio/audio/大海.wav
 Code_FPGA_DAC_ADC/brain_to_computer/CycloneIV/demo/11_sd_card_test/spiflash.stp
 <br>
