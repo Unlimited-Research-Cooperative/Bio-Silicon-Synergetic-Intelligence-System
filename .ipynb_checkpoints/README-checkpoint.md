@@ -32,7 +32,7 @@ Implanting human cortical organoids into a rat brain, for computational experime
 <br>
 Basic BCI system:
 
-carbo nanotube coated electrodes, used for self-organizing signal optimisation and connection mapping, for outgoing and incoming data. the carbon nanotubes, current, brain, and AI will work synergetically to create a more efficient system, and a bio-silicon connectome
+carbon nanotube coated electrodes, used for self-organizing signal optimisation and connection mapping, for outgoing and incoming data. the carbon nanotubes, current, brain, and AI will work synergetically to create a more efficient system, and a bio-silicon connectome
 
 electrode site specific signals from the brain will be mapped via an AI, in a continous bidirectional learning process, using both the brain and the silicon computer
 
