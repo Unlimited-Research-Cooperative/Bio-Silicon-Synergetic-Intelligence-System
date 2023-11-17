@@ -14,8 +14,9 @@ jobs:
         DISCORD_WEBHOOK_TOKEN: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
       run: |
         COMMIT_MESSAGE=$(git log -1 --pretty=format:"%s")
+        COMMIT_AUTHOR=$(git log -1 --pretty=format:"%an")
         COMMIT_DESCRIPTION=$(git log -1 --pretty=format:"%b")
-        curl -X POST -H "Content-Type: application/json" -d "{ \"content\": \"New commit! Check out the latest changes: https://github.com/Unlimited-Research-Cooperative/Human-Brain-Rat/commits/${{ github.sha }}\", \"embeds\": [ { \"title\": \"$COMMIT_MESSAGE\", \"description\": \"$COMMIT_DESCRIPTION\" } ] }" https://discord.com/api/webhooks/$DISCORD_WEBHOOK_ID/$DISCORD_WEBHOOK_TOKEN
+        curl -X POST -H "Content-Type: application/json" -d "{ \"content\": \"New commit by $COMMIT_AUTHOR! Check out the latest changes: https://github.com/Unlimited-Research-Cooperative/Human-Brain-Rat/commits/${{ github.sha }}\", \"embeds\": [ { \"title\": \"$COMMIT_MESSAGE\", \"description\": \"$COMMIT_DESCRIPTION\" } ] }" https://discord.com/api/webhooks/$DISCORD_WEBHOOK_ID/$DISCORD_WEBHOOK_TOKEN
 
     - name: Send Discord notification to Server 2
       env:
@@ -23,5 +24,6 @@ jobs:
         URC_WEBHOOK_TOKEN: ${{ secrets.URC_WEBHOOK_TOKEN }}
       run: |
         COMMIT_MESSAGE=$(git log -1 --pretty=format:"%s")
+        COMMIT_AUTHOR=$(git log -1 --pretty=format:"%an")
         COMMIT_DESCRIPTION=$(git log -1 --pretty=format:"%b")
-        curl -X POST -H "Content-Type: application/json" -d "{ \"content\": \"New commit! Check out the latest changes: https://github.com/Unlimited-Research-Cooperative/Human-Brain-Rat/commits/${{ github.sha }}\", \"embeds\": [ { \"title\": \"$COMMIT_MESSAGE\", \"description\": \"$COMMIT_DESCRIPTION\" } ] }" https://discord.com/api/webhooks/$URC_WEBHOOK_ID/$URC_WEBHOOK_TOKEN
+        curl -X POST -H "Content-Type: application/json" -d "{ \"content\": \"New commit by $COMMIT_AUTHOR! Check out the latest changes: https://github.com/Unlimited-Research-Cooperative/Human-Brain-Rat/commits/${{ github.sha }}\", \"embeds\": [ { \"title\": \"$COMMIT_MESSAGE\", \"description\": \"$COMMIT_DESCRIPTION\" } ] }" https://discord.com/api/webhooks/$URC_WEBHOOK_ID/$URC_WEBHOOK_TOKEN
