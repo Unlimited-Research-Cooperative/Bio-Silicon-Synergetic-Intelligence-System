@@ -1,0 +1,9 @@
+    Modeling the Physical Structure: Use FreeCAD to model the physical structure of the biosafety cabinet including the main chamber, passbox, latches, and fans.
+
+    Designing Moveable Parts: Utilize the assembly workbenches in FreeCAD to design parts that can move or be interacted with, like door latches.
+
+    Airflow Simulation Preparation: Use the model you created as the basis for setting up an airflow simulation. This might involve defining the inlet and outlet regions for air, setting up the fans' positions, and assigning material properties.
+
+    Performing Airflow Simulation: Export the model to a CFD software like OpenFOAM or use a FreeCAD workbench that integrates CFD capabilities to perform the airflow simulation.
+
+    Analysis and Iteration: Analyze the simulation results to optimize the design for airflow, pressure control, and ergonomics. Make iterative changes to the design as necessary.
