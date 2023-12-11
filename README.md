@@ -42,12 +42,13 @@ symbolic
 
 <h1 align="center">BCI_V0.9.1_highlevel_schematic</h1>
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Unlimited-Research-Cooperative/Human-Brain-Rat/blob/main/prototyping/BCI_V0.9.1_highlevel_schematic.png" alt="BCI_V0.9.1_highlevel_schematic.png">
+  <img src="https://raw.githubusercontent.com/Unlimited-Research-Cooperative/Human-Brain-Rat/main/prototyping/BCI_V0.9.1_highlevel_schematic.png" alt="BCI_V0.9.1_highlevel_schematic.png">
 </p>
 <h1 align="center">idea_flow</h1>
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Unlimited-Research-Cooperative/Human-Brain-Rat/blob/main/prototyping/idea_flow.png" alt="idea_flow.png">
+  <img src="https://raw.githubusercontent.com/Unlimited-Research-Cooperative/Human-Brain-Rat/main/prototyping/idea_flow.png" alt="idea_flow.png">
 </p>
+
 note: 
 the files below have not been uploaded to this repo, due to large file size, but can be requested:
 Code_FPGA_DAC_ADC/brain_to_computer/CycloneIV/demo/15_sd_card_audio/audio/大海.wav
