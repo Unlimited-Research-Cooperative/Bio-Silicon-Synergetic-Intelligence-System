@@ -1,6 +1,6 @@
-<mxfile host="Electron" modified="2023-12-15T21:45:29.695Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.1.2 Chrome/114.0.5735.289 Electron/25.9.4 Safari/537.36" etag="58PDAX_MaFMgY8ntVldp" version="22.1.2" type="device">
+<mxfile host="Electron" modified="2023-12-15T21:52:41.083Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.1.2 Chrome/114.0.5735.289 Electron/25.9.4 Safari/537.36" etag="sSHKy4BDj2J2xGVd8yh5" version="22.1.2" type="device">
   <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
-    <mxGraphModel dx="4444" dy="2673" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="3300" pageHeight="4681" background="#000000" math="0" shadow="0">
+    <mxGraphModel dx="4000" dy="2406" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="3300" pageHeight="4681" background="#000000" math="0" shadow="0">
       <root>
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0" />
@@ -39,7 +39,7 @@
         <mxCell id="E4jad2PFPSYDbB1yajq3-88" value="Hermetic Passthrough" style="rounded=0;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="1220" y="1020" width="840" height="90" as="geometry" />
         </mxCell>
-        <mxCell id="E4jad2PFPSYDbB1yajq3-61" value="&lt;h1&gt;BCI System&lt;/h1&gt;&lt;div&gt;V0.9.1&lt;/div&gt;&lt;p&gt;High level schematic of synthetic intelligence system&lt;/p&gt;&lt;p&gt;breakout boards: AD620, CS4344&lt;/p&gt;amps set to unity gain&lt;br&gt;&lt;p&gt;8 channels shown in system, to represent the two pairs of 32 channels,&amp;nbsp; 64 channels in total&lt;/p&gt;&lt;p&gt;SPI, I2S&lt;/p&gt;" style="text;html=1;strokeColor=none;fillColor=none;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+        <mxCell id="E4jad2PFPSYDbB1yajq3-61" value="&lt;h1&gt;BCI System&lt;/h1&gt;&lt;div&gt;V0.9.2&lt;/div&gt;&lt;p&gt;High level schematic of synthetic intelligence system&lt;/p&gt;amps set to unity gain" style="text;html=1;strokeColor=none;fillColor=none;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="2906" y="4405" width="370" height="220" as="geometry" />
         </mxCell>
         <mxCell id="QETTn6Fk6bkcvrruaAT5-5" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="QETTn6Fk6bkcvrruaAT5-503" target="E4jad2PFPSYDbB1yajq3-2">
