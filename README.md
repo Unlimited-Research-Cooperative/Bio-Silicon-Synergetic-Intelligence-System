@@ -43,11 +43,11 @@ symbolic
 
 <h1 align="center">BCI_V0.9.2_highlevel_schematic</h1>
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Unlimited-Research-Cooperative/Human-Brain-Rat/blob/main/Hardware/prototyping/BCI_V.09.2_high_level_schematic.jpg" alt="BCI_V0.9.1_highlevel_schematic.png">
+  <img src="https://raw.githubusercontent.com/Unlimited-Research-Cooperative/Human-Brain-Rat/main/Hardware/prototyping/BCI_V.09.2_high_level_schematic.jpg" alt="BCI_V.09.2_high_level_schematic.jpg">
 </p>
 <h1 align="center">idea_flow</h1>
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Unlimited-Research-Cooperative/Human-Brain-Rat/blob/main/Hardware/prototyping/idea_flow.png" alt="idea_flow.png">
+  <img src="https://raw.githubusercontent.com/Unlimited-Research-Cooperative/Human-Brain-Rat/main/Hardware/prototyping/idea_flow.png" alt="idea_flow.png">
 </p>
 
 note: 
