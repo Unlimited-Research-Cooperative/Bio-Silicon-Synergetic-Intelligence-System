@@ -6,7 +6,8 @@ GUI Elements and Data Presentation:
         Neural Activity Maps: 3D/2D brain maps showing real-time activity.
         Signal Waveforms: Live EEG/neural waveforms with zoom capabilities.
         Data Metrics: Key metrics like signal strength, frequency bands, and synchronization.
-
+	Vortex visualization of phase syncronization (overlayed input and output signals with an updating angular velocity of 120pi radians/second
+	
     Quick-Render Neural Visualizations:
         Simplified Heatmaps: Fast-rendering heatmaps for activity levels.
         Real-Time Graphs: Streamlined signal graphs for live data.
