@@ -38,6 +38,19 @@ Our methodology is deeply rooted in bidirectional communication, leveraging AI t
 
 Our system facilitates bidirectional communication, where brain surface signals are mapped via AI in a continuous learning process, translating neural activities into game movements and back. The process begins at the brain surface, with signals transmitted to dual Cyton+Daisy OpenBCI boards, then to BrainFlow for acquisition, and into our custom software and GUI for analysis, visualization, and control. Neural signals are decoded into game actions, and game data alongside rat self-movement data are encoded back into neuromimetic signals. These are then fed into the rat brain, synced with output signals, via a USB to TTL ft232rl connected to a CycloneIV FPGA board. The FPGA board, using UART for ft232rl and I2S for CS4344s, sends 32 signals to 16 CS4344s, which, being stereo, output to 32 AD620s, followed by resistors for voltage division, ensuring input levels match ECoG voltage.
 
+Microelectrode Array Specifications:
+
+Carbon Nanotube coated electrodes:
+   Type: 64 total electrodes (32 input, 32 output)
+    Wire Gauge: 30 AWG (254.6 micrometers diameter)
+    Overall Array Area: Total area covered by the electrodes is 3 cm²
+    Spatial Resolution: In the range of 400-500 micrometers
+    Temporal Resolution: 1000 - 2000 hz
+
+Encasing Material:  Silicone
+Encasing Thickness: 0.1 mm, flexible to accommodate brain growth
+Shape: Two trapezoids connected in the middle, with longer sides facing outward
+
 We invite researchers to join us in this groundbreaking journey, to collaborate and contribute to the evolution of synthetic biological intelligence. Engage with us, and let’s shape the future of brain-computer interfaces together.
 
 
