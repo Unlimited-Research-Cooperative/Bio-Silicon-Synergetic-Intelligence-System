@@ -38,25 +38,34 @@ Our methodology is deeply rooted in bidirectional communication, leveraging AI t
 
 Our system facilitates bidirectional communication, where brain surface signals are mapped via AI in a continuous learning process, translating neural activities into game movements and back. The process begins at the brain surface, with signals transmitted to dual Cyton+Daisy OpenBCI boards, then to BrainFlow for acquisition, and into our custom software and GUI for analysis, visualization, and control. Neural signals are decoded into game actions, and game data alongside rat self-movement data are encoded back into neuromimetic signals. These are then fed into the rat brain, synced with output signals, via a USB to TTL ft232rl connected to a CycloneIV FPGA board. The FPGA board, using UART for ft232rl and I2S for CS4344s, sends 32 signals to 16 CS4344s, which, being stereo, output to 32 AD620s, followed by resistors for voltage division, ensuring input levels match ECoG voltage.
 
-Microelectrode Array Specifications:
+Our Microelectrode Array (MEA) is a cutting-edge neural interface designed for high-resolution brain-computer interfacing. This array features carbon nanotube-coated electrodes, optimized for signal clarity and biocompatibility, making it ideal for long-term neural recording and stimulation.
 
-Carbon Nanotube coated electrodes:
-   
-   Type: 64 total electrodes (32 input, 32 output)
-   
-   Wire Gauge: 30 AWG (254.6 micrometers diameter)
-   
-   Overall Array Area: Total area covered by the electrodes is 3 cm²
-   
-   Spatial Resolution: In the range of 400-500 micrometers
-   
-   Temporal Resolution: 1000 - 2000 hz
+Electrode Specifications
 
-Encasing Material:  Silicone
+	Type: Our MEA comprises 64 electrodes, divided equally into 32 input (recording) and 32 output (stimulation) electrodes.
+	
+	Wire Gauge: The electrodes utilize 30 AWG wires, with a diameter of approximately 254.6 micrometers. This size is chosen for its balance between durability and minimization of tissue damage.
+	
+	Array Area: The total area covered by the electrodes spans 3 cm², designed to provide comprehensive coverage while maintaining a compact form factor.
+	
+	Spatial Resolution: With a resolution in the range of 400-500 micrometers, our array can accurately target specific neural populations.
+	
+	Temporal Resolution: The MEA operates at a temporal resolution between 1000 - 2000 Hz, suitable for capturing a wide range of neural dynamics.
 
-Encasing Thickness: 0.1 mm, flexible to accommodate brain growth
+Encasement and Design
 
-Shape: Two trapezoids connected in the middle, with longer sides facing outward
+    
+	Material: The electrodes are encased in medical-grade silicone, known for its flexibility, biocompatibility, and durability. This encasing minimizes the risk of irritation and immune response.
+    
+	Thickness: The silicone encasing is 0.1 mm thick, providing sufficient protection for the electrodes while maintaining flexibility to accommodate brain tissue growth and movement.
+    
+	Shape: The array is uniquely shaped as two connected trapezoids, with the longer sides facing outward. This design aids in conforming to the curvature of the brain, enhancing contact quality and stability.
+    
+	Wiring: Each electrode is designed as two wires twisted together up to their respective amplifiers. This twisted pair configuration is crucial for reducing electromagnetic interference and preserving signal integrity.
+
+Application and Usage
+
+Our MEA is designed for advanced neuroscientific research, particularly in areas like neural decoding, brain-machine interfaces, and neuroprosthetics. Its high-resolution recording and stimulation capabilities make it an ideal tool for studying complex neural networks and developing next-generation neurotechnologies.
 
 We invite researchers to join us in this groundbreaking journey, to collaborate and contribute to the evolution of synthetic biological intelligence. Engage with us, and let’s shape the future of brain-computer interfaces together.
 
