@@ -40,7 +40,7 @@ Our methodology is deeply rooted in bidirectional communication, leveraging AI t
 
 - **Brain Surface Communication**: Neural activities are mapped via AI, translating into game movements and vice versa.
 - **Signal Transmission**: The process begins with brain surface signals, transmitted through dual Cyton+Daisy OpenBCI boards, to BrainFlow for acquisition, then into our custom software for analysis.
-- **Neuromimetic Feedback**: Neural signals are decoded into game actions, with game and rat self-movement data encoded back into neuromimetic signals. These signals are then fed back into the rat brain, synchronized with output signals via a USB to TTL ft232rl connected to a CycloneIV FPGA board.
+- **Neuromimetic Feedback**: Neural signals are decoded into game actions, with game and in-game rat movement data (facilitating a self-loop learning concept) encoded back into neuromimetic signals. These signals are then fed back into the rat brain, synchronized with output signals via a USB to TTL ft232rl connected to a CycloneIV FPGA board.
 - **Signal Processing**: The FPGA board employs UART for ft232rl and I2S for CS4344s, sending 32 signals to 16 CS4344s. These stereo outputs connect to 32 AD620s, followed by resistors for voltage division to match ECoG voltage levels.
 
 ## Microelectrode Array (MEA) Specifications
@@ -59,6 +59,28 @@ Our methodology is deeply rooted in bidirectional communication, leveraging AI t
 - **Thickness**: 0.1 mm, accommodating brain tissue growth.
 - **Shape**: Two connected trapezoids for conforming to brain curvature.
 - **Wiring**: Twisted pair configuration for each electrode, reducing interference.
+
+
+## Rat and Computer Learning
+
+The system we've developed intricately blends advanced software automation with a nuanced understanding of rat behavior and neuroscience. Central to this system is the dual approach of reward and deterrent signaling, tailored specifically for the rat's unique sensory and cognitive processing.
+
+Reward Mechanism: At the heart of positive reinforcement, our automated fluidics system is programmed to deliver a carefully formulated reward solution to the rat. This concoction, a precise blend of sucrose, sodium chloride, nicotine, and caffeine, is designed to stimulate the rat's reward centers, promoting engagement and positive response patterns. This aspect of the system is critical for encouraging the desired behaviors in the rat through natural, positive stimuli.
+
+Deterrent Signaling: Complementing the reward system is the deterrent mechanism, which employs audio signals beyond human auditory perception to subtly influence the rat's behavior. These human-inaudible distress sounds are calibrated to create a mild sense of unease or alertness in the rat, without causing undue stress or harm. This auditory deterrent is a key component in shaping the rat's behavior, helping to guide it away from undesirable actions or responses.
+
+AI-Driven Supervised Learning Framework: The convergence of these two systems is overseen and optimized by our sophisticated AI software. This AI component initiates the process through a phase of supervised learning, wherein incoming neural signals and corresponding actions are meticulously analyzed. The system then generates metadata-rich outgoing signals, which are fine-tuned to enhance the learning and adaptation process. This initial phase of supervised learning is crucial for establishing a robust foundation for the system's AI to learn, adapt, and evolve in response to the rat's neural patterns and behaviors.
+
+In essence, our system represents a harmonious fusion of biotechnology and artificial intelligence, designed to explore and expand the boundaries of neuroscientific research and animal behavior understanding. This dynamic, responsive system is poised to offer unprecedented insights into neural processing, learning mechanisms, and the complex interplay between biological entities and computational intelligence.
+
+## Rat Health and Wellbeing
+
+Central to our research ethos is the holistic well-being of the rats involved in our study. Recognizing the importance of social structures in the health and well-being of these animals, all rats are housed together in a communal environment. This approach not only supports their social health but also fosters a more natural living condition, crucial for their overall welfare.
+
+Nutrition is another cornerstone of our care regimen. The diet for these rats is meticulously planned and includes a rich variety of superfruits and fish oil supplements. This diet is designed to ensure optimal health, providing essential nutrients and antioxidants that support their cognitive and physical well-being.
+
+Furthermore, our commitment extends beyond the confines of the laboratory. We ensure that all rats exiting our wetlab are in robust health. Their release is carefully orchestrated, with a focus on their long-term welfare. They are released responsibly, in groups, to support their social nature and ease their transition back into a natural habitat. This practice underscores our dedication to ethical research and the humane treatment of all animals involved in our studies.
+
 
 We invite researchers to join us in this groundbreaking journey, to collaborate and contribute to the evolution of synthetic biological intelligence. Engage with us, and let’s shape the future of brain-computer interfaces together.
 
