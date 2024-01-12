@@ -4,7 +4,7 @@ def process_data(raw_data):
     """
     Process raw data using the Higuchi Fractal Dimension calculation.
 
-    :param raw_data: Raw data from BrainFlow API, expected to be a 2D numpy array.
+    :param raw_data: Raw data from brain, expected to be a 2D numpy array.
     :return: Processed data as a list of Higuchi Fractal Dimension values.
     """
     # Call the compute_hfd_for_live_data function from higuchi_fractal_dimension.py

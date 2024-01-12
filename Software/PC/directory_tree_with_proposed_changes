@@ -5,17 +5,9 @@ desktop_browser_app
     my_data_processing.py
     app.py
     api_routes.py
-    file_tree_with_proposed_files.py
-
-    templates
-        index.html
-
-        .ipynb_checkpoints
-            index-checkpoint.html
-
     brain_to_computer
 
-            communication_protocol
+            to_computer_communication_protocol
                 brainflow_communication
 
             data_processing
@@ -84,7 +76,7 @@ desktop_browser_app
             signal_simulation (TO ADD)
                 signal_generator.py (TO ADD)
 
-            communication_protocol (TO ADD)
+            to_brain_communication_protocol (TO ADD)
                 uart_communication.py (TO ADD)
 
     system
@@ -112,20 +104,3 @@ desktop_browser_app
             mapping_system (TO ADD)
                 brain_to_action.py (TO ADD)
                 metadata_to_brain.py (TO ADD)
-
-    __pycache__
-        data_acquisition.cpython-310.pyc
-        my_data_processing.cpython-310.pyc
-        api_routes.cpython-310.pyc
-
-    .ipynb_checkpoints
-        app-checkpoint.py
-        data_acquisition-checkpoint.py
-        api_routes-checkpoint.py
-        file_tree_with_proposed_files-checkpoint.py
-        my_data_processing-checkpoint.py
-
-    static
-        index.html
-        css
-        js

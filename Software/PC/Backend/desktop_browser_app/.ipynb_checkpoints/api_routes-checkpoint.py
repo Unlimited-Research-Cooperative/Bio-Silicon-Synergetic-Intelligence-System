@@ -1,27 +1,16 @@
 from flask import jsonify
-from data_acquisition import start_board, stop_board
-from my_data_processing import process_data
-
-board = start_board()
+from data_acquisition import get_live_data
+from my_data_processing import process_data  # make sure to import process_data if you're using it
 
 def setup_routes(app):
-
-    @app.route('/')
-    def index():
-        return app.send_static_file('index.html')
 
     @app.route('/data')
     def data():
         try:
-            raw_data = board.get_current_board_data(256)  # Fetch latest data
+            raw_data = get_live_data(256)  # Fetch latest data
             if raw_data.size == 0:
-                raise ValueError("No data available from the board.")
+                raise ValueError("No data available from the simulated board.")
             processed_data = process_data(raw_data)  # Process the data
-            return jsonify(processed_data)
+            return jsonify(processed_data.tolist())  # Convert numpy array to list before jsonify
         except Exception as e:
             return jsonify({"error": str(e)}), 500
-
-    @app.route('/stop')
-    def stop():
-        stop_board(board)
-        return 'Stream stopped and session released', 200
