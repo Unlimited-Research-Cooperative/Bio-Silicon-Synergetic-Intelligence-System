@@ -132,10 +132,6 @@ We're reaching out to like-minded researchers and innovators to join us on this 
 ## 🤝 Connect
 We're more than a project; we're a movement. Let's make history together. [Get in touch](https://github.com/Synthetic-Intelligence-Labs)!
 
-## 📚 Resources
-- **Large Files**: Request access to extensive project files [here](mailto:soul.syrup@yandex.com).
-- **Complete FPGA Code**: Access our complete FPGA code on [Google Drive](https://drive.google.com/file/d/1hRYnFGY8q81K7D_IpMVLPZGrkUbdxMj6/view?usp=drive_link).
-
 <br>
 <br>
 

@@ -60,8 +60,8 @@ desktop_browser_app
                     shannon_entropy.py (TO ADD)
                     relative_entropy.py (TO ADD)
 
-            feature_extraction (TO ADD)
-                neural_feature_mapper.py (TO ADD)
+            neural_decoding
+                neural_decoding
 
             __pycache__
                 higuchi_fractal_dimension.cpython-310.pyc
