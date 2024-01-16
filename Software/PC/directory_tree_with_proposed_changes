@@ -26,7 +26,6 @@ desktop_browser_app
                 phase_space.py (TO ADD)
                 phase_synchonisation.py (TO ADD)
                 recurrence_quantification.py (TO ADD)
-                transfer_entropy.py (TO ADD)
                 hermitian_matrices.py (TO ADD)
                 normalized_states.py (TO ADD)
                 matrix_elements.py (TO ADD)
@@ -55,6 +54,7 @@ desktop_browser_app
                     continuous_wavelet_transform.py (TO ADD)
 
                 entropy
+                    transfer_entropy.py (TO ADD)
                     joint_entropy.py (TO ADD)
                     von_neumann_entropy.py (TO ADD)
                     shannon_entropy.py (TO ADD)

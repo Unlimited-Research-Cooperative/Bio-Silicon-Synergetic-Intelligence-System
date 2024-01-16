@@ -93,8 +93,8 @@ We invite researchers to join us in this groundbreaking journey, to collaborate 
 
 ### 🤝 Collaborative Milestones:
 - **University of Michigan**: Advancing optical stimulation in "DishBrain" experiment replicas.
-- **FinalSpark**: Delving into human cortical spheroid learning mechanisms.
-- **University of Reading**: Innovative use of bacteria in neural networks.
+- [**FinalSpark**](https://finalspark.com/): Delving into human cortical spheroid learning mechanisms.
+- [**University of Reading**](https://sites.google.com/site/complexlivingmachineslab): Innovative use of bacteria in neural networks.
 
 
 ## 💡 Inviting Collaboration
@@ -141,8 +141,8 @@ This project is licensed under the [Creative Commons Attribution-ShareAlike 4.0 
 ## 🧬 Related Projects
 - [**Human Cortical Organoid Signal Analysis**](https://github.com/Unlimited-Research-Cooperative/human-cortical-organoid-signal-analysis): Signal analysis and prediction of brain signals, adaptable for various signal types. PyPI libraries available from our experiments.
 - [**EEG Prediction with Chaos Theory**](https://github.com/Metaverse-Crowdsource/EEG-tES-Chaos-Neural-Net): Leveraging chaos theory and a CNN Kuramoto transformer RNN for signal prediction. Includes PyPI library implementations.
-- [**Bacteria Neural Network**](https://github.com/Metaverse-Crowdsource/Bacteria-Neural-Network) _(Upcoming)_: An innovative approach using bacteria as functional components of a neural network.
-
+- [**Bacteria Neural Network**](https://github.com/Metaverse-Crowdsource/Bacteria-Neural-Network) _(Upcoming)_: An innovative approach using bacteria as functional components of a neural network. Collaboration between Synthetic Intelligence Labs and Complex Living Machines Lab [Dr. Yoshikatsu Hayashi](https://sites.google.com/site/complexlivingmachineslab)
+  
 ## 📩 Contact
 For collaborations, press inquiries, or questions:
 - Email: [soul.syrup@yandex.com](mailto:soul.syrup@yandex.com) or [soul.syrupp@gmail.com](mailto:soul.syrupp@gmail.com)
