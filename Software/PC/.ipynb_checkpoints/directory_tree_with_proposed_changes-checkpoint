@@ -8,99 +8,101 @@ desktop_browser_app
     brain_to_computer
 
             to_computer_communication_protocol
-                brainflow_communication
+                    brainflow_communication
 
             data_processing
-                __init__.py (TO ADD)
-                amplitude_variability.py (TO ADD)
-                moving_average.py (TO ADD)
-                peak_detection.py (TO ADD)
-                zero_crossing_rate.py (TO ADD)
-                signal_variance.py (TO ADD)
-                standard_deviation.py (TO ADD)
-                hilbert_transform.py (TO ADD)
-                root_mean_square.py (TO ADD)
-                higuchi_fractal_dimension.py
-                arnold_tongues.py (TO ADD)
-                multifractal_detrended_fluctation.py (TO ADD)
-                phase_space.py (TO ADD)
-                phase_synchonisation.py (TO ADD)
-                recurrence_quantification.py (TO ADD)
-                hermitian_matrices.py (TO ADD)
-                normalized_states.py (TO ADD)
-                matrix_elements.py (TO ADD)
-                eigen_data.py (TO ADD)
-                eigen_decomposition.py (TO ADD)
-                expectation_values.py (TO ADD)
-                evolved_states.py (TO ADD)
-                symbolic_dynamics.py (TO ADD)
-                hilber_huang_transform.py (TO ADD)
-                phase_amplitude_coupling.py (TO ADD)
-                ganger_causality.py (TO ADD)
-                multivariate_empirical_mode_decomposition.py (TO ADD)
-                dynamic_time_warping.py (TO ADD)
-                wavelet_scalogram.py (TO ADD)
-                choi_williams_distribution.py (TO ADD)
-
-                spectral_analysis
-                    welchsPSD.py (TO ADD)
-                    STFT.py (TO ADD)
-                    band_powers.py (TO ADD)
-                    spectral_entropy.py (TO ADD)
-                    spectral_centroids.py (TO ADD)
-                    spectral_edge_density.py (TO ADD)
-                    coherence.py (TO ADD)
-                    freq_max_power.py (TO ADD)
-                    continuous_wavelet_transform.py (TO ADD)
-
-                entropy
-                    transfer_entropy.py (TO ADD)
-                    joint_entropy.py (TO ADD)
-                    von_neumann_entropy.py (TO ADD)
-                    shannon_entropy.py (TO ADD)
-                    relative_entropy.py (TO ADD)
+                    __init__.py (TO ADD)
+                    amplitude_variability.py (TO ADD)
+                    moving_average.py (TO ADD)
+                    peak_detection.py (TO ADD)
+                    zero_crossing_rate.py (TO ADD)
+                    signal_variance.py (TO ADD)
+                    standard_deviation.py (TO ADD)
+                    hilbert_transform.py (TO ADD)
+                    root_mean_square.py (TO ADD)
+                    higuchi_fractal_dimension.py
+                    arnold_tongues.py (TO ADD)
+                    multifractal_detrended_fluctation.py (TO ADD)
+                    phase_space.py (TO ADD)
+                    phase_synchonisation.py (TO ADD)
+                    recurrence_quantification.py (TO ADD)
+                    hermitian_matrices.py (TO ADD)
+                    normalized_states.py (TO ADD)
+                    matrix_elements.py (TO ADD)
+                    eigen_data.py (TO ADD)
+                    eigen_decomposition.py (TO ADD)
+                    expectation_values.py (TO ADD)
+                    evolved_states.py (TO ADD)
+                    symbolic_dynamics.py (TO ADD)
+                    hilber_huang_transform.py (TO ADD)
+                    phase_amplitude_coupling.py (TO ADD)
+                    ganger_causality.py (TO ADD)
+                    multivariate_empirical_mode_decomposition.py (TO ADD)
+                    dynamic_time_warping.py (TO ADD)
+                    wavelet_scalogram.py (TO ADD)
+                    choi_williams_distribution.py (TO ADD)
+    
+                    spectral_analysis
+                            welchsPSD.py (TO ADD)
+                            STFT.py (TO ADD)
+                            band_powers.py (TO ADD)
+                            spectral_entropy.py (TO ADD)
+                            spectral_centroids.py (TO ADD)
+                            spectral_edge_density.py (TO ADD)
+                            coherence.py (TO ADD)
+                            freq_max_power.py (TO ADD)
+                            continuous_wavelet_transform.py (TO ADD)
+    
+                    entropy
+                            transfer_entropy.py (TO ADD)
+                            joint_entropy.py (TO ADD)
+                            von_neumann_entropy.py (TO ADD)
+                            shannon_entropy.py (TO ADD)
+                            relative_entropy.py (TO ADD)
 
             neural_decoding
-                neural_decoding
+                    neural_decoding
 
             __pycache__
-                higuchi_fractal_dimension.cpython-310.pyc
-                __init__.cpython-310.pyc
+                    higuchi_fractal_dimension.cpython-310.pyc
+                    __init__.cpython-310.pyc
 
             .ipynb_checkpoints
-                higuchi_fractal_dimension-checkpoint.py
-                __init__-checkpoint.py
+                    higuchi_fractal_dimension-checkpoint.py
+                    __init__-checkpoint.py
 
     computer_to_brain
 
-            signal_simulation (TO ADD)
-                signal_generator.py (TO ADD)
+            stimulation_signals 
+                    signals_generator.py 
 
             to_brain_communication_protocol (TO ADD)
-                uart_communication.py (TO ADD)
+                    uart_communication.py (TO ADD)
 
     system
-            neural_network (TO ADD)
-                model.py (TO ADD)
-                training.py (TO ADD)
+
+
+            control_system 
+                    feedback_controller.py (TO ADD)
+
+                    rat_reward_system (TO ADD)
+                            auditory_control.py (TO ADD)
+                            fluidics_control.py (TO ADD)
+                    
+                    neural_network (TO ADD)
+                            model.py (TO ADD)
+                            training.py (TO ADD)
+                
+                    game_interaction 
+                            game_action_encoder.py 
+                            game_metadata_encoder.py
 
             data_visualization (TO ADD)
-                live_plotting.py (TO ADD) (connect to GUI)
-
-            control_system (TO ADD)
-                feedback_controller.py (TO ADD)
-
-                rat_reward_system (TO ADD)
-                    auditory_control.py (TO ADD)
-                    fluidics_control.py (TO ADD)
-
-            game_interaction 
-                game_action_encoder.py 
-                game_metadata_encoder.py
+                    live_plotting.py (TO ADD) (connect to GUI)
 
             database (TO ADD)
-                db_interface.py (TO ADD)
+                    db_interface.py (TO ADD)
 
             mapping_system (TO ADD)
-                brain_to_action.py (TO ADD)
-                metadata_to_brain.py (TO ADD)
+                    brain_to_action.py (TO ADD)
+                    metadata_to_brain.py (TO ADD)

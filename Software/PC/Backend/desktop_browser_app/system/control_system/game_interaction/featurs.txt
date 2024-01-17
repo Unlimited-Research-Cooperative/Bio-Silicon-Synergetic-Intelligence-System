@@ -1,0 +1,1 @@
+variability_factor, variance, std_dev, rms_value, fractal_dimension, num_peaks, peak_height, window_size, target_rate, synchronization_level, influence_factor, warping_factor, complexity_factor, centroid_factor, edge_density_factor, evolution_rate, low_freq, high_freq, causality_strength, num_imfs
