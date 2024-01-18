@@ -1,0 +1,13 @@
+scale_signals_to_bit_depth, variability_factor, variance
+
+
+std_dev, rms_value, detect_peaks, freq_bands, spectral_entropy, spectral_centroids, spectral_edge_density, phase_synchonization, transfer_entropy, higuchi_fractal_dimension, zero_crossing_rate, emprical_mode_decomposition, 
+
+
+should add to live analysis?:
+choi_williams_distribution, moving_average, signal_variance, hilbert_transform, hermitian_matrices, evolved_states, symbolic_dynamics, hilber_huang_transformm, phase_amplitude_coupling, ganger_causality, dynamic_time_warping, 
+
+
+
+slow:
+arnold_tongues, multifractal_detrended_fluctation, phase_space, recurrence_quantification, welchsPSD, STFT, coherence, freq_max_power, continuous_wavelet_transform, transfer_entropy, joint_entropy, von_neumann_entropy, shannon_entropy, relative_entropy

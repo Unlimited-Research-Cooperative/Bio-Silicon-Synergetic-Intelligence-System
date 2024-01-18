@@ -53,9 +53,16 @@ class PacketToFeatures:
         max_possible_value = (1 << length) - 1
         return min_val + (max_val - min_val) * (value / max_possible_value)
 
+
+
+# ZeroMQ Publisher Setup
+context_pub = zmq.Context()
+publisher = context_pub.socket(zmq.PUB)
+publisher.bind("tcp://*:5556")  # Bind to port 5556 for publishing
+
 # ZeroMQ Subscriber Setup
-context = zmq.Context()
-subscriber = context.socket(zmq.SUB)
+context_sub = zmq.Context()
+subscriber = context_sub.socket(zmq.SUB)
 subscriber.connect("tcp://localhost:5555")
 subscriber.setsockopt_string(zmq.SUBSCRIBE, "")  # Subscribe to all incoming messages
 
@@ -65,3 +72,10 @@ while True:
     feature_extractor = PacketToFeatures(packet)
     features = feature_extractor.extract_features()
     print("Received features:", features)
+
+    # Publish the extracted features as a string
+    encoded_features = " ".join([f"{key}:{value}" for key, value in features.items()])
+    publisher.send_string(encoded_features)
+
+    # Introduce a 10ms delay
+    time.sleep(0.01)

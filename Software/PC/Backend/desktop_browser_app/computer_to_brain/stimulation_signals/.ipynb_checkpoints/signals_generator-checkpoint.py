@@ -1,6 +1,7 @@
 import numpy as np
 from scipy.signal import hilbert
-from packet_to_features import PacketToFeatures
+import zmq
+import time
 
 # Function to generate base ECoG-like signals within the specified range
 def generate_ecog_like_base_signals(length, num_signals=8):
@@ -21,72 +22,76 @@ def scale_signals_to_bit_depth(modified_signals, bit_depth):
     return modified_signals
 
 # Function to apply amplitude variability while keeping the signals within the specified range
-def apply_amplitude_variability(modified_signals, variability_factor=1.0):
-    # Calculate the scaling factor to keep the signals within the range
-    current_std = np.std(modified_signals)
-    scaling_factor = np.sqrt(variability_factor) / current_std
+def apply_amplitude_variability(modified_signals, variability_factor):
+    # Apply amplitude variability to each signal individually
+    for i in range(modified_signals.shape[0]):
+        # Calculate the scaling factor for each signal
+        current_std = np.std(modified_signals[i])
+        if current_std == 0:
+            continue  # Skip if standard deviation is zero to avoid division by zero
+        scaling_factor = np.sqrt(variability_factor) / current_std
 
-    # Generate scaled noise
-    scaled_noise = np.random.normal(0, scaling_factor, modified_signals.shape)
+        # Generate scaled noise for each signal
+        scaled_noise = np.random.normal(0, scaling_factor, modified_signals.shape[1])
 
-    # Add the scaled noise to the signals
-    modified_signals += scaled_noise
+        # Add the scaled noise to the signal
+        modified_signals[i] += scaled_noise
 
-    # Ensure that the modified signals do not exceed the specified range
-    modified_signals = np.minimum(np.maximum(modified_signals, min_volt), max_volt)
+    # Scale the entire signal set to fit within the min_volt and max_volt range
+    max_signal = np.max(modified_signals)
+    min_signal = np.min(modified_signals)
+    modified_signals = ((modified_signals - min_signal) / (max_signal - min_signal)) * (max_volt - min_volt) + min_volt
 
     return modified_signals
 
 # Function to apply variance while keeping the signals within the specified range
-def apply_variance(modified_signals, variance=1.0):
-    noise = np.random.normal(0, np.sqrt(variance), modified_signals.shape)
-    modified_signals += noise
-    
-    # Ensure that the modified signals do not exceed the specified range
-    modified_signals = np.minimum(np.maximum(modified_signals, min_volt), max_volt)
-    
+def apply_variance(modified_signals, variance):
+    for i in range(modified_signals.shape[0]):
+        # Generate noise for each signal based on the specified variance
+        noise = np.random.normal(0, np.sqrt(variance), modified_signals.shape[1])
+
+        # Add the noise to the signal
+        modified_signals[i] += noise
+
+    # Scale the entire signal set to fit within the min_volt and max_volt range
+    max_signal = np.max(modified_signals)
+    min_signal = np.min(modified_signals)
+    modified_signals = ((modified_signals - min_signal) / (max_signal - min_signal)) * (max_volt - min_volt) + min_volt
+
     return modified_signals
 
 # Function to apply signal with standard deviation while keeping the signals within the specified range
-def apply_signal_with_std(modified_signals, std_dev=1.0):
-    # Calculate the scaling factor to keep the signals within the range
-    current_std = np.std(modified_signals)
-    scaling_factor = std_dev / current_std
-    
-    # Apply the scaled noise
-    modified_signals += np.random.normal(0, scaling_factor * std_dev, modified_signals.shape)
-    
-    # Ensure that the modified signals do not exceed the specified range
-    modified_signals = np.minimum(np.maximum(modified_signals, min_volt), max_volt)
-    
+def apply_signal_with_std(modified_signals, std_dev):
+    for i in range(modified_signals.shape[0]):
+        # Calculate the scaling factor for each individual signal
+        current_std = np.std(modified_signals[i])
+        if current_std == 0:
+            continue  # Skip if standard deviation is zero to avoid division by zero
+        scaling_factor = std_dev / current_std
+
+        # Apply the scaled noise to each individual signal
+        modified_signals[i] += np.random.normal(0, scaling_factor * std_dev, modified_signals.shape[1])
+
+    # Scale the entire signal set to fit within the min_volt and max_volt range
+    max_signal = np.max(modified_signals)
+    min_signal = np.min(modified_signals)
+    modified_signals = ((modified_signals - min_signal) / (max_signal - min_signal)) * (max_volt - min_volt) + min_volt
+
     return modified_signals
 
 
 # Function to apply signal with RMS value
-def apply_signal_with_rms(modified_signals, rms_value=1.0):
+def apply_signal_with_rms(modified_signals, rms_value):
     current_rms = np.sqrt(np.mean(modified_signals**2, axis=1, keepdims=True))
     scaling_factor = np.minimum(1.0, rms_value / current_rms)
     modified_signals *= scaling_factor
     return modified_signals
 
 
-# Function to apply fractal structure
-def apply_fractal_structure(modified_signals, fractal_dimension=0.8):
-    length = modified_signals.shape[1]
-    t = np.arange(length)
-    fBm_signal = np.zeros((modified_signals.shape[0], length))
-    
-    for i in range(1, length):
-        delta_t = t[i] - t[i - 1]
-        fBm_signal[:, i] = fractal_dimension * fBm_signal[:, i - 1] + np.random.randn(modified_signals.shape[0]) * np.sqrt(delta_t)
-    
-    scaling_factor = np.maximum(min_volt / np.min(modified_signals), max_volt / np.max(modified_signals))
-    modified_signals = modified_signals * scaling_factor
-    
-    return modified_signals
+
     
 # Function to add peaks
-def add_peaks(modified_signals, num_peaks=5, peak_height=1.0):
+def add_peaks(modified_signals, num_peaks, peak_height):
     if len(modified_signals) == 0:
         raise ValueError("Input modified_signals array must not be empty")
     num_signals, signal_length = modified_signals.shape
@@ -103,18 +108,39 @@ def add_peaks(modified_signals, num_peaks=5, peak_height=1.0):
 
 
 # Function to apply moving average
-def apply_moving_average(modified_signals, window_size=10):
+def apply_moving_average(modified_signals, window_size):  
     for i in range(len(modified_signals)):
         length = len(modified_signals[i])
         if length >= window_size:
             cumsum_vec = np.cumsum(np.insert(modified_signals[i], 0, 0))
             moving_average = (cumsum_vec[window_size:] - cumsum_vec[:-window_size]) / window_size
-            modified_signals[i, :length-window_size+1] = moving_average
-            modified_signals[i, length-window_size+1:] = modified_signals[i, -window_size+1:]
+            # Apply the moving average only to the middle part of the signal
+            modified_signals[i, window_size//2:-window_size//2+1] = moving_average
     return modified_signals
 
+# Function to apply fractal structure
+def apply_fractal_structure(modified_signals, fractal_dimension):
+    length = modified_signals.shape[1]
+    fBm_signal = np.zeros_like(modified_signals)
+
+    # Calculate Hurst exponent from fractal dimension
+    hurst_exponent = 2 - fractal_dimension
+
+    for i in range(1, length):
+        scale = (i ** (2 * hurst_exponent)) - ((i-1) ** (2 * hurst_exponent))
+        fBm_signal[:, i] = fBm_signal[:, i-1] + np.random.normal(0, np.sqrt(scale), modified_signals.shape[0])
+
+    # Scale fBm_signal to match the original signal's range
+    max_signal = np.max(fBm_signal, axis=1, keepdims=True)
+    min_signal = np.min(fBm_signal, axis=1, keepdims=True)
+    fBm_signal = (fBm_signal - min_signal) / (max_signal - min_signal)
+    fBm_signal *= (max_volt - min_volt)
+    fBm_signal += min_volt
+
+    return modified_signals
+    
 # Function to apply zero-crossing rate
-def apply_zero_crossing_rate(modified_signals, target_rate=0.1):
+def apply_zero_crossing_rate(modified_signals, target_rate):
     def calculate_zero_crossing_rate(sig):
         zero_crossings = np.where(np.diff(np.sign(sig)))[0]
         return len(zero_crossings) / len(sig)
@@ -126,47 +152,74 @@ def apply_zero_crossing_rate(modified_signals, target_rate=0.1):
     return modified_signals
 
 # Function to apply Arnold tongues
-def apply_arnold_tongues(modified_signals):
+def apply_arnold_tongues(modified_signals, min_freq, max_freq, blend_factor):
     num_signals, signal_length = modified_signals.shape
-    
+
     for i in range(num_signals):
-        # Generate a random K within the specified range
-        K_range = (min_volt / (np.sin(np.pi / signal_length)), max_volt / (np.sin(np.pi / signal_length)))
-        K = np.random.uniform(K_range[0], K_range[1])
+        # Generate a random K within a more controlled range
+        K = np.random.uniform(0.1 * max_volt, 0.5 * max_volt)  # Reduced amplitude range
+
+        # Generate an Arnold tongue pattern with the specified frequency range
+        omega = np.random.uniform(min_freq, max_freq)  # Use the provided frequency range
+        t = np.linspace(0, 2 * np.pi, signal_length)
+        arnold_tongue_pattern = np.sin(t * omega) * K
         
-        # Generate an Arnold tongue pattern
-        omega = np.random.uniform(0.1, 2.0)  # Adjust the frequency range as needed
-        t = np.linspace(0, 2 * np.pi * omega, signal_length)
-        arnold_tongue_pattern = np.sin(t) * K
-        
-        # Add the Arnold tongue pattern to the signal
-        modified_signals[i, :] += arnold_tongue_pattern
+        # Introduce additional harmonics or noise to the pattern
+        harmonics = np.random.choice([2, 3, 4], size=1)
+        noise = np.random.uniform(-0.1 * K, 0.1 * K, size=signal_length)
+        arnold_tongue_pattern += (np.sin(t * omega * harmonics) + noise) * K * 0.5
 
-        # Ensure that the modified signal stays within the specified voltage range
-        modified_signals[i, :] = np.minimum(np.maximum(modified_signals[i, :], min_volt), max_volt)
+        # Blend the Arnold tongue pattern with the original signal
+        modified_signals[i, :] = (1 - blend_factor) * modified_signals[i, :] + blend_factor * arnold_tongue_pattern
 
-    return modified_signals
-
-def apply_phase_synchronization(modified_signals, synchronization_level=0.5):
-    length = len(modified_signals[0])
-    common_phase = np.linspace(0, 2 * np.pi * synchronization_level, length)
-    
-    # Add the common phase to the signals
-    for i in range(len(modified_signals)):
-        modified_signals[i] += common_phase
-    
-    # Normalize the signals to stay within the specified voltage range
-    min_signal = np.min(modified_signals)
+    # Normalize the signals
     max_signal = np.max(modified_signals)
-    
-    if min_signal < min_volt or max_signal > max_volt:
-        signal_range = max_signal - min_signal
-        scaling_factor = (max_volt - min_volt) / signal_range
-        modified_signals = (modified_signals - min_signal) * scaling_factor + min_volt
-    
+    min_signal = np.min(modified_signals)
+    normalized_signals = ((modified_signals - min_signal) / (max_signal - min_signal)) * (max_volt - min_volt) + min_volt
+
+    return normalized_signals
+
+def apply_phase_synchronization(modified_signals, global_sync_level, pairwise_sync_level, sync_factor=0.05):
+    num_signals, length = modified_signals.shape
+    common_phase = np.linspace(0, 2 * np.pi * global_sync_level, length)
+
+    # Apply global synchronization
+    for i in range(num_signals):
+        signal_fft = np.fft.fft(modified_signals[i])
+        amplitude = np.abs(signal_fft)
+        phase = np.angle(signal_fft)
+        
+        # Adjust phase globally
+        global_phase_shift = sync_factor * np.interp(common_phase, (common_phase.min(), common_phase.max()), (-np.pi, np.pi))
+        adjusted_phase = phase + global_phase_shift
+        modified_signals[i] = np.fft.ifft(amplitude * np.exp(1j * adjusted_phase)).real
+
+    # Apply pairwise synchronization more selectively
+    for i in range(num_signals):
+        for j in range(i + 1, num_signals):
+            # Calculate pairwise phase difference
+            phase_diff = np.angle(np.fft.fft(modified_signals[i])) - np.angle(np.fft.fft(modified_signals[j]))
+            phase_diff_adjustment = np.interp(phase_diff, (-np.pi, np.pi), (-pairwise_sync_level, pairwise_sync_level))
+
+            # Apply the phase adjustment selectively
+            signal_fft_i = np.fft.fft(modified_signals[i])
+            signal_fft_j = np.fft.fft(modified_signals[j])
+            adjusted_phase_i = np.angle(signal_fft_i) + phase_diff_adjustment * sync_factor
+            adjusted_phase_j = np.angle(signal_fft_j) - phase_diff_adjustment * sync_factor
+
+            # Apply the adjusted phases
+            modified_signals[i] = np.fft.ifft(np.abs(signal_fft_i) * np.exp(1j * adjusted_phase_i)).real
+            modified_signals[j] = np.fft.ifft(np.abs(signal_fft_j) * np.exp(1j * adjusted_phase_j)).real
+
+    # Rescale the signals
+    max_signal = np.max(modified_signals)
+    min_signal = np.min(modified_signals)
+    modified_signals = ((modified_signals - min_signal) / (max_signal - min_signal)) * (max_volt - min_volt) + min_volt
+
     return modified_signals
 
-def apply_transfer_entropy(modified_signals, influence_factor, max_influence=5.0):
+
+def apply_transfer_entropy(modified_signals, influence_factor, max_influence):
     num_signals = len(modified_signals)
     max_length = max(len(signal) for signal in modified_signals)
     
@@ -218,7 +271,7 @@ def apply_hilbert_huang(modified_signals):
     return modified_signals
 
 # Function to apply spectral centroids
-def apply_spectral_centroids(modified_signals, centroid_factor=0.8, edge_density_factor=0.8):
+def apply_spectral_centroids(modified_signals, centroid_factor, edge_density_factor):
     for i in range(modified_signals.shape[0]):
         fft_spectrum = np.fft.fft(modified_signals[i])
         freq = np.fft.fftfreq(len(modified_signals[i]))
@@ -282,7 +335,7 @@ def apply_fft(modified_signals, complexity_factor):
 
     return np.array(modified_signals)
 
-def apply_signal_evolution(modified_signals, evolution_rate=0.8):
+def apply_signal_evolution(modified_signals, evolution_rate):
     modified_signals_evolution = np.zeros_like(modified_signals)
     for i in range(modified_signals.shape[0]):
         modified_signals_evolution[i, 0] = np.random.randn()
@@ -290,7 +343,7 @@ def apply_signal_evolution(modified_signals, evolution_rate=0.8):
             modified_signals_evolution[i, t] = modified_signals_evolution[i, t - 1] + evolution_rate * np.random.randn()
     return modified_signals
 
-def apply_phase_amplitude_coupling(modified_signals, low_freq=8.0, high_freq=40.0):
+def apply_phase_amplitude_coupling(modified_signals, low_freq, high_freq):
     modified_signals_pac = np.zeros_like(modified_signals)
     time = np.linspace(0, 1, modified_signals.shape[1])
     for i in range(modified_signals.shape[0]):
@@ -299,7 +352,7 @@ def apply_phase_amplitude_coupling(modified_signals, low_freq=8.0, high_freq=40.
         modified_signals_pac[i] = (1 + low_freq_signal) * high_freq_signal
     return modified_signals
 
-def apply_granger_causality(modified_signals, causality_strength=0.8):
+def apply_granger_causality(modified_signals, causality_strength):
     modified_signals_granger = np.copy(modified_signals)
     num_signals, signal_length = modified_signals.shape
     for i in range(1, num_signals):
@@ -309,7 +362,7 @@ def apply_granger_causality(modified_signals, causality_strength=0.8):
                 modified_signals_granger[i, i:] += causal_effect
     return modified_signals
 
-def apply_multivariate_empirical_mode_decomposition(modified_signals, num_imfs=4):
+def apply_multivariate_empirical_mode_decomposition(modified_signals, num_imfs):
     num_channels, signal_length = modified_signals.shape
     memd_signals = np.zeros((num_channels, num_imfs, signal_length))
     for channel in range(num_channels):
@@ -320,48 +373,52 @@ def apply_multivariate_empirical_mode_decomposition(modified_signals, num_imfs=4
     modified_signals_memd = modified_signals + np.sum(memd_signals, axis=1)
     return modified_signals
 
-def apply_normalized_states(modified_signals):
-    def generate_random_hermitian_matrix(signal_length): 
-        size = signal_length
-        A = np.random.rand(size, size) + 1j * np.random.rand(size, size)
+def apply_normalized_states(modified_signals, modification_factor, matrix_size, value_range, num_matrices, eigenvalue_subset):
+    num_signals, signal_length = modified_signals.shape
+    modified_signals = modified_signals.copy()
+
+    # Function to generate a parameterized random Hermitian matrix
+    def generate_parameterized_hermitian_matrix(size, value_range):
+        A = np.random.uniform(value_range[0], value_range[1], (size, size)) + \
+            1j * np.random.uniform(value_range[0], value_range[1], (size, size))
         return A + A.conj().T
 
-    def construct_density_matrix(signal_length, modified_signals):
-        reconstructed_density_matrices = []
+    density_diagonals = []
+    for _ in range(num_matrices):
+        hermitian_matrix = generate_parameterized_hermitian_matrix(matrix_size, value_range)
+        eigenvalues, eigenvectors = np.linalg.eigh(hermitian_matrix)
+        eigenvalues = eigenvalues[eigenvalue_subset]
+        eigenvectors = eigenvectors[:, eigenvalue_subset]
+        density_matrix = np.dot(eigenvectors, np.dot(np.diag(eigenvalues), eigenvectors.T.conj()))
+        density_diagonal = np.diag(density_matrix).real
+        density_diagonals.append(density_diagonal)
 
-        for signal in modified_signals:
-            hermitian_matrix = generate_random_hermitian_matrix(signal_length)
-            eigenvalues, eigenvectors = np.linalg.eigh(hermitian_matrix)
-            density_matrix = np.dot(eigenvectors, np.dot(np.diag(eigenvalues), eigenvectors.T.conj()))
-            reconstructed_density_matrices.append(density_matrix)
-        return reconstructed_density_matrices
+    # Apply modifications using the density diagonals
+    for i, signal in enumerate(modified_signals):
+        density_diagonal = density_diagonals[i % len(density_diagonals)]
+        signal_modification = np.interp(signal, (np.min(signal), np.max(signal)), (np.min(density_diagonal), np.max(density_diagonal)))
+        modified_signals[i] = (1 - modification_factor) * signal + modification_factor * signal_modification
 
-    def generate_coherence(density_matrices):
-        coherence_values = []
+    # Normalize the signals
+    max_signal = np.max(modified_signals)
+    min_signal = np.min(modified_signals)
+    modified_signals = ((modified_signals - min_signal) / (max_signal - min_signal)) * (max_volt - min_volt) + min_volt
 
-        for density_matrix in density_matrices:
-            eigenvalues = np.linalg.eigvalsh(density_matrix)
-            sorted_eigenvalues = np.sort(np.abs(eigenvalues))
-            coherence = np.sum(sorted_eigenvalues) - np.sum(sorted_eigenvalues[-2:])
-            coherence_values.append(coherence)
-        return coherence_values
+    return modified_signals
 
-    signal_length = modified_signals[0].shape[0]
-    density_matrices = construct_density_matrix(signal_length, modified_signals)
-    coherence_values = generate_coherence(density_matrices)
+def final_modified_scale_signals_to_bit_depth(modified_signals, bit_depth):
+    # Assuming that the desired final range is defined by global variables min_volt and max_volt
+    min_val, max_val = min_volt, max_volt
 
-    modified_signals_normalized = []
+    # Calculate the current range of the signals
+    max_signal = np.max(modified_signals)
+    min_signal = np.min(modified_signals)
 
-    for density_matrix in density_matrices:
-        reconstructed_signal = np.diag(density_matrix).real
-        modified_signals_normalized.append(reconstructed_signal)
+    # Scale the signals to the specified bit depth
+    # The formula maps the current range to the desired range [min_val, max_val]
+    scaled_signals = ((modified_signals - min_signal) / (max_signal - min_signal)) * (max_val - min_val) + min_val
 
-    return modified_signals_normalized, density_matrices, coherence_values
-
-# Example usage of PacketToFeatures to get min_volt and max_volt
-packet = 0b...  # Your 32-bit packet here
-feature_extractor = PacketToFeatures(packet)
-features = feature_extractor.extract_features()
+    return scaled_signals
 
 min_volt = features["min_volt"]
 max_volt = features["max_volt"]
@@ -373,21 +430,22 @@ transformations = [
     lambda x: apply_variance(x, features["variance"]),
     lambda x: apply_signal_with_std(x, features["std_dev"]),
     lambda x: apply_signal_with_rms(x, features["rms_value"]),
-    lambda x: apply_fractal_structure(x, features["fractal_dimension"]),
     lambda x: add_peaks(x, features["num_peaks"], features["peak_height"]),
+    lambda x: apply_fractal_structure(x, features["fractal_dimension"]),
     lambda x: apply_moving_average(x, features["window_size"]),
     lambda x: apply_zero_crossing_rate(x, features["target_rate"]),
-    lambda x: apply_arnold_tongues(x, features),
-    lambda x: apply_phase_synchronization(x, features["synchronization_level"]),
-    lambda x: apply_transfer_entropy(x, features["influence_factor"]),
+    lambda x: apply_arnold_tongues(x, features["min_freq"], features["max_freq"], features["blend_factor"]),
+    lambda x: apply_phase_synchronization(x, features["global_sync_level"], features["pairwise_sync_level"], features["sync_factor"]),
+    lambda x: apply_transfer_entropy(x, features["influence_factor"], features["max_influence"]),
     lambda x: apply_hilbert_huang(x, features),
-    lambda x: apply_dynamic_time_warping(x, features["reference_signal"], features["warping_factor"], min_volt, max_volt),
-    lambda x: apply_fft(x, features["complexity_factor"]),
     lambda x: apply_spectral_centroids(x, features["centroid_factor"], features["edge_density_factor"]),
+    lambda x: apply_dynamic_time_warping(x, reference_signal=np.mean(x, axis=0), warping_factor=0.5, min_volt=min_volt, max_volt=max_volt),,
+    lambda x: apply_fft(x, features["complexity_factor"]),
     lambda x: apply_signal_evolution(x, features["evolution_rate"]),
     lambda x: apply_phase_amplitude_coupling(x, features["low_freq"], features["high_freq"]),
     lambda x: apply_granger_causality(x, features["causality_strength"]),
     lambda x: apply_multivariate_empirical_mode_decomposition(x, features["num_imfs"]),
+    lambda x: apply_normalized_states(x, modification_factor=0.1, matrix_size=10, value_range=(-1, 1), num_matrices=5, eigenvalue_subset=slice(0, 5)),
 ]
 
 
@@ -397,29 +455,72 @@ def generate_transformed_signals(signal_length, num_signals, transformation_func
 
     for transform in transformation_functions:
         modified_signals = transform(modified_signals)
+        # Convert list to NumPy array if necessary
         if isinstance(modified_signals, list):
             modified_signals = np.array(modified_signals)
+
         if np.isnan(modified_signals).any() or np.isinf(modified_signals).any():
             print(f"NaNs or Infinities found after {transform.__name__}")
         print(f"Range after {transform.__name__}: {modified_signals.min()} to {modified_signals.max()}")
 
-    modified_signals = scale_signals_to_bit_depth(modified_signals, 16)
+    # Normalize and scale to full 16-bit range
+    modified_signals = final_modified_scale_signals_to_bit_depth(modified_signals, 16)
     print(f"Scaled range: {modified_signals.min()} to {modified_signals.max()}")
 
     return modified_signals
 
 # Main execution
 if __name__ == "__main__":
-    bit_depth = 16
-    num_signals = 8
-    metadata_update_rate = 10.0  # Hz
-    sampling_rate = metadata_update_rate  
-    duration = 1 / metadata_update_rate
+    bit_depth = 16        # Bit depth of the signals
+    num_signals = 32      # Number of signals
+    sampling_rate = 100   # Sampling rate in Hz
+    duration = 1        # Duration in seconds
     length = sampling_rate * duration
+
+    # Global variables for amplitude range
+    min_volt = 1e-6  # 1 microvolt
+    max_volt = 8e-5  # 8 microvolts
+
+    # Calculate the length of the signals
+    length = sampling_rate * duration
+
+    # Generate and transform the ECoG-like signals
     transformed_signals = generate_transformed_signals(length, num_signals, transformations)
 
-    # Handle 'apply_normalized_states' separately
-    modified_signals, density_matrices, coherence_values = apply_normalized_states(transformed_signals)
-    modified_signals_array = np.array(modified_signals)
-    print(f"Shape of generated ECoG-like signals: {modified_signals_array.shape}")
-    print(f"Sample of first signal: {modified_signals_array[0][:100]}")
+    # Convert transformed_signals to a NumPy array to access the shape attribute
+    transformed_signals_array = np.array(transformed_signals)
+
+    # Check the shape and a sample of the generated signals
+    print(f"Shape of generated ECoG-like signals: {transformed_signals_array.shape}")
+    for i in range(8):
+        print(f"Sample of signal {i + 1}: {transformed_signals_array[i][:50]}")
+
+    
+    # ZeroMQ Publisher Setup
+    context_pub = zmq.Context()
+    publisher = context_pub.socket(zmq.PUB)
+    publisher.bind("tcp://*:5557")  # Bind to port 5557 for publishing
+
+    
+    # ZeroMQ Subscriber Setup
+    context_sub = zmq.Context()
+    subscriber = context_sub.socket(zmq.SUB)
+    subscriber.connect("tcp://localhost:5556")
+    subscriber.setsockopt_string(zmq.SUBSCRIBE, "")  # Subscribe to all incoming messages
+    
+    
+    while True:
+        encoded_packet = subscriber.recv_string()
+        packet = int(encoded_packet)  # Convert received string back to integer
+        
+        # Calculate transformed_features using packet and other variables
+        transformed_features = calculate_transformed_features(packet, transformed_signals)
+        
+        print("Transformed features:", transformed_features)
+        
+        # Publish the transformed_features as a string
+        encoded_transformed_features = " ".join([f"{key}:{value}" for key, value in transformed_features.items()])
+        publisher.send_string(encoded_transformed_features)
+        
+        # Introduce a 10ms delay
+        time.sleep(0.01)

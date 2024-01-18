@@ -10,55 +10,7 @@ desktop_browser_app
             to_computer_communication_protocol
                     brainflow_communication
 
-            data_processing
-                    __init__.py (TO ADD)
-                    amplitude_variability.py (TO ADD)
-                    moving_average.py (TO ADD)
-                    peak_detection.py (TO ADD)
-                    zero_crossing_rate.py (TO ADD)
-                    signal_variance.py (TO ADD)
-                    standard_deviation.py (TO ADD)
-                    hilbert_transform.py (TO ADD)
-                    root_mean_square.py (TO ADD)
-                    higuchi_fractal_dimension.py
-                    arnold_tongues.py (TO ADD)
-                    multifractal_detrended_fluctation.py (TO ADD)
-                    phase_space.py (TO ADD)
-                    phase_synchonisation.py (TO ADD)
-                    recurrence_quantification.py (TO ADD)
-                    hermitian_matrices.py (TO ADD)
-                    normalized_states.py (TO ADD)
-                    matrix_elements.py (TO ADD)
-                    eigen_data.py (TO ADD)
-                    eigen_decomposition.py (TO ADD)
-                    expectation_values.py (TO ADD)
-                    evolved_states.py (TO ADD)
-                    symbolic_dynamics.py (TO ADD)
-                    hilber_huang_transform.py (TO ADD)
-                    phase_amplitude_coupling.py (TO ADD)
-                    ganger_causality.py (TO ADD)
-                    multivariate_empirical_mode_decomposition.py (TO ADD)
-                    dynamic_time_warping.py (TO ADD)
-                    wavelet_scalogram.py (TO ADD)
-                    choi_williams_distribution.py (TO ADD)
-    
-                    spectral_analysis
-                            welchsPSD.py (TO ADD)
-                            STFT.py (TO ADD)
-                            band_powers.py (TO ADD)
-                            spectral_entropy.py (TO ADD)
-                            spectral_centroids.py (TO ADD)
-                            spectral_edge_density.py (TO ADD)
-                            coherence.py (TO ADD)
-                            freq_max_power.py (TO ADD)
-                            continuous_wavelet_transform.py (TO ADD)
-    
-                    entropy
-                            transfer_entropy.py (TO ADD)
-                            joint_entropy.py (TO ADD)
-                            von_neumann_entropy.py (TO ADD)
-                            shannon_entropy.py (TO ADD)
-                            relative_entropy.py (TO ADD)
+            
 
             neural_decoding
                     neural_decoding

@@ -109,7 +109,7 @@ packet = encoder.encode_to_packet(metadata_packet)
 encoded_values = encoder.extract_parameters(packet)
 print(encoded_values)  # Dictionary of parameters for signal processing
 
-
+# ZeroMQ setup
 context = zmq.Context()
 publisher = context.socket(zmq.PUB)
 publisher.bind("tcp://*:5555")  # Publisher binds to port 5555
