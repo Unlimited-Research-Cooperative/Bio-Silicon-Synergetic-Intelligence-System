@@ -1,0 +1,17 @@
+
+State Machine - |top|current_state
+Name current_state.sd_mode current_state.eeprom_mode current_state.ledflash_mode current_state.idle 
+current_state.idle 0 0 0 0 
+current_state.ledflash_mode 0 0 1 1 
+current_state.eeprom_mode 0 1 0 1 
+current_state.sd_mode 1 0 0 1 
+
+State Machine - |top|uart_rx:uart_receiver_inst|state
+Name state.S_CHANNEL_ID state.S_PACKET_START state.S_DATA state.S_STOP state.S_REC_BYTE state.S_START state.S_IDLE 
+state.S_IDLE 0 0 0 0 0 0 0 
+state.S_START 0 0 0 0 0 1 1 
+state.S_REC_BYTE 0 0 0 0 1 0 1 
+state.S_STOP 0 0 0 1 0 0 1 
+state.S_DATA 0 0 1 0 0 0 1 
+state.S_PACKET_START 0 1 0 0 0 0 1 
+state.S_CHANNEL_ID 1 0 0 0 0 0 1 

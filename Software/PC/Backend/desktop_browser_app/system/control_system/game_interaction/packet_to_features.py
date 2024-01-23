@@ -64,7 +64,7 @@ publisher.bind("tcp://*:5556")  # Bind to port 5556 for publishing
 context_sub = zmq.Context()
 subscriber = context_sub.socket(zmq.SUB)
 subscriber.connect("tcp://localhost:5555")
-subscriber.setsockopt_string(zmq.SUBSCRIBE, "")  # Subscribe to all incoming messages
+subscriber.setsockopt_string(zmq.SUBSCRIBE, "")  # Subscribe to all incoming messages from 5555 (metadata_encode.py)
 
 while True:
     encoded_packet = subscriber.recv_string()

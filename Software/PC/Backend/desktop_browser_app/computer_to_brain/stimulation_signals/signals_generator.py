@@ -506,7 +506,7 @@ if __name__ == "__main__":
     context_sub = zmq.Context()
     subscriber = context_sub.socket(zmq.SUB)
     subscriber.connect("tcp://localhost:5556")
-    subscriber.setsockopt_string(zmq.SUBSCRIBE, "")  # Subscribe to all incoming messages
+    subscriber.setsockopt_string(zmq.SUBSCRIBE, "")  # Subscribe to all incoming messages from 5556 (packet_to_features.py)
     
     
     while True:
@@ -522,5 +522,4 @@ if __name__ == "__main__":
         encoded_transformed_features = " ".join([f"{key}:{value}" for key, value in transformed_features.items()])
         publisher.send_string(encoded_transformed_features)
         
-        # Introduce a 10ms delay
-        time.sleep(0.01)
+        time.sleep(0.1)

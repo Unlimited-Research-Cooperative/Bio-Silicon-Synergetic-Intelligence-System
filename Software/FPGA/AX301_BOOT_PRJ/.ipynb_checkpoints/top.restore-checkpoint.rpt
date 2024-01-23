@@ -1,0 +1,131 @@
+Restore Archived Project report for top
+Mon Mar 26 17:37:51 2018
+Quartus Prime Version 17.1.0 Build 590 10/25/2017 SJ Lite Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Restore Archived Project Summary
+  3. Restore Archived Project Messages
+  4. Files Restored
+  5. Files Not Restored
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 2017  Intel Corporation. All rights reserved.
+Your use of Intel Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Intel Program License 
+Subscription Agreement, the Intel Quartus Prime License Agreement,
+the Intel FPGA IP License Agreement, or other applicable license
+agreement, including, without limitation, that your use is for
+the sole purpose of programming logic devices manufactured by
+Intel and sold by Intel or its authorized distributors.  Please
+refer to the applicable agreement for further details.
+
+
+
++-------------------------------------------------------------------------+
+; Restore Archived Project Summary                                        ;
++---------------------------------+---------------------------------------+
+; Restore Archived Project Status ; Successful - Mon Mar 26 17:37:51 2018 ;
+; Revision Name                   ; top                                   ;
+; Top-level Entity Name           ; top                                   ;
+; Family                          ; Cyclone IV E                          ;
++---------------------------------+---------------------------------------+
+
+
++-----------------------------------+
+; Restore Archived Project Messages ;
++-----------------------------------+
+Info: Successfully restored 'D:/intel_project/AX301/AX301_BOOT_PRJ.qar' into the 'D:/intel_project/AX301/AX301_BOOT_PRJ_restored/' directory
+Info: Generated report 'top.restore.rpt'
+Info (23030): Evaluation of Tcl script c:/intelfpga_lite/17.1/quartus/common/tcl/apps/qpm/qar.tcl was successful
+Info: Quartus Prime Shell was successful. 0 errors, 0 warnings
+    Info: Peak virtual memory: 715 megabytes
+    Info: Processing ended: Mon Mar 26 17:37:51 2018
+    Info: Elapsed time: 00:00:04
+    Info: Total CPU time (on all processors): 00:00:04
+
+
++--------------------------------------------+
+; Files Restored                             ;
++--------------------------------------------+
+; File Name                                  ;
++--------------------------------------------+
+; qar_info.json                              ;
+; SDC1.sdc                                   ;
+; assignment_defaults.qdf                    ;
+; ax301_ax4010.tcl                           ;
+; ax_debounce.v                              ;
+; buzzer_src/music_hz.v                      ;
+; buzzer_src/music_rom.v                     ;
+; buzzer_src/music_top.v                     ;
+; buzzer_src/sin512.mif                      ;
+; db/stp1_auto_stripped.stp                  ;
+; eeprom_src/i2c_eeprom_test.v               ;
+; eeprom_src/key_debounce.v                  ;
+; i2c_master/i2c_config.v                    ;
+; i2c_master/i2c_master_bit_ctrl.v           ;
+; i2c_master/i2c_master_byte_ctrl.v          ;
+; i2c_master/i2c_master_defines.v            ;
+; i2c_master/i2c_master_top.v                ;
+; i2c_master/timescale.v                     ;
+; output_files/stp1.stp                      ;
+; ov5640_src/cmos_8_16bit.v                  ;
+; ov5640_src/cmos_write_req_gen.v            ;
+; ov5640_src/color_bar.v                     ;
+; ov5640_src/frame_fifo_read.v               ;
+; ov5640_src/frame_fifo_write.v              ;
+; ov5640_src/frame_read_write.v              ;
+; ov5640_src/ip_core/afifo_16_512.v          ;
+; ov5640_src/ip_core/sys_pll.v               ;
+; ov5640_src/ip_core/video_pll.v             ;
+; ov5640_src/lut_ov5640_rgb565_1024_768.v    ;
+; ov5640_src/sdram/sdram_core.v              ;
+; ov5640_src/top.v                           ;
+; ov5640_src/video_define.v                  ;
+; ov5640_src/video_timing_data.v             ;
+; rtc_src/ds1302.v                           ;
+; rtc_src/ds1302_io.v                        ;
+; rtc_src/ds1302_test.v                      ;
+; rtc_src/seg_bcd.v                          ;
+; rtc_src/top.v                              ;
+; sd_src/sd_card/sd_card_cmd.v               ;
+; sd_src/sd_card/sd_card_sec_read_write.v    ;
+; sd_src/sd_card/sd_card_top.v               ;
+; sd_src/sd_card_test.v                      ;
+; sdbmp_src/bmp_read.v                       ;
+; sdbmp_src/sd_card/sd_card_cmd.v            ;
+; sdbmp_src/sd_card/sd_card_sec_read_write.v ;
+; sdbmp_src/sd_card/sd_card_top.v            ;
+; sdbmp_src/sd_card_bmp.v                    ;
+; sdbmp_src/top.v                            ;
+; seg_src/seg_decoder.v                      ;
+; seg_src/seg_scan.v                         ;
+; spi_master.v                               ;
+; top.qpf                                    ;
+; top.qsf                                    ;
+; top.v                                      ;
+; total.tcl                                  ;
+; uart_src/uart_rx.v                         ;
+; uart_src/uart_test.v                       ;
+; uart_src/uart_tx.v                         ;
++--------------------------------------------+
+
+
++--------------------+
+; Files Not Restored ;
++--------------------+
+; File Name          ;
++--------------------+
+
+

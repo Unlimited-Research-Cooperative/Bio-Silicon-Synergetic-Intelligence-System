@@ -1,19 +1,8 @@
 module top(
-
-       input                      clk,
-       input                      rst_n,
-       input                      key2,
-		 output [3:0]               led,
-	
-	// UART Receiver instance
-    uart_rx uart_receiver_inst (
-        .clk(clk),               // Connect to system clock
-        .rst_n(rst_n),           // Connect to reset signal
-        .rx_pin(uart_rx),        // Connect to UART RX pin
-        .rx_data(rx_data),       // Connect received data output
-        .rx_data_valid(rx_data_valid), // Connect data valid output
-    // Other connections for UART receiver (like rx_data, alid, etc.)
-);
+    input                      clk,
+    input                      rst_n,
+    input                      key2,
+	output [3:0]               led,
 
 	   //rtc ds1302 port
        output                     rtc_sclk,
@@ -26,15 +15,8 @@ module top(
        inout                      i2c_sda,
        inout                      i2c_scl,
 	
-	// I2S Transmitter instance
-i2s_tx i2s_transmitter_inst (
-    .clk(clk),                 // Connect to system clock
-    .reset(~rst_n),            // Connect to reset signal (active low)
-    .audio_data(audio_data),   // Connect to audio data source
-    .bclk(i2s_bclk),           // Connect to I2S bit clock output
-    .lrclk(i2s_lrclk),         // Connect to I2S left/right clock output
-    .sdata(i2s_sdata)          // Connect to I2S serial data output
-);
+
+
        //sd audio port
 	    input                      key4,		 
 		 output reg [5:0]           seg_sel,
@@ -54,13 +36,8 @@ i2s_tx i2s_transmitter_inst (
 	    input                      cmos_pclk,         //cmos pxiel clock
 	    output                     cmos_xclk,         //cmos externl clock
 	    input   [7:0]              cmos_db,           //cmos data 
-		 output                     cmos_rst_n,        //cmos reset
+		output                     cmos_rst_n,        //cmos reset
 	    output                     cmos_pwdn,         //cmos power down
-		 output reg                      vga_out_hs,        //vga horizontal synchronization
-	    output reg                      vga_out_vs,        //vga vertical synchronization
-	    output reg [4:0]                vga_out_r,         //vga red
-	    output reg [5:0]                vga_out_g,         //vga green
-	    output reg [4:0]                vga_out_b,         //vga blue  
 	  
        //sdram port
 	    output                     sdram_clk,         //sdram clock
@@ -76,6 +53,32 @@ i2s_tx i2s_transmitter_inst (
 	 
 );
 
+// Declare uart_rx to i2s_tx interface signals
+wire [255:0] audio_data;  // Array of 32 channels (8 bits each)
+wire uart_data_ready;         // UART data ready signal
+reg i2s_data_acknowledge;     // I2S data acknowledge signal
+
+    // UART Receiver instance
+    uart_rx uart_receiver_inst (
+        .clk(clk),               // Connect to system clock
+        .rst_n(rst_n),           // Connect to reset signal
+        .rx_pin(uart_rx),        // Connect to UART RX pin
+        .rx_data(rx_data),       // Connect received data output
+        .rx_data_valid(rx_data_valid), // Connect data valid output
+        .out_channel_data(audio_data) // Connect the channel data to audio_data
+);    
+
+	// I2S Transmitter instance with updated sample rate
+    i2s_tx i2s_transmitter_inst (
+        .clk(clk),                 // System clock
+        .reset(~rst_n),            // Active-low reset
+        .audio_data(audio_data),   // Audio data source
+        .bclk(i2s_bclk),           // I2S bit clock output
+        .lrclk(i2s_lrclk),         // I2S left/right clock output
+        .sdata(i2s_sdata),          // I2S serial data output
+        .audio_data(audio_data) // Connect audio_data to the i2s transmitter
+);
+    
 localparam    idle           = 2'd0 ;
 localparam    ledflash_mode  = 2'd1 ;
 localparam    eeprom_mode    = 2'd2 ;
@@ -83,7 +86,7 @@ localparam    sd_mode        = 2'd3 ;
 
 reg [1:0]       current_state     ;
 reg [1:0]       next_state        ;
-  
+
 wire            button_negedge2   ;
 wire            button_negedge3   ;
 wire            button_negedge4   ;
@@ -120,17 +123,6 @@ wire [4:0]      color_r   ;
 wire [5:0]      color_g   ;
 wire [4:0]      color_b   ;
 
-wire            ov_vga_out_hs  ;
-wire            ov_vga_out_vs  ;
-wire [4:0]      ov_vga_out_r   ;
-wire [5:0]      ov_vga_out_g   ;
-wire [4:0]      ov_vga_out_b   ;
- 
-wire            sd_vga_out_hs  ;
-wire            sd_vga_out_vs  ;
-wire [4:0]      sd_vga_out_r   ;
-wire [5:0]      sd_vga_out_g   ;
-wire [4:0]      sd_vga_out_b   ;  
 
 
 wire            wr_burst_data_req;
@@ -170,12 +162,23 @@ wire  [15: 0]   ov_wr_burst_data;
 //assign wr_burst_addr = (current_state == sd_mode)? sd_wr_burst_addr : ov_wr_burst_addr ;
 //assign wr_burst_data = (current_state == sd_mode)? sd_wr_burst_data : ov_wr_burst_data ;
 //                 
-//assign vga_out_hs  = (current_state == sd_mode)? sd_vga_out_hs  : ov_vga_out_hs    ;
-//assign vga_out_vs  = (current_state == sd_mode)? sd_vga_out_vs  : ov_vga_out_vs    ;
-//assign vga_out_r   = (current_state == sd_mode)? sd_vga_out_r   : ov_vga_out_r     ;
-//assign vga_out_g   = (current_state == sd_mode)? sd_vga_out_g   : ov_vga_out_g     ;
-//assign vga_out_b   = (current_state == sd_mode)? sd_vga_out_b   : ov_vga_out_b     ;
 
+
+// Data processing logic
+always @(posedge clk or negedge rst_n) begin
+  if (!rst_n) begin
+    i2s_data_acknowledge <= 0;
+  end else if (uart_data_ready) begin
+    // Handle new data: set acknowledgment
+    i2s_data_acknowledge <= 1;
+    // ... [other processing logic]
+  end else begin
+    // Clear acknowledgment once data is processed
+  i2s_data_acknowledge <= 0;
+  end
+end
+
+    
 always @(posedge ext_mem_clk or negedge rst_n)
 begin
   if(rst_n == 1'b0)
@@ -210,45 +213,9 @@ begin
   end 
 end  
 
+    
 
-always @(posedge video_clk or negedge rst_n)
-begin
-  if(rst_n == 1'b0)
-  begin
-    vga_out_hs <= 1'b0 ;
-	 vga_out_vs <= 1'b0 ;
-	 vga_out_r  <= 5'd0 ;
-	 vga_out_g  <= 6'd0 ;
-	 vga_out_b  <= 5'd0 ;
-  end
-  else if (current_state == idle)
-  begin
-    vga_out_hs <= color_hs ;
-    vga_out_vs <= color_vs ;
-    vga_out_r  <= color_r  ;
-    vga_out_g  <= color_g  ;
-    vga_out_b  <= color_b  ;
-  end
-  else if (current_state == sd_mode)
-  begin
-    vga_out_hs <= sd_vga_out_hs ;
-    vga_out_vs <= sd_vga_out_vs ;
-    vga_out_r  <= sd_vga_out_r  ;
-    vga_out_g  <= sd_vga_out_g  ;
-    vga_out_b  <= sd_vga_out_b  ;
-  end
-  else
-  begin
-    vga_out_hs <= ov_vga_out_hs ;
-    vga_out_vs <= ov_vga_out_vs ;
-    vga_out_r  <= ov_vga_out_r  ;
-    vga_out_g  <= ov_vga_out_g  ;
-    vga_out_b  <= ov_vga_out_b  ;
-  end 
-end  
    
-
-
 assign led = led_reg ;
 
 assign sdram_clk = ext_mem_clk ;
@@ -336,30 +303,15 @@ begin
 	endcase
 end
 
-
+    
 always @(posedge clk or negedge rst_n)
 begin
-  if(rst_n == 1'b0)
-    led_reg <= 4'b0000 ;
-  else if (current_state == ledflash_mode)
-  begin
-    case(blinking_cnt[24:23])
-	   2'b00  : led_reg <= 4'b0001 ;
-	   2'b01  : led_reg <= 4'b0010 ;
-	   2'b10  : led_reg <= 4'b0100 ;
-	   2'b11  : led_reg <= 4'b1000 ;
-	   default: led_reg <= 4'b0000 ;
-	 endcase
-  end
-  else if (current_state == eeprom_mode)
-    led_reg <= {3'b000, blinking_cnt[24]} ;
-  else if (current_state == sd_mode)
-    led_reg <= {2'b00,blinking_cnt[24],blinking_cnt[24]} ;
-  else
-    led_reg <= {4{blinking_cnt[22]}} ;
+    if (rst_n == 1'b0)
+        led_reg <= 4'b0000; // Reset condition, all LEDs off
+    else
+        led_reg <= 4'b0000; // Keep LEDs off in all states
 end
-    		
-			
+		
 			
 always @(posedge clk or negedge rst_n)
 begin
@@ -382,7 +334,6 @@ begin
 	 button_negedge3_d0 <= button_negedge3 ;
   end  
 end	
-
  
 
 always @(posedge clk or negedge rst_n)
@@ -506,14 +457,6 @@ uart_test uart0(
 	.uart_tx              (uart_tx)
 ); 
 
-music_top music
-(
- .clk                    (clk),   
- .rst_n                  (buzzer_rst_n),
- .buzzer                 (buzzer )
-) ;
-
-
 //generate SD card controller clock and  SDRAM controller clock
 sys_pll sys_pll_m0(
 	.inclk0                     (clk),
@@ -534,11 +477,6 @@ sdbmp_top sdbmp_dut
    .button_negedge       (button_negedge4   ), 
 	.seg_sel              (sd_seg_sel       ),
    .seg_data             (sd_seg_data      ), 
-	.vga_out_hs           (sd_vga_out_hs    ),
-	.vga_out_vs           (sd_vga_out_vs    ),
-	.vga_out_r            (sd_vga_out_r     ),
-	.vga_out_g            (sd_vga_out_g     ),
-	.vga_out_b            (sd_vga_out_b     ),
 	.sd_ncs              (SD_nCS        ),
 	.sd_dclk             (SD_DCLK       ),
 	.sd_mosi             (SD_MOSI       ),
@@ -581,12 +519,6 @@ ov5640_top ov5640_dut
 
 	.video_clk            (video_clk        ),
 	.ext_mem_clk          (ext_mem_clk      ),
-	 
-	.vga_out_hs           (ov_vga_out_hs    ),
-	.vga_out_vs           (ov_vga_out_vs    ),
-	.vga_out_r            (ov_vga_out_r     ),
-	.vga_out_g            (ov_vga_out_g     ),
-	.vga_out_b            (ov_vga_out_b     ),
 	
 	.rd_burst_req               (ov_rd_burst_req             ),
 	.rd_burst_len               (ov_rd_burst_len             ),
@@ -634,5 +566,3 @@ sdram_core sdram_core_m0
 
 
 endmodule
-
-		

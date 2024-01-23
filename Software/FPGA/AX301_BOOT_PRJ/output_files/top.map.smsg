@@ -1,0 +1,1 @@
+Warning (10268): Verilog HDL information at i2s_tx.sv(57): always construct contains both blocking and non-blocking assignments File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/i2s_tx.sv Line: 57
