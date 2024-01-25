@@ -1,5 +1,5 @@
 Flow report for top
-Thu Jan 25 17:52:26 2024
+Thu Jan 25 20:34:04 2024
 Quartus Prime Version 21.1.0 Build 842 10/21/2021 SJ Lite Edition
 
 
@@ -41,7 +41,7 @@ https://fpgasoftware.intel.com/eula.
 +----------------------------------------------------------------------------------+
 ; Flow Summary                                                                     ;
 +------------------------------------+---------------------------------------------+
-; Flow Status                        ; Successful - Thu Jan 25 17:52:26 2024       ;
+; Flow Status                        ; Successful - Thu Jan 25 20:34:04 2024       ;
 ; Quartus Prime Version              ; 21.1.0 Build 842 10/21/2021 SJ Lite Edition ;
 ; Revision Name                      ; top                                         ;
 ; Top-level Entity Name              ; top                                         ;
@@ -65,7 +65,7 @@ https://fpgasoftware.intel.com/eula.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 01/25/2024 17:52:07 ;
+; Start date & time ; 01/25/2024 20:33:53 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; top                 ;
 +-------------------+---------------------+
@@ -76,7 +76,7 @@ https://fpgasoftware.intel.com/eula.
 +--------------------------------------+----------------------------------------+---------------+-------------+----------------+
 ; Assignment Name                      ; Value                                  ; Default Value ; Entity Name ; Section Id     ;
 +--------------------------------------+----------------------------------------+---------------+-------------+----------------+
-; COMPILER_SIGNATURE_ID                ; 154724021346940.170621592740922        ; --            ; --          ; --             ;
+; COMPILER_SIGNATURE_ID                ; 154724021346940.170622563311062        ; --            ; --          ; --             ;
 ; EDA_DESIGN_INSTANCE_NAME             ; NA                                     ; --            ; --          ; tb1            ;
 ; EDA_NATIVELINK_SIMULATION_TEST_BENCH ; tb1                                    ; --            ; --          ; eda_simulation ;
 ; EDA_OUTPUT_DATA_FORMAT               ; Systemverilog Hdl                      ; --            ; --          ; eda_simulation ;
@@ -100,6 +100,8 @@ https://fpgasoftware.intel.com/eula.
 ; POWER_PRESET_COOLING_SOLUTION        ; 23 MM HEAT SINK WITH 200 LFPM AIRFLOW  ; --            ; --          ; --             ;
 ; PROJECT_OUTPUT_DIRECTORY             ; output_files                           ; --            ; --          ; --             ;
 ; USE_SIGNALTAP_FILE                   ; output_files/stp1.stp                  ; --            ; --          ; --             ;
+; VERILOG_INPUT_VERSION                ; SystemVerilog_2005                     ; Verilog_2001  ; --          ; --             ;
+; VERILOG_SHOW_LMF_MAPPING_MESSAGES    ; Off                                    ; --            ; --          ; --             ;
 +--------------------------------------+----------------------------------------+---------------+-------------+----------------+
 
 
@@ -109,11 +111,11 @@ https://fpgasoftware.intel.com/eula.
 ; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Analysis & Synthesis ; 00:00:05     ; 1.0                     ; 362 MB              ; 00:00:12                           ;
-; Fitter               ; 00:00:06     ; 1.1                     ; 1955 MB             ; 00:00:03                           ;
-; Assembler            ; 00:00:01     ; 1.0                     ; 361 MB              ; 00:00:00                           ;
+; Fitter               ; 00:00:02     ; 1.0                     ; 1945 MB             ; 00:00:03                           ;
+; Assembler            ; 00:00:00     ; 1.0                     ; 361 MB              ; 00:00:00                           ;
 ; Timing Analyzer      ; 00:00:01     ; 1.0                     ; 623 MB              ; 00:00:01                           ;
 ; EDA Netlist Writer   ; 00:00:00     ; 1.0                     ; 608 MB              ; 00:00:00                           ;
-; Total                ; 00:00:13     ; --                      ; --                  ; 00:00:16                           ;
+; Total                ; 00:00:08     ; --                      ; --                  ; 00:00:16                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 

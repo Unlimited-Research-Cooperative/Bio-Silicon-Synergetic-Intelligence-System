@@ -17,7 +17,7 @@
 // PROGRAM "Quartus Prime"
 // VERSION "Version 21.1.0 Build 842 10/21/2021 SJ Lite Edition"
 
-// DATE "01/25/2024 17:52:26"
+// DATE "01/25/2024 20:34:04"
 
 // 
 // Device: Altera EP4CE6F17C8 Package FBGA256
@@ -69,45 +69,45 @@ module top (
 	sdram_ba,
 	sdram_addr,
 	sdram_dq);
-input 	reg clk ;
-input 	reg rst_n ;
-input 	reg key2 ;
-output 	logic [3:0] led ;
-output 	reg rtc_sclk ;
-output 	reg rtc_ce ;
-inout 	reg rtc_data ;
-input 	reg uart_rx ;
-output 	reg uart_tx ;
-input 	reg key3 ;
-inout 	reg i2c_sda ;
-inout 	reg i2c_scl ;
-input 	reg key4 ;
-output 	reg [5:0] seg_sel ;
-output 	reg [7:0] seg_data ;
-output 	reg buzzer ;
-output 	reg SD_nCS ;
-output 	reg SD_DCLK ;
-output 	reg SD_MOSI ;
-input 	reg SD_MISO ;
-inout 	reg cmos_scl ;
-inout 	reg cmos_sda ;
-input 	reg cmos_vsync ;
-input 	reg cmos_href ;
-input 	reg cmos_pclk ;
-output 	reg cmos_xclk ;
-input 	logic [7:0] cmos_db ;
-output 	reg cmos_rst_n ;
-output 	reg cmos_pwdn ;
-output 	reg sdram_clk ;
-output 	reg sdram_cke ;
-output 	reg sdram_cs_n ;
-output 	reg sdram_we_n ;
-output 	reg sdram_cas_n ;
-output 	reg sdram_ras_n ;
-output 	logic [1:0] sdram_dqm ;
-output 	logic [1:0] sdram_ba ;
-output 	logic [12:0] sdram_addr ;
-inout 	logic [15:0] sdram_dq ;
+input 	clk;
+input 	rst_n;
+input 	key2;
+output 	[3:0] led;
+output 	rtc_sclk;
+output 	rtc_ce;
+output 	rtc_data;
+input 	uart_rx;
+output 	uart_tx;
+input 	key3;
+output 	i2c_sda;
+output 	i2c_scl;
+input 	key4;
+output 	[5:0] seg_sel;
+output 	[7:0] seg_data;
+output 	buzzer;
+output 	SD_nCS;
+output 	SD_DCLK;
+output 	SD_MOSI;
+input 	SD_MISO;
+output 	cmos_scl;
+output 	cmos_sda;
+input 	cmos_vsync;
+input 	cmos_href;
+input 	cmos_pclk;
+output 	cmos_xclk;
+input 	[7:0] cmos_db;
+output 	cmos_rst_n;
+output 	cmos_pwdn;
+output 	sdram_clk;
+output 	sdram_cke;
+output 	sdram_cs_n;
+output 	sdram_we_n;
+output 	sdram_cas_n;
+output 	sdram_ras_n;
+output 	[1:0] sdram_dqm;
+output 	[1:0] sdram_ba;
+output 	[12:0] sdram_addr;
+output 	[15:0] sdram_dq;
 
 // Design Ports Information
 // led[0]	=>  Location: PIN_E10,	 I/O Standard: 3.3-V LVTTL,	 Current Strength: 8mA
