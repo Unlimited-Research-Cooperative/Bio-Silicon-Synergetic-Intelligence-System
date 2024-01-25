@@ -1,5 +1,5 @@
 Fitter report for top
-Tue Jan 23 18:19:41 2024
+Thu Jan 25 17:52:20 2024
 Quartus Prime Version 21.1.0 Build 842 10/21/2021 SJ Lite Edition
 
 
@@ -61,7 +61,7 @@ https://fpgasoftware.intel.com/eula.
 +----------------------------------------------------------------------------------+
 ; Fitter Summary                                                                   ;
 +------------------------------------+---------------------------------------------+
-; Fitter Status                      ; Successful - Tue Jan 23 18:19:41 2024       ;
+; Fitter Status                      ; Successful - Thu Jan 25 17:52:20 2024       ;
 ; Quartus Prime Version              ; 21.1.0 Build 842 10/21/2021 SJ Lite Edition ;
 ; Revision Name                      ; top                                         ;
 ; Top-level Entity Name              ; top                                         ;
@@ -148,39 +148,74 @@ https://fpgasoftware.intel.com/eula.
 ; Number detected on machine ; 32          ;
 ; Maximum allowed            ; 16          ;
 ;                            ;             ;
-; Average used               ; 1.02        ;
+; Average used               ; 1.07        ;
 ; Maximum used               ; 16          ;
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processors 2-16        ;   0.1%      ;
+;     Processors 2-16        ;   0.5%      ;
 +----------------------------+-------------+
 
 
-+------------------------------------------------------------------------------------------+
-; Ignored Assignments                                                                      ;
-+----------+----------------+--------------+--------------+---------------+----------------+
-; Name     ; Ignored Entity ; Ignored From ; Ignored To   ; Ignored Value ; Ignored Source ;
-+----------+----------------+--------------+--------------+---------------+----------------+
-; Location ;                ;              ; vga_out_b[0] ; PIN_C3        ; QSF Assignment ;
-; Location ;                ;              ; vga_out_b[1] ; PIN_D4        ; QSF Assignment ;
-; Location ;                ;              ; vga_out_b[2] ; PIN_D3        ; QSF Assignment ;
-; Location ;                ;              ; vga_out_b[3] ; PIN_E5        ; QSF Assignment ;
-; Location ;                ;              ; vga_out_b[4] ; PIN_F6        ; QSF Assignment ;
-; Location ;                ;              ; vga_out_g[0] ; PIN_F5        ; QSF Assignment ;
-; Location ;                ;              ; vga_out_g[1] ; PIN_G5        ; QSF Assignment ;
-; Location ;                ;              ; vga_out_g[2] ; PIN_F7        ; QSF Assignment ;
-; Location ;                ;              ; vga_out_g[3] ; PIN_K8        ; QSF Assignment ;
-; Location ;                ;              ; vga_out_g[4] ; PIN_L8        ; QSF Assignment ;
-; Location ;                ;              ; vga_out_g[5] ; PIN_J6        ; QSF Assignment ;
-; Location ;                ;              ; vga_out_hs   ; PIN_L6        ; QSF Assignment ;
-; Location ;                ;              ; vga_out_r[0] ; PIN_K6        ; QSF Assignment ;
-; Location ;                ;              ; vga_out_r[1] ; PIN_K5        ; QSF Assignment ;
-; Location ;                ;              ; vga_out_r[2] ; PIN_L7        ; QSF Assignment ;
-; Location ;                ;              ; vga_out_r[3] ; PIN_L3        ; QSF Assignment ;
-; Location ;                ;              ; vga_out_r[4] ; PIN_L4        ; QSF Assignment ;
-; Location ;                ;              ; vga_out_vs   ; PIN_N3        ; QSF Assignment ;
-+----------+----------------+--------------+--------------+---------------+----------------+
++---------------------------------------------------------------------------------------------+
+; Ignored Assignments                                                                         ;
++----------+----------------+--------------+-----------------+---------------+----------------+
+; Name     ; Ignored Entity ; Ignored From ; Ignored To      ; Ignored Value ; Ignored Source ;
++----------+----------------+--------------+-----------------+---------------+----------------+
+; Location ;                ;              ; LRCLK           ; PIN_A3        ; QSF Assignment ;
+; Location ;                ;              ; MCLK            ; PIN_B5        ; QSF Assignment ;
+; Location ;                ;              ; SCLK            ; PIN_A2        ; QSF Assignment ;
+; Location ;                ;              ; audio_signal_1  ; PIN_A5        ; QSF Assignment ;
+; Location ;                ;              ; audio_signal_10 ; PIN_B10       ; QSF Assignment ;
+; Location ;                ;              ; audio_signal_11 ; PIN_A10       ; QSF Assignment ;
+; Location ;                ;              ; audio_signal_12 ; PIN_B11       ; QSF Assignment ;
+; Location ;                ;              ; audio_signal_13 ; PIN_A11       ; QSF Assignment ;
+; Location ;                ;              ; audio_signal_14 ; PIN_B12       ; QSF Assignment ;
+; Location ;                ;              ; audio_signal_15 ; PIN_A12       ; QSF Assignment ;
+; Location ;                ;              ; audio_signal_16 ; PIN_B13       ; QSF Assignment ;
+; Location ;                ;              ; audio_signal_17 ; PIN_A13       ; QSF Assignment ;
+; Location ;                ;              ; audio_signal_18 ; PIN_D5        ; QSF Assignment ;
+; Location ;                ;              ; audio_signal_19 ; PIN_D6        ; QSF Assignment ;
+; Location ;                ;              ; audio_signal_2  ; PIN_B6        ; QSF Assignment ;
+; Location ;                ;              ; audio_signal_20 ; PIN_C6        ; QSF Assignment ;
+; Location ;                ;              ; audio_signal_21 ; PIN_E7        ; QSF Assignment ;
+; Location ;                ;              ; audio_signal_22 ; PIN_F8        ; QSF Assignment ;
+; Location ;                ;              ; audio_signal_23 ; PIN_C8        ; QSF Assignment ;
+; Location ;                ;              ; audio_signal_24 ; PIN_D8        ; QSF Assignment ;
+; Location ;                ;              ; audio_signal_25 ; PIN_P1        ; QSF Assignment ;
+; Location ;                ;              ; audio_signal_26 ; PIN_N2        ; QSF Assignment ;
+; Location ;                ;              ; audio_signal_27 ; PIN_R1        ; QSF Assignment ;
+; Location ;                ;              ; audio_signal_28 ; PIN_P2        ; QSF Assignment ;
+; Location ;                ;              ; audio_signal_29 ; PIN_K9        ; QSF Assignment ;
+; Location ;                ;              ; audio_signal_3  ; PIN_A6        ; QSF Assignment ;
+; Location ;                ;              ; audio_signal_30 ; PIN_R8        ; QSF Assignment ;
+; Location ;                ;              ; audio_signal_31 ; PIN_L10       ; QSF Assignment ;
+; Location ;                ;              ; audio_signal_32 ; PIN_L9        ; QSF Assignment ;
+; Location ;                ;              ; audio_signal_4  ; PIN_B7        ; QSF Assignment ;
+; Location ;                ;              ; audio_signal_5  ; PIN_A7        ; QSF Assignment ;
+; Location ;                ;              ; audio_signal_6  ; PIN_B8        ; QSF Assignment ;
+; Location ;                ;              ; audio_signal_7  ; PIN_A8        ; QSF Assignment ;
+; Location ;                ;              ; audio_signal_8  ; PIN_B9        ; QSF Assignment ;
+; Location ;                ;              ; audio_signal_9  ; PIN_A9        ; QSF Assignment ;
+; Location ;                ;              ; vga_out_b[0]    ; PIN_C3        ; QSF Assignment ;
+; Location ;                ;              ; vga_out_b[1]    ; PIN_D4        ; QSF Assignment ;
+; Location ;                ;              ; vga_out_b[2]    ; PIN_D3        ; QSF Assignment ;
+; Location ;                ;              ; vga_out_b[3]    ; PIN_E5        ; QSF Assignment ;
+; Location ;                ;              ; vga_out_b[4]    ; PIN_F6        ; QSF Assignment ;
+; Location ;                ;              ; vga_out_g[0]    ; PIN_F5        ; QSF Assignment ;
+; Location ;                ;              ; vga_out_g[1]    ; PIN_G5        ; QSF Assignment ;
+; Location ;                ;              ; vga_out_g[2]    ; PIN_F7        ; QSF Assignment ;
+; Location ;                ;              ; vga_out_g[3]    ; PIN_K8        ; QSF Assignment ;
+; Location ;                ;              ; vga_out_g[4]    ; PIN_L8        ; QSF Assignment ;
+; Location ;                ;              ; vga_out_g[5]    ; PIN_J6        ; QSF Assignment ;
+; Location ;                ;              ; vga_out_hs      ; PIN_L6        ; QSF Assignment ;
+; Location ;                ;              ; vga_out_r[0]    ; PIN_K6        ; QSF Assignment ;
+; Location ;                ;              ; vga_out_r[1]    ; PIN_K5        ; QSF Assignment ;
+; Location ;                ;              ; vga_out_r[2]    ; PIN_L7        ; QSF Assignment ;
+; Location ;                ;              ; vga_out_r[3]    ; PIN_L3        ; QSF Assignment ;
+; Location ;                ;              ; vga_out_r[4]    ; PIN_L4        ; QSF Assignment ;
+; Location ;                ;              ; vga_out_vs      ; PIN_N3        ; QSF Assignment ;
++----------+----------------+--------------+-----------------+---------------+----------------+
 
 
 +--------------------------------------------------------------------------------------------------+
@@ -1235,6 +1270,41 @@ Info (176233): Starting register packing
 Info (176235): Finished register packing
     Extra Info (176219): No registers were packed into other blocks
 Warning (15705): Ignored locations or region assignments to the following nodes
+    Warning (15706): Node "LRCLK" is assigned to location or region, but does not exist in design
+    Warning (15706): Node "MCLK" is assigned to location or region, but does not exist in design
+    Warning (15706): Node "SCLK" is assigned to location or region, but does not exist in design
+    Warning (15706): Node "audio_signal_1" is assigned to location or region, but does not exist in design
+    Warning (15706): Node "audio_signal_10" is assigned to location or region, but does not exist in design
+    Warning (15706): Node "audio_signal_11" is assigned to location or region, but does not exist in design
+    Warning (15706): Node "audio_signal_12" is assigned to location or region, but does not exist in design
+    Warning (15706): Node "audio_signal_13" is assigned to location or region, but does not exist in design
+    Warning (15706): Node "audio_signal_14" is assigned to location or region, but does not exist in design
+    Warning (15706): Node "audio_signal_15" is assigned to location or region, but does not exist in design
+    Warning (15706): Node "audio_signal_16" is assigned to location or region, but does not exist in design
+    Warning (15706): Node "audio_signal_17" is assigned to location or region, but does not exist in design
+    Warning (15706): Node "audio_signal_18" is assigned to location or region, but does not exist in design
+    Warning (15706): Node "audio_signal_19" is assigned to location or region, but does not exist in design
+    Warning (15706): Node "audio_signal_2" is assigned to location or region, but does not exist in design
+    Warning (15706): Node "audio_signal_20" is assigned to location or region, but does not exist in design
+    Warning (15706): Node "audio_signal_21" is assigned to location or region, but does not exist in design
+    Warning (15706): Node "audio_signal_22" is assigned to location or region, but does not exist in design
+    Warning (15706): Node "audio_signal_23" is assigned to location or region, but does not exist in design
+    Warning (15706): Node "audio_signal_24" is assigned to location or region, but does not exist in design
+    Warning (15706): Node "audio_signal_25" is assigned to location or region, but does not exist in design
+    Warning (15706): Node "audio_signal_26" is assigned to location or region, but does not exist in design
+    Warning (15706): Node "audio_signal_27" is assigned to location or region, but does not exist in design
+    Warning (15706): Node "audio_signal_28" is assigned to location or region, but does not exist in design
+    Warning (15706): Node "audio_signal_29" is assigned to location or region, but does not exist in design
+    Warning (15706): Node "audio_signal_3" is assigned to location or region, but does not exist in design
+    Warning (15706): Node "audio_signal_30" is assigned to location or region, but does not exist in design
+    Warning (15706): Node "audio_signal_31" is assigned to location or region, but does not exist in design
+    Warning (15706): Node "audio_signal_32" is assigned to location or region, but does not exist in design
+    Warning (15706): Node "audio_signal_4" is assigned to location or region, but does not exist in design
+    Warning (15706): Node "audio_signal_5" is assigned to location or region, but does not exist in design
+    Warning (15706): Node "audio_signal_6" is assigned to location or region, but does not exist in design
+    Warning (15706): Node "audio_signal_7" is assigned to location or region, but does not exist in design
+    Warning (15706): Node "audio_signal_8" is assigned to location or region, but does not exist in design
+    Warning (15706): Node "audio_signal_9" is assigned to location or region, but does not exist in design
     Warning (15706): Node "vga_out_b[0]" is assigned to location or region, but does not exist in design
     Warning (15706): Node "vga_out_b[1]" is assigned to location or region, but does not exist in design
     Warning (15706): Node "vga_out_b[2]" is assigned to location or region, but does not exist in design
@@ -1253,7 +1323,7 @@ Warning (15705): Ignored locations or region assignments to the following nodes
     Warning (15706): Node "vga_out_r[3]" is assigned to location or region, but does not exist in design
     Warning (15706): Node "vga_out_r[4]" is assigned to location or region, but does not exist in design
     Warning (15706): Node "vga_out_vs" is assigned to location or region, but does not exist in design
-Info (171121): Fitter preparation operations ending: elapsed time is 00:00:00
+Info (171121): Fitter preparation operations ending: elapsed time is 00:00:01
 Info (14896): Fitter has disabled Advanced Physical Optimization because it is not supported for the current family.
 Info (170189): Fitter placement preparation operations beginning
 Info (170190): Fitter placement preparation operations ending: elapsed time is 00:00:00
@@ -1267,12 +1337,12 @@ Info (170199): The Fitter performed an Auto Fit compilation.  Optimizations were
     Info (170201): Optimizations that may affect the design's routability were skipped
     Info (170200): Optimizations that may affect the design's timing were skipped
 Info (170194): Fitter routing operations ending: elapsed time is 00:00:00
-Info (11888): Total time spent on timing analysis during the Fitter is 0.00 seconds.
+Info (11888): Total time spent on timing analysis during the Fitter is 0.01 seconds.
 Info (334003): Started post-fitting delay annotation
 Info (334004): Delay annotation completed successfully
 Info (334003): Started post-fitting delay annotation
 Info (334004): Delay annotation completed successfully
-Info (11218): Fitter post-fit operations ending: elapsed time is 00:00:01
+Info (11218): Fitter post-fit operations ending: elapsed time is 00:00:00
 Warning (171167): Found invalid Fitter assignments. See the Ignored Assignments panel in the Fitter Compilation Report for more information.
 Warning (169177): 39 pins must meet Intel FPGA requirements for 3.3-, 3.0-, and 2.5-V interfaces. For more information, refer to AN 447: Interfacing Cyclone IV E Devices with 3.3/3.0/2.5-V LVTTL/LVCMOS I/O Systems.
     Info (169178): Pin key4 uses I/O standard 3.3-V LVTTL at E16 File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 21
@@ -1337,10 +1407,10 @@ Warning (169064): Following 21 pins have no output enable or a GND or VCC output
     Info (169065): Pin sdram_dq[14] has a permanently disabled output enable File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 54
     Info (169065): Pin sdram_dq[15] has a permanently disabled output enable File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 54
 Info (144001): Generated suppressed messages file /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/output_files/top.fit.smsg
-Info: Quartus Prime Fitter was successful. 0 errors, 27 warnings
-    Info: Peak virtual memory: 1948 megabytes
-    Info: Processing ended: Tue Jan 23 18:19:41 2024
-    Info: Elapsed time: 00:00:02
+Info: Quartus Prime Fitter was successful. 0 errors, 62 warnings
+    Info: Peak virtual memory: 1955 megabytes
+    Info: Processing ended: Thu Jan 25 17:52:20 2024
+    Info: Elapsed time: 00:00:06
     Info: Total CPU time (on all processors): 00:00:03
 
 

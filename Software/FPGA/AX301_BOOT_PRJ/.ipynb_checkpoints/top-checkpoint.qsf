@@ -1,47 +1,9 @@
-# -------------------------------------------------------------------------- #
-#
-# Copyright (C) 2017  Intel Corporation. All rights reserved.
-# Your use of Intel Corporation's design tools, logic functions 
-# and other software and tools, and its AMPP partner logic 
-# functions, and any output files from any of the foregoing 
-# (including device programming or simulation files), and any 
-# associated documentation or information are expressly subject 
-# to the terms and conditions of the Intel Program License 
-# Subscription Agreement, the Intel Quartus Prime License Agreement,
-# the Intel FPGA IP License Agreement, or other applicable license
-# agreement, including, without limitation, that your use is for
-# the sole purpose of programming logic devices manufactured by
-# Intel and sold by Intel or its authorized distributors.  Please
-# refer to the applicable agreement for further details.
-#
-# -------------------------------------------------------------------------- #
-#
-# Quartus Prime
-# Version 17.1.0 Build 590 10/25/2017 SJ Lite Edition
-# Date created = 11:06:22  January 26, 2018
-#
-# -------------------------------------------------------------------------- #
-#
-# Notes:
-#
-# 1) The default values for assignments are stored in the file:
-#		top_assignment_defaults.qdf
-#    If this file doesn't exist, see file:
-#		assignment_defaults.qdf
-#
-# 2) Altera recommends that you do not modify this file. This
-#    file is updated automatically by the Quartus Prime software
-#    and any changes you make may be lost or overwritten.
-#
-# -------------------------------------------------------------------------- #
-
-
 set_global_assignment -name FAMILY "Cyclone IV E"
 set_global_assignment -name DEVICE EP4CE6F17C8
 set_global_assignment -name TOP_LEVEL_ENTITY top
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 17.1.0
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "11:06:22  JANUARY 26, 2018"
-set_global_assignment -name LAST_QUARTUS_VERSION "17.1.0 Lite Edition"
+set_global_assignment -name LAST_QUARTUS_VERSION "21.1.0 Lite Edition"
 set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
 set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
 set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
@@ -131,6 +93,43 @@ set_location_assignment PIN_M1 -to cmos_db[3]
 set_location_assignment PIN_G2 -to cmos_db[2]
 set_location_assignment PIN_M6 -to cmos_db[1]
 set_location_assignment PIN_L2 -to cmos_db[0]
+
+set_location_assignment pin_a2 -to SCLK 
+set_location_assignment pin_a3 -to LRCLK 
+set_location_assignment pin_b5 -to MCLK 
+set_location_assignment PIN_A5 -to audio_signal_1
+set_location_assignment PIN_B6 -to audio_signal_2
+set_location_assignment PIN_A6 -to audio_signal_3
+set_location_assignment PIN_B7 -to audio_signal_4
+set_location_assignment PIN_A7 -to audio_signal_5
+set_location_assignment PIN_B8 -to audio_signal_6
+set_location_assignment PIN_A8 -to audio_signal_7
+set_location_assignment PIN_B9 -to audio_signal_8
+set_location_assignment PIN_A9 -to audio_signal_9
+set_location_assignment PIN_B10 -to audio_signal_10
+set_location_assignment PIN_A10 -to audio_signal_11
+set_location_assignment PIN_B11 -to audio_signal_12
+set_location_assignment PIN_A11 -to audio_signal_13
+set_location_assignment PIN_B12 -to audio_signal_14
+set_location_assignment PIN_A12 -to audio_signal_15
+set_location_assignment PIN_B13 -to audio_signal_16
+set_location_assignment PIN_A13 -to audio_signal_17
+set_location_assignment PIN_D5 -to audio_signal_18
+set_location_assignment PIN_D6 -to audio_signal_19
+set_location_assignment PIN_C6 -to audio_signal_20
+set_location_assignment PIN_E7 -to audio_signal_21
+set_location_assignment PIN_F8 -to audio_signal_22
+set_location_assignment PIN_C8 -to audio_signal_23
+set_location_assignment PIN_D8 -to audio_signal_24
+set_location_assignment PIN_P1 -to audio_signal_25
+set_location_assignment PIN_N2 -to audio_signal_26
+set_location_assignment PIN_R1 -to audio_signal_27
+set_location_assignment PIN_P2 -to audio_signal_28
+set_location_assignment PIN_K9 -to audio_signal_29
+set_location_assignment PIN_R8 -to audio_signal_30
+set_location_assignment PIN_L10 -to audio_signal_31
+set_location_assignment PIN_L9 -to audio_signal_32
+
 set_location_assignment PIN_G1 -to cmos_pclk
 set_location_assignment PIN_F1 -to cmos_scl
 set_location_assignment PIN_F3 -to cmos_sda
@@ -178,53 +177,28 @@ set_location_assignment PIN_K6 -to vga_out_r[0]
 set_location_assignment PIN_N3 -to vga_out_vs
 set_location_assignment PIN_N6 -to cmos_rst_n
 set_location_assignment PIN_M7 -to cmos_pwdn
-set_global_assignment -name VERILOG_FILE i2c_master/i2c_master_top.v
-set_global_assignment -name VERILOG_FILE i2c_master/i2c_master_defines.v
-set_global_assignment -name VERILOG_FILE i2c_master/i2c_master_byte_ctrl.v
-set_global_assignment -name VERILOG_FILE i2c_master/i2c_master_bit_ctrl.v
-set_global_assignment -name VERILOG_FILE ov5640_src/power_on_delay.v
-set_global_assignment -name VERILOG_FILE i2c_master/i2c_com.v
-set_global_assignment -name VERILOG_FILE buzzer_src/ax_pwm.v
-set_global_assignment -name VERILOG_FILE sdbmp_src/bmp_read.v
-set_global_assignment -name VERILOG_FILE sdbmp_src/top.v
-set_global_assignment -name VERILOG_FILE sdbmp_src/sd_card/sd_card_top.v
-set_global_assignment -name VERILOG_FILE sdbmp_src/sd_card/sd_card_sec_read_write.v
-set_global_assignment -name VERILOG_FILE sdbmp_src/sd_card/sd_card_cmd.v
-set_global_assignment -name VERILOG_FILE sdbmp_src/sd_card_bmp.v
-set_global_assignment -name VERILOG_FILE uart_src/uart_tx.v
-set_global_assignment -name VERILOG_FILE uart_src/uart_test.v
-set_global_assignment -name VERILOG_FILE uart_src/uart_rx.v
-set_global_assignment -name VERILOG_FILE buzzer_src/music_top.v
-set_global_assignment -name VERILOG_FILE buzzer_src/music_rom.v
-set_global_assignment -name VERILOG_FILE buzzer_src/music_hz.v
-set_global_assignment -name VERILOG_FILE rtc_src/top.v
-set_global_assignment -name VERILOG_FILE rtc_src/seg_bcd.v
-set_global_assignment -name VERILOG_FILE rtc_src/ds1302_test.v
-set_global_assignment -name VERILOG_FILE rtc_src/ds1302_io.v
-set_global_assignment -name VERILOG_FILE rtc_src/ds1302.v
-set_global_assignment -name VERILOG_FILE seg_src/seg_scan.v
-set_global_assignment -name VERILOG_FILE seg_src/seg_decoder.v
-set_global_assignment -name VERILOG_FILE ov5640_src/ip_core/video_pll.v
-set_global_assignment -name VERILOG_FILE ov5640_src/ip_core/sys_pll.v
-set_global_assignment -name VERILOG_FILE ov5640_src/ip_core/afifo_16_512.v
-set_global_assignment -name VERILOG_FILE ov5640_src/sdram/sdram_core.v
-set_global_assignment -name VERILOG_FILE ov5640_src/video_timing_data.v
-set_global_assignment -name VERILOG_FILE ov5640_src/video_define.v
-set_global_assignment -name VERILOG_FILE ov5640_src/top.v
-set_global_assignment -name VERILOG_FILE ov5640_src/lut_ov5640_rgb565_1024_768.v
-set_global_assignment -name VERILOG_FILE ov5640_src/frame_read_write.v
-set_global_assignment -name VERILOG_FILE ov5640_src/frame_fifo_write.v
-set_global_assignment -name VERILOG_FILE ov5640_src/frame_fifo_read.v
-set_global_assignment -name VERILOG_FILE ov5640_src/color_bar.v
-set_global_assignment -name VERILOG_FILE ov5640_src/cmos_write_req_gen.v
-set_global_assignment -name VERILOG_FILE ov5640_src/cmos_8_16bit.v
-set_global_assignment -name SDC_FILE SDC1.sdc
-set_global_assignment -name VERILOG_FILE i2c_master/timescale.v
-set_global_assignment -name VERILOG_FILE i2c_master/i2c_config.v
-set_global_assignment -name VERILOG_FILE spi_master.v
-set_global_assignment -name VERILOG_FILE ax_debounce.v
-set_global_assignment -name VERILOG_FILE eeprom_src/key_debounce.v
-set_global_assignment -name VERILOG_FILE eeprom_src/i2c_eeprom_test.v
-set_global_assignment -name VERILOG_FILE top.v
+set_global_assignment -name EDA_SIMULATION_TOOL "ModelSim (SystemVerilog)"
+set_global_assignment -name EDA_TIME_SCALE "1 ps" -section_id eda_simulation
+set_global_assignment -name EDA_OUTPUT_DATA_FORMAT "SYSTEMVERILOG HDL" -section_id eda_simulation
+set_global_assignment -name EDA_TEST_BENCH_ENABLE_STATUS TEST_BENCH_MODE -section_id eda_simulation
+set_global_assignment -name EDA_NATIVELINK_SIMULATION_TEST_BENCH tb1 -section_id eda_simulation
+set_global_assignment -name EDA_TEST_BENCH_NAME tb1 -section_id eda_simulation
+set_global_assignment -name EDA_DESIGN_INSTANCE_NAME NA -section_id tb1
+set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME tb1 -section_id tb1
+set_global_assignment -name EDA_TEST_BENCH_FILE tb.sv -section_id tb1
+set_global_assignment -name SYSTEMVERILOG_FILE tb.sv
+set_global_assignment -name SYSTEMVERILOG_FILE i2c_master/timescale.sv
+set_global_assignment -name SYSTEMVERILOG_FILE i2c_master/lut_ov5640_rgb565_1024_768.sv
+set_global_assignment -name SYSTEMVERILOG_FILE i2c_master/i2c_master_top.sv
+set_global_assignment -name SYSTEMVERILOG_FILE i2c_master/i2c_master_defines.sv
+set_global_assignment -name SYSTEMVERILOG_FILE i2c_master/i2c_master_byte_ctrl.sv
+set_global_assignment -name SYSTEMVERILOG_FILE i2c_master/i2c_master_bit_ctrl.sv
+set_global_assignment -name SYSTEMVERILOG_FILE i2c_master/i2c_config.sv
+set_global_assignment -name SYSTEMVERILOG_FILE source/uart_tx.sv
+set_global_assignment -name SYSTEMVERILOG_FILE source/uart_rx.sv
+set_global_assignment -name SYSTEMVERILOG_FILE i2c_master/i2c_com.sv
+set_global_assignment -name SYSTEMVERILOG_FILE top.sv
+set_global_assignment -name SYSTEMVERILOG_FILE i2s_tx.sv
+set_global_assignment -name SYSTEMVERILOG_FILE ax_debounce.sv
+set_global_assignment -name SYSTEMVERILOG_FILE my_design_tb.sv
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
-set_global_assignment -name SLD_FILE db/stp1_auto_stripped.stp

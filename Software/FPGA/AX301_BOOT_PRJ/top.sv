@@ -50,8 +50,9 @@ module top(
 	    output  [1:0]              sdram_ba,          //sdram bank address
 	    output  [12:0]             sdram_addr,        //sdram address
 	    inout   [15:0]             sdram_dq           //sdram data  
-	 
+	
 );
+
 
 // Declare uart_rx to i2s_tx interface signals
 wire [7:0] audio_data[31:0];  // Unpacked array of 32 channels (8 bits each)
@@ -150,6 +151,8 @@ wire  [9:0]     ov_wr_burst_len;
 wire  [23:0]    ov_rd_burst_addr;
 wire  [23:0]    ov_wr_burst_addr; 
 wire  [15: 0]   ov_wr_burst_data;    
+
+
 
 //assign rd_burst_req  = (current_state == sd_mode)? sd_rd_burst_req  : ov_rd_burst_req  ; 
 //assign wr_burst_req  = (current_state == sd_mode)? sd_wr_burst_req  : ov_wr_burst_req  ; 

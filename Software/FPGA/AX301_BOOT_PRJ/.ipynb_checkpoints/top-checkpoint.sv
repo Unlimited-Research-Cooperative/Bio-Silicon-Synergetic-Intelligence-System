@@ -50,33 +50,43 @@ module top(
 	    output  [1:0]              sdram_ba,          //sdram bank address
 	    output  [12:0]             sdram_addr,        //sdram address
 	    inout   [15:0]             sdram_dq           //sdram data  
-	 
+	
+// Internal clock signal
+wire internal_clk;
+wire pll_locked;
+
+// Instantiate the PLL and configure it
+// (Assuming PLL module name is my_pll and the output clock name is pll_clk)
+my_pll pll_inst(
+    .inclk0(clk),  // Assuming 'clk' is your base clock input
+    .c0(internal_clk), // This will be our output clock to DAC
+    .locked(pll_locked)
 );
 
 // Declare uart_rx to i2s_tx interface signals
-wire [255:0] audio_data;  // Array of 32 channels (8 bits each)
+wire [7:0] audio_data[31:0];  // Unpacked array of 32 channels (8 bits each)
 wire uart_data_ready;         // UART data ready signal
 reg i2s_data_acknowledge;     // I2S data acknowledge signal
 
-    // UART Receiver instance
-    uart_rx uart_receiver_inst (
-        .clk(clk),               // Connect to system clock
-        .rst_n(rst_n),           // Connect to reset signal
-        .rx_pin(uart_rx),        // Connect to UART RX pin
-        .rx_data(rx_data),       // Connect received data output
-        .rx_data_valid(rx_data_valid), // Connect data valid output
-        .out_channel_data(audio_data) // Connect the channel data to audio_data
-);    
+// Instance of uart_rx
+uart_rx uart_receiver_inst (
+    .clk(clk),
+    .rst_n(rst_n),
+    .rx_pin(uart_rx),
+    .out_channel_data(audio_data),  // 32 channels of audio data
+    .data_ready(uart_data_ready),   // Data ready signal from uart_rx
+    .data_acknowledge(i2s_data_acknowledge)  // Acknowledge signal to uart_rx
+);
 
-	// I2S Transmitter instance with updated sample rate
-    i2s_tx i2s_transmitter_inst (
-        .clk(clk),                 // System clock
-        .reset(~rst_n),            // Active-low reset
-        .audio_data(audio_data),   // Audio data source
-        .bclk(i2s_bclk),           // I2S bit clock output
-        .lrclk(i2s_lrclk),         // I2S left/right clock output
-        .sdata(i2s_sdata),          // I2S serial data output
-        .audio_data(audio_data) // Connect audio_data to the i2s transmitter
+
+// I2S Transmitter instance
+i2s_tx i2s_transmitter_inst (
+    .clk(clk),
+    .reset(~rst_n),
+    .audio_data(audio_data),   // Audio data from uart_rx
+    .bclk(i2s_bclk),
+    .lrclk(i2s_lrclk),
+    .sdata(i2s_sdata)
 );
     
 localparam    idle           = 2'd0 ;
@@ -107,7 +117,6 @@ reg             sdram_rst_n ;
 
 reg [3:0]       sdram_rst_cnt ;
 
-
 reg  [3:0]      led_reg           ;
 
 reg             button_negedge4_d0 ;
@@ -122,8 +131,6 @@ wire            color_vs  ;
 wire [4:0]      color_r   ;
 wire [5:0]      color_g   ;
 wire [4:0]      color_b   ;
-
-
 
 wire            wr_burst_data_req;
 wire            wr_burst_finish;
@@ -153,6 +160,9 @@ wire  [9:0]     ov_wr_burst_len;
 wire  [23:0]    ov_rd_burst_addr;
 wire  [23:0]    ov_wr_burst_addr; 
 wire  [15: 0]   ov_wr_burst_data;    
+
+
+assign PIN_P8 = internal_clk;
 
 //assign rd_burst_req  = (current_state == sd_mode)? sd_rd_burst_req  : ov_rd_burst_req  ; 
 //assign wr_burst_req  = (current_state == sd_mode)? sd_wr_burst_req  : ov_wr_burst_req  ; 
@@ -212,8 +222,6 @@ begin
 	 wr_burst_data <= ov_wr_burst_data ;	 
   end 
 end  
-
-    
 
    
 assign led = led_reg ;
@@ -415,154 +423,5 @@ begin
   else
     sdram_rst_cnt <= sdram_rst_cnt + 1'b1 ;
 end
-
-color_bar color_bar_t0
-(
-	.clk              (video_clk),
-	.rst              (~rst_n  ),
-	.hs               (color_hs),
-	.vs               (color_vs),
-	.de               (        ),
-	.rgb_r            (color_r),
-	.rgb_g            (color_g),
-	.rgb_b            (color_b)
-);
-			   
-ds1302_top ds1302_dut
-(
-    .clk                 (clk),   
-    .rst_n               (rst_n),
-    .rtc_sclk            (rtc_sclk),
-    .rtc_ce              (rtc_ce),
-    .rtc_data            (rtc_data),
-    .seg_sel             (rtc_seg_sel),
-    .seg_data            (rtc_seg_data)	
-);
-	
-i2c_eeprom_test eeprom_dut
-(
-    .clk                 (clk),   
-    .rst_n               (rst_n),
-    .button_negedge      (button_negedge3_d0),
-    .i2c_sda             (i2c_sda),
-    .i2c_scl             (i2c_scl),
-    .seg_sel             (eeprom_seg_sel),
-    .seg_data            (eeprom_seg_data)
-);
-
-uart_test uart0(
-	.clk                  (clk),   
-   .rst_n                (rst_n),
-	.uart_rx              (uart_rx),
-	.uart_tx              (uart_tx)
-); 
-
-//generate SD card controller clock and  SDRAM controller clock
-sys_pll sys_pll_m0(
-	.inclk0                     (clk),
-	.c0                         (sd_card_clk),
-	.c1                         (ext_mem_clk)
-	);
-
-//generate video pixel clock	
-video_pll video_pll_m0(
-	.inclk0                     (clk),
-	.c0                         (video_clk)
-	);
-
-sdbmp_top sdbmp_dut
-(
-	.clk                  (clk               ),   
-   .rst_n                (sdbmp_rst_n       ),
-   .button_negedge       (button_negedge4   ), 
-	.seg_sel              (sd_seg_sel       ),
-   .seg_data             (sd_seg_data      ), 
-	.sd_ncs              (SD_nCS        ),
-	.sd_dclk             (SD_DCLK       ),
-	.sd_mosi             (SD_MOSI       ),
-	.sd_miso             (SD_MISO       ),	
-	
-
-	.sd_card_clk          (sd_card_clk      ),
-	.video_clk            (video_clk        ),
-	.ext_mem_clk          (ext_mem_clk      ),
-	
-	.rd_burst_req               (sd_rd_burst_req             ),
-	.rd_burst_len               (sd_rd_burst_len             ),
-	.rd_burst_addr              (sd_rd_burst_addr            ),
-	.rd_burst_data_valid        (rd_burst_data_valid      ),
-	.rd_burst_data              (rd_burst_data            ),
-	.rd_burst_finish            (rd_burst_finish          ),
-	.wr_burst_req               (sd_wr_burst_req             ),
-	.wr_burst_len               (sd_wr_burst_len             ),
-	.wr_burst_addr              (sd_wr_burst_addr            ),
-	.wr_burst_data_req          (wr_burst_data_req        ),
-	.wr_burst_data              (sd_wr_burst_data            ),
-	.wr_burst_finish            (wr_burst_finish          )
-
-
-);	
-
-ov5640_top ov5640_dut
-(
-	.clk                  (clk           ),   
-   .rst_n                (ov_rst_n        ),
-	.cmos_scl             (cmos_scl      ),          //cmos i2c clock
-	.cmos_sda             (cmos_sda      ),          //cmos i2c data
-	.cmos_vsync           (cmos_vsync    ),        //cmos vsync
-	.cmos_href            (cmos_href     ),         //cmos hsync refrence,data valid
-	.cmos_pclk            (cmos_pclk     ),         //cmos pxiel clock
-	.cmos_24m             (sd_card_clk     ),         //cmos externl clock
-	.cmos_db              (cmos_db       ),           //cmos data
-	.cmos_rst_n           (cmos_rst_n    ),        //cmos reset
-	.cmos_pwdn            (cmos_pwdn     ),         //cmos power down	
-
-	.video_clk            (video_clk        ),
-	.ext_mem_clk          (ext_mem_clk      ),
-	
-	.rd_burst_req               (ov_rd_burst_req             ),
-	.rd_burst_len               (ov_rd_burst_len             ),
-	.rd_burst_addr              (ov_rd_burst_addr            ),
-	.rd_burst_data_valid        (rd_burst_data_valid      ),
-	.rd_burst_data              (rd_burst_data            ),
-	.rd_burst_finish            (rd_burst_finish          ),
-	.wr_burst_req               (ov_wr_burst_req             ),
-	.wr_burst_len               (ov_wr_burst_len             ),
-	.wr_burst_addr              (ov_wr_burst_addr            ),
-	.wr_burst_data_req          (wr_burst_data_req        ),
-	.wr_burst_data              (ov_wr_burst_data            ),
-	.wr_burst_finish            (wr_burst_finish          )
-
-);		
-
-//sdram controller
-sdram_core sdram_core_m0
-(
-	.rst                        (~sdram_rst_n             ),
-	.clk                        (ext_mem_clk              ),
-	.rd_burst_req               (rd_burst_req             ),
-	.rd_burst_len               (rd_burst_len             ),
-	.rd_burst_addr              (rd_burst_addr            ),
-	.rd_burst_data_valid        (rd_burst_data_valid      ),
-	.rd_burst_data              (rd_burst_data            ),
-	.rd_burst_finish            (rd_burst_finish          ),
-	.wr_burst_req               (wr_burst_req             ),
-	.wr_burst_len               (wr_burst_len             ),
-	.wr_burst_addr              (wr_burst_addr            ),
-	.wr_burst_data_req          (wr_burst_data_req        ),
-	.wr_burst_data              (wr_burst_data            ),
-	.wr_burst_finish            (wr_burst_finish          ),
-	.sdram_cke                  (sdram_cke                ),
-	.sdram_cs_n                 (sdram_cs_n               ),
-	.sdram_ras_n                (sdram_ras_n              ),
-	.sdram_cas_n                (sdram_cas_n              ),
-	.sdram_we_n                 (sdram_we_n               ),
-	.sdram_dqm                  (sdram_dqm                ),
-	.sdram_ba                   (sdram_ba                 ),
-	.sdram_addr                 (sdram_addr               ),
-	.sdram_dq                   (sdram_dq                 )
-
-);
-
 
 endmodule

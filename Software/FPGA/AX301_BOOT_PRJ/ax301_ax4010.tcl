@@ -132,6 +132,60 @@ set_location_assignment PIN_K2 -to cmos_xclk
 set_location_assignment PIN_N6 -to cmos_rst_n
 set_location_assignment PIN_M7 -to cmos_pwdn
 
+#wm8731 audio module an831 on J2
+
+# set_location_assignment pin_b4 -to wm8731_adcdat
+# set_location_assignment pin_a2 -to wm8731_bclk
+# set_location_assignment pin_b3 -to wm8731_dacdat
+# set_location_assignment pin_a3 -to wm8731_daclrc
+# set_location_assignment pin_b1 -to wm8731_scl
+# set_location_assignment pin_c2 -to wm8731_sda
+# set_location_assignment pin_b5 -to wm8731_adclrc
+
+#neuromimetic stimulation module
+set_location_assignment pin_a2 -to SCLK # Bit Clock which is the clock signal that toggles on each bit of the audio data, controls CS4344
+set_location_assignment pin_a3 -to LRCLK # Word Select or Left/Right Clock (LRCLK) which indicates whether the current audio data word is for the left or right channel, should map to LRCLK on the CS4344
+set_location_assignment pin_b5 -to MCLK # Master Clock for CS4344
+set_location_assignment PIN_A5 -to audio_signal_1
+set_location_assignment PIN_B6 -to audio_signal_2
+set_location_assignment PIN_A6 -to audio_signal_3
+set_location_assignment PIN_B7 -to audio_signal_4
+set_location_assignment PIN_A7 -to audio_signal_5
+set_location_assignment PIN_B8 -to audio_signal_6
+set_location_assignment PIN_A8 -to audio_signal_7
+set_location_assignment PIN_B9 -to audio_signal_8
+set_location_assignment PIN_A9 -to audio_signal_9
+set_location_assignment PIN_B10 -to audio_signal_10
+set_location_assignment PIN_A10 -to audio_signal_11
+set_location_assignment PIN_B11 -to audio_signal_12
+set_location_assignment PIN_A11 -to audio_signal_13
+set_location_assignment PIN_B12 -to audio_signal_14
+set_location_assignment PIN_A12 -to audio_signal_15
+set_location_assignment PIN_B13 -to audio_signal_16
+set_location_assignment PIN_A13 -to audio_signal_17
+set_location_assignment PIN_D5 -to audio_signal_18
+set_location_assignment PIN_D6 -to audio_signal_19
+set_location_assignment PIN_C6 -to audio_signal_20
+set_location_assignment PIN_E7 -to audio_signal_21
+set_location_assignment PIN_F8 -to audio_signal_22
+set_location_assignment PIN_C8 -to audio_signal_23
+set_location_assignment PIN_D8 -to audio_signal_24
+set_location_assignment PIN_P1 -to audio_signal_25
+set_location_assignment PIN_N2 -to audio_signal_26
+set_location_assignment PIN_R1 -to audio_signal_27
+set_location_assignment PIN_P2 -to audio_signal_28
+set_location_assignment PIN_K9 -to audio_signal_29
+set_location_assignment PIN_R8 -to audio_signal_30
+set_location_assignment PIN_L10 -to audio_signal_31
+set_location_assignment PIN_L9 -to audio_signal_32
+
+# set_location_assignment pin_b4 -to wm8731_adcdat
+# set_location_assignment pin_b3 -to wm8731_dacdat # DAC Data Input (SDIN on some DACs) which carries the actual audio data to be converted to an analog signal
+# set_location_assignment pin_b1 -to wm8731_scl # SCL line for I2C communication, used for control settings of the codec
+# set_location_assignment pin_c2 -to wm8731_sda # SDA line for I2C communication, used for control settings of the codec
+
+
+
 #lcd an430 J2
 
 # set_location_assignment PIN_A12 -to lcd_b[7]
@@ -189,19 +243,14 @@ set_location_assignment PIN_M7 -to cmos_pwdn
 # set_location_assignment PIN_F8 -to lcd_r[2]
 # set_location_assignment PIN_C8 -to lcd_r[1]
 # set_location_assignment PIN_D8 -to lcd_r[0]
+
 # set_location_assignment PIN_B5 -to lcd_dclk
 # set_location_assignment PIN_A4 -to lcd_de
 # set_location_assignment PIN_B4 -to lcd_hs
 # set_location_assignment PIN_C2 -to lcd_pwm
 # set_location_assignment PIN_A3 -to lcd_vs
 
-#wm8731 audio module an831 on J2
 
-# set_location_assignment pin_b4 -to wm8731_adcdat
-# set_location_assignment pin_a2 -to wm8731_bclk
-# set_location_assignment pin_b3 -to wm8731_dacdat
-# set_location_assignment pin_a3 -to wm8731_daclrc
-# set_location_assignment pin_b1 -to wm8731_scl
-# set_location_assignment pin_c2 -to wm8731_sda
-# set_location_assignment pin_b5 -to wm8731_adclrc
+
+
 
