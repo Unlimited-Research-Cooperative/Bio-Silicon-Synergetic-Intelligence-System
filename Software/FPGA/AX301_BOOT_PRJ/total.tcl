@@ -69,9 +69,9 @@ set_location_assignment PIN_E15 -to key4
 
 
 #neuromimetic signals pins
-set_location_assignment pin_a2 -to SCLK # Bit Clock which is the clock signal that toggles on each bit of the audio data, controls CS4344
-set_location_assignment pin_a3 -to LRCLK # Word Select or Left/Right Clock (LRCLK) which indicates whether the current audio data word is for the left or right channel, should map to LRCLK on the CS4344
-set_location_assignment pin_b5 -to MCLK # Master Clock for CS4344
+set_location_assignment pin_a2 -to SCLK
+set_location_assignment pin_a3 -to LRCLK
+set_location_assignment pin_b5 -to MCLK
 set_location_assignment PIN_A5 -to audio_signal_1
 set_location_assignment PIN_B6 -to audio_signal_2
 set_location_assignment PIN_A6 -to audio_signal_3

@@ -1,5 +1,5 @@
 Fitter report for top
-Thu Jan 25 20:34:00 2024
+Sun Jan 28 15:19:58 2024
 Quartus Prime Version 21.1.0 Build 842 10/21/2021 SJ Lite Edition
 
 
@@ -61,7 +61,7 @@ https://fpgasoftware.intel.com/eula.
 +----------------------------------------------------------------------------------+
 ; Fitter Summary                                                                   ;
 +------------------------------------+---------------------------------------------+
-; Fitter Status                      ; Successful - Thu Jan 25 20:34:00 2024       ;
+; Fitter Status                      ; Successful - Sun Jan 28 15:19:58 2024       ;
 ; Quartus Prime Version              ; 21.1.0 Build 842 10/21/2021 SJ Lite Edition ;
 ; Revision Name                      ; top                                         ;
 ; Top-level Entity Name              ; top                                         ;
@@ -148,12 +148,12 @@ https://fpgasoftware.intel.com/eula.
 ; Number detected on machine ; 32          ;
 ; Maximum allowed            ; 16          ;
 ;                            ;             ;
-; Average used               ; 1.02        ;
+; Average used               ; 1.10        ;
 ; Maximum used               ; 16          ;
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processors 2-16        ;   0.1%      ;
+;     Processors 2-16        ;   0.7%      ;
 +----------------------------+-------------+
 
 
@@ -1323,7 +1323,7 @@ Warning (15705): Ignored locations or region assignments to the following nodes
     Warning (15706): Node "vga_out_r[3]" is assigned to location or region, but does not exist in design
     Warning (15706): Node "vga_out_r[4]" is assigned to location or region, but does not exist in design
     Warning (15706): Node "vga_out_vs" is assigned to location or region, but does not exist in design
-Info (171121): Fitter preparation operations ending: elapsed time is 00:00:00
+Info (171121): Fitter preparation operations ending: elapsed time is 00:00:01
 Info (14896): Fitter has disabled Advanced Physical Optimization because it is not supported for the current family.
 Info (170189): Fitter placement preparation operations beginning
 Info (170190): Fitter placement preparation operations ending: elapsed time is 00:00:00
@@ -1337,7 +1337,7 @@ Info (170199): The Fitter performed an Auto Fit compilation.  Optimizations were
     Info (170201): Optimizations that may affect the design's routability were skipped
     Info (170200): Optimizations that may affect the design's timing were skipped
 Info (170194): Fitter routing operations ending: elapsed time is 00:00:00
-Info (11888): Total time spent on timing analysis during the Fitter is 0.00 seconds.
+Info (11888): Total time spent on timing analysis during the Fitter is 0.02 seconds.
 Info (334003): Started post-fitting delay annotation
 Info (334004): Delay annotation completed successfully
 Info (334003): Started post-fitting delay annotation
@@ -1408,9 +1408,9 @@ Warning (169064): Following 21 pins have no output enable or a GND or VCC output
     Info (169065): Pin sdram_dq[15] has a permanently disabled output enable File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 54
 Info (144001): Generated suppressed messages file /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/output_files/top.fit.smsg
 Info: Quartus Prime Fitter was successful. 0 errors, 62 warnings
-    Info: Peak virtual memory: 1945 megabytes
-    Info: Processing ended: Thu Jan 25 20:34:00 2024
-    Info: Elapsed time: 00:00:02
+    Info: Peak virtual memory: 1949 megabytes
+    Info: Processing ended: Sun Jan 28 15:19:58 2024
+    Info: Elapsed time: 00:00:06
     Info: Total CPU time (on all processors): 00:00:03
 
 

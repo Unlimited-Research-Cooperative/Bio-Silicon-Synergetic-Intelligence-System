@@ -39,9 +39,9 @@ Our methodology is deeply rooted in bidirectional communication, leveraging AI t
 ## System Configuration
 
 - **Brain Surface Communication**: Neural activities are mapped via AI, translating into game movements and vice versa.
-- **Signal Transmission**: The process begins with brain surface signals, transmitted through dual Cyton+Daisy OpenBCI boards, to BrainFlow for acquisition, then into our custom software for analysis.
-- **Neuromimetic Feedback**: Neural signals are decoded into game actions, with game and in-game rat movement data (facilitating a self-loop learning concept) encoded back into neuromimetic signals. These signals are then fed back into the rat brain, synchronized with output signals via a USB to TTL ft232rl connected to a CycloneIV FPGA board.
-- **Signal Processing**: The FPGA board employs UART for ft232rl and I2S for CS4344s, sending 32 signals to 16 CS4344s. These stereo outputs connect to 32 AD620s, followed by resistors for voltage division to match ECoG voltage levels.
+- **Signal Transmission**: The process begins with brain surface signals, transmitted through FreeEEG32 boards, to BrainFlow for acquisition, then into our custom software for analysis.
+- **Neuromimetic Feedback**: Neural signals are decoded into game actions, with game and in-game rat movement data (facilitating a self-loop learning concept) encoded back into neuromimetic signals. These signals are then fed back into the rat brain, connected to a CycloneIV FPGA board.
+- **Signal Processing**: The FPGA board employs UART USB and I2S for CS4344s, sending 32 signals to 16 CS4344s. These stereo outputs connect to 32 AD620s, followed by resistors for voltage division to match ECoG voltage levels.
 
 ## Microelectrode Array (MEA) Specifications
 
@@ -105,12 +105,6 @@ We're reaching out to like-minded researchers and innovators to join us on this 
 - **Discord**: Connect with us on [Discord](https://discord.gg/GVyaBEjCY2) and become part of a vibrant community shaping the future.
 
 
-## 📊 Project Status
-- [x] Phase 1: Prototype BCI & MEA development.
-- [ ] Phase 2: Implantation into neonatal rats.
-- [ ] Phase 3: Neural-computational language refinement.
-- [ ] Phase 4: Human cortical organoid transplantation into neonatal rats.
-- [ ] Phase 5: Augmented system refinement.
 
 <h1 align="center">System Highlevel Schematic</h1>
 <p align="center">

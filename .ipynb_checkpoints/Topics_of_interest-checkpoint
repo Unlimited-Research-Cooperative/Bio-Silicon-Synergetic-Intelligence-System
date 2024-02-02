@@ -1,0 +1,67 @@
+autopoesia
+reducing prediction error:
+bayesian filtering
+predictive coding
+markov blankets in the ECoG data
+bayesian belief updating:
+predictive coding with reflexes
+second order prediction errors
+action, perception, expectation	
+active inference
+free energy minimization, external states
+descending proprioceptive predictions
+corollary discharge visual predictions
+hetero clinic cycle (central pattern generator)
+action-observation
+active planning as inference
+epexted free energy minimization
+complexity, accuracy
+divergence, log-evidence
+risk, ambiguity
+intrinsic value, extrinsic value
+negative free energy, evidence bound
+KL or risk-sensitive control
+bayesian surprise and infomax
+mutual information
+expected utility theory
+active sampling
+stimulus, visual input, salience
+multi objective cost functions and optimizing
+factor graph
+generative neural networks
+attention mechanisms
+transformer neural networks
+Adaptive Learning
+Using predictions to efficiently encode neural activity
+Continuously updating the predictive models to adapt to changes in neural activity patterns
+Error Minimization
+predictive model
+Geodesic Paths
+Modeling Neural Manifolds
+Curvature Analysis
+Persistent Homology to identify stable and robust features in the neural activity
+Betti Numbers to quantify the topological complexity of neural activity patterns
+Mapper Algorithm to create simplified representations of high-dimensional neural data
+Probabilistic Inference on Manifolds: Extend Bayesian filtering and predictive coding frameworks to operate on curved spaces, taking into account the geometric structure of neural manifolds
+Topological Analysis
+Topology-Informed Machine Learning: use topological features as inputs to machine learning models for decoding neural intentions
+Geometric Learning algorithms that are aware of the curved structure of neural spaces, making sure updates and adaptations respect the manifold structure
+Topological Regularization 
+Topological Summaries
+Attractors
+Stable States
+Transition Dynamics
+Modeling Neural Plasticity
+Manifold Learning
+Symbolic Dynamics
+Stable states in neural activity can be associated with specific thoughts, intentions, or actions.
+stable states are less likely to change abruptly, they provide a level of predictability 
+Active states are periods of heightened neural activity that are often associated with specific cognitive or motor functions
+inderstanding the transition between active and inactive states can help in setting adaptive thresholds
+By focusing on the Markov blanket, a BCI system can filter out irrelevant information, improving decoding accuracy.
+State Estimation
+Markov blanket can be used to understand how external stimuli (encoded signals) influence the internal states of the brain
+multivariate embedding theory applied to obtain multivariate embedded vectors and multivariate dispersion patterns, by assigning
+labels to these patterns, the original multichannel time series can be transformed into a symbolic sequence with multiple symbols instead of the original binary conversion
+multivariate multiscale dispersion Lempel-Ziv complexity (mvMDLZC) 
+adaptive embedding fusion

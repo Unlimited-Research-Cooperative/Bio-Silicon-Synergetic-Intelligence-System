@@ -1,0 +1,251 @@
+Messages report for top
+Sun Jan 28 13:02:52 2024
+Quartus Prime Version 21.1.0 Build 842 10/21/2021 SJ Lite Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Analysis & Synthesis Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 2021  Intel Corporation. All rights reserved.
+Your use of Intel Corporation's design tools, logic functions 
+and other software and tools, and any partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Intel Program License 
+Subscription Agreement, the Intel Quartus Prime License Agreement,
+the Intel FPGA IP License Agreement, or other applicable license
+agreement, including, without limitation, that your use is for
+the sole purpose of programming logic devices manufactured by
+Intel and sold by Intel or its authorized distributors.  Please
+refer to the applicable agreement for further details, at
+https://fpgasoftware.intel.com/eula.
+
+
+
++-------------------------------+
+; Analysis & Synthesis Messages ;
++-------------------------------+
+Info: *******************************************************************
+Info: Running Quartus Prime Analysis & Synthesis
+    Info: Version 21.1.0 Build 842 10/21/2021 SJ Lite Edition
+    Info: Processing started: Sun Jan 28 12:57:22 2024
+Info: Command: quartus_map --read_settings_files=on --write_settings_files=off top -c top
+Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
+Info (20030): Parallel compilation is enabled and will use 16 of the 32 processors detected
+Info (12021): Found 1 design units, including 1 entities, in source file source/uart_tx.sv
+    Info (12023): Found entity 1: uart_tx File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/source/uart_tx.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file source/uart_rx.sv
+    Info (12023): Found entity 1: uart_rx File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/source/uart_rx.sv Line: 1
+Info (12021): Found 0 design units, including 0 entities, in source file i2c_master/timescale.sv
+Info (12021): Found 1 design units, including 1 entities, in source file i2c_master/lut_ov5640_rgb565_1024_768.sv
+    Info (12023): Found entity 1: lut_ov5640_rgb565_1024_768 File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/i2c_master/lut_ov5640_rgb565_1024_768.sv Line: 30
+Info (12021): Found 1 design units, including 1 entities, in source file i2c_master/i2c_master_top.sv
+    Info (12023): Found entity 1: i2c_master_top File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/i2c_master/i2c_master_top.sv Line: 30
+Info (12021): Found 0 design units, including 0 entities, in source file i2c_master/i2c_master_defines.sv
+Warning (10335): Unrecognized synthesis attribute "enum_state" at i2c_master/i2c_master_byte_ctrl.sv(199) File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/i2c_master/i2c_master_byte_ctrl.sv Line: 199
+Info (12021): Found 1 design units, including 1 entities, in source file i2c_master/i2c_master_byte_ctrl.sv
+    Info (12023): Found entity 1: i2c_master_byte_ctrl File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/i2c_master/i2c_master_byte_ctrl.sv Line: 75
+Warning (10335): Unrecognized synthesis attribute "enum_state" at i2c_master/i2c_master_bit_ctrl.sv(185) File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/i2c_master/i2c_master_bit_ctrl.sv Line: 185
+Info (12021): Found 1 design units, including 1 entities, in source file i2c_master/i2c_master_bit_ctrl.sv
+    Info (12023): Found entity 1: i2c_master_bit_ctrl File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/i2c_master/i2c_master_bit_ctrl.sv Line: 143
+Info (12021): Found 1 design units, including 1 entities, in source file i2c_master/i2c_config.sv
+    Info (12023): Found entity 1: reg_config File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/i2c_master/i2c_config.sv Line: 30
+Info (12021): Found 1 design units, including 1 entities, in source file i2c_master/i2c_com.sv
+    Info (12023): Found entity 1: i2c_com File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/i2c_master/i2c_com.sv Line: 2
+Info (12021): Found 1 design units, including 1 entities, in source file top.sv
+    Info (12023): Found entity 1: top File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file tb.sv
+    Info (12023): Found entity 1: tb File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/tb.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file i2s_tx.sv
+    Info (12023): Found entity 1: i2s_tx File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/i2s_tx.sv Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file ax_debounce.sv
+    Info (12023): Found entity 1: ax_debounce File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/ax_debounce.sv Line: 2
+Warning (10236): Verilog HDL Implicit Net warning at i2c_config.sv(55): created implicit net for "ack" File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/i2c_master/i2c_config.sv Line: 55
+Warning (10236): Verilog HDL Implicit Net warning at i2c_config.sv(58): created implicit net for "tr_end" File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/i2c_master/i2c_config.sv Line: 58
+Warning (10236): Verilog HDL Implicit Net warning at top.sv(78): created implicit net for "i2s_bclk" File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 78
+Warning (10236): Verilog HDL Implicit Net warning at top.sv(79): created implicit net for "i2s_lrclk" File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 79
+Warning (10236): Verilog HDL Implicit Net warning at top.sv(80): created implicit net for "i2s_sdata" File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 80
+Info (12127): Elaborating entity "top" for the top level hierarchy
+Warning (10858): Verilog HDL warning at top.sv(97): object rtc_seg_sel used but never assigned File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 97
+Warning (10858): Verilog HDL warning at top.sv(98): object rtc_seg_data used but never assigned File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 98
+Warning (10858): Verilog HDL warning at top.sv(99): object eeprom_seg_sel used but never assigned File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 99
+Warning (10858): Verilog HDL warning at top.sv(100): object eeprom_seg_data used but never assigned File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 100
+Warning (10858): Verilog HDL warning at top.sv(101): object sd_seg_sel used but never assigned File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 101
+Warning (10858): Verilog HDL warning at top.sv(102): object sd_seg_data used but never assigned File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 102
+Warning (10036): Verilog HDL or VHDL warning at top.sv(104): object "sdbmp_rst_n" assigned a value but never read File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 104
+Warning (10036): Verilog HDL or VHDL warning at top.sv(105): object "ov_rst_n" assigned a value but never read File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 105
+Warning (10036): Verilog HDL or VHDL warning at top.sv(106): object "buzzer_rst_n" assigned a value but never read File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 106
+Warning (10036): Verilog HDL or VHDL warning at top.sv(113): object "button_negedge4_d0" assigned a value but never read File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 113
+Warning (10036): Verilog HDL or VHDL warning at top.sv(114): object "button_negedge3_d0" assigned a value but never read File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 114
+Warning (10858): Verilog HDL warning at top.sv(117): object ext_mem_clk used but never assigned File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 117
+Warning (10036): Verilog HDL or VHDL warning at top.sv(129): object "rd_burst_req" assigned a value but never read File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 129
+Warning (10036): Verilog HDL or VHDL warning at top.sv(130): object "wr_burst_req" assigned a value but never read File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 130
+Warning (10036): Verilog HDL or VHDL warning at top.sv(131): object "rd_burst_len" assigned a value but never read File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 131
+Warning (10036): Verilog HDL or VHDL warning at top.sv(132): object "wr_burst_len" assigned a value but never read File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 132
+Warning (10036): Verilog HDL or VHDL warning at top.sv(133): object "rd_burst_addr" assigned a value but never read File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 133
+Warning (10036): Verilog HDL or VHDL warning at top.sv(134): object "wr_burst_addr" assigned a value but never read File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 134
+Warning (10036): Verilog HDL or VHDL warning at top.sv(137): object "wr_burst_data" assigned a value but never read File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 137
+Warning (10858): Verilog HDL warning at top.sv(139): object sd_rd_burst_req used but never assigned File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 139
+Warning (10858): Verilog HDL warning at top.sv(140): object sd_wr_burst_req used but never assigned File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 140
+Warning (10858): Verilog HDL warning at top.sv(141): object sd_rd_burst_len used but never assigned File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 141
+Warning (10858): Verilog HDL warning at top.sv(142): object sd_wr_burst_len used but never assigned File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 142
+Warning (10858): Verilog HDL warning at top.sv(143): object sd_rd_burst_addr used but never assigned File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 143
+Warning (10858): Verilog HDL warning at top.sv(144): object sd_wr_burst_addr used but never assigned File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 144
+Warning (10858): Verilog HDL warning at top.sv(145): object sd_wr_burst_data used but never assigned File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 145
+Warning (10858): Verilog HDL warning at top.sv(147): object ov_rd_burst_req used but never assigned File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 147
+Warning (10858): Verilog HDL warning at top.sv(148): object ov_wr_burst_req used but never assigned File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 148
+Warning (10858): Verilog HDL warning at top.sv(149): object ov_rd_burst_len used but never assigned File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 149
+Warning (10858): Verilog HDL warning at top.sv(150): object ov_wr_burst_len used but never assigned File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 150
+Warning (10858): Verilog HDL warning at top.sv(151): object ov_rd_burst_addr used but never assigned File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 151
+Warning (10858): Verilog HDL warning at top.sv(152): object ov_wr_burst_addr used but never assigned File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 152
+Warning (10858): Verilog HDL warning at top.sv(153): object ov_wr_burst_data used but never assigned File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 153
+Warning (10230): Verilog HDL assignment warning at top.sv(319): truncated value with size 32 to match size of target (25) File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 319
+Warning (10030): Net "rtc_seg_sel" at top.sv(97) has no driver or initial value, using a default initial value '0' File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 97
+Warning (10030): Net "rtc_seg_data" at top.sv(98) has no driver or initial value, using a default initial value '0' File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 98
+Warning (10030): Net "eeprom_seg_sel" at top.sv(99) has no driver or initial value, using a default initial value '0' File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 99
+Warning (10030): Net "eeprom_seg_data" at top.sv(100) has no driver or initial value, using a default initial value '0' File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 100
+Warning (10030): Net "sd_seg_sel" at top.sv(101) has no driver or initial value, using a default initial value '0' File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 101
+Warning (10030): Net "sd_seg_data" at top.sv(102) has no driver or initial value, using a default initial value '0' File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 102
+Warning (10030): Net "ext_mem_clk" at top.sv(117) has no driver or initial value, using a default initial value '0' File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 117
+Warning (10034): Output port "sdram_dqm" at top.sv(49) has no driver File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 49
+Warning (10034): Output port "sdram_ba" at top.sv(50) has no driver File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 50
+Warning (10034): Output port "sdram_addr" at top.sv(51) has no driver File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 51
+Warning (10034): Output port "rtc_sclk" at top.sv(8) has no driver File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 8
+Warning (10034): Output port "rtc_ce" at top.sv(9) has no driver File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 9
+Warning (10034): Output port "uart_tx" at top.sv(12) has no driver File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 12
+Warning (10034): Output port "buzzer" at top.sv(25) has no driver File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 25
+Warning (10034): Output port "SD_nCS" at top.sv(27) has no driver File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 27
+Warning (10034): Output port "SD_DCLK" at top.sv(28) has no driver File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 28
+Warning (10034): Output port "SD_MOSI" at top.sv(29) has no driver File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 29
+Warning (10034): Output port "cmos_rst_n" at top.sv(39) has no driver File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 39
+Warning (10034): Output port "cmos_pwdn" at top.sv(40) has no driver File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 40
+Warning (10034): Output port "sdram_cke" at top.sv(44) has no driver File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 44
+Warning (10034): Output port "sdram_cs_n" at top.sv(45) has no driver File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 45
+Warning (10034): Output port "sdram_we_n" at top.sv(46) has no driver File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 46
+Warning (10034): Output port "sdram_cas_n" at top.sv(47) has no driver File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 47
+Warning (10034): Output port "sdram_ras_n" at top.sv(48) has no driver File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 48
+Info (12128): Elaborating entity "uart_rx" for hierarchy "uart_rx:uart_receiver_inst" File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 70
+Warning (10230): Verilog HDL assignment warning at uart_rx.sv(112): truncated value with size 32 to match size of target (3) File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/source/uart_rx.sv Line: 112
+Warning (10230): Verilog HDL assignment warning at uart_rx.sv(130): truncated value with size 32 to match size of target (6) File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/source/uart_rx.sv Line: 130
+Warning (10230): Verilog HDL assignment warning at uart_rx.sv(133): truncated value with size 32 to match size of target (16) File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/source/uart_rx.sv Line: 133
+Info (12128): Elaborating entity "i2s_tx" for hierarchy "i2s_tx:i2s_transmitter_inst" File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 81
+Warning (10230): Verilog HDL assignment warning at i2s_tx.sv(52): truncated value with size 32 to match size of target (5) File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/i2s_tx.sv Line: 52
+Warning (10230): Verilog HDL assignment warning at i2s_tx.sv(55): truncated value with size 32 to match size of target (5) File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/i2s_tx.sv Line: 55
+Info (12128): Elaborating entity "ax_debounce" for hierarchy "ax_debounce:ax_debounce_a0" File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 231
+Warning (12241): 1 hierarchies have connectivity warnings - see the Connectivity Checks report folder
+Warning (13039): The following bidirectional pins have no drivers
+    Warning (13040): bidirectional pin "rtc_data" has no driver File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 10
+    Warning (13040): bidirectional pin "i2c_sda" has no driver File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 15
+    Warning (13040): bidirectional pin "i2c_scl" has no driver File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 16
+    Warning (13040): bidirectional pin "cmos_scl" has no driver File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 32
+    Warning (13040): bidirectional pin "cmos_sda" has no driver File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 33
+    Warning (13040): bidirectional pin "sdram_dq[0]" has no driver File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 54
+    Warning (13040): bidirectional pin "sdram_dq[1]" has no driver File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 54
+    Warning (13040): bidirectional pin "sdram_dq[2]" has no driver File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 54
+    Warning (13040): bidirectional pin "sdram_dq[3]" has no driver File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 54
+    Warning (13040): bidirectional pin "sdram_dq[4]" has no driver File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 54
+    Warning (13040): bidirectional pin "sdram_dq[5]" has no driver File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 54
+    Warning (13040): bidirectional pin "sdram_dq[6]" has no driver File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 54
+    Warning (13040): bidirectional pin "sdram_dq[7]" has no driver File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 54
+    Warning (13040): bidirectional pin "sdram_dq[8]" has no driver File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 54
+    Warning (13040): bidirectional pin "sdram_dq[9]" has no driver File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 54
+    Warning (13040): bidirectional pin "sdram_dq[10]" has no driver File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 54
+    Warning (13040): bidirectional pin "sdram_dq[11]" has no driver File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 54
+    Warning (13040): bidirectional pin "sdram_dq[12]" has no driver File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 54
+    Warning (13040): bidirectional pin "sdram_dq[13]" has no driver File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 54
+    Warning (13040): bidirectional pin "sdram_dq[14]" has no driver File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 54
+    Warning (13040): bidirectional pin "sdram_dq[15]" has no driver File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 54
+Warning (13024): Output pins are stuck at VCC or GND
+    Warning (13410): Pin "led[0]" is stuck at GND File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 5
+    Warning (13410): Pin "led[1]" is stuck at GND File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 5
+    Warning (13410): Pin "led[2]" is stuck at GND File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 5
+    Warning (13410): Pin "led[3]" is stuck at GND File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 5
+    Warning (13410): Pin "rtc_sclk" is stuck at GND File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 8
+    Warning (13410): Pin "rtc_ce" is stuck at GND File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 9
+    Warning (13410): Pin "uart_tx" is stuck at GND File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 12
+    Warning (13410): Pin "seg_sel[0]" is stuck at GND File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 344
+    Warning (13410): Pin "seg_sel[1]" is stuck at GND File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 344
+    Warning (13410): Pin "seg_sel[2]" is stuck at GND File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 344
+    Warning (13410): Pin "seg_sel[3]" is stuck at GND File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 344
+    Warning (13410): Pin "seg_sel[4]" is stuck at GND File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 344
+    Warning (13410): Pin "seg_sel[5]" is stuck at GND File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 344
+    Warning (13410): Pin "seg_data[0]" is stuck at GND File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 344
+    Warning (13410): Pin "seg_data[1]" is stuck at GND File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 344
+    Warning (13410): Pin "seg_data[2]" is stuck at GND File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 344
+    Warning (13410): Pin "seg_data[3]" is stuck at GND File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 344
+    Warning (13410): Pin "seg_data[4]" is stuck at GND File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 344
+    Warning (13410): Pin "seg_data[5]" is stuck at GND File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 344
+    Warning (13410): Pin "seg_data[6]" is stuck at GND File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 344
+    Warning (13410): Pin "seg_data[7]" is stuck at GND File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 344
+    Warning (13410): Pin "buzzer" is stuck at GND File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 25
+    Warning (13410): Pin "SD_nCS" is stuck at GND File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 27
+    Warning (13410): Pin "SD_DCLK" is stuck at GND File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 28
+    Warning (13410): Pin "SD_MOSI" is stuck at GND File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 29
+    Warning (13410): Pin "cmos_xclk" is stuck at GND File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 37
+    Warning (13410): Pin "cmos_rst_n" is stuck at GND File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 39
+    Warning (13410): Pin "cmos_pwdn" is stuck at GND File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 40
+    Warning (13410): Pin "sdram_clk" is stuck at GND File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 43
+    Warning (13410): Pin "sdram_cke" is stuck at GND File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 44
+    Warning (13410): Pin "sdram_cs_n" is stuck at GND File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 45
+    Warning (13410): Pin "sdram_we_n" is stuck at GND File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 46
+    Warning (13410): Pin "sdram_cas_n" is stuck at GND File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 47
+    Warning (13410): Pin "sdram_ras_n" is stuck at GND File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 48
+    Warning (13410): Pin "sdram_dqm[0]" is stuck at GND File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 49
+    Warning (13410): Pin "sdram_dqm[1]" is stuck at GND File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 49
+    Warning (13410): Pin "sdram_ba[0]" is stuck at GND File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 50
+    Warning (13410): Pin "sdram_ba[1]" is stuck at GND File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 50
+    Warning (13410): Pin "sdram_addr[0]" is stuck at GND File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 51
+    Warning (13410): Pin "sdram_addr[1]" is stuck at GND File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 51
+    Warning (13410): Pin "sdram_addr[2]" is stuck at GND File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 51
+    Warning (13410): Pin "sdram_addr[3]" is stuck at GND File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 51
+    Warning (13410): Pin "sdram_addr[4]" is stuck at GND File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 51
+    Warning (13410): Pin "sdram_addr[5]" is stuck at GND File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 51
+    Warning (13410): Pin "sdram_addr[6]" is stuck at GND File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 51
+    Warning (13410): Pin "sdram_addr[7]" is stuck at GND File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 51
+    Warning (13410): Pin "sdram_addr[8]" is stuck at GND File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 51
+    Warning (13410): Pin "sdram_addr[9]" is stuck at GND File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 51
+    Warning (13410): Pin "sdram_addr[10]" is stuck at GND File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 51
+    Warning (13410): Pin "sdram_addr[11]" is stuck at GND File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 51
+    Warning (13410): Pin "sdram_addr[12]" is stuck at GND File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 51
+Info (17049): 121 registers lost all their fanouts during netlist optimizations.
+Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
+    Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
+Warning (21074): Design contains 18 input pin(s) that do not drive logic
+    Warning (15610): No output dependent on input pin "key4" File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 21
+    Warning (15610): No output dependent on input pin "SD_MISO" File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 30
+    Warning (15610): No output dependent on input pin "cmos_vsync" File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 34
+    Warning (15610): No output dependent on input pin "cmos_href" File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 35
+    Warning (15610): No output dependent on input pin "cmos_pclk" File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 36
+    Warning (15610): No output dependent on input pin "cmos_db[0]" File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 38
+    Warning (15610): No output dependent on input pin "cmos_db[1]" File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 38
+    Warning (15610): No output dependent on input pin "cmos_db[2]" File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 38
+    Warning (15610): No output dependent on input pin "cmos_db[3]" File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 38
+    Warning (15610): No output dependent on input pin "cmos_db[4]" File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 38
+    Warning (15610): No output dependent on input pin "cmos_db[5]" File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 38
+    Warning (15610): No output dependent on input pin "cmos_db[6]" File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 38
+    Warning (15610): No output dependent on input pin "cmos_db[7]" File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 38
+    Warning (15610): No output dependent on input pin "clk" File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 2
+    Warning (15610): No output dependent on input pin "rst_n" File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 3
+    Warning (15610): No output dependent on input pin "uart_rx" File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 11
+    Warning (15610): No output dependent on input pin "key3" File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 14
+    Warning (15610): No output dependent on input pin "key2" File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 4
+Info (21057): Implemented 90 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 18 input pins
+    Info (21059): Implemented 51 output pins
+    Info (21060): Implemented 21 bidirectional pins
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 165 warnings
+    Info: Peak virtual memory: 373 megabytes
+    Info: Processing ended: Sun Jan 28 12:57:26 2024
+    Info: Elapsed time: 00:00:04
+    Info: Total CPU time (on all processors): 00:00:13
+
+

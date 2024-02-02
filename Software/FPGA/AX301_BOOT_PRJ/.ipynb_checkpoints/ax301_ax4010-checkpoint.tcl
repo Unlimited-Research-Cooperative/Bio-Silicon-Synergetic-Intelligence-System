@@ -143,12 +143,8 @@ set_location_assignment PIN_M7 -to cmos_pwdn
 # set_location_assignment pin_b5 -to wm8731_adclrc
 
 #neuromimetic stimulation module
-
-# Bit Clock which is the clock signal that toggles on each bit of the audio data, controls CS4344
 set_location_assignment pin_a2 -to SCLK 
-# Word Select or Left/Right Clock (LRCLK) which indicates whether the current audio data word is for the left or right channel, should map to LRCLK on the CS4344
 set_location_assignment pin_a3 -to LRCLK 
-# Master Clock for CS4344
 set_location_assignment pin_b5 -to MCLK 
 set_location_assignment PIN_A5 -to audio_signal_1
 set_location_assignment PIN_B6 -to audio_signal_2
@@ -184,9 +180,10 @@ set_location_assignment PIN_L10 -to audio_signal_31
 set_location_assignment PIN_L9 -to audio_signal_32
 
 # set_location_assignment pin_b4 -to wm8731_adcdat
-# set_location_assignment pin_b3 -to wm8731_dacdat # DAC Data Input (SDIN on some DACs) which carries the actual audio data to be converted to an analog signal
-# set_location_assignment pin_b1 -to wm8731_scl # SCL line for I2C communication, used for control settings of the codec
-# set_location_assignment pin_c2 -to wm8731_sda # SDA line for I2C communication, used for control settings of the codec
+# set_location_assignment pin_b3 -to wm8731_dacdat 
+# set_location_assignment pin_b1 -to wm8731_scl 
+# set_location_assignment pin_c2 -to wm8731_sda 
+
 
 
 
