@@ -1,5 +1,5 @@
 Fitter report for top
-Sun Jan 28 15:19:58 2024
+Mon Feb  5 18:15:10 2024
 Quartus Prime Version 21.1.0 Build 842 10/21/2021 SJ Lite Edition
 
 
@@ -61,7 +61,7 @@ https://fpgasoftware.intel.com/eula.
 +----------------------------------------------------------------------------------+
 ; Fitter Summary                                                                   ;
 +------------------------------------+---------------------------------------------+
-; Fitter Status                      ; Successful - Sun Jan 28 15:19:58 2024       ;
+; Fitter Status                      ; Successful - Mon Feb  5 18:15:10 2024       ;
 ; Quartus Prime Version              ; 21.1.0 Build 842 10/21/2021 SJ Lite Edition ;
 ; Revision Name                      ; top                                         ;
 ; Top-level Entity Name              ; top                                         ;
@@ -148,12 +148,12 @@ https://fpgasoftware.intel.com/eula.
 ; Number detected on machine ; 32          ;
 ; Maximum allowed            ; 16          ;
 ;                            ;             ;
-; Average used               ; 1.10        ;
+; Average used               ; 1.06        ;
 ; Maximum used               ; 16          ;
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processors 2-16        ;   0.7%      ;
+;     Processors 2-16        ;   0.4%      ;
 +----------------------------+-------------+
 
 
@@ -1337,7 +1337,7 @@ Info (170199): The Fitter performed an Auto Fit compilation.  Optimizations were
     Info (170201): Optimizations that may affect the design's routability were skipped
     Info (170200): Optimizations that may affect the design's timing were skipped
 Info (170194): Fitter routing operations ending: elapsed time is 00:00:00
-Info (11888): Total time spent on timing analysis during the Fitter is 0.02 seconds.
+Info (11888): Total time spent on timing analysis during the Fitter is 0.01 seconds.
 Info (334003): Started post-fitting delay annotation
 Info (334004): Delay annotation completed successfully
 Info (334003): Started post-fitting delay annotation
@@ -1408,9 +1408,9 @@ Warning (169064): Following 21 pins have no output enable or a GND or VCC output
     Info (169065): Pin sdram_dq[15] has a permanently disabled output enable File: /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/top.sv Line: 54
 Info (144001): Generated suppressed messages file /home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Human-Brain-Rat/Software/FPGA/AX301_BOOT_PRJ/output_files/top.fit.smsg
 Info: Quartus Prime Fitter was successful. 0 errors, 62 warnings
-    Info: Peak virtual memory: 1949 megabytes
-    Info: Processing ended: Sun Jan 28 15:19:58 2024
-    Info: Elapsed time: 00:00:06
+    Info: Peak virtual memory: 1947 megabytes
+    Info: Processing ended: Mon Feb  5 18:15:11 2024
+    Info: Elapsed time: 00:00:07
     Info: Total CPU time (on all processors): 00:00:03
 
 
