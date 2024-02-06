@@ -39,9 +39,9 @@ Our methodology is deeply rooted in bidirectional communication, leveraging AI t
 ## System Configuration
 
 - **Brain Surface Communication**: Neural activities are mapped via AI, translating into game movements and vice versa.
-- **Signal Transmission**: The process begins with brain surface signals, transmitted through FreeEEG32 boards, to BrainFlow for acquisition, then into our custom software for analysis.
-- **Neuromimetic Feedback**: Neural signals are decoded into game actions, with game and in-game rat movement data (facilitating a self-loop learning concept) encoded back into neuromimetic signals. These signals are then fed back into the rat brain, connected to a CycloneIV FPGA board.
-- **Signal Processing**: The FPGA board employs UART USB and I2S for CS4344s, sending 32 signals to 16 CS4344s. These stereo outputs connect to 32 AD620s, followed by resistors for voltage division to match ECoG voltage levels.
+- **Signal Transmission**: The process begins with brain surface signals, read from our MEA, transmitted through a FreeEEG32 board, to BrainFlow for acquisition, then into our custom software for analysis.
+- **Neuromimetic Feedback**: Neural signals are decoded into game actions, with game and in-game rat movement data (facilitating a self-loop learning concept) encoded back into neuromimetic signals. These signals are then fed back into the rat brain.
+- **Signal Processing**: The 32 signals are sent to two 16 port usb hubs, connected to modified usb-audio converters, followed by resistors for voltage division to match ECoG voltage levels.
 
 ## Microelectrode Array (MEA) Specifications
 
@@ -106,14 +106,6 @@ We're reaching out to like-minded researchers and innovators to join us on this 
 
 
 
-<h1 align="center">System Highlevel Schematic</h1>
-<p align="center">
-  <img src="https://raw.githubusercontent.com/Unlimited-Research-Cooperative/Human-Brain-Rat/main/images/BCI_V.09.2_high_level_schematic.jpg" alt="BCI_V.09.2_high_level_schematic.jpg">
-</p>
-<h1 align="center">Idea Flow</h1>
-<p align="center">
-  <img src="https://raw.githubusercontent.com/Unlimited-Research-Cooperative/Human-Brain-Rat/main/images/idea_flow.png" alt="idea_flow.png">
-</p>
 <h1 align="center">System High Level Schematic</h1>
 <p align="center">
   <img src="https://raw.githubusercontent.com/Unlimited-Research-Cooperative/Human-Brain-Rat/main/images/bidirectional_brain_computer_communication.jpg" alt="bidirectional_brain_computer_communication.png">
