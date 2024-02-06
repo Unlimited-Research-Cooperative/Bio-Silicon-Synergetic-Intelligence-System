@@ -3,6 +3,8 @@ import numpy as np
 import time
 from matplotlib import pyplot as plt
 from matplotlib.animation import FuncAnimation
+import usbrelaymodule  # Replace with the actual USB relay module library
+import usb_audio_module  # Replace with the actual USB audio module library
 
 class NeuralSignalSubscriber:
     def __init__(self, context, address):
@@ -54,27 +56,27 @@ class ActionSuccessLogger:
         return sum(successes) / len(successes)
 
 class FeedbackSystem:
-    def __init__(self):
+    def __init__(self, usb_relay, usb_audio):
         # Initialize pygame for audio output
         pygame.mixer.init()
         self.reward_sound_path = "reward_sound.wav"  # Path to the reward sound file
         self.distress_sound_path = "distress_sound.wav"  # Path to the distress sound, inaudible to humans
-        
-        # GPIO setup for feeder control
-        self.feeder_pin = 18  # GPIO pin connected to the feeder
-        GPIO.setmode(GPIO.BCM)
-        GPIO.setup(self.feeder_pin, GPIO.OUT)
+
+        # USB relay for solenoid valve control
+        self.usb_relay = usb_relay
+
+        # USB audio for sound output
+        self.usb_audio = usb_audio
 
     def play_sound(self, sound_path):
-        # Play a sound from the specified path
-        pygame.mixer.music.load(sound_path)
-        pygame.mixer.music.play()
+        # Play a sound from the specified path using USB audio
+        self.usb_audio.play_sound(sound_path)
 
     def activate_feeder(self):
-        # Activate the feeder to dispense the reward mix
-        GPIO.output(self.feeder_pin, GPIO.HIGH)
-        time.sleep(1)  # Keep the feeder active for 1 second
-        GPIO.output(self.feeder_pin, GPIO.LOW)
+        # Activate the feeder to dispense the reward mix using the USB relay
+        self.usb_relay.turn_on()  # Turn on the USB relay to activate the feeder
+        time.sleep(0.5)  # Keep the feeder active for .5 second
+        self.usb_relay.turn_off()  # Turn off the USB relay to deactivate the feeder
 
     def provide_feedback(self, game_event):
         # Determine the type of feedback based on the game event
@@ -84,6 +86,16 @@ class FeedbackSystem:
         elif game_event in ["wrong_direction", "got_shot", "died", "stuck_in_loop"]:
             self.play_sound(self.distress_sound_path)
 
+class FeedbackSystem:
+    def __init__(self):
+        # Initialize pygame for audio output
+        pygame.mixer.init()
+
+    def play_sound(self, sound_path):
+        # Play a sound from the specified path
+        pygame.mixer.music.load(sound_path)  # Load the sound file
+        pygame.mixer.music.play()  # Play the loaded sound
+        
 class NeuralMappingVisualizer:
     def __init__(self, processor):
         self.processor = processor
