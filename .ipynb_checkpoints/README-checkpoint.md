@@ -39,9 +39,9 @@ Our methodology is deeply rooted in bidirectional communication, leveraging AI t
 ## System Configuration
 
 - **Brain Surface Communication**: Neural activities are mapped via AI, translating into game movements and vice versa.
-- **Signal Transmission**: The process begins with brain surface signals, transmitted through FreeEEG32 boards, to BrainFlow for acquisition, then into our custom software for analysis.
-- **Neuromimetic Feedback**: Neural signals are decoded into game actions, with game and in-game rat movement data (facilitating a self-loop learning concept) encoded back into neuromimetic signals. These signals are then fed back into the rat brain, connected to a CycloneIV FPGA board.
-- **Signal Processing**: The FPGA board employs UART USB and I2S for CS4344s, sending 32 signals to 16 CS4344s. These stereo outputs connect to 32 AD620s, followed by resistors for voltage division to match ECoG voltage levels.
+- **Signal Transmission**: The process begins with brain surface signals, read from our MEA, transmitted through a FreeEEG32 board, to BrainFlow for acquisition, then into our custom software for analysis.
+- **Neuromimetic Feedback**: Neural signals are decoded into game actions, with game and in-game rat movement data (facilitating a self-loop learning concept) encoded back into neuromimetic signals. These signals are then fed back into the rat brain.
+- **Signal Processing**: The 32 signals are sent to two 16 port usb hubs, connected to modified usb-audio converters, followed by resistors for voltage division to match ECoG voltage levels.
 
 ## Microelectrode Array (MEA) Specifications
 
@@ -72,6 +72,12 @@ Deterrent Signaling: Complementing the reward system is the deterrent mechanism,
 AI-Driven Supervised Learning Framework: The convergence of these two systems is overseen and optimized by our sophisticated AI software. This AI component initiates the process through a phase of supervised learning, wherein incoming neural signals and corresponding actions are meticulously analyzed. The system then generates metadata-rich outgoing signals, which are fine-tuned to enhance the learning and adaptation process. This initial phase of supervised learning is crucial for establishing a robust foundation for the system's AI to learn, adapt, and evolve in response to the rat's neural patterns and behaviors.
 
 In essence, our system represents a harmonious fusion of biotechnology and artificial intelligence, designed to explore and expand the boundaries of neuroscientific research and animal behavior understanding. This dynamic, responsive system is poised to offer unprecedented insights into neural processing, learning mechanisms, and the complex interplay between biological entities and computational intelligence.
+
+
+## DOOM system
+
+In our system, we will leverage the combined capabilities of VizDoom and Gymnasium to access and utilize comprehensive game state information for effective decision-making and analysis. VizDoom will serve as our primary interface for interacting with the Doom game engine, providing us with rich access to various game state data such as player status, enemy positions, level layouts, weapon information, and observation spaces. Through Gymnasium, we will create custom gym environments tailored to our specific scenarios and objectives, allowing us to seamlessly integrate VizDoom's functionalities into our reinforcement learning pipelines. By harnessing the power of VizDoom and Gymnasium together, we aim to develop robust AI agents capable of understanding and navigating complex game environments, adapting their strategies based on real-time game state observations, and ultimately achieving specified objectives within the Doom universe.
+
 
 ## Rat Health and Wellbeing
 
@@ -106,14 +112,6 @@ We're reaching out to like-minded researchers and innovators to join us on this 
 
 
 
-<h1 align="center">System Highlevel Schematic</h1>
-<p align="center">
-  <img src="https://raw.githubusercontent.com/Unlimited-Research-Cooperative/Human-Brain-Rat/main/images/BCI_V.09.2_high_level_schematic.jpg" alt="BCI_V.09.2_high_level_schematic.jpg">
-</p>
-<h1 align="center">Idea Flow</h1>
-<p align="center">
-  <img src="https://raw.githubusercontent.com/Unlimited-Research-Cooperative/Human-Brain-Rat/main/images/idea_flow.png" alt="idea_flow.png">
-</p>
 <h1 align="center">System High Level Schematic</h1>
 <p align="center">
   <img src="https://raw.githubusercontent.com/Unlimited-Research-Cooperative/Human-Brain-Rat/main/images/bidirectional_brain_computer_communication.jpg" alt="bidirectional_brain_computer_communication.png">

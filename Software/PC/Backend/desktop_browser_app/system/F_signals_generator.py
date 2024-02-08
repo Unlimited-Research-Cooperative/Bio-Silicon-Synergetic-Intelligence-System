@@ -17,7 +17,7 @@ def scale_signals_to_bit_depth(modified_signals, bit_depth):
     min_signal = np.min(modified_signals)
 
     # Scale the signals to the specified bit depth while preserving the range
-    scaled_signals = ((modified_signals - min_signal) / (max_signal - min_signal)) * (max_val - min_val) + min_val
+    modified_signals = ((modified_signals - min_signal) / (max_signal - min_signal)) * (max_val - min_val) + min_val
 
     return modified_signals
 
@@ -433,7 +433,7 @@ transformations = [
     lambda x: apply_transfer_entropy(x, features["influence_factor"], features["max_influence"]),
     lambda x: apply_hilbert_huang(x, features),
     lambda x: apply_spectral_centroids(x, features["centroid_factor"], features["edge_density_factor"]),
-    lambda x: apply_dynamic_time_warping(x, reference_signal=np.mean(x, axis=0), warping_factor=0.5, min_volt=min_volt, max_volt=max_volt),,
+    lambda x: apply_dynamic_time_warping(x, reference_signal=np.mean(x, axis=0), warping_factor=0.5, min_volt=min_volt, max_volt=max_volt),
     lambda x: apply_fft(x, features["complexity_factor"]),
     lambda x: apply_signal_evolution(x, features["evolution_rate"]),
     lambda x: apply_phase_amplitude_coupling(x, features["low_freq"], features["high_freq"]),
@@ -466,16 +466,16 @@ def generate_transformed_signals(signal_length, num_signals, transformation_func
 if __name__ == "__main__":
     bit_depth = 16        # Bit depth of the signals
     num_signals = 32      # Number of signals
-    sampling_rate = 100   # Sampling rate in Hz
+    fs = 500   # Sampling rate in Hz
     duration = 1        # Duration in seconds
-    length = sampling_rate * duration
+    length = fs * duration
 
     # Global variables for amplitude range
     min_volt = 1e-6  # 1 microvolt
     max_volt = 8e-5  # 8 microvolts
 
     # Calculate the length of the signals
-    length = sampling_rate * duration
+    length = fs * duration
 
     # Generate and transform the ECoG-like signals
     transformed_signals = generate_transformed_signals(length, num_signals, transformations)
@@ -512,4 +512,4 @@ if __name__ == "__main__":
         encoded_transformed_features = " ".join([f"{key}:{value}" for key, value in transformed_features.items()])
         publisher.send_string(encoded_transformed_features)
         
-        time.sleep(0.1)
+        time.sleep(duration)

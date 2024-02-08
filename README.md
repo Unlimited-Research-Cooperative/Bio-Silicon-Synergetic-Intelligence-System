@@ -73,6 +73,12 @@ AI-Driven Supervised Learning Framework: The convergence of these two systems is
 
 In essence, our system represents a harmonious fusion of biotechnology and artificial intelligence, designed to explore and expand the boundaries of neuroscientific research and animal behavior understanding. This dynamic, responsive system is poised to offer unprecedented insights into neural processing, learning mechanisms, and the complex interplay between biological entities and computational intelligence.
 
+
+## DOOM system
+
+In our system, we will leverage the combined capabilities of VizDoom and Gymnasium to access and utilize comprehensive game state information for effective decision-making and analysis. VizDoom will serve as our primary interface for interacting with the Doom game engine, providing us with rich access to various game state data such as player status, enemy positions, level layouts, weapon information, and observation spaces. Through Gymnasium, we will create custom gym environments tailored to our specific scenarios and objectives, allowing us to seamlessly integrate VizDoom's functionalities into our reinforcement learning pipelines. By harnessing the power of VizDoom and Gymnasium together, we aim to develop robust AI agents capable of understanding and navigating complex game environments, adapting their strategies based on real-time game state observations, and ultimately achieving specified objectives within the Doom universe.
+
+
 ## Rat Health and Wellbeing
 
 Central to our research ethos is the holistic well-being of the rats involved in our study. Recognizing the importance of social structures in the health and well-being of these animals, all rats are housed together in a communal environment. This approach not only supports their social health but also fosters a more natural living condition, crucial for their overall welfare.
