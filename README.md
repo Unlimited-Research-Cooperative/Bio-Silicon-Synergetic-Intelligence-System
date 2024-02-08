@@ -114,19 +114,19 @@ We're reaching out to like-minded researchers and innovators to join us on this 
 
 <h1 align="center">System High Level Schematic</h1>
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Unlimited-Research-Cooperative/Human-Brain-Rat/main/images/bidirectional_brain_computer_communication.jpg" alt="bidirectional_brain_computer_communication.png">
+  <img src="https://raw.githubusercontent.com/Unlimited-Research-Cooperative/Human-Brain-Rat/main/images/bidirectional_brain_computer_communication.jpg" alt="bidirectional brain computer_communication.png">
 </p>
 <h1 align="center">System GUI work in progress</h1>
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Unlimited-Research-Cooperative/Human-Brain-Rat/main/images/GUI_work_in_progress.png" alt="GUI_work_in_progress.png">
+  <img src="https://raw.githubusercontent.com/Unlimited-Research-Cooperative/Human-Brain-Rat/main/images/GUI_work_in_progress.png" alt="bio silicon synergetic intelligence GUI work_in_progress.png">
 </p>
 <h1 align="center">Biomimetic Signals Generator</h1>
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Unlimited-Research-Cooperative/Human-Brain-Rat/main/images/GUI_work_in_progress.png" alt="GUI_work_in_progress.png">
+  <img src="https://raw.githubusercontent.com/Unlimited-Research-Cooperative/Human-Brain-Rat/main/images/biomimetic_signals.png" alt="biomimetic signals.png">
 </p>
 <h1 align="center">Biomimetic Signals Overlay</h1>
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Unlimited-Research-Cooperative/Human-Brain-Rat/main/images/GUI_work_in_progress.png" alt="GUI_work_in_progress.png">
+  <img src="https://raw.githubusercontent.com/Unlimited-Research-Cooperative/Human-Brain-Rat/main/images/biomimetic_signals_overlay.png" alt="biomimetic signals overlay.png">
 </p>
 
 
