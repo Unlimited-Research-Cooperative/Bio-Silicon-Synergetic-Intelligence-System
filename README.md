@@ -120,6 +120,15 @@ We're reaching out to like-minded researchers and innovators to join us on this 
 <p align="center">
   <img src="https://raw.githubusercontent.com/Unlimited-Research-Cooperative/Human-Brain-Rat/main/images/GUI_work_in_progress.png" alt="GUI_work_in_progress.png">
 </p>
+<h1 align="center">Biomimetic Signals Generator</h1>
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Unlimited-Research-Cooperative/Human-Brain-Rat/main/images/GUI_work_in_progress.png" alt="GUI_work_in_progress.png">
+</p>
+<h1 align="center">Biomimetic Signals Overlay</h1>
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Unlimited-Research-Cooperative/Human-Brain-Rat/main/images/GUI_work_in_progress.png" alt="GUI_work_in_progress.png">
+</p>
+
 
 ## 🤝 Connect
 We're more than a project; we're a movement. Let's make history together. [Get in touch](https://github.com/Synthetic-Intelligence-Labs)!
