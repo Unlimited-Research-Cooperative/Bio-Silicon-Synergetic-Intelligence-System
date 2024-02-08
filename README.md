@@ -126,7 +126,7 @@ We're reaching out to like-minded researchers and innovators to join us on this 
 </p>
 <h1 align="center">Biomimetic Signals Overlay</h1>
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Unlimited-Research-Cooperative/Human-Brain-Rat/main/images/biomimetic_signals_overlay.png" alt="biomimetic signals overlay.png">
+  <img src="https://raw.githubusercontent.com/Unlimited-Research-Cooperative/Human-Brain-Rat/main/images/biomimetic_signals_overlayed.png" alt="biomimetic signals overlay.png">
 </p>
 
 
