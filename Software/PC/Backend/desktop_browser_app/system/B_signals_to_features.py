@@ -34,15 +34,14 @@ def scale_data(data):
 
 
 def detect_peak_heights(signals, height=None, threshold=None, distance=None, prominence=None):
-    # Initialize an empty list to store average peak heights
     average_heights = []
 
-    # Loop through each signal
     for signal in signals:
-        # Use find_peaks with additional criteria for more selective peak detection
         peaks, properties = find_peaks(signal, height=height, threshold=threshold, distance=distance, prominence=prominence)
         
-        # Calculate the average height of the detected peaks
+        print("Peaks:", peaks)
+        print("Properties:", properties)
+        
         if peaks.size > 0:
             average_height = np.mean(properties["peak_heights"])
         else:
@@ -53,13 +52,17 @@ def detect_peak_heights(signals, height=None, threshold=None, distance=None, pro
     return np.array(average_heights)
     
 def detect_peaks(signals, height=None, distance=None, prominence=None):
-    peak_counts = np.zeros(signals.shape[0], dtype=int)  # Pre-allocate peak_counts array
+    peak_counts = np.zeros(signals.shape[0], dtype=int)
 
     for i, signal in enumerate(signals):
         peaks, _ = find_peaks(signal, height=height, distance=distance, prominence=prominence)
+        
+        print("Peaks:", peaks)
+        
         peak_counts[i] = len(peaks)
     
     return peak_counts
+
 
 def calculate_variance_std_dev(signals):
     # Calculating variance and standard deviation
@@ -73,27 +76,27 @@ def calculate_rms(signals):
     return rms
 
 def freq_bands(signals, fs=FS):
-    # Assuming signals is a 2D array: channels x samples
-    band_features = np.zeros((signals.shape[0], 4))  # 4 frequency bands
+    band_features = np.zeros((signals.shape[0], 4))
+
     for i, signal in enumerate(signals):
-        # Decrease sampling rate and adjust number of samples
-        downsampled_signal = signal[::2]  # Downsample by 2 (adjust factor as needed)
-        adjusted_fs = fs // 2  # Adjusted sampling rate
+        downsampled_signal = signal[::2]
+        adjusted_fs = fs // 2
         
-        # Adjust number of samples for Welch's method
-        nperseg = min(32, len(downsampled_signal))  # Use minimum of 32 samples or signal length
+        nperseg = min(32, len(downsampled_signal))
         
-        frequencies, psd = welch(downsampled_signal, fs=adjusted_fs, nperseg=nperseg)  # Adjusted nperseg
+        frequencies, psd = welch(downsampled_signal, fs=adjusted_fs, nperseg=nperseg)
         
-        # Frequency bands
+        print("Frequencies:", frequencies)
+        print("PSD:", psd)
+        
         bands = {'delta': (1, 4), 'theta': (4, 8), 'alpha': (8, 13), 'beta': (13, 30)}
         for j, (name, (low, high)) in enumerate(bands.items()):
             idx = np.logical_and(frequencies >= low, frequencies <= high)
-            if np.any(idx):  # Check if any frequencies fall within the band
+            if np.any(idx):
                 band_features[i, j] = np.nanmean(psd[idx])
             else:
-                # Assign a default value if the band is empty
-                band_features[i, j] = 0.0  # Or any other suitable default value
+                band_features[i, j] = 0.0
+    
     return band_features
 
 
@@ -130,8 +133,8 @@ def spectral_centroids(signals, fs=FS):
     return np.array(centroids)
 
 def spectral_edge_density(signals, fs=FS, percentage=95):
-    # Loop through each channel and calculate spectral edge density
     spectral_edge_densities = []
+
     for signal in signals:
         fft_result = fft(signal)
         frequencies = fftfreq(len(signal), 1.0/fs)
@@ -144,8 +147,12 @@ def spectral_edge_density(signals, fs=FS, percentage=95):
         threshold = total_power * (percentage / 100)
         spectral_edge = positive_frequencies[np.argmax(cumulative_sum >= threshold)]
         spectral_edge_densities.append(spectral_edge)
+        
+        print("Positive Frequencies:", positive_frequencies)
+        print("Magnitude:", magnitude)
+        print("Spectral Edge:", spectral_edge)
+    
     return np.array(spectral_edge_densities)
-
 
 def phase_locking_values(signal1, signal2):
     # Compute the analytical signal for each input signal
@@ -176,8 +183,6 @@ def phase_locking_values(signal1, signal2):
             plv_matrix[j, i] = plv  # PLV is symmetric
 
     return plv_matrix
-
-
 
 def calculate_higuchi_fractal_dimension(signals, k_max):
     hfd_values = []  # To store HFD for each channel
@@ -218,14 +223,15 @@ def calculate_higuchi_fractal_dimension(signals, k_max):
     return hfd_values
 
 def calculate_zero_crossing_rate(signals):
-    # Calculate sign changes across the signals array
     sign_changes = np.diff(np.sign(signals), axis=1)
-    # Count zero crossings (where sign changes are non-zero)
     zero_crossings = np.count_nonzero(sign_changes, axis=1)
-    # Normalize by the length of each signal segment analyzed
     zero_crossing_rates = zero_crossings / (signals.shape[1] - 1)
-    return zero_crossing_rates
     
+    print("Sign Changes:", sign_changes)
+    print("Zero Crossings:", zero_crossings)
+    
+    return zero_crossing_rates
+
 def perform_empirical_mode_decomposition(signals):
     # Initialize EMD
     emd = EMD()
@@ -268,18 +274,19 @@ def time_warping_factor(signals):
         warping_factors.append(distance)
     return warping_factors
 
-
-def evolution_rate(signals): 
+def evolution_rate(signals):
     rates = np.zeros(signals.shape[0])
+
     for i, signal in enumerate(signals):
-        # Compute the analytic signal
         analytic_signal = hilbert(signal)
-        # Calculate the envelope
         envelope = np.abs(analytic_signal)
-        # Calculate the derivative of the envelope
         derivative = np.diff(envelope)
-        # Compute the evolution rate as the average absolute derivative of the envelope
         rates[i] = np.mean(np.abs(derivative))
+        
+        print("Analytic Signal:", analytic_signal)
+        print("Envelope:", envelope)
+        print("Derivative:", derivative)
+    
     return rates
 
 def analyze_signals(buffer):
@@ -290,7 +297,7 @@ def analyze_signals(buffer):
     variance, std_dev = calculate_variance_std_dev(signals)
     rms = calculate_rms(signals)
     band_features = freq_bands(signals, FS)
-    spectral_entropy_dict = calculate_spectral_entropy(signals, list(range(NUM_CHANNELS)), FS)
+    #spectral_entropy_dict = calculate_spectral_entropy(signals, list(range(NUM_CHANNELS)), FS)
     centroids = spectral_centroids(signals, FS)
     spectral_edge_densities = spectral_edge_density(signals, FS, 95)
     #plv = phase_locking_values(signals) 
@@ -308,7 +315,7 @@ def analyze_signals(buffer):
         'std_dev': [float(val) for val in std_dev],
         'rms': [float(val) for val in rms],
         'band_features': [[float(val) for val in band] for band in band_features],
-        'spectral_entropy': spectral_entropy_dict,
+        #'spectral_entropy': spectral_entropy_dict,
         'centroids': [float(val) for val in centroids],
         'spectral_edge_densities': [float(val) for val in spectral_edge_densities],
         #'phase_synchronization': plv.tolist(),
@@ -318,6 +325,12 @@ def analyze_signals(buffer):
         #'time_warping_factor': warping_factors.tolist(),
         'evolution_rate': [float(val) for val in rates],
     }
+
+        # Print the results
+    print("Analysis Results:")
+    for key, value in results.items():
+        print(f"{key}: {value}")
+        
     return results
 
 
@@ -338,7 +351,7 @@ def main():
         if neural_data is not None and neural_data.size > 0:
             scaled_data = scale_data(neural_data)  # Scale the received data
             buffer = buffer_data(scaled_data, buffer)  # Buffer the scaled data
-        
+            
             # Once the buffer is ready for analysis
             if np.all(buffer != 0):  # Assuming buffer is filled to a point where analysis is meaningful
                 analysis_results = analyze_signals(buffer)  # Analyze the buffered signals
@@ -347,6 +360,9 @@ def main():
 
         else:
             print("No neural data received or neural_data is empty.")
+        # Inside the while loop of the main function
+        message = sub_socket.recv_string()
+        analyzed_features = json.loads(message)
 
 if __name__ == "__main__":
     main()

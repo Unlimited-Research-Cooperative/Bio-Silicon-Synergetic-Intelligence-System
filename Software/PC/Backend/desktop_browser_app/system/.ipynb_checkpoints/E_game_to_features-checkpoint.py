@@ -47,7 +47,7 @@ def metadata_to_features(metadata):
         # Maximum frequency influenced by player health state, indicating a dynamic range based on health
         "max_freq": 0.1 * SymbolicStates.PLAYER_HEALTH_STATES.get(metadata.get("player_health", "full"), 0),
         
-        # Static blend factor as a placeholder
+        # Static blend factor as a static state
         "blend_factor": 0.5,
         
         # Global sync level determined by action state, reflecting synchronization needs

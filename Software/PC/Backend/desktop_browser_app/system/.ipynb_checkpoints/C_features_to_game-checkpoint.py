@@ -1,44 +1,86 @@
 import zmq
 import time
-from pynput.keyboard import Key, Controller as KeyboardController
 import numpy as np
-import skfuzzy as fuzz
-from skfuzzy import control as ctrl
+#import skfuzzy as fuzz
+#from skfuzzy import control as ctrl
 
 class GameActionEncoder:
     def __init__(self):
-        self.keyboard = KeyboardController()
-        # Map neural signal decoded actions to keyboard actions
-        self.key_map = {
-            'forward': Key.up,
-            'left': Key.left,
-            'right': Key.right,
-            'stop': None,  # No key for stop
-            'shoot': 'space',  # Space for shooting
-            'open_door': 'e'   # 'e' for opening doors
+        # Map decoded actions to environment's numeric actions
+        self.action_map = {
+            'forward': 0,
+            'left': 1,
+            'right': 2,
+            'shoot': 3,
+            'open_door': 4,
+            'back': 5
         }
 
-    def execute_actions(self, actions):
-        """
-        Simulates the necessary keyboard inputs to execute the game actions.
-        """
-        keys_pressed = set()
-        for action, active in actions.items():
-            if action in self.key_map and active:
-                key = self.key_map[action]
-                if key:
-                    keys_pressed.add(key)
-        for key in self.key_map.values():
-            if key and key not in keys_pressed:
-                self.keyboard.release(key)
-        for key in keys_pressed:
-            self.keyboard.press(key)
+    def execute_actions(self, decoded_actions):
+        # This example assumes a discrete action space where only one action is performed at a time
+        action = None
+        for decoded_action, active in decoded_actions.items():
+            if active and decoded_action in self.action_map:
+                action = self.action_map[decoded_action]
+        return action
 
 class SignalDecoder:
     """
-    Decodes the analyzed signal features into specific game actions.
+    Decodes analyzed signal features into specific game actions, supporting combinations of actions
+    based on combinations of features.
     """
     def __init__(self):
+        self.feature_to_action_map = {
+            'rms': ('forward', 3.96e-07),
+            'variance': ('left', 1.074e-26),
+            'spectral_entropy': ('open_door', 0.7),
+            'peak_counts': ('shoot', 3),
+            'higuchi_fractal_dimension': ('right', 1.35e-15),
+            'zero_crossing_rate': ('stop', 0.1),
+            #'phase_synchronization': ('forward', 0.8),
+            'band_features_delta': ('stop', 0.5),
+            'band_features_theta': ('stop', 0.5),
+            'band_features_alpha': ('stop', 0.5),
+            'band_features_beta': ('stop', 0.5),
+            'peak_heights': ('stop', 0.5),
+            'std_dev': ('stop', 7.5e-14),
+            'centroids': ('stop', 0.5),
+            'spectral_edge_densities': ('stop', 0.5),
+            #'empirical_mode_decomposition': ('stop', 0.5),
+            #'time_warping_factor': ('stop', 0.5),
+            'evolution_rate': ('stop', 0.5),
+        }
+
+
+    def decode_features_to_actions(self, analyzed_features):
+        actions = {}
+        for feature, (action, threshold) in self.feature_to_action_map.items():
+            value = analyzed_features.get(feature, None)
+            if value is not None:
+                if isinstance(value, list):  # Handle list values by averaging
+                    value = sum(value) / len(value)
+                # Perform the comparison if value is an appropriate type
+                if isinstance(value, (float, int)):
+                    if value > threshold:
+                        actions[action] = True
+                    else:
+                        print(f"Feature '{feature}' value {value} did not meet the threshold {threshold}.")
+                else:
+                    print(f"Skipping comparison for feature: {feature} with unsupported type: {type(value)}")
+    
+        # Convert actions into numeric format for game input, ensuring actions are correctly mapped
+        numeric_actions = [self.action_map[action] for action in actions if actions[action]]
+        return numeric_actions
+
+
+       
+'''
+class SignalDecoder:
+        
+    Decodes the analyzed signal features into specific game actions.
+    
+    def __init__(self):
+        
         # Fuzzy logic system setup
         self.input_var = ctrl.Antecedent(np.arange(0, 256, 1), 'input_var')
         self.output_action = ctrl.Consequent(np.arange(0, 256, 1), 'output_action')
@@ -60,7 +102,7 @@ class SignalDecoder:
         # Create fuzzy control system
         self.system = ctrl.ControlSystem([rule1, rule2, rule3])
         self.controller = ctrl.ControlSystemSimulation(self.system)
-
+        
         # Mapping of features to actions with ranges and change from the last packet
         self.feature_to_action_map = {
             'rms': ('forward', (0, 0.5), (-0.1, 0.1)),  # Example range for 'rms' feature and change
@@ -83,44 +125,41 @@ class SignalDecoder:
             'evolution_rate': ('stop', (0, 0.5), (-0.05, 0.05)),  # Example range for 'evolution_rate' feature and change
         }
 
+
+
     def decode_features_to_actions(self, analyzed_features):
-        """
+        
         Decodes the analyzed signal features into game actions based on fuzzy logic inference.
-        """
-        # Prepare input signal for fuzzy inference
-        input_signal = analyzed_features.get('rms', 0)  # Example feature 'rms'
-    
+        
+        # Example feature 'rms'
+        input_signal = analyzed_features.get('rms', 0)  
+        
         # Perform fuzzy inference
         self.controller.input['input_var'] = input_signal
         self.controller.compute()
-    
-        # Get fuzzy output values
-        fuzzy_output_values = {
-            'forward': self.controller.output['output_action']['forward'],
-            'stop': self.controller.output['output_action']['stop'],
-            'back': self.controller.output['output_action']['back']
-        }
-    
-        # Initialize actions based on fuzzy output
-        actions = {
-            'forward': fuzzy_output_values['forward'] > 0.5,  # Example threshold
-            'stop': fuzzy_output_values['stop'] > 0.5,  # Example threshold
-            'back': fuzzy_output_values['back'] > 0.5  # Example threshold
-        }
-    
+        
+        # Initialize actions based on fuzzy output, corrected to use .defuzzify method
+        actions = {}
+        actions['forward'] = self.controller.output['forward'] > 0.5  # Correctly access output
+        actions['stop'] = self.controller.output['stop'] > 0.5
+        actions['back'] = self.controller.output['back'] > 0.5
+        
         # Override actions based on direct feature ranges and changes from the last packet
         for feature, (action, range_, change_range) in self.feature_to_action_map.items():
             value = analyzed_features.get(feature, 0)
-            if range_[0] <= value <= range_[1] and change_range[0] <= value <= change_range[1]:
+            if value >= range_[0] and value <= range_[1]:  # Adjusted to avoid ambiguous truth value
                 actions[action] = True
-    
-        return actions
-
+        
+        # Convert boolean actions to numerical format expected by the game environment
+        numeric_actions = [self.action_map[action] for action, active in actions.items() if active]
+        
+        return numeric_actions
+'''
 
 def main():
     context_pub = zmq.Context()
     publisher = context_pub.socket(zmq.PUB)
-    publisher.bind("tcp://*:5446")  # Bind to port 5556 for publishing
+    publisher.bind("tcp://*:5446")
 
     context = zmq.Context()
     sub_socket = context.socket(zmq.SUB)
@@ -132,24 +171,17 @@ def main():
 
     while True:
         try:
-            # Receive analyzed signal features as a custom string
             message = sub_socket.recv_string()
             analyzed_features = eval(message)
             
-            # Decode features to game actions using fuzzy logic
             actions = decoder.decode_features_to_actions(analyzed_features)
+            numeric_action = encoder.execute_actions(actions)
             
-            # Execute decoded actions in the game
-            encoder.execute_actions(actions)
-
-            # Publish the extracted features and actions as a string
-            encoded_features = " ".join([f"{key}:{value}" for key, value in analyzed_features.items()])
-            encoded_actions = " ".join([f"{key}:{value}" for key, value in actions.items() if key in encoder.key_map])
-            encoded_data = f"Features: {encoded_features}, Actions: {encoded_actions}"
-            publisher.send_string(encoded_data)
-
-            # Introduce a 100ms delay for 10 Hz frequency
-            time.sleep(0.1)
+            if numeric_action is not None:
+                # Assuming numeric_action needs to be published
+                publisher.send_string(f"Action: {numeric_action}")
+            
+            time.sleep(1)
 
         except zmq.ZMQError as e:
             print(f"ZMQ Error: {e}")
