@@ -90,12 +90,6 @@ Furthermore, our commitment extends beyond the confines of the laboratory. We en
 
 We invite researchers to join us in this groundbreaking journey, to collaborate and contribute to the evolution of synthetic biological intelligence. Engage with us, and let’s shape the future of brain-computer interfaces together.
 
-</p>
-<h1 align="center">class III glovebox design</h1>
-<p align="center">
-  <img src="images/classIII_glovebox.png" alt="class III glovebox">
-</p>
-</div>
 
 
 ### 🚀 Key Features:
@@ -118,7 +112,11 @@ We're reaching out to like-minded researchers and innovators to join us on this 
 - **Discord**: Connect with us on [Discord](https://discord.gg/GVyaBEjCY2) and become part of a vibrant community shaping the future.
 
 
-
+</p>
+<h1 align="center">class III glovebox design</h1>
+<p align="center">
+  <img src="images/classIII_glovebox.png" alt="class III glovebox">
+</p>
 <h1 align="center">System High Level Schematic</h1>
 <p align="center">
   <img src="https://raw.githubusercontent.com/Unlimited-Research-Cooperative/Human-Brain-Rat/main/images/bidirectional_brain_computer_communication.jpg" alt="bidirectional brain computer_communication.png">
