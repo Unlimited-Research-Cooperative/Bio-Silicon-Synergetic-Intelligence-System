@@ -29,40 +29,51 @@ def buffer_data(data, buffer):
     buffer[:, -data.shape[0]:] = data
     return buffer
 
-def scale_data(data):
-    return data / 255.0
+def scale_data(data, fs=FS, factor=2):
+    # Simple subsampling by taking every 'factor'-th sample
+    subsampled_data = data[:, ::factor]
 
+    # Scaling to range [0, 1]
+    data_min = np.min(subsampled_data, axis=1, keepdims=True)
+    data_max = np.max(subsampled_data, axis=1, keepdims=True)
 
-def detect_peak_heights(signals, height=None, threshold=None, distance=None, prominence=None):
-    average_heights = []
+    # Avoid division by zero in case data_max equals data_min
+    scaled_data = (subsampled_data - data_min) / np.where(data_max > data_min, data_max - data_min, 1)
 
-    for signal in signals:
-        peaks, properties = find_peaks(signal, height=height, threshold=threshold, distance=distance, prominence=prominence)
+    return scaled_data
+
+def detect_peaks(signals):
+        # Dynamically setting parameters based on signal characteristics
+        median_height = np.median(signal)
+        std_height = np.std(signal)
+        height = median_height + std_height  # Setting height to be above median + 1 std deviation
+        distance = len(signal) * 0.05  # Example to set distance to 5% of signal length
+        prominence = std_height * 0.5  # Setting prominence to be half of std deviation
         
-        print("Peaks:", peaks)
-        print("Properties:", properties)
+        # Detecting peaks
+        peaks, properties = find_peaks(signal, height=height, distance=distance, prominence=prominence)
         
+        # Calculating properties if peaks were found
         if peaks.size > 0:
-            average_height = np.mean(properties["peak_heights"])
+            peak_count = len(peaks)
+            average_peak_height = np.mean(properties["peak_heights"])
+            average_distance = np.mean(np.diff(peaks)) if len(peaks) > 1 else 0
+            average_prominence = np.mean(properties["prominences"])
         else:
-            average_height = 0
-        
-        average_heights.append(average_height)
+            peak_count = 0
+            average_peak_height = 0
+            average_distance = 0
+            average_prominence = 0
+            
+        # Appending results for each channel
+        peaks_results.append({
+            "peak_count": peak_count,
+            "average_peak_height": average_peak_height,
+            "average_distance": average_distance,
+            "average_prominence": average_prominence,
+        })
     
-    return np.array(average_heights)
-    
-def detect_peaks(signals, height=None, distance=None, prominence=None):
-    peak_counts = np.zeros(signals.shape[0], dtype=int)
-
-    for i, signal in enumerate(signals):
-        peaks, _ = find_peaks(signal, height=height, distance=distance, prominence=prominence)
-        
-        print("Peaks:", peaks)
-        
-        peak_counts[i] = len(peaks)
-    
-    return peak_counts
-
+    return peaks_results
 
 def calculate_variance_std_dev(signals):
     # Calculating variance and standard deviation
@@ -79,12 +90,10 @@ def freq_bands(signals, fs=FS):
     band_features = np.zeros((signals.shape[0], 4))
 
     for i, signal in enumerate(signals):
-        downsampled_signal = signal[::2]
-        adjusted_fs = fs // 2
         
         nperseg = min(32, len(downsampled_signal))
         
-        frequencies, psd = welch(downsampled_signal, fs=adjusted_fs, nperseg=nperseg)
+        frequencies, psd = welch(downsampled_signal, fs=FS, nperseg=nperseg)
         
         print("Frequencies:", frequencies)
         print("PSD:", psd)
@@ -100,9 +109,11 @@ def freq_bands(signals, fs=FS):
     return band_features
 
 
-def calculate_spectral_entropy(neural_data_array, neural_channels, fs=FS):  
-    spectral_entropy_dict = {}
-    for channel, signal in zip(neural_channels, neural_data_array):
+def calculate_spectral_entropy(neural_data_array, fs):  
+    # Initialize an array to hold spectral entropy values for each channel
+    spectral_entropy_values = np.zeros(neural_data_array.shape[0])
+    
+    for i, signal in enumerate(neural_data_array):
         # Determine nperseg based on the length of the signal
         nperseg = min(len(signal), fs * 2)
         # Calculate the power spectral density (PSD) using Welch's method
@@ -110,18 +121,18 @@ def calculate_spectral_entropy(neural_data_array, neural_channels, fs=FS):
         
         # Check if the sum of psd is zero
         if np.sum(psd) == 0:
-            spectral_entropy_dict[channel] = 0.0  # Set spectral entropy to 0
+            spectral_entropy_values[i] = 0.0  # Set spectral entropy to 0
         else:
             # Normalize the PSD to get a probability distribution for entropy calculation
             normalized_psd = psd / np.sum(psd)
             # Calculate the spectral entropy
             spectral_entropy = -np.sum(normalized_psd * np.log2(normalized_psd))
-            # Store the spectral entropy in the dictionary with the channel name as the key
-            spectral_entropy_dict[channel] = float(spectral_entropy)  # Convert to Python float
-    return spectral_entropy_dict
+            # Store the spectral entropy value in the array
+            spectral_entropy_values[i] = spectral_entropy
+    
+    return spectral_entropy_values
 
-
-def spectral_centroids(signals, fs=FS): 
+def spectral_centroids(signals, fs): 
     # Calculate the spectral centroids for each signal
     centroids = []
     for signal in signals:
@@ -130,9 +141,9 @@ def spectral_centroids(signals, fs=FS):
         magnitude = np.abs(fft_result)
         centroid = np.sum(frequencies * magnitude) / np.sum(magnitude)
         centroids.append(centroid)
-    return np.array(centroids)
+    return centroids
 
-def spectral_edge_density(signals, fs=FS, percentage=95):
+def spectral_edge_density(signals, fs, percentage=95):
     spectral_edge_densities = []
 
     for signal in signals:
@@ -141,18 +152,13 @@ def spectral_edge_density(signals, fs=FS, percentage=95):
         positive_frequencies = frequencies[frequencies >= 0]
         positive_fft_result = fft_result[frequencies >= 0]
         magnitude = np.abs(positive_fft_result)
-        sorted_magnitude = np.sort(magnitude)[::-1]
-        cumulative_sum = np.cumsum(sorted_magnitude)
+        cumulative_sum = np.cumsum(np.sort(magnitude)[::-1])
         total_power = np.sum(magnitude)
         threshold = total_power * (percentage / 100)
         spectral_edge = positive_frequencies[np.argmax(cumulative_sum >= threshold)]
-        spectral_edge_densities.append(spectral_edge)
-        
-        print("Positive Frequencies:", positive_frequencies)
-        print("Magnitude:", magnitude)
-        print("Spectral Edge:", spectral_edge)
-    
-    return np.array(spectral_edge_densities)
+        spectral_edge_densities.append(spectral_edge)  
+
+    return spectral_edge_densities
 
 def phase_locking_values(signal1, signal2):
     # Compute the analytical signal for each input signal
@@ -296,8 +302,13 @@ def analyze_signals(buffer):
     peak_counts = detect_peaks(signals)
     variance, std_dev = calculate_variance_std_dev(signals)
     rms = calculate_rms(signals)
-    band_features = freq_bands(signals, FS)
-    #spectral_entropy_dict = calculate_spectral_entropy(signals, list(range(NUM_CHANNELS)), FS)
+    band_features = freq_bands(signals, FS)  # Assuming this returns an array of shape (num_signals, num_bands)
+    # Assuming band_features order: delta, theta, alpha, beta
+    delta_band_power = band_features[:, 0]  # Delta band powers for all signals
+    theta_band_power = band_features[:, 1]  # Theta band powers for all signals
+    alpha_band_power = band_features[:, 2]  # Alpha band powers for all signals
+    beta_band_power = band_features[:, 3]  # Beta band powers for all signals
+    #spectral_entropy_values = spectral_entropy_values(signals, FS)
     centroids = spectral_centroids(signals, FS)
     spectral_edge_densities = spectral_edge_density(signals, FS, 95)
     #plv = phase_locking_values(signals) 
@@ -309,21 +320,24 @@ def analyze_signals(buffer):
 
     # Convert float32 values to Python floats in the results dictionary
     results = {
-        'peak_heights': [float(val) for val in peak_heights],
-        'peak_counts': [float(val) for val in peak_counts],
-        'variance': [float(val) for val in variance],
-        'std_dev': [float(val) for val in std_dev],
-        'rms': [float(val) for val in rms],
-        'band_features': [[float(val) for val in band] for band in band_features],
-        #'spectral_entropy': spectral_entropy_dict,
-        'centroids': [float(val) for val in centroids],
-        'spectral_edge_densities': [float(val) for val in spectral_edge_densities],
+        'peak_heights': peak_heights.tolist() if isinstance(peak_heights, np.ndarray) else peak_heights,
+        'peaks': peak_counts.tolist() if isinstance(peak_counts, np.ndarray) else peak_counts,
+        'variance': variance.tolist() if isinstance(variance, np.ndarray) else variance,
+        'std_dev': std_dev.tolist() if isinstance(std_dev, np.ndarray) else std_dev,
+        'rms': rms.tolist() if isinstance(rms, np.ndarray) else rms,
+        'delta_band_power': delta_band_power.tolist() if isinstance(delta_band_power, np.ndarray) else delta_band_power,
+        'theta_band_power': theta_band_power.tolist() if isinstance(theta_band_power, np.ndarray) else theta_band_power,
+        'alpha_band_power': alpha_band_power.tolist() if isinstance(alpha_band_power, np.ndarray) else alpha_band_power,
+        'beta_band_power': beta_band_power.tolist() if isinstance(beta_band_power, np.ndarray) else beta_band_power,
+        #'spectral_entropy...
+        'centroids': centroids.tolist() if isinstance(centroids, np.ndarray) else centroids,
+        'spectral_edge_densities': spectral_edge_densities.tolist() if isinstance(spectral_edge_densities, np.ndarray) else spectral_edge_densities,
         #'phase_synchronization': plv.tolist(),
-        'higuchi_fractal_dimension': [float(val) for val in hfd_values],
-        'zero_crossing_rate': [float(val) for val in zero_crossing_rate],
+        'higuchi_fractal_dimension': hfd_values if isinstance(hfd_values, list) else hfd_values.tolist(),
+        'zero_crossing_rate': zero_crossing_rate.tolist() if isinstance(zero_crossing_rate, np.ndarray) else zero_crossing_rate,
         #'empirical_mode_decomposition': [imf.tolist() for imf in imfs],
         #'time_warping_factor': warping_factors.tolist(),
-        'evolution_rate': [float(val) for val in rates],
+        'evolution_rate': rates.tolist() if isinstance(rates, np.ndarray) else rates,
     }
 
         # Print the results
@@ -332,7 +346,6 @@ def analyze_signals(buffer):
         print(f"{key}: {value}")
         
     return results
-
 
 def main():
     context = zmq.Context()

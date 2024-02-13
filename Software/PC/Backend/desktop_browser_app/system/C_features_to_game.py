@@ -8,20 +8,21 @@ class GameActionEncoder:
     def __init__(self):
         # Map decoded actions to environment's numeric actions
         self.action_map = {
-            'forward': 0,
-            'left': 1,
-            'right': 2,
-            'shoot': 3,
-            'open_door': 4,
-            'back': 5
+            'MOVE_FORWARD': 0,
+            'TURN_LEFT': 1,
+            'TURN_RIGHT': 2,
+            'ATTACK': 3,
+            'USE': 4,
+            'MOVE_BACKWARD': 5
         }
 
     def execute_actions(self, decoded_actions):
         # This example assumes a discrete action space where only one action is performed at a time
-        action = None
+        action = [False] * len(self.action_map)  # Initialize a list of False actions
         for decoded_action, active in decoded_actions.items():
             if active and decoded_action in self.action_map:
-                action = self.action_map[decoded_action]
+                action_index = self.action_map[decoded_action]  # Get the index of the action
+                action[action_index] = True  # Set the action to True
         return action
 
 class SignalDecoder:
@@ -31,49 +32,53 @@ class SignalDecoder:
     """
     def __init__(self):
         self.feature_to_action_map = {
-            'rms': ('forward', 3.96e-07),
-            'variance': ('left', 1.074e-26),
-            'spectral_entropy': ('open_door', 0.7),
-            'peak_counts': ('shoot', 3),
-            'higuchi_fractal_dimension': ('right', 1.35e-15),
-            'zero_crossing_rate': ('stop', 0.1),
+            'rms': ('MOVE_FORWARD', 3.96e-07),
+            'variance': ('TURN_LEFT', 1.074e-26),
+            'spectral_entropy': ('USE', 0.7),
+            'peak_counts': ('ATTACK', 3),
+            'higuchi_fractal_dimension': ('TURN_RIGHT', 1.35e-15),
+            'zero_crossing_rate': ('MOVE_FORWARD', 0.1),
             #'phase_synchronization': ('forward', 0.8),
-            'band_features_delta': ('stop', 0.5),
-            'band_features_theta': ('stop', 0.5),
-            'band_features_alpha': ('stop', 0.5),
-            'band_features_beta': ('stop', 0.5),
-            'peak_heights': ('stop', 0.5),
-            'std_dev': ('stop', 7.5e-14),
-            'centroids': ('stop', 0.5),
-            'spectral_edge_densities': ('stop', 0.5),
+            'delta_band_power': ('MOVE_FORWARD', 0.5),
+            'theta_band_power': ('MOVE_FORWARD', 0.5),
+            'alpha_band_power': ('MOVE_FORWARD', 0.5),
+            'beta_band_power': ('MOVE_FORWARD', 0.5),
+            'peak_heights': ('MOVE_FORWARD', 0.5),
+            'std_dev': ('MOVE_FORWARD', 7.5e-14),
+            'centroids': ('MOVE_FORWARD', 0.5),
+            'spectral_edge_densities': ('MOVE_FORWARD', 0.5),
             #'empirical_mode_decomposition': ('stop', 0.5),
             #'time_warping_factor': ('stop', 0.5),
-            'evolution_rate': ('stop', 0.5),
+            'evolution_rate': ('MOVE_FORWARD', 0.5),
         }
 
 
     def decode_features_to_actions(self, analyzed_features):
         actions = {}
-        for feature, (action, threshold) in self.feature_to_action_map.items():
-            value = analyzed_features.get(feature, None)
-            if value is not None:
-                if isinstance(value, list):  # Handle list values by averaging
-                    value = sum(value) / len(value)
-                # Perform the comparison if value is an appropriate type
-                if isinstance(value, (float, int)):
-                    if value > threshold:
-                        actions[action] = True
-                    else:
-                        print(f"Feature '{feature}' value {value} did not meet the threshold {threshold}.")
-                else:
-                    print(f"Skipping comparison for feature: {feature} with unsupported type: {type(value)}")
+        # Define a minimum proportion of signals that must meet the threshold for an action
+        min_proportion = 0.5  # Example: at least 50% of signals must exceed the threshold
     
+        for feature, (action, threshold) in self.feature_to_action_map.items():
+            values = analyzed_features.get(feature, None)
+            if values is not None and isinstance(values, list):
+                # Calculate the proportion of values exceeding the threshold
+                exceeding_threshold = sum(val > threshold for val in values) / len(values)
+                if exceeding_threshold >= min_proportion:
+                    actions[action] = True
+                else:
+                    print(f"Feature '{feature}' did not meet the threshold proportion {min_proportion}.")
+            else:
+                print(f"Feature '{feature}' is missing or not a list.")
+        
         # Convert actions into numeric format for game input, ensuring actions are correctly mapped
-        numeric_actions = [self.action_map[action] for action in actions if actions[action]]
+        action_dict = {action: False for action in self.action_map}  # Initialize action dictionary
+        for action in actions:
+            if actions[action]:
+                action_dict[action] = True  # Update action dictionary based on decoded actions
+        
+        numeric_actions = [action_dict[action] for action in self.action_map.keys()]
         return numeric_actions
-
-
-       
+        
 '''
 class SignalDecoder:
         
@@ -164,22 +169,22 @@ def main():
     context = zmq.Context()
     sub_socket = context.socket(zmq.SUB)
     sub_socket.connect("tcp://localhost:5445")
-    sub_socket.setsockopt_string(zmq.SUBSCRIBE, '')
+    sub_socket.setsockopt_string(zmq.SUBSCRIBE, '')  # Subscribe to all incoming messages
 
     decoder = SignalDecoder()
     encoder = GameActionEncoder()
 
     while True:
         try:
-            message = sub_socket.recv_string()
-            analyzed_features = eval(message)
+            message = sub_socket.recv_string()  # Receive the message as a string
+            analyzed_features = json.loads(message)  # Safely deserialize the JSON string to a dictionary
             
-            actions = decoder.decode_features_to_actions(analyzed_features)
-            numeric_action = encoder.execute_actions(actions)
-            
-            if numeric_action is not None:
-                # Assuming numeric_action needs to be published
-                publisher.send_string(f"Action: {numeric_action}")
+            decoded_actions = decoder.decode_features_to_actions(analyzed_features)
+            actions = encoder.execute_actions(decoded_actions)
+                 
+            # Convert dictionary to JSON string
+            action_message = json.dumps(action_dict)
+            publisher.send_string(action_message)
             
             time.sleep(1)
 
