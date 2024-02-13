@@ -90,6 +90,13 @@ Furthermore, our commitment extends beyond the confines of the laboratory. We en
 
 We invite researchers to join us in this groundbreaking journey, to collaborate and contribute to the evolution of synthetic biological intelligence. Engage with us, and let’s shape the future of brain-computer interfaces together.
 
+</p>
+<h1 align="center">class III glovebox design</h1>
+<p align="center">
+  <img src="images/classIII_glovebox.png" alt="class III glovebox">
+</p>
+</div>
+
 
 ### 🚀 Key Features:
 - **Tailored BCI & MEA**: Designed specifically for rat brains, enhancing neural connectivity and signal precision.
