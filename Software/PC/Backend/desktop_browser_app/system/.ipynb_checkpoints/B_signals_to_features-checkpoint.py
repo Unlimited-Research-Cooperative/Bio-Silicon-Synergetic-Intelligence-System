@@ -19,6 +19,9 @@ def receive_neural_data(socket):
         message = socket.recv()  # Receive the message
         ecog_data = json.loads(message.decode('utf-8'))  # Decode and load the JSON data
         neural_data = np.array(ecog_data, dtype=np.float32)  # Convert the list to a NumPy array
+        if neural_data.ndim == 1:
+            neural_data = neural_data.reshape(-1, 1)  # Reshape from (32,) to (32, 1) for a single sample across 32 channels
+        #print(f"Received neural data shape: {neural_data.shape}")  # Debugging: Print shape
         return neural_data
     except zmq.ZMQError as e:
         print(f"Error receiving data: {e}")
@@ -30,7 +33,9 @@ def buffer_data(data, buffer):
     return buffer
 
 def scale_data(data, fs=FS, factor=2):
-    # Simple subsampling by taking every 'factor'-th sample
+    if data.ndim != 2 or data.shape[0] != 32:
+        raise ValueError(f"Unexpected data shape: {data.shape}. Expected (32, number_of_samples).")
+       # Simple subsampling by taking every 'factor'-th sample
     subsampled_data = data[:, ::factor]
 
     # Scaling to range [0, 1]
@@ -43,27 +48,28 @@ def scale_data(data, fs=FS, factor=2):
     return scaled_data
 
 def detect_peaks(signals):
-        # Dynamically setting parameters based on signal characteristics
-        median_height = np.median(signal)
-        std_height = np.std(signal)
-        height = median_height + std_height  # Setting height to be above median + 1 std deviation
-        distance = len(signal) * 0.05  # Example to set distance to 5% of signal length
-        prominence = std_height * 0.5  # Setting prominence to be half of std deviation
+    # Dynamically setting parameters based on signal characteristics
+    median_height = np.median(signal)
+    std_height = np.std(signal)
+    height = median_height + std_height  # Setting height to be above median + 1 std deviation
+    distance = len(signal) * 0.05  # Example to set distance to 5% of signal length
+    prominence = std_height * 0.5  # Setting prominence to be half of std deviation
+    
+    # Detecting peaks
+    peaks, properties = find_peaks(signal, height=height, distance=distance, prominence=prominence)
         
-        # Detecting peaks
-        peaks, properties = find_peaks(signal, height=height, distance=distance, prominence=prominence)
-        
-        # Calculating properties if peaks were found
-        if peaks.size > 0:
-            peak_count = len(peaks)
-            average_peak_height = np.mean(properties["peak_heights"])
-            average_distance = np.mean(np.diff(peaks)) if len(peaks) > 1 else 0
-            average_prominence = np.mean(properties["prominences"])
-        else:
-            peak_count = 0
-            average_peak_height = 0
-            average_distance = 0
-            average_prominence = 0
+    # Calculating properties if peaks were found
+    if peaks.size > 0:
+        peak_count = len(peaks)
+        average_peak_height = np.mean(properties["peak_heights"])
+        average_distance = np.mean(np.diff(peaks)) if len(peaks) > 1 else 0
+        average_prominence = np.mean(properties["prominences"])
+    
+    else:
+        peak_count = 0
+        average_peak_height = 0
+        average_distance = 0
+        average_prominence = 0
             
         # Appending results for each channel
         peaks_results.append({
@@ -352,6 +358,12 @@ def main():
     sub_socket = context.socket(zmq.SUB)
     sub_socket.connect("tcp://localhost:5444")
     sub_socket.setsockopt_string(zmq.SUBSCRIBE, '')
+    sub_socket.setsockopt(zmq.RCVTIMEO, 5000)  # Set timeout to 5000 milliseconds (5 seconds)
+    try:
+        message = sub_socket.recv()
+        # Process the message
+    except zmq.Again as e:
+        print("Timeout occurred: no message received within the timeout period.")
 
     pub_socket = context.socket(zmq.PUB)
     pub_socket.bind("tcp://*:5445")
