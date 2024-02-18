@@ -2,10 +2,18 @@ import numpy as np
 from scipy.signal import hilbert
 import zmq
 import time
+import json
 
-# Function to generate base ECoG-like signals within the specified range
-def generate_ecog_like_base_signals(length, num_signals=num_signals):
-    signals = np.random.uniform(min_volt, max_volt, (num_signals, length))
+# Function to generate base ECoG-like signals within the specified range, continuing from last values
+def generate_ecog_like_base_signals(length, num_signals, initial_values=None):
+    if initial_values is None:
+        signals = np.random.uniform(min_volt, max_volt, (num_signals, length))
+    else:
+        # Start from the last values of the previous packet
+        signals = np.zeros((num_signals, length))
+        for i in range(num_signals):
+            signals[i, 0] = initial_values[i]
+            signals[i, 1:] = np.random.uniform(min_volt, max_volt, (length - 1))
     return signals
 
 # Function to scale signals to a specific bit depth
@@ -17,7 +25,7 @@ def scale_signals_to_bit_depth(modified_signals, bit_depth):
     min_signal = np.min(modified_signals)
 
     # Scale the signals to the specified bit depth while preserving the range
-    scaled_signals = ((modified_signals - min_signal) / (max_signal - min_signal)) * (max_val - min_val) + min_val
+    modified_signals = ((modified_signals - min_signal) / (max_signal - min_signal)) * (max_val - min_val) + min_val
 
     return modified_signals
 
@@ -433,7 +441,7 @@ transformations = [
     lambda x: apply_transfer_entropy(x, features["influence_factor"], features["max_influence"]),
     lambda x: apply_hilbert_huang(x, features),
     lambda x: apply_spectral_centroids(x, features["centroid_factor"], features["edge_density_factor"]),
-    lambda x: apply_dynamic_time_warping(x, reference_signal=np.mean(x, axis=0), warping_factor=0.5, min_volt=min_volt, max_volt=max_volt),,
+    lambda x: apply_dynamic_time_warping(x, reference_signal=np.mean(x, axis=0), warping_factor=0.5, min_volt=min_volt, max_volt=max_volt),
     lambda x: apply_fft(x, features["complexity_factor"]),
     lambda x: apply_signal_evolution(x, features["evolution_rate"]),
     lambda x: apply_phase_amplitude_coupling(x, features["low_freq"], features["high_freq"]),
@@ -442,10 +450,12 @@ transformations = [
     lambda x: apply_normalized_states(x, modification_factor=0.1, matrix_size=10, value_range=(-1, 1), num_matrices=5, eigenvalue_subset=slice(0, 5)),
 ]
 
-# Main function to generate and transform signals
-def generate_transformed_signals(signal_length, num_signals, transformation_functions):
-    modified_signals = generate_ecog_like_base_signals(signal_length, num_signals)
+# Add function here to continue from the last signal values of the previous packet
 
+# Main function to generate and transform signals
+def generate_transformed_signals(signal_length, num_signals, transformation_functions, initial_values=None):
+    modified_signals = generate_ecog_like_base_signals(signal_length, num_signals, initial_values)
+    
     for transform in transformation_functions:
         modified_signals = transform(modified_signals)
         # Convert list to NumPy array if necessary
@@ -462,20 +472,29 @@ def generate_transformed_signals(signal_length, num_signals, transformation_func
 
     return modified_signals
 
+def serialize_transformed_signals(transformed_signals):
+    """
+    Convert the NumPy array of transformed signals into a JSON string.
+    """
+    # Convert the NumPy array to a list of lists for JSON serialization
+    signals_list = transformed_signals.tolist()
+    # Serialize the list of lists into a JSON string
+    return json.dumps({"signals": signals_list})
+
 # Main execution
 if __name__ == "__main__":
     bit_depth = 16        # Bit depth of the signals
     num_signals = 32      # Number of signals
-    sampling_rate = 100   # Sampling rate in Hz
-    duration = 1        # Duration in seconds
-    length = sampling_rate * duration
+    fs = 500              # Sampling rate in Hz
+    duration = 1          # Duration in seconds
+    length = fs * duration
 
     # Global variables for amplitude range
     min_volt = 1e-6  # 1 microvolt
-    max_volt = 8e-5  # 8 microvolts
+    max_volt = 200e-5  # 200 microvolts
 
     # Calculate the length of the signals
-    length = sampling_rate * duration
+    length = fs * duration
 
     # Generate and transform the ECoG-like signals
     transformed_signals = generate_transformed_signals(length, num_signals, transformations)
@@ -487,6 +506,9 @@ if __name__ == "__main__":
     print(f"Shape of generated ECoG-like signals: {transformed_signals_array.shape}")
     for i in range(8):
         print(f"Sample of signal {i + 1}: {transformed_signals_array[i][:50]}")
+    
+    # Initialize an array to store the last values of each signal
+    last_values = np.zeros(num_signals)  # Assuming the initial start is from zero
 
     # ZeroMQ Publisher Setup
     context_pub = zmq.Context()
@@ -499,17 +521,23 @@ if __name__ == "__main__":
     subscriber.connect("tcp://localhost:5556")
     subscriber.setsockopt_string(zmq.SUBSCRIBE, "")  # Subscribe to all incoming messages from 5556 (packet_to_features.py)
     
+    # Initialize an array to store the last values of each signal
+    last_values = np.zeros(num_signals)  # Assuming the initial start is from zero
+
     while True:
-        encoded_packet = subscriber.recv_string()
-        packet = int(encoded_packet)  # Convert received string back to integer
-        
-        # Calculate transformed_features using packet and other variables
-        transformed_features = calculate_transformed_features(packet, transformed_signals)
-        
-        print("Transformed features:", transformed_features)
-        
-        # Publish the transformed_features as a string
-        encoded_transformed_features = " ".join([f"{key}:{value}" for key, value in transformed_features.items()])
-        publisher.send_string(encoded_transformed_features)
-        
-        time.sleep(0.1)
+        # Wait for an incoming message to trigger signal generation
+        subscriber.recv_string()
+
+        transformed_signals = generate_transformed_signals(length, num_signals, transformations, initial_values=last_values)
+
+        last_values = transformed_signals[:, -1]
+
+        # Serialize the transformed signals to JSON
+        encoded_transformed_signals = serialize_transformed_signals(transformed_signals)
+
+        # Publish the JSON string
+        publisher.send_string(encoded_transformed_signals)
+
+        print("Sent transformed signals as JSON.")
+
+        time.sleep(duration)

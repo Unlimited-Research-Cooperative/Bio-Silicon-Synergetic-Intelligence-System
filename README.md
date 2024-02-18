@@ -133,6 +133,14 @@ We're reaching out to like-minded researchers and innovators to join us on this 
 <p align="center">
   <img src="https://raw.githubusercontent.com/Unlimited-Research-Cooperative/Human-Brain-Rat/main/images/biomimetic_signals_overlayed.png" alt="biomimetic signals overlay.png">
 </p>
+<h1 align="center">Software Data Pipeline</h1>
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Unlimited-Research-Cooperative/Human-Brain-Rat/main/images/software_flowchart.png" alt="Software Data Pipeline.png">
+</p>
+<h1 align="center">Reward System and Feature Mappings</h1>
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Unlimited-Research-Cooperative/Human-Brain-Rat/main/images/rewards_and_mappings.png" alt="Reward System and Feature Mappings.png">
+</p>
 
 
 ## 🤝 Connect
