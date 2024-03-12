@@ -1,4 +1,4 @@
-<mxfile host="Electron" modified="2024-02-18T22:58:08.151Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.1.16 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="fOtqtS36w27JqLDg1GrQ" version="22.1.16" type="device">
+<mxfile host="Electron" modified="2024-02-18T23:11:40.894Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.1.16 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="erJtmeRvwTK2QsO8-vzH" version="22.1.16" type="device">
   <diagram name="Page-1" id="UO3zegzRqnsEIXU49jw1">
     <mxGraphModel dx="2222" dy="1337" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" background="#000000" math="0" shadow="0">
       <root>
@@ -74,10 +74,7 @@
           <mxGeometry x="602" y="904" width="60" height="30" as="geometry" />
         </mxCell>
         <mxCell id="kK_saXuroscAapvJbY5S-26" value="signals_generator.py" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
-          <mxGeometry x="991.5" y="1105" width="60" height="30" as="geometry" />
-        </mxCell>
-        <mxCell id="kK_saXuroscAapvJbY5S-27" value="&lt;b&gt;Publishing Features&lt;/b&gt;: Publish the encoded features string using a ZeroMQ publisher socket." style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="864.5" y="1145" width="340" height="60" as="geometry" />
+          <mxGeometry x="1416.5" y="1105" width="60" height="30" as="geometry" />
         </mxCell>
         <mxCell id="kK_saXuroscAapvJbY5S-29" value="&lt;div&gt;&lt;b&gt;Initialization&lt;/b&gt;: Define bit depth, number of signals, sampling rate, duration, and voltage range.&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="1276.5" y="1145" width="340" height="60" as="geometry" />
@@ -104,7 +101,7 @@
           <mxGeometry x="859.5" y="1595" width="350" height="75" as="geometry" />
         </mxCell>
         <mxCell id="kK_saXuroscAapvJbY5S-38" value="&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;b&gt;Initialization&lt;/b&gt;: Set up ZeroMQ Subscriber to receive transformed signal data from a publisher. Set up JACK client and register output ports for audio signal transmission.&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="1271.5" y="1595" width="350" height="80" as="geometry" />
+          <mxGeometry x="1271.5" y="1592.5" width="350" height="80" as="geometry" />
         </mxCell>
         <mxCell id="kK_saXuroscAapvJbY5S-39" value="&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;b&gt;Receive and Process Data&lt;/b&gt;:&lt;/div&gt;&lt;div&gt;Loop Continuously:&lt;/div&gt;&lt;div&gt;Listen for incoming data on the ZeroMQ Subscriber socket.&lt;/div&gt;&lt;div&gt;Upon receiving data, deserialize the JSON string to extract the transformed signal data (assumed to be in a list format within the JSON object).&lt;/div&gt;&lt;div&gt;Convert the list of signal data back into a NumPy array for processing.&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="1269" y="1800" width="355" height="140" as="geometry" />
@@ -211,15 +208,9 @@
             <mxPoint x="1316.5" y="875" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="kK_saXuroscAapvJbY5S-60" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="kK_saXuroscAapvJbY5S-24" target="kK_saXuroscAapvJbY5S-27">
+        <mxCell id="kK_saXuroscAapvJbY5S-61" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="kK_saXuroscAapvJbY5S-24" target="kK_saXuroscAapvJbY5S-29">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="1406.5" y="875" as="sourcePoint" />
-            <mxPoint x="1326.5" y="885" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="kK_saXuroscAapvJbY5S-61" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="kK_saXuroscAapvJbY5S-27" target="kK_saXuroscAapvJbY5S-29">
-          <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="846.5" y="1185" as="sourcePoint" />
+            <mxPoint x="1204.5" y="1175" as="sourcePoint" />
             <mxPoint x="896.5" y="1215" as="targetPoint" />
           </mxGeometry>
         </mxCell>
@@ -315,6 +306,9 @@
         </mxCell>
         <mxCell id="kK_saXuroscAapvJbY5S-82" value="send_signals_to_usb_hub.py" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="1004.5" y="1556" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-84" value="game.py" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="601.5" y="666" width="60" height="30" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

@@ -161,7 +161,7 @@ This project is licensed under the [Creative Commons Attribution-ShareAlike 4.0 
 For collaborations, press inquiries, or questions:
 - Email: [soul.syrup@yandex.com](mailto:soul.syrup@yandex.com) or [soul.syrupp@gmail.com](mailto:soul.syrupp@gmail.com)
 - Discord: soul_syrup
-- TikTok: [@soul.syrup](https://www.tiktok.com/@soul.syrup)
+
 
 ## 📚 Library Testing Invitation
 We invite you to test our PyPI library for human brain cortical organoid/spheroid, EEG, ECoG, and other signal analyses:
