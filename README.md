@@ -61,7 +61,7 @@ Our methodology is deeply rooted in bidirectional communication, leveraging AI t
 - **Wiring**: Twisted pair configuration for each electrode, reducing interference.
 
 ### Papers:
-- [**Phase 1**](https://www.researchgate.net/publication/378936962_Bio-Silicon_Synergetic_Intelligence_System_Stage_1_Software_Development_and_Prospective_Implantation_of_Microelectrode_Arrays_and_Human_Cortical_Organoids_into_Rat_Brains
+- [**Phase 1**](https://www.researchgate.net/publication/379048160_Bio-Silicon_Synergetic_Intelligence_System_Phase_1_Software_Development_and_Prospective_Implantation_of_Microelectrode_Arrays_and_Human_Cortical_Organoids_into_Rat_Brains
 ): Bio-Silicon Synergetic Intelligence System (Stage 1): Software Development and Prospective Implantation of Microelectrode Arrays and Human Cortical Organoids into Rat Brains
 
 ## Rat and Computer Learning
