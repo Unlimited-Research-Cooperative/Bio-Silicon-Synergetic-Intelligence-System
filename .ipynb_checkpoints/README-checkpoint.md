@@ -1,4 +1,4 @@
-<h1 align="center">Synergetic Bio-Silicon Intelligence System</h1>
+<h1 align="center">Bio-Silicon Synergetic Intelligence System</h1>
 
 
 <div align="center">
