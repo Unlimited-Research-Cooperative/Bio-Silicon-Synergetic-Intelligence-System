@@ -103,7 +103,10 @@ class MainWindow(QMainWindow):
         plot_separate_signals(transformed_signals, "Transformed")
 
         ecog_data = [uniform(self.min_volt, self.max_volt) for _ in range(num_signals)]
-        print(ecog_data)
+        for channel, data in enumerate(ecog_data, start=1):
+            print("--------------------")
+            print(f"Channel {channel}: {data}")
+            print("--------------------")
 
 
 if __name__ == "__main__":
