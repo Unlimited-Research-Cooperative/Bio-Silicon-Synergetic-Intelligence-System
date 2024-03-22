@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout_3">
+    <item alignment="Qt::AlignRight">
+     <widget class="QFrame" name="btn_frame">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>50</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>50</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QFrame{
+	border: 0px solid;
+}</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <widget class="QPushButton" name="simulate_btn">
+         <property name="maximumSize">
+          <size>
+           <width>100</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Simulate</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="clear_all_btn">
+         <property name="maximumSize">
+          <size>
+           <width>100</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Clear All</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QFrame" name="details_frame">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QFrame" name="freq_frame">
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <widget class="QGroupBox" name="freq_group">
+            <property name="maximumSize">
+             <size>
+              <width>200</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="title">
+             <string>Frequency (Hz)</string>
+            </property>
+            <layout class="QFormLayout" name="formLayout_2">
+             <item row="0" column="0">
+              <widget class="QLabel" name="min_freq_label">
+               <property name="text">
+                <string>Min: </string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QLineEdit" name="min_freq_input"/>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="max_freq_label">
+               <property name="text">
+                <string>Max: </string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QLineEdit" name="max_freq_input"/>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="low_freq_label">
+               <property name="text">
+                <string>Low: </string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QLineEdit" name="low_freq_input"/>
+             </item>
+             <item row="3" column="0">
+              <widget class="QLabel" name="high_freq_label">
+               <property name="text">
+                <string>High: </string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="1">
+              <widget class="QLineEdit" name="high_freq_input"/>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QGroupBox" name="voltage_group">
+            <property name="title">
+             <string>Voltage (mV)</string>
+            </property>
+            <layout class="QFormLayout" name="formLayout">
+             <item row="0" column="0">
+              <widget class="QLabel" name="min_voltage_label">
+               <property name="text">
+                <string>Min: </string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QLineEdit" name="min_voltage_input"/>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="max_voltage_label">
+               <property name="text">
+                <string>Max: </string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QLineEdit" name="max_voltage_linput"/>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="other_details">
+         <property name="title">
+          <string>Others:</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout">
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QScrollArea" name="scrollArea">
+            <property name="widgetResizable">
+             <bool>true</bool>
+            </property>
+            <widget class="QWidget" name="scrollAreaWidgetContents">
+             <property name="geometry">
+              <rect>
+               <x>0</x>
+               <y>0</y>
+               <width>740</width>
+               <height>663</height>
+              </rect>
+             </property>
+             <layout class="QFormLayout" name="formLayout_3">
+              <item row="0" column="0">
+               <widget class="QLabel" name="blend_factor_label">
+                <property name="text">
+                 <string>Blend Factor: </string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QLineEdit" name="blend_factor_input"/>
+              </item>
+              <item row="1" column="0">
+               <widget class="QLabel" name="cs_label">
+                <property name="text">
+                 <string>Casuality Strength: </string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="QLineEdit" name="casuality_strength_input"/>
+              </item>
+              <item row="2" column="0">
+               <widget class="QLabel" name="centroid_factor_label">
+                <property name="text">
+                 <string>Centroid Factor: </string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="1">
+               <widget class="QLineEdit" name="centroid_factor_input"/>
+              </item>
+              <item row="3" column="0">
+               <widget class="QLabel" name="complex_factor_label">
+                <property name="text">
+                 <string>Complexity Factor: </string>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="1">
+               <widget class="QLineEdit" name="complexity_factor_input"/>
+              </item>
+              <item row="4" column="0">
+               <widget class="QLabel" name="edf_label">
+                <property name="text">
+                 <string>Edge Density Factor: </string>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="1">
+               <widget class="QLineEdit" name="edge_density_factor"/>
+              </item>
+              <item row="5" column="0">
+               <widget class="QLabel" name="er_label">
+                <property name="text">
+                 <string>Evolution Rate: </string>
+                </property>
+               </widget>
+              </item>
+              <item row="5" column="1">
+               <widget class="QLineEdit" name="evolution_rate_input"/>
+              </item>
+              <item row="6" column="0">
+               <widget class="QLabel" name="fractal_dimes_label">
+                <property name="text">
+                 <string>Fractal Dimension: </string>
+                </property>
+               </widget>
+              </item>
+              <item row="6" column="1">
+               <widget class="QLineEdit" name="fractal_dimension_input"/>
+              </item>
+              <item row="7" column="0">
+               <widget class="QLabel" name="global_sync_label">
+                <property name="text">
+                 <string>Global Sync Level: </string>
+                </property>
+               </widget>
+              </item>
+              <item row="7" column="1">
+               <widget class="QLineEdit" name="global_sync_input"/>
+              </item>
+              <item row="8" column="0">
+               <widget class="QLabel" name="influence_factor_label">
+                <property name="text">
+                 <string>Influence Factor:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="8" column="1">
+               <widget class="QLineEdit" name="incluence_factor_input"/>
+              </item>
+              <item row="9" column="0">
+               <widget class="QLabel" name="max_influence_label">
+                <property name="text">
+                 <string>Max Influence: </string>
+                </property>
+               </widget>
+              </item>
+              <item row="9" column="1">
+               <widget class="QLineEdit" name="max_influence_label_2"/>
+              </item>
+              <item row="10" column="0">
+               <widget class="QLabel" name="num_imfs_label">
+                <property name="text">
+                 <string>Num Imfs: </string>
+                </property>
+               </widget>
+              </item>
+              <item row="10" column="1">
+               <widget class="QLineEdit" name="num_imfs_input"/>
+              </item>
+              <item row="11" column="0">
+               <widget class="QLabel" name="num_peaks_label">
+                <property name="text">
+                 <string>Num Peaks: </string>
+                </property>
+               </widget>
+              </item>
+              <item row="11" column="1">
+               <widget class="QLineEdit" name="num_peak_input"/>
+              </item>
+              <item row="12" column="0">
+               <widget class="QLabel" name="sync_level_label">
+                <property name="text">
+                 <string>Pairwise Sync Level: </string>
+                </property>
+               </widget>
+              </item>
+              <item row="12" column="1">
+               <widget class="QLineEdit" name="p_sync_input"/>
+              </item>
+              <item row="13" column="0">
+               <widget class="QLabel" name="peak_height_label">
+                <property name="text">
+                 <string>Peak Height: </string>
+                </property>
+               </widget>
+              </item>
+              <item row="13" column="1">
+               <widget class="QLineEdit" name="peak_height_input"/>
+              </item>
+              <item row="14" column="0">
+               <widget class="QLabel" name="rms_label">
+                <property name="text">
+                 <string>RMS Value: </string>
+                </property>
+               </widget>
+              </item>
+              <item row="15" column="0">
+               <widget class="QLabel" name="std_dev_label">
+                <property name="text">
+                 <string>Standard Deviation: </string>
+                </property>
+               </widget>
+              </item>
+              <item row="14" column="1">
+               <widget class="QLineEdit" name="rms_input"/>
+              </item>
+              <item row="15" column="1">
+               <widget class="QLineEdit" name="std_dev_input"/>
+              </item>
+              <item row="16" column="0">
+               <widget class="QLabel" name="sync_factor_label">
+                <property name="text">
+                 <string>Sync Factor: </string>
+                </property>
+               </widget>
+              </item>
+              <item row="16" column="1">
+               <widget class="QLineEdit" name="sync_factor_input"/>
+              </item>
+              <item row="17" column="0">
+               <widget class="QLabel" name="target_rate_label">
+                <property name="text">
+                 <string>Target Rate: </string>
+                </property>
+               </widget>
+              </item>
+              <item row="17" column="1">
+               <widget class="QLineEdit" name="target_rate_input"/>
+              </item>
+              <item row="18" column="0">
+               <widget class="QLabel" name="variability_factor_label">
+                <property name="text">
+                 <string>Variability Factor: </string>
+                </property>
+               </widget>
+              </item>
+              <item row="19" column="0">
+               <widget class="QLabel" name="var_label">
+                <property name="text">
+                 <string>Variance: </string>
+                </property>
+               </widget>
+              </item>
+              <item row="20" column="0">
+               <widget class="QLabel" name="window_size_label">
+                <property name="text">
+                 <string>Window Size: </string>
+                </property>
+               </widget>
+              </item>
+              <item row="18" column="1">
+               <widget class="QLineEdit" name="variability_factor_input"/>
+              </item>
+              <item row="19" column="1">
+               <widget class="QLineEdit" name="variance_input"/>
+              </item>
+              <item row="20" column="1">
+               <widget class="QLineEdit" name="window_size_input"/>
+              </item>
+             </layout>
+            </widget>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionLoad_Config"/>
+    <addaction name="actionSave_Config"/>
+    <addaction name="separator"/>
+    <addaction name="actionChange_Export_Path"/>
+    <addaction name="separator"/>
+    <addaction name="actionExit"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="actionAbout"/>
+    <addaction name="actionParameters"/>
+    <addaction name="actionGitHub"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuHelp"/>
+  </widget>
+  <action name="actionLoad_Config">
+   <property name="text">
+    <string>Load Config</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+L</string>
+   </property>
+  </action>
+  <action name="actionSave_Config">
+   <property name="text">
+    <string>Save Config</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="actionChange_Export_Path">
+   <property name="text">
+    <string>Change Export Path</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+F</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::QuitRole</enum>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="text">
+    <string>About</string>
+   </property>
+  </action>
+  <action name="actionParameters">
+   <property name="text">
+    <string>Parameters</string>
+   </property>
+  </action>
+  <action name="actionGitHub">
+   <property name="text">
+    <string>GitHub</string>
+   </property>
+  </action>
+  <action name="actionsave_values">
+   <property name="text">
+    <string>save_values</string>
+   </property>
+   <property name="toolTip">
+    <string>Save Values</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+U</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

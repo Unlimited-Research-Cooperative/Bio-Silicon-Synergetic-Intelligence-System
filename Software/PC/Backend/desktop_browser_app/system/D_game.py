@@ -4,6 +4,8 @@ import time
 from time import sleep
 import json
 
+# scenarios: https://vizdoom.farama.org/environments/default/
+# custom scenario: https://vizdoom.farama.org/environments/creatingCustom/
 def initialize_vizdoom(config_path, scenario_path):
     game = vzd.DoomGame()
     config_path = "AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/ViZDoom/scenarios/my_way_home.cfg"
@@ -31,6 +33,10 @@ def initialize_vizdoom(config_path, scenario_path):
     game.init()
     return game
 
+# buttons for actions: 
+#    https://vizdoom.farama.org/api/python/doomGame/#vizdoom.DoomGame.set_available_buttons
+#    https://github.com/Farama-Foundation/ViZDoom/blob/master/examples/python/delta_buttons.py
+
 def decode_actions(action_str):
     # Split the received action string into individual action codes
     action_codes = [int(code) for code in action_str.split(',') if code.isdigit()]
@@ -40,6 +46,17 @@ def decode_actions(action_str):
         if code < len(action):
             action[code] = True
     return action
+
+# variables for game state: 
+#    https://vizdoom.farama.org/main/api/python/gameState/#
+#    https://vizdoom.farama.org/api/python/enums/
+#    https://github.com/Farama-Foundation/ViZDoom/issues/361
+#    https://github.com/Farama-Foundation/ViZDoom
+#    https://github.com/Farama-Foundation/ViZDoom/blob/master/examples/python/buffers.py
+#    https://github.com/Farama-Foundation/ViZDoom/blob/master/examples/python/labels_buffer.py
+#    https://github.com/Farama-Foundation/ViZDoom/blob/master/examples/python/objects_and_sectors.py
+#    https://vizdoom.farama.org/main/api/python/doomGame/#vizdoom.DoomGame.set_sectors_info_enabled
+#    https://vizdoom.farama.org/main/api/python/gameState/#vizdoom.GameState.objects
 
 def extract_game_state(game):
     # Extract required game variables

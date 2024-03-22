@@ -29,6 +29,55 @@ def scale_signals_to_bit_depth(modified_signals, bit_depth):
 
     return modified_signals
 
+# Function to apply osccilations to the signals
+def apply_oscillations_to_signals(modified_signals, state, fs, min_volt, max_volt):
+    # Scaled amplitude ranges for each frequency band, given as a factor of the min-max voltage range
+    scaled_amplitude_factors = {
+        'alpha': (0.1, 1),  # alpha band scaled between 10% and 100% of the voltage range
+        'beta': (0.2, 1),   # beta band scaled between 20% and 100% of the voltage range
+        'gamma': (0.1, 0.5) # gamma band scaled between 10% and 50% of the voltage range
+    }
+
+    num_signals, length = modified_signals.shape
+    
+    # Time vector for the oscillation
+    t = np.arange(length) / fs
+    
+    # Define the frequency bands with their expected physiological ranges
+    frequency_bands = {
+        '1': [
+            ('alpha', (8, 12)),  # Predominant in resting state
+        ],
+        '2': [
+            ('beta', (12, 30)),  # More active cognitive processing
+            ('gamma', (30, 100))  # Involved in higher mental activity
+        ]
+    }
+
+    selected_bands = frequency_bands.get(state, frequency_bands['1'])
+
+    # Apply state-dependent oscillations
+    for band, freq_range in selected_bands:
+        # Determine the scaled amplitude range for this band
+        scaled_min, scaled_max = scaled_amplitude_factors[band]
+        # Scale these factors by the overall voltage range
+        min_amp = min_volt + (max_volt - min_volt) * scaled_min
+        max_amp = min_volt + (max_volt - min_volt) * scaled_max
+
+        frequency = np.random.uniform(freq_range[0], freq_range[1])
+        phase_offset = np.random.uniform(0, 2 * np.pi)
+
+        # Generate a random amplitude within the scaled range
+        amplitude = np.random.uniform(min_amp, max_amp)
+        
+        # Generate the oscillation
+        oscillation = amplitude * np.sin(2 * np.pi * frequency * t + phase_offset)
+        
+        # Apply the oscillation to the modified signals
+        modified_signals += oscillation[np.newaxis, :]
+
+    return modified_signals
+    
 # Function to apply amplitude variability while keeping the signals within the specified range
 def apply_amplitude_variability(modified_signals, variability_factor):
     # Apply amplitude variability to each signal individually
@@ -428,6 +477,7 @@ max_volt = features["max_volt"]
 # Define the list of transformation functions using features
 transformations = [
     lambda x: scale_signals_to_bit_depth(x, bit_depth),
+    lambda x: apply_oscillations_to_signals(x, features["state"], fs, min_volt, max_volt),
     lambda x: apply_amplitude_variability(x, features["variability_factor"]),
     lambda x: apply_variance(x, features["variance"]),
     lambda x: apply_signal_with_std(x, features["std_dev"]),
@@ -439,7 +489,7 @@ transformations = [
     lambda x: apply_arnold_tongues(x, features["min_freq"], features["max_freq"], features["blend_factor"]),
     lambda x: apply_phase_synchronization(x, features["global_sync_level"], features["pairwise_sync_level"], features["sync_factor"]),
     lambda x: apply_transfer_entropy(x, features["influence_factor"], features["max_influence"]),
-    lambda x: apply_hilbert_huang(x, features),
+    lambda x: apply_hilbert_huang(x),
     lambda x: apply_spectral_centroids(x, features["centroid_factor"], features["edge_density_factor"]),
     lambda x: apply_dynamic_time_warping(x, reference_signal=np.mean(x, axis=0), warping_factor=0.5, min_volt=min_volt, max_volt=max_volt),
     lambda x: apply_fft(x, features["complexity_factor"]),
@@ -453,7 +503,8 @@ transformations = [
 # Add function here to continue from the last signal values of the previous packet
 
 # Main function to generate and transform signals
-def generate_transformed_signals(signal_length, num_signals, transformation_functions, initial_values=None):
+def generate_transformed_signals(signal_length, num_signals, state, fs, min_volt, max_volt, transformation_functions, initial_values=None):
+
     modified_signals = generate_ecog_like_base_signals(signal_length, num_signals, initial_values)
     
     for transform in transformation_functions:
@@ -491,13 +542,14 @@ if __name__ == "__main__":
 
     # Global variables for amplitude range
     min_volt = 1e-6  # 1 microvolt
-    max_volt = 200e-5  # 200 microvolts
+    max_volt = 200e-6  # 200 microvolts
 
     # Calculate the length of the signals
-    length = fs * duration
+    signal_length = fs * duration
 
     # Generate and transform the ECoG-like signals
-    transformed_signals = generate_transformed_signals(length, num_signals, transformations)
+    transformed_signals = generate_transformed_signals(signal_length, num_signals, features["state"], fs, min_volt, max_volt, transformations, initial_values=None)
+
 
     # Convert transformed_signals to a NumPy array to access the shape attribute
     transformed_signals_array = np.array(transformed_signals)

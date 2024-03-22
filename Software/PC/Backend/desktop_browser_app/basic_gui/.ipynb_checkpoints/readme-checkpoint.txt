@@ -1,85 +1,198 @@
-import numpy as np
-from scipy.signal import hilbert
-import zmq
-import time
-import json
+Signal that are being generated in this part are synthetic.
+They are generate using brainflow library.
+The values are not real
 
-# Function to generate base ECoG-like signals within the specified range, continuing from last values
-def generate_ecog_like_base_signals(length, num_signals, initial_values=None):
-    if initial_values is None:
-        signals = np.random.uniform(min_volt, max_volt, (num_signals, length))
-    else:
-        # Start from the last values of the previous packet
-        signals = np.zeros((num_signals, length))
-        for i in range(num_signals):
-            signals[i, 0] = initial_values[i]
-            signals[i, 1:] = np.random.uniform(min_volt, max_volt, (length - 1))
+Updates:
+1. GUI for manual inputs
+
+Install the requirements using
+pip3 install -r requirements.txt
+
+and run python3 ui.py
+
+Simulate function
+    def simulate(self):
+        print("Simulating now.......")
+        bit_depth = 16        # Bit depth of the signals
+        num_signals = 32      # Number of signals
+        fs = 500   # Sampling rate in Hz
+        duration = 1        # Duration in seconds
+        length = fs * duration
+        sampling_frequency = 500
+        time_interval = 1 / sampling_frequency
+
+        features_dict = {
+            "variance": float(self.settings_obj.value("features/variance")),
+            "std_dev": float(self.settings_obj.value("features/std_dev")),
+            "rms_value": float(self.settings_obj.value("features/rms_value")),
+            "num_peaks": int(self.settings_obj.value("features/num_peaks")),
+            "peak_height": float(self.settings_obj.value("features/peak_height")),
+            "fractal_dimension": float(self.settings_obj.value("features/fractal_dimension")),
+            "window_size": int(self.settings_obj.value("features/window_size")),
+            "target_rate": float(self.settings_obj.value("features/target_rate")),
+            "min_freq": float(self.settings_obj.value("features/min_freq")),
+            "max_freq": float(self.settings_obj.value("features/max_freq")),
+            "global_sync_level": float(self.settings_obj.value("features/global_sync_level")),
+            "pairwise_sync_level": float(self.settings_obj.value("features/pairwise_sync_level")),
+            "sync_factor": float(self.settings_obj.value("features/sync_factor")),
+            "influence_factor": float(self.settings_obj.value("features/influence_factor")),
+            "max_influence": float(self.settings_obj.value("features/max_influence")),
+            "centroid_factor": float(self.settings_obj.value("features/centroid_factor")),
+            "edge_density_factor": float(self.settings_obj.value("features/edge_density_factor")),
+            "min_volt": float(self.settings_obj.value("features/min_volt")),
+            "max_volt": float(self.settings_obj.value("features/max_volt")),
+            "complexity_factor": float(self.settings_obj.value("features/complexity_factor")),
+            "evolution_rate": float(self.settings_obj.value("features/evolution_rate")),
+            "low_freq": float(self.settings_obj.value("features/low_freq")),
+            "high_freq": float(self.settings_obj.value("features/high_freq")),
+            "causality_strength": float(self.settings_obj.value("features/causality_strength")),
+            "num_imfs": int(self.settings_obj.value("features/num_imfs")),
+            "blend_factor": float(self.settings_obj.value("features/blend_factor")),
+            "variability_factor": float(self.settings_obj.value("features/variability_factor")),
+            "max_influence": float(self.settings_obj.value("features/max_influence"))
+        }
+
+        print(type(features_dict["blend_factor"]))
+
+        transformations = self.create_transform(
+            bit_depth,
+            features_dict["variability_factor"],
+            features_dict["variance"],
+            features_dict["std_dev"],
+            features_dict["rms_value"],
+            features_dict["num_peaks"],
+            features_dict["peak_height"],
+            features_dict["fractal_dimension"],
+            features_dict["window_size"],
+            features_dict["target_rate"],
+            features_dict["min_freq"],
+            features_dict["max_freq"],
+            features_dict["global_sync_level"],
+            features_dict["pairwise_sync_level"],
+            features_dict["sync_factor"],
+            features_dict["influence_factor"],
+            features_dict["max_influence"],
+            features_dict["centroid_factor"],
+            features_dict["edge_density_factor"],
+            features_dict["min_volt"],
+            features_dict["max_volt"],
+            features_dict["complexity_factor"],
+            features_dict["evolution_rate"],
+            features_dict["low_freq"],
+            features_dict["high_freq"],
+            features_dict["causality_strength"],
+            features_dict["num_imfs"],
+            features_dict["blend_factor"]
+        )
+        
+        transformed_signals = generate_transformed_signals(length, num_signals, transformations, 
+        features_dict["min_volt"], features_dict["min_volt"])
+        
+
+        # plot_separate_signals(transformed_signals, 'Transformed')
+
+    def create_transform(self, bit_depth, variability_factor, variance, std_dev,
+                     rms_value, num_peaks, peak_height, fractal_dimension,
+                     window_size, target_rate, min_freq, max_freq, global_sync_level,
+                     pairwise_sync_level, sync_factor, influence_factor, max_influence,
+                     centroid_factor, edge_density_factor, min_volt, max_volt, complexity_factor,
+                     evolution_rate, low_freq, high_freq, causality_strength, num_imfs,
+                     blend_factor
+                     ):
+            # bit_depth = int(bit_depth)
+            # min_volt = float(min_volt)
+            # max_volt = float(max_volt)
+            # variability_factor = float(variability_factor)
+            # variance = float(variance)
+            # std_dev = float(std_dev)
+            # rms_value = float(rms_value)
+            # num_imfs = int(num_imfs)
+            # num_peaks = int(num_peaks)
+            # peak_height = float(peak_height)
+            # fractal_dimension = float(fractal_dimension)
+            # window_size = int(window_size)
+            # target_rate = float(target_rate)
+            # min_freq = float(min_freq)
+            # max_freq = float(max_freq)
+            # global_sync_level = float(global_sync_level)
+            # pairwise_sync_level = float(pairwise_sync_level)
+            # sync_factor = float(sync_factor)
+            # influence_factor = float(influence_factor)
+            # max_influence = float(max_influence)
+            # centroid_factor = float(centroid_factor)
+            # edge_density_factor = float(edge_density_factor)
+            # complexity_factor = float(complexity_factor)
+            # evolution_rate = float(evolution_rate)
+            # low_freq = float(low_freq)
+            # high_freq = float(high_freq)
+            # causality_strength = float(causality_strength)
+            # blend_factor = float(blend_factor)
+
+            transformations = [
+                lambda x: scale_signals_to_bit_depth(x, int(bit_depth)),
+                lambda x: apply_amplitude_variability(x, float(variability_factor), float(min_volt), float(max_volt)),
+                lambda x: apply_variance(x, float(variance), float(min_volt), float(max_volt)),
+                lambda x: apply_signal_with_std(x, float(std_dev), float(min_volt), float(max_volt)),
+                lambda x: apply_signal_with_rms(x, float(rms_value)),
+                lambda x: add_peaks(x, int(num_peaks), int(peak_height), float(min_volt), float(max_volt)),
+                lambda x: apply_fractal_structure(x, float(fractal_dimension), float(min_volt), float(max_volt)),
+                lambda x: apply_moving_average(x, int(window_size)),
+                lambda x: apply_zero_crossing_rate(x, float(target_rate)),
+                lambda x: apply_arnold_tongues(x, float(min_freq), float(max_freq), float(blend_factor), float(min_volt), float(max_volt)),
+                lambda x: apply_phase_synchronization(x, float(global_sync_level), float(pairwise_sync_level), float(sync_factor), float(min_volt), float(max_volt)),
+                lambda x: apply_transfer_entropy(x, float(influence_factor), float(max_influence), float(min_volt), float(max_volt)),
+                lambda x: apply_hilbert_huang(x, float(min_volt), float(max_volt)),
+                lambda x: apply_spectral_centroids(x, float(centroid_factor), float(edge_density_factor)),
+                lambda x: apply_dynamic_time_warping(x, reference_signal=np.mean(x, axis=0), warping_factor=0.5, min_volt=float(min_volt), max_volt=float(max_volt)),
+                lambda x: apply_fft(x, float(complexity_factor), float(min_volt), float(max_volt)),
+                lambda x: apply_signal_evolution(x, float(evolution_rate)),
+                lambda x: apply_phase_amplitude_coupling(x, float(low_freq), float(high_freq)),
+                lambda x: apply_granger_causality(x, float(causality_strength)),
+                lambda x: apply_multivariate_empirical_mode_decomposition(x, int(num_imfs)),
+                lambda x: apply_normalized_states(x, modification_factor=0.1, matrix_size=10, value_range=(-1, 1), num_matrices=5, eigenvalue_subset=slice(0, 5), min_volt=min_volt, max_volt=max_volt),
+            ]
+            return transformations
+
+            ============================================= xx ==================================================
+
+
+# compute_signals.py
+# Import dependencies
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Function to generate base ECoG-like signals within the specified range
+def generate_ecog_like_base_signals(length, num_signals, min_volt, max_volt):
+    print(type(min_volt))
+    signals = np.random.uniform(min_volt, max_volt, (num_signals, length))
     return signals
+
+
+"""
+Important note:
+
+The function `generate_ecog_like_base_signals(args) gives the signals 
+that are reffered as modified_signals in parameters of other functions
+"""
 
 # Function to scale signals to a specific bit depth
 def scale_signals_to_bit_depth(modified_signals, bit_depth):
-    # Calculate the min and max values within the desired range
-    min_val, max_val = min_volt, max_volt
-
-    max_signal = np.max(modified_signals)
+    # Ensure modified_signals is a floating-point array to allow for intermediate float operations
+    modified_signals = modified_signals.astype(np.float64)
+    
+    # Normalize signals to range [0, 1]
     min_signal = np.min(modified_signals)
-
-    # Scale the signals to the specified bit depth while preserving the range
-    modified_signals = ((modified_signals - min_signal) / (max_signal - min_signal)) * (max_val - min_val) + min_val
+    max_signal = np.max(modified_signals)
+    normalized_signals = (modified_signals - min_signal) / (max_signal - min_signal)
+    
+    # Scale to the new range determined by bit depth
+    max_value = (2 ** bit_depth) - 1
+    modified_signals = normalized_signals * max_value
 
     return modified_signals
 
-# Function to apply osccilations to the signals
-def apply_oscillations_to_signals(modified_signals, state, fs, min_volt, max_volt):
-    # Scaled amplitude ranges for each frequency band, given as a factor of the min-max voltage range
-    scaled_amplitude_factors = {
-        'alpha': (0.1, 1),  # alpha band scaled between 10% and 100% of the voltage range
-        'beta': (0.2, 1),   # beta band scaled between 20% and 100% of the voltage range
-        'gamma': (0.1, 0.5) # gamma band scaled between 10% and 50% of the voltage range
-    }
-
-    num_signals, length = modified_signals.shape
-    
-    # Time vector for the oscillation
-    t = np.arange(length) / fs
-    
-    # Define the frequency bands with their expected physiological ranges
-    frequency_bands = {
-        '1': [
-            ('alpha', (8, 12)),  # Predominant in resting state
-        ],
-        '2': [
-            ('beta', (12, 30)),  # More active cognitive processing
-            ('gamma', (30, 100))  # Involved in higher mental activity
-        ]
-    }
-
-    selected_bands = frequency_bands.get(state, frequency_bands['1'])
-
-    # Apply state-dependent oscillations
-    for band, freq_range in selected_bands:
-        # Determine the scaled amplitude range for this band
-        scaled_min, scaled_max = scaled_amplitude_factors[band]
-        # Scale these factors by the overall voltage range
-        min_amp = min_volt + (max_volt - min_volt) * scaled_min
-        max_amp = min_volt + (max_volt - min_volt) * scaled_max
-
-        frequency = np.random.uniform(freq_range[0], freq_range[1])
-        phase_offset = np.random.uniform(0, 2 * np.pi)
-
-        # Generate a random amplitude within the scaled range
-        amplitude = np.random.uniform(min_amp, max_amp)
-        
-        # Generate the oscillation
-        oscillation = amplitude * np.sin(2 * np.pi * frequency * t + phase_offset)
-        
-        # Apply the oscillation to the modified signals
-        modified_signals += oscillation[np.newaxis, :]
-
-    return modified_signals
-    
 # Function to apply amplitude variability while keeping the signals within the specified range
-def apply_amplitude_variability(modified_signals, variability_factor):
+def apply_amplitude_variability(modified_signals, variability_factor, min_volt, max_volt):
     # Apply amplitude variability to each signal individually
     for i in range(modified_signals.shape[0]):
         # Calculate the scaling factor for each signal
@@ -102,7 +215,7 @@ def apply_amplitude_variability(modified_signals, variability_factor):
     return modified_signals
 
 # Function to apply variance while keeping the signals within the specified range
-def apply_variance(modified_signals, variance):
+def apply_variance(modified_signals, variance, min_volt, max_volt):
     for i in range(modified_signals.shape[0]):
         # Generate noise for each signal based on the specified variance
         noise = np.random.normal(0, np.sqrt(variance), modified_signals.shape[1])
@@ -118,7 +231,7 @@ def apply_variance(modified_signals, variance):
     return modified_signals
 
 # Function to apply signal with standard deviation while keeping the signals within the specified range
-def apply_signal_with_std(modified_signals, std_dev):
+def apply_signal_with_std(modified_signals, std_dev, min_volt, max_volt):
     for i in range(modified_signals.shape[0]):
         # Calculate the scaling factor for each individual signal
         current_std = np.std(modified_signals[i])
@@ -136,6 +249,7 @@ def apply_signal_with_std(modified_signals, std_dev):
 
     return modified_signals
 
+
 # Function to apply signal with RMS value
 def apply_signal_with_rms(modified_signals, rms_value):
     current_rms = np.sqrt(np.mean(modified_signals**2, axis=1, keepdims=True))
@@ -144,7 +258,7 @@ def apply_signal_with_rms(modified_signals, rms_value):
     return modified_signals
 
 # Function to add peaks
-def add_peaks(modified_signals, num_peaks, peak_height):
+def add_peaks(modified_signals, num_peaks, peak_height, min_volt, max_volt):
     if len(modified_signals) == 0:
         raise ValueError("Input modified_signals array must not be empty")
     num_signals, signal_length = modified_signals.shape
@@ -171,7 +285,7 @@ def apply_moving_average(modified_signals, window_size):
     return modified_signals
 
 # Function to apply fractal structure
-def apply_fractal_structure(modified_signals, fractal_dimension):
+def apply_fractal_structure(modified_signals, fractal_dimension, min_volt, max_volt):
     length = modified_signals.shape[1]
     fBm_signal = np.zeros_like(modified_signals)
 
@@ -190,7 +304,7 @@ def apply_fractal_structure(modified_signals, fractal_dimension):
     fBm_signal += min_volt
 
     return modified_signals
-    
+
 # Function to apply zero-crossing rate
 def apply_zero_crossing_rate(modified_signals, target_rate):
     def calculate_zero_crossing_rate(sig):
@@ -203,8 +317,9 @@ def apply_zero_crossing_rate(modified_signals, target_rate):
         modified_signals[i] *= factor
     return modified_signals
 
+
 # Function to apply Arnold tongues
-def apply_arnold_tongues(modified_signals, min_freq, max_freq, blend_factor):
+def apply_arnold_tongues(modified_signals, min_freq, max_freq, blend_factor, min_volt, max_volt):
     num_signals, signal_length = modified_signals.shape
 
     for i in range(num_signals):
@@ -231,7 +346,7 @@ def apply_arnold_tongues(modified_signals, min_freq, max_freq, blend_factor):
 
     return normalized_signals
 
-def apply_phase_synchronization(modified_signals, global_sync_level, pairwise_sync_level, sync_factor=0.05):
+def apply_phase_synchronization(modified_signals, global_sync_level, pairwise_sync_level, sync_factor, min_volt, max_volt):
     num_signals, length = modified_signals.shape
     common_phase = np.linspace(0, 2 * np.pi * global_sync_level, length)
 
@@ -270,7 +385,8 @@ def apply_phase_synchronization(modified_signals, global_sync_level, pairwise_sy
 
     return modified_signals
 
-def apply_transfer_entropy(modified_signals, influence_factor, max_influence):
+
+def apply_transfer_entropy(modified_signals, influence_factor, max_influence, min_volt, max_volt):
     num_signals = len(modified_signals)
     max_length = max(len(signal) for signal in modified_signals)
     
@@ -298,8 +414,9 @@ def apply_transfer_entropy(modified_signals, influence_factor, max_influence):
 
     return modified_signals
 
+
 # Function to apply Hilbert-Huang transform
-def apply_hilbert_huang(modified_signals):
+def apply_hilbert_huang(modified_signals, min_volt, max_volt):
     for i in range(len(modified_signals)):
         signal = modified_signals[i]
         
@@ -331,7 +448,7 @@ def apply_spectral_centroids(modified_signals, centroid_factor, edge_density_fac
         adjusted_spectrum = fft_spectrum * (centroid_factor * centroid + edge_density_factor * edge_density)
         modified_signals[i] = np.fft.ifft(adjusted_spectrum).real
     return modified_signals
-    
+
 # Function to apply dynamic time warping
 def apply_dynamic_time_warping(modified_signals, reference_signal, warping_factor, min_volt, max_volt):
     modified_signals_aligned = []
@@ -360,8 +477,8 @@ def apply_dynamic_time_warping(modified_signals, reference_signal, warping_facto
         modified_signals_aligned.append(modified_signal)
 
     return np.array(modified_signals)
-    
-def apply_fft(modified_signals, complexity_factor):
+
+def apply_fft(modified_signals, complexity_factor, min_volt, max_volt):
     modified_signals_complexity = []
 
     for signal in modified_signals:
@@ -386,6 +503,7 @@ def apply_fft(modified_signals, complexity_factor):
 
     return np.array(modified_signals)
 
+
 def apply_signal_evolution(modified_signals, evolution_rate):
     modified_signals_evolution = np.zeros_like(modified_signals)
     for i in range(modified_signals.shape[0]):
@@ -393,6 +511,7 @@ def apply_signal_evolution(modified_signals, evolution_rate):
         for t in range(1, modified_signals.shape[1]):
             modified_signals_evolution[i, t] = modified_signals_evolution[i, t - 1] + evolution_rate * np.random.randn()
     return modified_signals
+
 
 def apply_phase_amplitude_coupling(modified_signals, low_freq, high_freq):
     modified_signals_pac = np.zeros_like(modified_signals)
@@ -424,7 +543,7 @@ def apply_multivariate_empirical_mode_decomposition(modified_signals, num_imfs):
     modified_signals_memd = modified_signals + np.sum(memd_signals, axis=1)
     return modified_signals
 
-def apply_normalized_states(modified_signals, modification_factor, matrix_size, value_range, num_matrices, eigenvalue_subset):
+def apply_normalized_states(modified_signals, modification_factor, matrix_size, value_range, num_matrices, eigenvalue_subset, min_volt, max_volt):
     num_signals, signal_length = modified_signals.shape
     modified_signals = modified_signals.copy()
 
@@ -457,7 +576,7 @@ def apply_normalized_states(modified_signals, modification_factor, matrix_size, 
 
     return modified_signals
 
-def final_modified_scale_signals_to_bit_depth(modified_signals, bit_depth):
+def final_modified_scale_signals_to_bit_depth(modified_signals, bit_depth, min_volt, max_volt):
     # Assuming that the desired final range is defined by global variables min_volt and max_volt
     min_val, max_val = min_volt, max_volt
 
@@ -471,42 +590,11 @@ def final_modified_scale_signals_to_bit_depth(modified_signals, bit_depth):
 
     return scaled_signals
 
-min_volt = features["min_volt"]
-max_volt = features["max_volt"]
-
-# Define the list of transformation functions using features
-transformations = [
-    lambda x: scale_signals_to_bit_depth(x, bit_depth),
-    lambda x: apply_oscillations_to_signals(x, features["state"], fs, min_volt, max_volt),
-    lambda x: apply_amplitude_variability(x, features["variability_factor"]),
-    lambda x: apply_variance(x, features["variance"]),
-    lambda x: apply_signal_with_std(x, features["std_dev"]),
-    lambda x: apply_signal_with_rms(x, features["rms_value"]),
-    lambda x: add_peaks(x, features["num_peaks"], features["peak_height"]),
-    lambda x: apply_fractal_structure(x, features["fractal_dimension"]),
-    lambda x: apply_moving_average(x, features["window_size"]),
-    lambda x: apply_zero_crossing_rate(x, features["target_rate"]),
-    lambda x: apply_arnold_tongues(x, features["min_freq"], features["max_freq"], features["blend_factor"]),
-    lambda x: apply_phase_synchronization(x, features["global_sync_level"], features["pairwise_sync_level"], features["sync_factor"]),
-    lambda x: apply_transfer_entropy(x, features["influence_factor"], features["max_influence"]),
-    lambda x: apply_hilbert_huang(x),
-    lambda x: apply_spectral_centroids(x, features["centroid_factor"], features["edge_density_factor"]),
-    lambda x: apply_dynamic_time_warping(x, reference_signal=np.mean(x, axis=0), warping_factor=0.5, min_volt=min_volt, max_volt=max_volt),
-    lambda x: apply_fft(x, features["complexity_factor"]),
-    lambda x: apply_signal_evolution(x, features["evolution_rate"]),
-    lambda x: apply_phase_amplitude_coupling(x, features["low_freq"], features["high_freq"]),
-    lambda x: apply_granger_causality(x, features["causality_strength"]),
-    lambda x: apply_multivariate_empirical_mode_decomposition(x, features["num_imfs"]),
-    lambda x: apply_normalized_states(x, modification_factor=0.1, matrix_size=10, value_range=(-1, 1), num_matrices=5, eigenvalue_subset=slice(0, 5)),
-]
-
-# Add function here to continue from the last signal values of the previous packet
 
 # Main function to generate and transform signals
-def generate_transformed_signals(signal_length, num_signals, state, fs, min_volt, max_volt, transformation_functions, initial_values=None):
+def generate_transformed_signals(signal_length, num_signals, transformation_functions, min_volt, max_volt):
+    modified_signals = generate_ecog_like_base_signals(signal_length, num_signals, min_volt, max_volt)
 
-    modified_signals = generate_ecog_like_base_signals(signal_length, num_signals, initial_values)
-    
     for transform in transformation_functions:
         modified_signals = transform(modified_signals)
         # Convert list to NumPy array if necessary
@@ -523,73 +611,25 @@ def generate_transformed_signals(signal_length, num_signals, state, fs, min_volt
 
     return modified_signals
 
-def serialize_transformed_signals(transformed_signals):
-    """
-    Convert the NumPy array of transformed signals into a JSON string.
-    """
-    # Convert the NumPy array to a list of lists for JSON serialization
-    signals_list = transformed_signals.tolist()
-    # Serialize the list of lists into a JSON string
-    return json.dumps({"signals": signals_list})
 
-# Main execution
-if __name__ == "__main__":
-    bit_depth = 16        # Bit depth of the signals
-    num_signals = 32      # Number of signals
-    fs = 500              # Sampling rate in Hz
-    duration = 1          # Duration in seconds
-    length = fs * duration
+def plot_separate_signals(signals, title_prefix):
+    num_signals = signals.shape[0]
+    plt.figure(figsize=(15, num_signals * 5))  # Adjust figure size to make each subplot 5 times taller
+    plt.style.use('dark_background')
 
-    # Global variables for amplitude range
-    min_volt = 1e-6  # 1 microvolt
-    max_volt = 200e-6  # 200 microvolts
+    for i in range(num_signals):
+        ax = plt.subplot(num_signals, 1, i+1)
+        ax.plot(signals[i], color='red', linewidth=0.4)
+        ax.set_title(f'{title_prefix} Signal {i+1}', color='red')
+        ax.set_ylabel('Amplitude', color='red')  
+        ax.tick_params(axis='x', colors='red')
+        ax.tick_params(axis='y', colors='red')
+        ax.grid(True, which='both', color='red', linestyle='-', linewidth=0.2)
+        for spine in ax.spines.values(): 
+            spine.set_edgecolor('red')
 
-    # Calculate the length of the signals
-    signal_length = fs * duration
+    # Adjust the spacing between subplots
+    plt.subplots_adjust(hspace=0.1)  # You can adjust this value as needed
 
-    # Generate and transform the ECoG-like signals
-    transformed_signals = generate_transformed_signals(signal_length, num_signals, features["state"], fs, min_volt, max_volt, transformations, initial_values=None)
+    plt.show()
 
-
-    # Convert transformed_signals to a NumPy array to access the shape attribute
-    transformed_signals_array = np.array(transformed_signals)
-
-    # Check the shape and a sample of the generated signals
-    print(f"Shape of generated ECoG-like signals: {transformed_signals_array.shape}")
-    for i in range(8):
-        print(f"Sample of signal {i + 1}: {transformed_signals_array[i][:50]}")
-    
-    # Initialize an array to store the last values of each signal
-    last_values = np.zeros(num_signals)  # Assuming the initial start is from zero
-
-    # ZeroMQ Publisher Setup
-    context_pub = zmq.Context()
-    publisher = context_pub.socket(zmq.PUB)
-    publisher.bind("tcp://*:5557")  # Bind to port 5557 for publishing
-
-    # ZeroMQ Subscriber Setup
-    context_sub = zmq.Context()
-    subscriber = context_sub.socket(zmq.SUB)
-    subscriber.connect("tcp://localhost:5556")
-    subscriber.setsockopt_string(zmq.SUBSCRIBE, "")  # Subscribe to all incoming messages from 5556 (packet_to_features.py)
-    
-    # Initialize an array to store the last values of each signal
-    last_values = np.zeros(num_signals)  # Assuming the initial start is from zero
-
-    while True:
-        # Wait for an incoming message to trigger signal generation
-        subscriber.recv_string()
-
-        transformed_signals = generate_transformed_signals(length, num_signals, transformations, initial_values=last_values)
-
-        last_values = transformed_signals[:, -1]
-
-        # Serialize the transformed signals to JSON
-        encoded_transformed_signals = serialize_transformed_signals(transformed_signals)
-
-        # Publish the JSON string
-        publisher.send_string(encoded_transformed_signals)
-
-        print("Sent transformed signals as JSON.")
-
-        time.sleep(duration)
