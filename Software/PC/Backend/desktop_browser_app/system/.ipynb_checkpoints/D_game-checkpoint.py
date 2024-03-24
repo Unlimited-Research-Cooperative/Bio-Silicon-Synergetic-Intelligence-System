@@ -6,17 +6,26 @@ import json
 
 # scenarios: https://vizdoom.farama.org/environments/default/
 # custom scenario: https://vizdoom.farama.org/environments/creatingCustom/
+# Initialize the game environment using the given configuration and scenario paths
 def initialize_vizdoom(config_path, scenario_path):
+    # Create a new DoomGame instance
     game = vzd.DoomGame()
+    # Overwrite the default config path with a specific path
     config_path = "AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/ViZDoom/scenarios/my_way_home.cfg"
+    # Overwrite the default scenario path with a specific path
     scenario_path = "AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/ViZDoom/scenarios/my_way_home.wad"
+    # Make the game window visible
     game.set_window_visible(True)
+    # Set the game mode to PLAYER (as opposed to SPECTATOR)
     game.set_mode(vzd.Mode.PLAYER)
+    # Enable detailed objects information
     game.set_objects_info_enabled(True)
+    # Set the screen resolution
     game.set_screen_resolution(vzd.ScreenResolution.RES_512X384)
+    # Enable rendering of the HUD
     game.set_render_hud(True)
     
-    # Specify available buttons
+    # Clear any previously available buttons and specify new ones for this game instance
     game.clear_available_buttons()
     game.add_available_button(vzd.Button.ATTACK)
     game.add_available_button(vzd.Button.USE)
@@ -25,23 +34,24 @@ def initialize_vizdoom(config_path, scenario_path):
     game.add_available_button(vzd.Button.TURN_RIGHT)
     game.add_available_button(vzd.Button.TURN_LEFT)
 
+    # Initialize the game with the specified settings
     game.init()
     return game
-    # Enable detailed game variables
-    game.set_objects_info_enabled(True)
-    
-    game.init()
-    return game
+    # The following lines are unreachable due to the preceding return statement
+    # and should be removed or corrected for proper execution.
+
 
 # buttons for actions: 
 #    https://vizdoom.farama.org/api/python/doomGame/#vizdoom.DoomGame.set_available_buttons
 #    https://github.com/Farama-Foundation/ViZDoom/blob/master/examples/python/delta_buttons.py
 
+# Decode action strings into boolean arrays indicating which actions are active
 def decode_actions(action_str):
-    # Split the received action string into individual action codes
+    # Convert the comma-separated string into a list of integers
     action_codes = [int(code) for code in action_str.split(',') if code.isdigit()]
-    # Initialize an action array with all elements set to False
+    # Initialize a boolean list to represent the activation state of each action
     action = [False] * len(vzd.Button)
+    # Set the corresponding action to True based on the action codes
     for code in action_codes:
         if code < len(action):
             action[code] = True
@@ -58,15 +68,16 @@ def decode_actions(action_str):
 #    https://vizdoom.farama.org/main/api/python/doomGame/#vizdoom.DoomGame.set_sectors_info_enabled
 #    https://vizdoom.farama.org/main/api/python/gameState/#vizdoom.GameState.objects
 
+# Extract and return game state information as a dictionary
 def extract_game_state(game):
-    # Extract required game variables
+    # Retrieve various game variables
     hitcount = game.get_game_variable(vzd.GameVariable.HITCOUNT)
     hits_taken = game.get_game_variable(vzd.GameVariable.HITS_TAKEN)
     dead = game.get_game_variable(vzd.GameVariable.DEAD) > 0
     health = game.get_game_variable(vzd.GameVariable.HEALTH)
     attack_ready = game.get_game_variable(vzd.GameVariable.ATTACK_READY) > 0
 
-    # Initialize enemy information
+    # Initialize variables for enemy information
     enemy_in_view = 0.0
     enemy_position_x = 0.0
     enemy_position_y = 0.0
@@ -78,11 +89,12 @@ def extract_game_state(game):
     enemy_velocity_y = 0.0
     enemy_velocity_z = 0.0
 
-    # Check if there are labels (requires SCREEN_LABELS to be enabled in game config)
+    # Check if the game state has labels for identifying objects
     state = game.get_state()
     if state and state.labels:
         for label in state.labels:
             if label.object_name == "DoomPlayer" and label.object_id != 0:
+                # Update enemy information based on the first encountered enemy
                 enemy_in_view = 1.0
                 enemy_position_x = label.object_position_x
                 enemy_position_y = label.object_position_y
@@ -93,15 +105,14 @@ def extract_game_state(game):
                 enemy_velocity_x = label.object_velocity_x
                 enemy_velocity_y = label.object_velocity_y
                 enemy_velocity_z = label.object_velocity_z
-                break  # Assuming you're only interested in the first enemy in view
+                break  # Exit loop after finding the first enemy
 
-    # Extract screen buffer if available
+    # Attempt to extract the screen buffer, if available
     screen_buffer = None
     if game.get_screen_format() != vzd.ScreenFormat.CRCGCB:
         screen_buffer = state.screen_buffer
-    else:
-        print("Screen buffer format not supported or not enabled.")
 
+    # Compile extracted information into a dictionary and return it
     game_state_info = {
         "hitcount": hitcount,
         "hits_taken": hits_taken,
