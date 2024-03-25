@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>BioSilicon Synergetic Intelligence System</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="brain-container">
+        <img src="{{ url_for('static', filename='brain.png') }}" alt="Brain Visualization" id="brain-image">
+    </div>
+    <div class="vortex-container">
+        <img src="{{ url_for('static', filename='phase_sync_vortex.png') }}" alt="Phase Synchronization Vortex" id="vortex-image">
+    </div>
+    <div class="stress-meter-container">
+        <img src="{{ url_for('static', filename='stress_meter.png') }}" alt="Stress Meter" id="stress-meter-image">
+    </div>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
