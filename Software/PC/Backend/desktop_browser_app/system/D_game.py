@@ -20,10 +20,34 @@ def initialize_vizdoom(config_path, scenario_path):
     game.set_mode(vzd.Mode.PLAYER)
     # Enable detailed objects information
     game.set_objects_info_enabled(True)
+
+    game.set_sectors_info_enabled(True)
+
+    
     # Set the screen resolution
-    game.set_screen_resolution(vzd.ScreenResolution.RES_512X384)
+    game.set_screen_resolution(vzd.ScreenResolution.RES_640X480)
     # Enable rendering of the HUD
     game.set_render_hud(True)
+
+    game.set_automap_render_textures(True)
+
+    game.set_render_weapon(True)
+
+    game.set_render_decals(True)
+
+    game.set_render_particles(True)
+
+    game.set_render_effects_sprites(True)
+
+    game.set_render_messages(True)
+
+    game.set_render_corpses(True)
+
+    game.set_render_all_frames(True)
+
+    game.set_sound_enabled(True)
+
+    
     
     # Clear any previously available buttons and specify new ones for this game instance
     game.clear_available_buttons()
@@ -33,10 +57,16 @@ def initialize_vizdoom(config_path, scenario_path):
     game.add_available_button(vzd.Button.MOVE_FORWARD)
     game.add_available_button(vzd.Button.TURN_RIGHT)
     game.add_available_button(vzd.Button.TURN_LEFT)
+    # set_button_max_value(self: vizdoom.DoomGame, button: vizdoom.Button, max_value: float) → None
+    # Sets the maximum allowed absolute value for the specified Button. Setting the maximum value to 0 results in no constraint at all (infinity). This method makes sense only for delta buttons. The constraints limit applies in all Modes.
+    # Has no effect when the game is running.
 
     # Initialize the game with the specified settings
     game.init()
     return game
+    # The following lines are unreachable due to the preceding return statement
+    # and should be removed or corrected for proper execution.
+
 
 # buttons for actions: 
 #    https://vizdoom.farama.org/api/python/doomGame/#vizdoom.DoomGame.set_available_buttons
@@ -58,6 +88,7 @@ def decode_actions(action_str):
 #    https://vizdoom.farama.org/main/api/python/gameState/#
 #    https://vizdoom.farama.org/api/python/enums/
 #    https://github.com/Farama-Foundation/ViZDoom/issues/361
+#    https://github.com/Farama-Foundation/ViZDoom
 #    https://github.com/Farama-Foundation/ViZDoom/blob/master/examples/python/buffers.py
 #    https://github.com/Farama-Foundation/ViZDoom/blob/master/examples/python/labels_buffer.py
 #    https://github.com/Farama-Foundation/ViZDoom/blob/master/examples/python/objects_and_sectors.py
@@ -102,8 +133,14 @@ def extract_game_state(game):
                 enemy_velocity_y = label.object_velocity_y
                 enemy_velocity_z = label.object_velocity_z
                 break  # Exit loop after finding the first enemy
-
+    # https://vizdoom.farama.org/main/api/python/gameState/#data-types-used-in-gamestate
+    
+    # add_available_game_variable(self: vizdoom.DoomGame, variable: vizdoom.GameVariable) → None
+    # Adds the specified GameVariable to the list of available game variables (e.g. HEALTH, AMMO1, ATTACK_READY) in the GameState returned by get_state() method.
+    # Has no effect when the game is running.
+    # Config key: availableGameVariables/available_game_variables (list of values)
     # Attempt to extract the screen buffer, if available
+    
     screen_buffer = None
     if game.get_screen_format() != vzd.ScreenFormat.CRCGCB:
         screen_buffer = state.screen_buffer
