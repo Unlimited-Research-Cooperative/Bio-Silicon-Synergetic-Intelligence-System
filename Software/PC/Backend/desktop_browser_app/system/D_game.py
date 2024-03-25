@@ -37,9 +37,6 @@ def initialize_vizdoom(config_path, scenario_path):
     # Initialize the game with the specified settings
     game.init()
     return game
-    # The following lines are unreachable due to the preceding return statement
-    # and should be removed or corrected for proper execution.
-
 
 # buttons for actions: 
 #    https://vizdoom.farama.org/api/python/doomGame/#vizdoom.DoomGame.set_available_buttons
@@ -61,7 +58,6 @@ def decode_actions(action_str):
 #    https://vizdoom.farama.org/main/api/python/gameState/#
 #    https://vizdoom.farama.org/api/python/enums/
 #    https://github.com/Farama-Foundation/ViZDoom/issues/361
-#    https://github.com/Farama-Foundation/ViZDoom
 #    https://github.com/Farama-Foundation/ViZDoom/blob/master/examples/python/buffers.py
 #    https://github.com/Farama-Foundation/ViZDoom/blob/master/examples/python/labels_buffer.py
 #    https://github.com/Farama-Foundation/ViZDoom/blob/master/examples/python/objects_and_sectors.py
