@@ -1,0 +1,111 @@
+.main_window{
+  display: flex;
+  height: 100%;
+  width: 100%;
+  padding: 20px;
+  background-color: #000;
+  color: #FFF;
+  font-family: wave;
+}
+
+.button_normal{
+  color: white;
+  font-family: wave;
+  font-size: 16px;
+  background-color: transparent;
+  height: fit-content;
+  width: fit-content;
+  padding: 10px; /* Increased padding to better accommodate the inset glow */
+  border: 1px solid #3A86B7;
+  box-shadow: inset 0 0 10px #3A86B7; /* Inner glow */
+  text-align: center;
+  display: inline-block;
+}
+
+.button_normal:hover{
+  background-color: rgb(58, 134, 183, 0.5);
+  box-shadow: inset 0 0 10px #3A86B7,
+  0 0 20px #3A86B7;
+}
+
+.button_danger{
+  color: white;
+  font-family: wave;
+  font-size: 16px;
+  background-color: transparent;
+  height: fit-content;
+  width: fit-content;
+  padding: 10px; /* Increased padding to better accommodate the inset glow */
+  border: 1px solid red;
+  box-shadow: inset 0 0 10px red; /* Inner glow */
+  text-align: center;
+  display: inline-block;
+}
+
+.button_danger:hover{
+  background-color: rgb(255, 0, 0, 0.5);
+  box-shadow: inset 0 0 10px red,
+  0 0 20px red;
+}
+
+
+.text_input{
+  font-family: wave;
+  font-size: 16px;
+  color: white;
+  outline: none;
+  height: 30px;
+  background-color: transparent;
+  border: 1px solid #3A86B7;
+  padding: 5px;
+  box-shadow: inset 0 0 10px #3A86B7;
+}
+
+.text_input::placeholder{
+  font-family: wave;
+  color: lightcyan;
+}
+
+.progress_bar {
+  height: 30px;
+  background-color: transparent;
+  border: 1px solid #3A86B7;
+  box-shadow: inset 0 0 10px #3A86B7;
+  margin-right: 5px;
+}
+
+.progress_bar::-webkit-progress-bar{
+  background-color: rgb(58, 134, 183, 0.1);
+}
+
+.progress_bar::-webkit-progress-value{
+  background-color: rgb(58, 134, 183, 0.5);
+}
+
+.text{
+  color: white;
+  font-size: 16px;
+  font-family: wave;
+}
+
+.fit_div{
+  display: flex;
+  height: fit-content;
+  width: fit-content;
+  align-items: center;
+}
+
+.stress_meter{
+  background-color: transparent;
+  border: 1px solid #02FF35;
+  box-shadow: inset 0 0 10px #02FF35;
+  margin-right: 5px;
+}
+
+.stress_meter::-webkit-progress-bar{
+  background-color: rgb(2, 255, 53, 0.1);
+}
+
+.stress_meter::-webkit-progress-value{
+  background-color: rgb(2, 255, 53, 0.5);
+}
