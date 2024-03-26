@@ -14,6 +14,10 @@ class SymbolicStates:
 
 def metadata_to_features(metadata):
     features = {
+
+        # Mapping og action state to neural state
+        "state": SymbolicStates.ACTION_STATES.get(metadata.get("player_action", "shooting"), 1) / 3.0,  # Max value for movement is 3
+        
         # Direct mapping of player movement to variability factor, normalized to a 0-1 scale
         "variability_factor": SymbolicStates.PLAYER_MOVEMENT.get(metadata.get("player_movement", "none"), 0) / 3.0,  # Max value for movement is 3
         
@@ -95,8 +99,6 @@ def main():
     subscriber.setsockopt_string(zmq.SUBSCRIBE, "")
     
     while True:
-        # Here we simulate receiving game state metadata, which in practice would come from the game or another source.
-        # For demonstration, we use a fixed metadata packet. In practice, you might receive this via subscriber.recv_string() or similar.
         metadata_packet = {
             "player_movement": "forward",
             "door_state": "open",

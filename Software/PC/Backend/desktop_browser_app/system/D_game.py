@@ -45,8 +45,6 @@ def initialize_vizdoom(config_path, scenario_path):
     game.set_render_all_frames(True)
 
     game.set_sound_enabled(True)
-
-    
     
     # Clear any previously available buttons and specify new ones for this game instance
     game.clear_available_buttons()
@@ -56,7 +54,8 @@ def initialize_vizdoom(config_path, scenario_path):
     game.add_available_button(vzd.Button.MOVE_FORWARD)
     game.add_available_button(vzd.Button.TURN_RIGHT)
     game.add_available_button(vzd.Button.TURN_LEFT)
-    # set_button_max_value(self: vizdoom.DoomGame, button: vizdoom.Button, max_value: float) → None
+    # 
+    game.set_button_max_value(self: vizdoom.DoomGame, button: vizdoom.Button, max_value: float)
     # Sets the maximum allowed absolute value for the specified Button. Setting the maximum value to 0 results in no constraint at all (infinity). This method makes sense only for delta buttons. The constraints limit applies in all Modes.
     # Has no effect when the game is running.
 
