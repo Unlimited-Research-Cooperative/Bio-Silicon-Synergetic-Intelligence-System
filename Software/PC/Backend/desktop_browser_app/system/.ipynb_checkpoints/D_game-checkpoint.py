@@ -20,10 +20,33 @@ def initialize_vizdoom(config_path, scenario_path):
     game.set_mode(vzd.Mode.PLAYER)
     # Enable detailed objects information
     game.set_objects_info_enabled(True)
+
+    game.set_sectors_info_enabled(True)
+
     # Set the screen resolution
-    game.set_screen_resolution(vzd.ScreenResolution.RES_512X384)
+    game.set_screen_resolution(vzd.ScreenResolution.RES_640X480)
     # Enable rendering of the HUD
     game.set_render_hud(True)
+
+    game.set_automap_render_textures(True)
+
+    game.set_render_weapon(True)
+
+    game.set_render_decals(True)
+
+    game.set_render_particles(True)
+
+    game.set_render_effects_sprites(True)
+
+    game.set_render_messages(True)
+
+    game.set_render_corpses(True)
+
+    game.set_render_all_frames(True)
+
+    game.set_sound_enabled(True)
+
+    
     
     # Clear any previously available buttons and specify new ones for this game instance
     game.clear_available_buttons()
@@ -33,6 +56,9 @@ def initialize_vizdoom(config_path, scenario_path):
     game.add_available_button(vzd.Button.MOVE_FORWARD)
     game.add_available_button(vzd.Button.TURN_RIGHT)
     game.add_available_button(vzd.Button.TURN_LEFT)
+    # set_button_max_value(self: vizdoom.DoomGame, button: vizdoom.Button, max_value: float) → None
+    # Sets the maximum allowed absolute value for the specified Button. Setting the maximum value to 0 results in no constraint at all (infinity). This method makes sense only for delta buttons. The constraints limit applies in all Modes.
+    # Has no effect when the game is running.
 
     # Initialize the game with the specified settings
     game.init()
@@ -76,6 +102,43 @@ def extract_game_state(game):
     dead = game.get_game_variable(vzd.GameVariable.DEAD) > 0
     health = game.get_game_variable(vzd.GameVariable.HEALTH)
     attack_ready = game.get_game_variable(vzd.GameVariable.ATTACK_READY) > 0
+    
+    # Player position for distance calculation
+    player_x = game.get_game_variable(vzd.GameVariable.POSITION_X)
+    player_y = game.get_game_variable(vzd.GameVariable.POSITION_Y)
+    player_z = game.get_game_variable(vzd.GameVariable.POSITION_Z)
+
+    def detect_doors(labels):
+    # Example logic; you'll need to adjust based on how doors are labeled in your scenario
+    doors_detected = any(label.object_name.lower().contains("door") for label in labels)
+    return doors_detected
+
+    def categorize_enemy_type(labels):
+    enemy_types_detected = {"weak": 0, "strong": 0, "boss": 0}
+    for label in labels:
+        if "Imp" in label.object_name:  # Example: assuming 'Imp' as a weak enemy
+            enemy_types_detected["weak"] += 1
+        elif "Demon" in label.object_name:  # Example: a stronger enemy
+            enemy_types_detected["strong"] += 1
+        # Add more conditions based on known enemy types in ViZDoom
+    return enemy_types_detected
+
+    # This requires keeping track of past actions and outcomes
+    action_states = {"moving": False, "shooting": False, "escaping_enemy": False}
+
+    def determine_exploring_state(depth_buffer):
+    # Example heuristic: a narrower field in the depth buffer might indicate a corridor
+    # This will require custom logic based on your game's design and scenarios
+    return "corridor" if is_corridor(depth_buffer) else "open room"
+
+    # Example logic for tracking if a key has been picked up
+    level_states = {"looking_for_door_key": True, "have_door_key": False}
+
+    def detect_wall_states(depth_buffer):
+    # Example logic to process the depth buffer and determine wall proximity and orientation
+    wall_states_detected = {"wall_to_the_left": False, "wall_to_the_right": False, "wall_in_front": False}
+    # Fill in the logic based on depth buffer analysis
+    return wall_states_detected
 
     # Initialize variables for enemy information
     enemy_in_view = 0.0
@@ -89,6 +152,21 @@ def extract_game_state(game):
     enemy_velocity_y = 0.0
     enemy_velocity_z = 0.0
 
+    visible_objects = []
+    if state and state.labels:
+        for obj in state.labels:  # Using labels for visible objects
+            obj_distance = np.sqrt((obj.object_position_x - player_x) ** 2 + (obj.object_position_y - player_y) ** 2 + (obj.object_position_z - player_z) ** 2)
+            visible_objects.append({
+                "label": obj.value,
+                "name": obj.object_name,
+                "distance": obj_distance,
+                "position": {
+                    "x": obj.object_position_x,
+                    "y": obj.object_position_y,
+                    "z": obj.object_position_z,
+                }
+            })
+     
     # Check if the game state has labels for identifying objects
     state = game.get_state()
     if state and state.labels:
@@ -106,8 +184,14 @@ def extract_game_state(game):
                 enemy_velocity_y = label.object_velocity_y
                 enemy_velocity_z = label.object_velocity_z
                 break  # Exit loop after finding the first enemy
-
+    # https://vizdoom.farama.org/main/api/python/gameState/#data-types-used-in-gamestate
+    
+    # add_available_game_variable(self: vizdoom.DoomGame, variable: vizdoom.GameVariable) → None
+    # Adds the specified GameVariable to the list of available game variables (e.g. HEALTH, AMMO1, ATTACK_READY) in the GameState returned by get_state() method.
+    # Has no effect when the game is running.
+    # Config key: availableGameVariables/available_game_variables (list of values)
     # Attempt to extract the screen buffer, if available
+    
     screen_buffer = None
     if game.get_screen_format() != vzd.ScreenFormat.CRCGCB:
         screen_buffer = state.screen_buffer
