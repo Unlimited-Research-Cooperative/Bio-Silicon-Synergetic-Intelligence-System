@@ -1,0 +1,16 @@
+html, 
+body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden; /* This will prevent scrollbars */
+}
+
+@font-face {
+    font-family: 'wave';
+    src: url('fonts/wave/LTWaveMono-Regular.otf');
+    font-weight: normal;
+    font-style: normal;
+}
+  
