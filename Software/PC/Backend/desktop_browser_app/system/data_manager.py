@@ -22,6 +22,8 @@ class DataManager:
         self.client.on_disconnect = self.on_disconnect
         self.client.on_message = self.on_message
 
+        self.data = None
+
         self.client.connect(self.host, self.port)
 
         if topic_sub is None:
@@ -43,21 +45,25 @@ class DataManager:
             thread = Thread(target=self.server_loop)
             thread.start()
 
-    def publish(self, timeout: int, data: Any, sleep_time: float):
+    def set_data(self, data: Any):
+        self.data = data
+
+    def get_data(self):
+        return self.data
+
+    def publish(self, sleep_time: float):
         if self.topic_pub is None:
             raise Exception("Instance cannot publish data. Provide topic_pub parameter.")
-        thread = Thread(target=self.publish_data, args=[timeout, data, sleep_time])
+        thread = Thread(target=self.publish_data, args=[sleep_time])
         thread.start()
 
-    def publish_data(self, timeout: int, data: Any, sleep_time: float = 0):
-        c_time = 0
-        while c_time != timeout:
-            if data is None:
-                self.client.publish(topic=self.topic_pub, payload="NaN")
-            elif data is not None:
-                self.client.publish(topic=self.topic_pub, payload=data)
-            c_time += 1
-            time.sleep(sleep_time)
+    def publish_data(self, sleep_time: float = 0):
+        data = self.get_data()
+        if data is None:
+            self.client.publish(topic=self.topic_pub, payload="NaN")
+        elif data is not None:
+            self.client.publish(topic=self.topic_pub, payload=data)
+        time.sleep(sleep_time)
 
     # Callbacks
     def on_connect(self, client, userdata, flags, rc):
