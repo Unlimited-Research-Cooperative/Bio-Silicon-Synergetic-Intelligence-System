@@ -35,6 +35,7 @@ class GameState:
     health: int
     attack_ready: int
     screen_buffer: Any
+    areDoorsPresent: bool
     enemy_state: EnemyState
 
     """
@@ -68,3 +69,24 @@ class GameState:
             }
         })
         return json_data
+
+
+class VisibleObject:
+    label: str
+    name: str
+    distance: float
+    pos_x: float
+    pos_y: float
+    pos_z: float
+
+    def to_dict(self):
+        return {
+            "label": self.label,
+            "name": self.name,
+            "distance": self.distance,
+            "position": {
+                "x": self.pos_x,
+                "y": self.pos_y,
+                "z": self.pos_z
+            }
+        }
