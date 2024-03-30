@@ -9,7 +9,7 @@ settings_obj.setValue("export_path", str(getcwd()))
 
 
 def get_features():
-    with open("signals_simulator/config/features.txt", "r") as features_file:
+    with open("./config/features.txt", "r") as features_file:
         features = [feature.rstrip("\n") for feature in features_file.readlines()]
         features_file.close()
         return features
@@ -83,20 +83,3 @@ def create_features_dict(features: list, vals: list) -> dict:
     return features_dict
 
 
-# def publish_data(topic: str, ecog_data: list):
-#     start_time = time()
-#     client.client.publish("ecog_data", ecog_data)
-#     elapsed_time = time() - start_time
-#
-#     print("--------------------")
-#     print("ECoG data for all channels:")
-#     for channel, data in enumerate(ecog_data, start=1):
-#         print(f"Channel {channel}: {data}")
-#     print("--------------------")
-#
-#     return start_time, elapsed_time
-#
-#
-# def start_new_thread(func, args: list):
-#     publish_thread = Thread(target=func, args=args)
-#     publish_thread.start()
