@@ -10,13 +10,15 @@ from typing import Any
 
 
 class DataManager:
-    def __init__(self, client_id: str, topic_sub: str | None, topic_pub: str | None, processing_func: Any = None):
+    def __init__(self, client_id: str, topic_sub: str | None, topic_pub: str | None,
+                 processing_func: Any = None, close_after_first_list: bool = False):
         super().__init__()
 
         self.host = "127.0.0.1"  # localhost
         self.port = 3000
 
         self.client = Client(client_id)
+        self.close_after_first_list = close_after_first_list
 
         self.client.on_connect = self.on_connect
         self.client.on_disconnect = self.on_disconnect
@@ -71,6 +73,10 @@ class DataManager:
 
     def on_message(self, client, userdata, message):
         self.helper_func(message.payload.decode("utf-8"))
+        if self.close_after_first_list:
+            self.client.unsubscribe(self.topic_sub)
+        else:
+            pass
 
     def on_disconnect(self, client, userdata, flags, rc):
         print(f"{client.client_id} disconnected from {self.host}")

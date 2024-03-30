@@ -1,23 +1,14 @@
 import constants
 import numpy as np
 from PyEMD import EMD
-from json import loads
 from fastdtw import fastdtw
+from json import loads, dumps
 from scipy.fft import fft, fftfreq
-# from data_manager import DataManager
+from data_manager import DataManager
 from scipy.spatial.distance import euclidean
 from scipy.signal import find_peaks, welch, hilbert
 
 BUFFER_SIZE = int(constants.SAMPLING_RATE // constants.UPDATE_RATE)
-
-
-def receive_neural_data(ecog_data):
-    ecog_data = loads(ecog_data)
-    neural_data = np.array(ecog_data, dtype=np.float32)  # Convert the list to a NumPy array
-    if neural_data.ndim == 1:
-        neural_data = neural_data.reshape(-1, 1)  # Reshape from (32) to (32, 1) for a single sample across 32 channels
-    # print(f"Received neural data shape: {neural_data.shape}")  # Debugging: Print shape
-    return neural_data
 
 
 def buffer_data(data, buffer):
@@ -95,7 +86,7 @@ def calculate_variance_std_dev(signals):
 
 def calculate_rms(signals):
     # Calculating RMS value
-    rms = np.sqrt(np.mean(signals**2, axis=1))
+    rms = np.sqrt(np.mean(signals ** 2, axis=1))
     return rms
 
 
@@ -152,7 +143,7 @@ def spectral_centroids(signals, fs):
     centroids = []
     for signal in signals:
         fft_result = fft(signal)
-        frequencies = fftfreq(len(signal), 1.0/fs)
+        frequencies = fftfreq(len(signal), 1.0 / fs)
         magnitude = np.abs(fft_result)
         centroid = np.sum(frequencies * magnitude) / np.sum(magnitude)
         centroids.append(centroid)
@@ -164,7 +155,7 @@ def spectral_edge_density(signals, fs, percentage=95):
 
     for signal in signals:
         fft_result = fft(signal)
-        frequencies = fftfreq(len(signal), 1.0/fs)
+        frequencies = fftfreq(len(signal), 1.0 / fs)
         positive_frequencies = frequencies[frequencies >= 0]
         positive_fft_result = fft_result[frequencies >= 0]
         magnitude = np.abs(positive_fft_result)
@@ -352,3 +343,39 @@ def analyze_signals(buffer):
     print("Analysis Results:")
     for key, value in results.items():
         print(f"{key}: {value}")
+    return results
+
+
+class SignalConverter:
+    def __init__(self):
+        self.data_m = DataManager("simulated signals sub", "simulated signals", "decoded features", self.receive_neural_data,
+                                  True)
+
+    def receive_neural_data(self, ecog_data):
+        # ecog_data = ecog_data_str.replace("[", "").replace("]", "").split(",")
+        ecog_data = loads(ecog_data)
+        neural_data = np.array(ecog_data, dtype=np.float32)  # Convert the list to a NumPy array
+        if neural_data.ndim == 1:
+            neural_data = neural_data.reshape(-1,
+                                              1)  # Reshape from (32) to (32, 1) for a single sample across 32 channels
+        print(f"Received neural data shape: {neural_data.shape}")  # Debugging: Print shape
+
+        if neural_data is not None and neural_data.size > 0:
+            buffer = np.zeros((constants.NUM_CHANNELS, BUFFER_SIZE), dtype=np.float32)
+            scaled_data = scale_data(neural_data)
+            buffer = buffer_data(scaled_data, buffer)
+
+            if np.all(buffer != 0):
+                analysis_results = analyze_signals(buffer)
+                serialized_results = dumps(analysis_results)
+                self.data_m.set_data(serialized_results)
+                self.data_m.publish(0)
+
+        else:
+            print("No data")
+        return neural_data
+
+
+if __name__ == "__main__":
+    converter = SignalConverter()
+    converter.data_m.listen()
