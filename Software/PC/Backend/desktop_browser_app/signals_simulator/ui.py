@@ -4,6 +4,8 @@ from webbrowser import open_new_tab
 from numpy.random import uniform
 from PySide6.QtCore import QSettings
 from PySide6.QtGui import QIcon
+from threading import Thread
+from data_manager import DataManager
 from PySide6.QtWidgets import QApplication, QMainWindow, QLineEdit, QFileDialog, QMessageBox
 from compute_signals import create_transformation, generate_transformed_signals, plot_separate_signals
 from ui_form import Ui_MainWindow
@@ -21,7 +23,7 @@ class MainWindow(QMainWindow):
         self.max_volt = None
 
         self.setWindowTitle("Signal Simulator")
-        self.setWindowIcon(QIcon("signal_simulator/icons/icon.png"))
+        self.setWindowIcon(QIcon("./icons/icon.png"))
 
         self.features = get_features()
         self.loaded_config_obj = None
@@ -91,6 +93,11 @@ class MainWindow(QMainWindow):
         open_new_tab(
             "https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/tree/main")
 
+    def plot(self, transformed_signals, title_prefix: str):
+        thread = Thread(target=plot_separate_signals, args=[transformed_signals, title_prefix])
+        thread.daemon = True
+        thread.start()
+
     def simulate(self):
         bit_depth = 16
         num_signals = 32
@@ -100,13 +107,17 @@ class MainWindow(QMainWindow):
 
         transformations = create_transformation()
         transformed_signals = generate_transformed_signals(length, num_signals, transformations)
-        plot_separate_signals(transformed_signals, "Transformed")
-
         ecog_data = [uniform(self.min_volt, self.max_volt) for _ in range(num_signals)]
+        data_m = DataManager("signal simulator sub", None, "simulated signals")
+        data_m.set_data(str(ecog_data))
+        data_m.publish(1)
+        self.plot(transformed_signals, "Transformed")
+        print(str(ecog_data))
+
+        print("ECoG data for all channels:")
         for channel, data in enumerate(ecog_data, start=1):
-            print("--------------------")
             print(f"Channel {channel}: {data}")
-            print("--------------------")
+        print("--------------------")
 
 
 if __name__ == "__main__":
