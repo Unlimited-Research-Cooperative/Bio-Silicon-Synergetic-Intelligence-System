@@ -1,1 +1,27 @@
 lab_equipment_designs/
+
+# ipynb checkpoints
+./.ipynb_checkpoints
+./Software/.ipynb_checkpoints
+./Software/PC/.ipynb_checkpoints
+./Software/PC/Backend/desktop_browser_app/old_gui/static/.ipynb_checkpoints
+./Software/PC/Backend/desktop_browser_app/old_gui/static/css/.ipynb_checkpoints
+./Software/PC/Backend/desktop_browser_app/old_gui/static/js/.ipynb_checkpoints
+./Software/PC/Backend/desktop_browser_app/old_gui/templates/.ipynb_checkpoints
+./Software/PC/Backend/desktop_browser_app/old_gui/.ipynb_checkpoints
+./Software/PC/Backend/desktop_browser_app/old_gui/system/.ipynb_checkpoints
+./Software/PC/Backend/desktop_browser_app/old_gui/system/visualization/.ipynb_checkpoints
+./Software/PC/Backend/desktop_browser_app/old_gui/system/old/.ipynb_checkpoints
+./Software/PC/Backend/desktop_browser_app/old_gui/system/nightly/.ipynb_checkpoints
+./Software/PC/Backend/desktop_browser_app/.ipynb_checkpoints
+./Software/PC/Backend/desktop_browser_app/system/direct_digital_stimulation/.ipynb_checkpoints
+./Software/PC/Backend/desktop_browser_app/system/.ipynb_checkpoints
+./Software/PC/Backend/desktop_browser_app/system/D_game_new/.ipynb_checkpoints
+./Software/PC/Backend/desktop_browser_app/system/shuffleboard_1D/direct_digital_stimulation/.ipynb_checkpoints
+./Software/PC/Backend/desktop_browser_app/system/shuffleboard_1D/.ipynb_checkpoints
+./Software/PC/Backend/desktop_browser_app/system/visualization/.ipynb_checkpoints
+./Software/PC/Backend/desktop_browser_app/system/old/.ipynb_checkpoints
+./Software/PC/Backend/desktop_browser_app/system/nightly/.ipynb_checkpoints
+./Software/PC/Backend/desktop_browser_app/basic_gui/.ipynb_checkpoints
+./Software/PC/Backend/.ipynb_checkpoints
+./images/.ipynb_checkpoints

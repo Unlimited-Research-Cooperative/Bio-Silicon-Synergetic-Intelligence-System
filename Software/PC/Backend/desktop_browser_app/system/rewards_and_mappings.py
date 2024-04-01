@@ -85,16 +85,6 @@ class FeedbackSystem:
             self.activate_feeder()
         elif game_event in ["wrong_direction", "got_shot", "died", "stuck_in_loop"]:
             self.play_sound(self.distress_sound_path)
-
-class FeedbackSystem:
-    def __init__(self):
-        # Initialize pygame for audio output
-        pygame.mixer.init()
-
-    def play_sound(self, sound_path):
-        # Play a sound from the specified path
-        pygame.mixer.music.load(sound_path)  # Load the sound file
-        pygame.mixer.music.play()  # Play the loaded sound
         
 class NeuralMappingVisualizer:
     def __init__(self, processor):
