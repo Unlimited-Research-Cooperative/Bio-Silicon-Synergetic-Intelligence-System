@@ -1,16 +1,44 @@
 # This Python file uses the following encoding: utf-8
 import sys
+from json import dump
 from webbrowser import open_new_tab
-from numpy.random import uniform
 from PySide6.QtCore import QSettings
 from PySide6.QtGui import QIcon
 from threading import Thread
 from data_manager import DataManager
-from PySide6.QtWidgets import QApplication, QMainWindow, QLineEdit, QFileDialog, QMessageBox
-from compute_signals import create_transformation, generate_transformed_signals, plot_separate_signals
-from ui_form import Ui_MainWindow
-from util import get_features, update_vals
+from PySide6.QtWidgets import QApplication, QMainWindow, QLineEdit, QFileDialog, QDialog
+from compute_signals import create_transformation, generate_transformed_signals
+from window import Ui_MainWindow
+import matplotlib.pyplot as plt
+from util import get_features, update_vals, read_extra_config
+from signals_param import Ui_signalParams
 
+
+class SignalsParamDialog(QDialog):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+
+        self.ui = Ui_signalParams()
+        self.ui.setupUi(self)
+
+    def show_(self):
+        exit_code = self.exec()
+
+        if exit_code == 1:
+            with open("./config/extra.json", "w") as signals_param:
+                params = {
+                    "num_signals": int(self.ui.numSignalInput.text()),
+                    "bit_depth": int(self.ui.bit_depth_input.text()),
+                    "duration": float(self.ui.durationLineEdit.text()),
+                    "fs": float(self.ui.fs_input.text())
+                }
+                dump(params, signals_param)
+                signals_param.close()
+
+        elif exit_code == 0:
+            pass
+
+        return exit_code
 
 class MainWindow(QMainWindow):
     def __init__(self, parent=None):
@@ -18,51 +46,60 @@ class MainWindow(QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
-        # Most used variables
-        self.min_volt = None
-        self.max_volt = None
+        self.signals_param_dialog = SignalsParamDialog()
 
-        self.setWindowTitle("Signal Simulator")
+        self.setWindowTitle("Signals Simulator")
         self.setWindowIcon(QIcon("./icons/icon.png"))
 
         self.features = get_features()
-        self.loaded_config_obj = None
 
-        self.ui.clear_all_btn.clicked.connect(self.clear_all)
+        # Connect with buttons
+        self.ui.clear_all_btn.clicked.connect(self.clearAll)
+
+        # Connect with actions
+        self.ui.actionSave_Config.triggered.connect(self.update_values)
+        self.ui.actionExport_Config.triggered.connect(self.save_config)
+        self.ui.actionLoad_Config.triggered.connect(self.load_config)
+        self.ui.actionGitHub.triggered.connect(self.open_github)
+        self.ui.actionParameters.triggered.connect(self.open_param_info)
+        self.ui.actionAbout.triggered.connect(self.open_docs)
         self.ui.simulate_btn.clicked.connect(self.simulate)
 
-        self.ui.actionLoad_Config.triggered.connect(self.load_config)
-        self.ui.actionsave_values.triggered.connect(self.update_all_vals)
-        self.ui.actionGitHub.triggered.connect(self.open_github)
-        self.ui.actionSave_Config.triggered.connect(self.save_config)
+    def open_github(self):
+        open_new_tab("https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System")
 
-    def get_all_input(self):
-        vals = []
-        for widgets in self.findChildren(QLineEdit):
-            vals.append(widgets.text())
-        return vals
+    def open_docs(self):
+        open_new_tab("https://raghav67816.github.io/urc.bssis.github.io/")
 
-    def show_error(self, title: str, message: str, detailed: str):
-        msg_box = QMessageBox(QMessageBox.Icon.Critical, title, message, QMessageBox.StandardButton.Ok)
-        msg_box.setDetailedText(detailed)
-        msg_box.show()
+    def open_param_info(self):
+        open_new_tab("https://raghav67816.github.io/urc.bssis.github.io/Tools/Signal%20Simulator/")
 
-    def update_all_vals(self):
-        vals = self.get_all_input()
-        update_vals(self.features, vals)
 
-    def clear_all(self):
+    # Clear all fields
+    def clearAll(self):
         for widget in self.findChildren(QLineEdit):
             widget.clear()
 
+    # Get all inputs
+    def get_all_input(self):
+        vals = []
+        for widget in self.findChildren(QLineEdit):
+            vals.append(widget.text())
+        return vals
+    
+    # Update all features in the file
+    def update_values(self):
+        vals = self.get_all_input()
+        update_vals(self.features, vals)
+
+
+    # Load config from a file
     def load_config(self):
         config_path = QFileDialog.getOpenFileName(self, "Load Configuration File", filter="*.ini")
         if config_path[0] == "":
             pass
         else:
             new_settings_obj = QSettings(config_path[0], QSettings.Format.IniFormat)
-            self.min_volt = float(new_settings_obj.value("features/min_volt"))
-            self.max_volt = float(new_settings_obj.value("features/max_volt"))
             loaded_vals = []
             widgets = []
 
@@ -75,55 +112,81 @@ class MainWindow(QMainWindow):
             for x in range(0, len(widgets)):
                 widgets[x].setText(loaded_vals[x])
 
+
+    # Save config
     def save_config(self):
-        save_file_path = QFileDialog.getSaveFileName(self, "Save Configuration File", filter="*.ini")
-        if save_file_path[0] == "":
-            pass
+        try:
+            config_file_path = QFileDialog.getSaveFileName(self, "Save Config", ".", "*.ini")
+            if config_file_path[0] == '':
+                pass
+            else:
+                with open('./config/config.ini') as default_config:
+                    conf = default_config.read()
+                    default_config.close()
 
-        else:
-            vals = self.get_all_input()
-            with open(save_file_path[0], "w") as new_config_file:
-                new_config_file.writelines("[features]\n")
-                for i in range(0, len(vals)):
-                    new_config_file.write(f"{self.features[i]}={vals[i]}\n")
-                new_config_file.close()
-                print("done")
+                with open(config_file_path[0], "w") as config_file:
+                    config_file.write(conf)
+                    config_file.close()
+        
+        except Exception as e:
+            print(e)
 
-    def open_github(self):
-        open_new_tab(
-            "https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/tree/main")
+    def plot_separate_signals(self, signals, title_prefix):
+        num_signals = signals.shape[0]
+        plt.figure(figsize=(15, num_signals * 5))  # Adjust figure size to make each subplot 5 times taller
+        plt.style.use('dark_background')
 
-    def plot(self, transformed_signals, title_prefix: str):
-        thread = Thread(target=plot_separate_signals, args=[transformed_signals, title_prefix])
-        thread.daemon = True
-        thread.start()
+        for i in range(num_signals):
+            ax = plt.subplot(num_signals, 1, i+1)
+            ax.plot(signals[i], color='red', linewidth=0.4)
+            ax.set_title(f'{title_prefix} Signal {i+1}', color='red')
+            ax.set_ylabel('Amplitude', color='red')
+            ax.tick_params(axis='x', colors='red')
+            ax.tick_params(axis='y', colors='red')
+            ax.grid(True, which='both', color='red', linestyle='-', linewidth=0.2)
+            for spine in ax.spines.values():
+                spine.set_edgecolor('red')
 
+            plt.savefig(f"./Transformed Signal {i+1}.png")
+
+        # Adjust the spacing between subplots
+        plt.subplots_adjust(hspace=0.1)  # You can adjust this value as needed
+
+    def plot_graphs(self, transformed_signals):
+        graph_thread = Thread(target=self.plot_separate_signals, args=[transformed_signals, "Transformed"])
+        graph_thread.daemon = True
+        graph_thread.start()
+    
     def simulate(self):
-        bit_depth = 16
-        num_signals = 32
-        fs = 500
-        duration = 1
-        length = fs * duration
+        try:
+            code = self.signals_param_dialog.show_()
+            if code == 1:
+                data_m = DataManager("signals_simulator", None, "signals")
+                extra_config = read_extra_config()
+                # bit_depth = extra_config['bit_depth'] 
+                duration = extra_config['duration']
+                fs = extra_config['fs']
+                num_signals = extra_config['num_signals']
 
-        transformations = create_transformation()
-        transformed_signals = generate_transformed_signals(length, num_signals, transformations)
-        ecog_data = [uniform(self.min_volt, self.max_volt) for _ in range(num_signals)]
-        data_m = DataManager("signal simulator sub", None, "simulated signals")
-        data_m.set_data(str(ecog_data))
-        data_m.publish(1)
-        self.plot(transformed_signals, "Transformed")
-        print(str(ecog_data))
+                lenght = fs*duration
+                transformations = create_transformation()
+                trasnformed_signals = generate_transformed_signals(lenght, num_signals, transformations)
+                data_m.set_data(str(trasnformed_signals))
+                data_m.publish(1)
+                self.plot_separate_signals(trasnformed_signals, "Transformed")
 
-        print("ECoG data for all channels:")
-        for channel, data in enumerate(ecog_data, start=1):
-            print(f"Channel {channel}: {data}")
-        print("--------------------")
+            else:
+                pass
+
+        except Exception as simulation_error:
+            print(str(simulation_error))
+            
 
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     app.setApplicationName("Signal Simulator")
-    app.setOrganizationName("URC")
+    app.setOrganizationName("Synthetic Intelligence Labs")
     widget = MainWindow()
     widget.show()
     sys.exit(app.exec())

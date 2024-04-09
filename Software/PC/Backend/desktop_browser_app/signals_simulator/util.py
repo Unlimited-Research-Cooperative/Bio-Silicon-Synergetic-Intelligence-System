@@ -1,12 +1,14 @@
 # import client
-from os import getcwd
-from time import time
-from threading import Thread
+from json import loads
 from PySide6.QtCore import QSettings
 
 settings_obj = QSettings("config/config.ini", QSettings.Format.IniFormat)
-settings_obj.setValue("export_path", str(getcwd()))
 
+def read_extra_config():
+    with open('./config/extra.json', "r") as extra_config:
+        data = extra_config.read()
+        extra_config.close()
+        return loads(data)
 
 def get_features():
     with open("./config/features.txt", "r") as features_file:
@@ -41,6 +43,7 @@ def update_vals(features: list, vals: list):
 
 
 def create_features_dict(features: list, vals: list) -> dict:
+    extra_config = read_extra_config()
     # Dummy list
     # Define the features dictionary with the required values
     features_dict = {
@@ -75,10 +78,10 @@ def create_features_dict(features: list, vals: list) -> dict:
         "causality_strength": 0.1,  # Causality strength as a static value for interaction effects
         "num_imfs": 5,  # Number of intrinsic mode functions (IMFs) as a static value for interaction effects
     }
+
     vals.pop(0)
     for i in range(0, len(vals)):
         features_dict[features[i]] = float(vals[i])
-        print(f"{features_dict[features[i]]} = {vals[i]}")
 
     return features_dict
 

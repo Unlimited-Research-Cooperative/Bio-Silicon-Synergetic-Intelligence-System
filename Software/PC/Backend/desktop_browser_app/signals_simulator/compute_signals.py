@@ -5,12 +5,11 @@ from util import create_features_dict, get_features, get_all_vals, settings_obj
 
 features = create_features_dict(get_features(), get_all_vals())
 print(features)
-num_signals = 5
 
 
 # Function to generate base ECoG-like signals within the specified range
-def generate_ecog_like_base_signals(length, num_signals_=num_signals):
-    signals = np.random.uniform(min_volt, max_volt, (num_signals_, length))
+def generate_ecog_like_base_signals(length, num_signals):
+    signals = np.random.uniform(min_volt, max_volt, (int(num_signals), int(length)))
     return signals
 
 
@@ -508,28 +507,4 @@ def generate_transformed_signals(signal_length, num_signals, transformation_func
     print(f"Scaled range: {modified_signals.min()} to {modified_signals.max()}")
 
     return modified_signals
-
-
-def plot_separate_signals(signals, title_prefix):
-    num_signals = signals.shape[0]
-    plt.figure(figsize=(15, num_signals * 5))  # Adjust figure size to make each subplot 5 times taller
-    plt.style.use('dark_background')
-    export_path = str(settings_obj.value("export_path"))
-
-    for i in range(num_signals):
-        ax = plt.subplot(num_signals, 1, i+1)
-        ax.plot(signals[i], color='red', linewidth=0.4)
-        ax.set_title(f'{title_prefix} Signal {i+1}', color='red')
-        ax.set_ylabel('Amplitude', color='red')
-        ax.tick_params(axis='x', colors='red')
-        ax.tick_params(axis='y', colors='red')
-        ax.grid(True, which='both', color='red', linestyle='-', linewidth=0.2)
-        for spine in ax.spines.values():
-            spine.set_edgecolor('red')
-
-        plt.savefig(f"{export_path}/Transformed Signal {i+1}.png")
-
-    # Adjust the spacing between subplots
-    plt.subplots_adjust(hspace=0.1)  # You can adjust this value as needed
-    plt.show()
 
