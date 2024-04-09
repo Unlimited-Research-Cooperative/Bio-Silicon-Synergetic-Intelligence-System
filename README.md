@@ -128,10 +128,6 @@ We're reaching out to like-minded researchers and innovators to join us on this 
 <p align="center">
   <img src="https://raw.githubusercontent.com/Raghav67816/Bio-Silicon-Synergetic-Intelligence-System/main/images/ui.png" alt="bio silicon synergetic intelligence GUI work_in_progress.png">
 </p>
-<h1 align="center">Advanced Software GUI (WIP)</h1>
-<p align="center">
-  <img src="https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/blob/main/images/GUI_work_in_progress.png" alt="bio silicon synergetic intelligence GUI work_in_progress.png">
-</p>
 <h1 align="center">Biomimetic Signals Generator</h1>
 <p align="center">
   <img src="https://raw.githubusercontent.com/Unlimited-Research-Cooperative/Human-Brain-Rat/main/images/biomimetic_signals.png" alt="biomimetic signals.png">
