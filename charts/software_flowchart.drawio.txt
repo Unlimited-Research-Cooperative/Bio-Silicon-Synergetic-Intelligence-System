@@ -1,0 +1,316 @@
+<mxfile host="Electron" modified="2024-02-18T23:11:40.894Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.1.16 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="erJtmeRvwTK2QsO8-vzH" version="22.1.16" type="device">
+  <diagram name="Page-1" id="UO3zegzRqnsEIXU49jw1">
+    <mxGraphModel dx="2222" dy="1337" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" background="#000000" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="kK_saXuroscAapvJbY5S-2" value="&lt;b&gt;Initialization:&lt;/b&gt;&lt;span style=&quot;color: rgb(236, 236, 236); font-family: Söhne, ui-sans-serif, system-ui, -apple-system, &amp;quot;Segoe UI&amp;quot;, Roboto, Ubuntu, Cantarell, &amp;quot;Noto Sans&amp;quot;, sans-serif, &amp;quot;Helvetica Neue&amp;quot;, Arial, &amp;quot;Apple Color Emoji&amp;quot;, &amp;quot;Segoe UI Emoji&amp;quot;, &amp;quot;Segoe UI Symbol&amp;quot;, &amp;quot;Noto Color Emoji&amp;quot;; font-size: 16px; text-align: left; background-color: rgb(33, 33, 33);&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;color: rgb(236, 236, 236); font-family: Söhne, ui-sans-serif, system-ui, -apple-system, &amp;quot;Segoe UI&amp;quot;, Roboto, Ubuntu, Cantarell, &amp;quot;Noto Sans&amp;quot;, sans-serif, &amp;quot;Helvetica Neue&amp;quot;, Arial, &amp;quot;Apple Color Emoji&amp;quot;, &amp;quot;Segoe UI Emoji&amp;quot;, &amp;quot;Segoe UI Symbol&amp;quot;, &amp;quot;Noto Color Emoji&amp;quot;; text-align: left; background-color: rgb(33, 33, 33);&quot;&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;Set up the ZeroMQ (ZMQ) context and sockets for receiving (subscriber) and sending (publisher) data. Initialize a buffer to accumulate neural data for analysis.&lt;/font&gt;&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="64.5" y="220" width="330" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-3" value="&lt;font style=&quot;font-size: 12px;&quot;&gt;&lt;b&gt;Data Reception&lt;/b&gt;&lt;span style=&quot;color: rgb(236, 236, 236); font-family: Söhne, ui-sans-serif, system-ui, -apple-system, &amp;quot;Segoe UI&amp;quot;, Roboto, Ubuntu, Cantarell, &amp;quot;Noto Sans&amp;quot;, sans-serif, &amp;quot;Helvetica Neue&amp;quot;, Arial, &amp;quot;Apple Color Emoji&amp;quot;, &amp;quot;Segoe UI Emoji&amp;quot;, &amp;quot;Segoe UI Symbol&amp;quot;, &amp;quot;Noto Color Emoji&amp;quot;; text-align: left; background-color: rgb(33, 33, 33);&quot;&gt;: Continuously receive neural data from a ZMQ socket. Each received message is expected to be in JSON format, which is then decoded and converted into a NumPy array for processing.&lt;/span&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="467" y="220" width="330" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-4" value="&lt;div&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;&lt;font style=&quot;&quot;&gt;&lt;b style=&quot;&quot;&gt;Data Preprocessing&lt;/b&gt;&lt;/font&gt;&lt;font style=&quot;&quot;&gt;:&lt;/font&gt;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;Scaling: Scale the neural data to a specific range or format, suitable for analysis.&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;Buffering: Add the scaled data to a buffer, preparing a dataset for analysis. This buffer is managed to maintain a constant size, with new data appending and old data being removed.&lt;/font&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="864.5" y="205" width="340" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-5" value="&lt;div&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;&lt;b&gt;Signal Analysis&lt;/b&gt;: Once the buffer is adequately filled, perform various signal analysis techniques&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1276.5" y="225" width="340" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-6" value="&lt;div&gt;&lt;div&gt;&lt;b&gt;Result Transmission&lt;/b&gt;: Serialize the analysis results into JSON format and send them over a ZMQ socket&amp;nbsp;&lt;br&gt;&lt;/div&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1276.5" y="480" width="340" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-7" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;Bio Silicon Synergetic System Data Strucutre&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="628" y="80" width="398" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-8" value="&lt;div&gt;&lt;div&gt;&lt;b&gt;Initialization&lt;/b&gt;: Set up the ZeroMQ (ZMQ) context and sockets for publishing actions and subscribing to analyzed signal features&lt;br&gt;&lt;/div&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="864.5" y="480" width="340" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-9" value="&lt;div&gt;&lt;div&gt;&lt;b&gt;Signal Decoding&lt;/b&gt;: Convert analyzed signal features into game actions. This involves mapping specific signal features (e.g., RMS, variance, spectral entropy) to game actions based on predefined thresholds and criteria.&lt;br&gt;&lt;/div&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="462" y="470" width="340" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-10" value="&lt;div&gt;&lt;div&gt;&lt;b&gt;Action Encoding&lt;/b&gt;: Convert the decoded actions into a numeric format that can be understood by the game environment. This process includes mapping action names to specific numeric codes and formatting them as required.&lt;br&gt;&lt;/div&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="39.5" y="470" width="340" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-11" value="&lt;div&gt;&lt;div&gt;&lt;b&gt;Sending Actions&lt;/b&gt;: Serialize the encoded actions into a JSON string and publish them using ZMQ to be received by the game environment.&lt;br&gt;&lt;/div&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="39.5" y="720" width="340" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-13" value="signals_to_features.py" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="199.5" y="180" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-14" value="features_to_game.py" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="1004.5" y="440" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-15" value="game.py" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="606.5" y="700" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-16" value="&lt;div&gt;&lt;b&gt;Initialization:&amp;nbsp;&lt;/b&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;Initialize the ViZDoom game environment with specified configuration and scenario files.&lt;/span&gt;&lt;/div&gt;&lt;div&gt;Set up ZMQ context and sockets for both publishing game state and subscribing to action commands.&lt;br&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="462" y="710" width="340" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-17" value="&lt;div&gt;&lt;b&gt;Action Reception&lt;/b&gt;:&amp;nbsp;&lt;span style=&quot;background-color: initial;&quot;&gt;Continuously listen for incoming action commands from the ZMQ subscriber socket.&lt;/span&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="864.5" y="725" width="340" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-18" value="&lt;div&gt;&lt;b&gt;Action Execution: &lt;/b&gt;Decode the received action commands from JSON format.&amp;nbsp;&lt;span style=&quot;background-color: initial;&quot;&gt;Execute the decoded actions in the ViZDoom game environment.&lt;/span&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1276.5" y="725" width="340" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-19" value="&lt;b&gt;Game State Extraction&lt;/b&gt;: After executing actions, extract the current game state, including player and enemy positions, health status, etc." style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1276.5" y="940" width="340" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-20" value="&lt;div&gt;&lt;b&gt;Publish Game State&lt;/b&gt;: Encode the extracted game state into JSON format.&amp;nbsp;&lt;span style=&quot;background-color: initial;&quot;&gt;Publish the encoded game state through the ZMQ publisher socket to be available for subscribers.&lt;/span&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="864.5" y="940" width="340" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-21" value="&lt;b&gt;Initialization&lt;/b&gt;: Set up ZeroMQ context and sockets for publishing the encoded features." style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="462" y="940" width="340" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-22" value="&lt;div&gt;&lt;b&gt;Metadata to Features Conversion:&amp;nbsp;&lt;/b&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;Receive or simulate game metadata.&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;Convert this metadata into symbolic state features using predefined mappings in the SymbolicStates class.&lt;/span&gt;&lt;/div&gt;&lt;div&gt;Each feature is calculated based on the game metadata, like player movement, enemy type, player health, etc.&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="39.5" y="925" width="340" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-23" value="&lt;b&gt;Feature Encoding&lt;/b&gt;: Encode the symbolic state features into a format suitable for publishing over ZeroMQ." style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="39.5" y="1140" width="340" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-24" value="&lt;b&gt;Publishing Features&lt;/b&gt;: Publish the encoded features string using a ZeroMQ publisher socket." style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="462" y="1145" width="340" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-25" value="game_to_features.py" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="602" y="904" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-26" value="signals_generator.py" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="1416.5" y="1105" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-29" value="&lt;div&gt;&lt;b&gt;Initialization&lt;/b&gt;: Define bit depth, number of signals, sampling rate, duration, and voltage range.&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1276.5" y="1145" width="340" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-30" value="&lt;div&gt;&lt;b&gt;ZeroMQ Setup&lt;/b&gt;: Initialize Publisher and Subscriber sockets with ZeroMQ for inter-process communication.&lt;br&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1276.5" y="1370" width="340" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-31" value="&lt;div&gt;&lt;div&gt;&lt;b&gt;Signal Generation Loop&lt;/b&gt;:&lt;/div&gt;&lt;div&gt;Wait for Trigger: Listen on Subscriber socket for an incoming message.&lt;/div&gt;&lt;div&gt;Generate Base Signals:&lt;/div&gt;&lt;div&gt;If initial values are provided, continue from the last signal values.&lt;/div&gt;&lt;div&gt;Otherwise, generate new base signals randomly within the voltage range.&lt;/div&gt;&lt;div&gt;Apply Transformations: For each transformation function&amp;nbsp;&lt;/div&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="859.5" y="1335" width="350" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-32" value="&lt;div&gt;&lt;b&gt;Normalize and Scale&lt;/b&gt;: Adjust the transformed signals to the full 16-bit range.&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="461.5" y="1370" width="350" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-33" value="&lt;div&gt;&lt;b&gt;Serialize to JSON&lt;/b&gt;: Convert the NumPy array of transformed signals into a JSON string.&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="34.5" y="1370" width="350" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-34" value="&lt;div&gt;&lt;div&gt;&lt;b&gt;Transmit over ZeroMQ&lt;/b&gt;: Send the JSON string containing transformed signals through the Publisher socket.&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="34" y="1600" width="350" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-35" value="&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;b&gt;Update Last Values&lt;/b&gt;: Store the last values of each signal for continuity in the next iteration.&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="456.5" y="1600" width="350" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-37" value="&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;b&gt;Initialization&lt;/b&gt;: Set up ZeroMQ Subscriber to receive transformed signal data from a publisher. Set up JACK client and register output ports for audio signal transmission.&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="859.5" y="1595" width="350" height="75" as="geometry" />
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-38" value="&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;b&gt;Initialization&lt;/b&gt;: Set up ZeroMQ Subscriber to receive transformed signal data from a publisher. Set up JACK client and register output ports for audio signal transmission.&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1271.5" y="1592.5" width="350" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-39" value="&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;b&gt;Receive and Process Data&lt;/b&gt;:&lt;/div&gt;&lt;div&gt;Loop Continuously:&lt;/div&gt;&lt;div&gt;Listen for incoming data on the ZeroMQ Subscriber socket.&lt;/div&gt;&lt;div&gt;Upon receiving data, deserialize the JSON string to extract the transformed signal data (assumed to be in a list format within the JSON object).&lt;/div&gt;&lt;div&gt;Convert the list of signal data back into a NumPy array for processing.&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1269" y="1800" width="355" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-40" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="kK_saXuroscAapvJbY5S-2" target="kK_saXuroscAapvJbY5S-3">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="549.5" y="590" as="sourcePoint" />
+            <mxPoint x="599.5" y="540" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-43" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="kK_saXuroscAapvJbY5S-3" target="kK_saXuroscAapvJbY5S-4">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="404.5" y="265" as="sourcePoint" />
+            <mxPoint x="444.5" y="265" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-44" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="kK_saXuroscAapvJbY5S-4" target="kK_saXuroscAapvJbY5S-5">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="414.5" y="275" as="sourcePoint" />
+            <mxPoint x="454.5" y="275" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-45" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="kK_saXuroscAapvJbY5S-5" target="kK_saXuroscAapvJbY5S-6">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="424.5" y="285" as="sourcePoint" />
+            <mxPoint x="464.5" y="285" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-46" value="" style="endArrow=classic;html=1;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="kK_saXuroscAapvJbY5S-6" target="kK_saXuroscAapvJbY5S-8">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="461.5" y="395" as="sourcePoint" />
+            <mxPoint x="501.5" y="395" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-48" value="" style="endArrow=classic;html=1;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="kK_saXuroscAapvJbY5S-8" target="kK_saXuroscAapvJbY5S-9">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1286.5" y="505" as="sourcePoint" />
+            <mxPoint x="1206.5" y="515" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-49" value="" style="endArrow=classic;html=1;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="kK_saXuroscAapvJbY5S-9" target="kK_saXuroscAapvJbY5S-10">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1296.5" y="515" as="sourcePoint" />
+            <mxPoint x="1216.5" y="525" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-50" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="kK_saXuroscAapvJbY5S-10" target="kK_saXuroscAapvJbY5S-11">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1306.5" y="525" as="sourcePoint" />
+            <mxPoint x="1226.5" y="535" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-51" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="kK_saXuroscAapvJbY5S-11" target="kK_saXuroscAapvJbY5S-16">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1316.5" y="655" as="sourcePoint" />
+            <mxPoint x="1236.5" y="665" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-52" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="kK_saXuroscAapvJbY5S-16" target="kK_saXuroscAapvJbY5S-17">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1326.5" y="665" as="sourcePoint" />
+            <mxPoint x="1246.5" y="675" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-53" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="kK_saXuroscAapvJbY5S-17" target="kK_saXuroscAapvJbY5S-18">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1336.5" y="675" as="sourcePoint" />
+            <mxPoint x="1256.5" y="685" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-54" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="kK_saXuroscAapvJbY5S-18" target="kK_saXuroscAapvJbY5S-19">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1346.5" y="685" as="sourcePoint" />
+            <mxPoint x="1266.5" y="695" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-55" value="" style="endArrow=classic;html=1;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="kK_saXuroscAapvJbY5S-19" target="kK_saXuroscAapvJbY5S-20">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1356.5" y="795" as="sourcePoint" />
+            <mxPoint x="1276.5" y="805" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-56" value="" style="endArrow=classic;html=1;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="kK_saXuroscAapvJbY5S-20" target="kK_saXuroscAapvJbY5S-21">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1366.5" y="805" as="sourcePoint" />
+            <mxPoint x="1286.5" y="815" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-57" value="" style="endArrow=classic;html=1;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="kK_saXuroscAapvJbY5S-21" target="kK_saXuroscAapvJbY5S-22">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1376.5" y="815" as="sourcePoint" />
+            <mxPoint x="1296.5" y="825" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-58" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="kK_saXuroscAapvJbY5S-22" target="kK_saXuroscAapvJbY5S-23">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="259.5" y="1050" as="sourcePoint" />
+            <mxPoint x="1306.5" y="865" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-59" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="kK_saXuroscAapvJbY5S-23" target="kK_saXuroscAapvJbY5S-24">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1396.5" y="865" as="sourcePoint" />
+            <mxPoint x="1316.5" y="875" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-61" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="kK_saXuroscAapvJbY5S-24" target="kK_saXuroscAapvJbY5S-29">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1204.5" y="1175" as="sourcePoint" />
+            <mxPoint x="896.5" y="1215" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-62" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="kK_saXuroscAapvJbY5S-29" target="kK_saXuroscAapvJbY5S-30">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="856.5" y="1195" as="sourcePoint" />
+            <mxPoint x="906.5" y="1225" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-63" value="" style="endArrow=classic;html=1;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="kK_saXuroscAapvJbY5S-30" target="kK_saXuroscAapvJbY5S-31">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="866.5" y="1255" as="sourcePoint" />
+            <mxPoint x="916.5" y="1285" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-64" value="" style="endArrow=classic;html=1;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="kK_saXuroscAapvJbY5S-31" target="kK_saXuroscAapvJbY5S-32">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="876.5" y="1265" as="sourcePoint" />
+            <mxPoint x="926.5" y="1295" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-65" value="" style="endArrow=classic;html=1;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="kK_saXuroscAapvJbY5S-32" target="kK_saXuroscAapvJbY5S-33">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="886.5" y="1275" as="sourcePoint" />
+            <mxPoint x="936.5" y="1305" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-66" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="kK_saXuroscAapvJbY5S-33" target="kK_saXuroscAapvJbY5S-34">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="896.5" y="1285" as="sourcePoint" />
+            <mxPoint x="946.5" y="1315" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-67" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="kK_saXuroscAapvJbY5S-34" target="kK_saXuroscAapvJbY5S-35">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="282" y="1581" as="sourcePoint" />
+            <mxPoint x="269" y="1610" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-68" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="kK_saXuroscAapvJbY5S-35">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="292" y="1591" as="sourcePoint" />
+            <mxPoint x="859" y="1635" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-70" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="kK_saXuroscAapvJbY5S-37" target="kK_saXuroscAapvJbY5S-38">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="312.5" y="1641" as="sourcePoint" />
+            <mxPoint x="299.5" y="1670" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-71" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="kK_saXuroscAapvJbY5S-38" target="kK_saXuroscAapvJbY5S-39">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="322.5" y="1691" as="sourcePoint" />
+            <mxPoint x="309.5" y="1720" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-72" value="&lt;div&gt;&lt;b&gt;Send Data to Audio Hubs&lt;/b&gt;:&lt;/div&gt;&lt;div&gt;Iterate over each output port and the corresponding channel of the transformed signal data.&lt;/div&gt;&lt;div&gt;For each port-channel pair, get the buffer size of the port.&lt;/div&gt;&lt;div&gt;Fill the port&#39;s buffer with the signal data corresponding to that channel, adjusted to match the buffer size.&lt;/div&gt;&lt;div&gt;This step assumes that each channel of the transformed signals is mapped to a specific output port, allowing for direct audio output through the JACK client.&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="857" y="1790" width="355" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-73" value="" style="endArrow=classic;html=1;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="kK_saXuroscAapvJbY5S-39" target="kK_saXuroscAapvJbY5S-72">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1249.5" y="1905" as="sourcePoint" />
+            <mxPoint x="1204.5" y="1890" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-75" value="&lt;div&gt;&lt;b&gt;Wait and Repeat&lt;/b&gt;:&lt;/div&gt;&lt;div&gt;After processing the current packet of signal data, wait for a specified duration (e.g., 1 second) before listening for the next packet.&lt;/div&gt;&lt;div&gt;This process repeats indefinitely, allowing for continuous reception and transmission of transformed signal data.&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="454" y="1810" width="355" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-76" value="&lt;div&gt;&lt;b&gt;Thread Management&lt;/b&gt;:&lt;/div&gt;&lt;div&gt;A separate thread is created and started to run the send_data_to_audio_hubs function, which encapsulates the above logic.&lt;/div&gt;&lt;div&gt;The main execution block waits for the thread to complete, ensuring the program remains operational until manually stopped or an error occurs.&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="52" y="1810" width="355" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-77" value="" style="endArrow=classic;html=1;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="kK_saXuroscAapvJbY5S-72" target="kK_saXuroscAapvJbY5S-75">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="849.5" y="1890" as="sourcePoint" />
+            <mxPoint x="806.5" y="1900" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-78" value="" style="endArrow=classic;html=1;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="kK_saXuroscAapvJbY5S-75" target="kK_saXuroscAapvJbY5S-76">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="859.5" y="1900" as="sourcePoint" />
+            <mxPoint x="269.5" y="2030" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-80" value="&lt;div&gt;&lt;b&gt;Wait and Repeat&lt;/b&gt;:&lt;/div&gt;&lt;div&gt;After processing the current packet of signal data, wait for a specified duration (e.g., 1 second) before listening for the next packet.&lt;/div&gt;&lt;div&gt;This process repeats indefinitely, allowing for continuous reception and transmission of transformed signal data.&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="52" y="2058" width="355" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-81" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="kK_saXuroscAapvJbY5S-76" target="kK_saXuroscAapvJbY5S-80">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="227" y="2010" as="sourcePoint" />
+            <mxPoint x="274" y="2110" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-82" value="send_signals_to_usb_hub.py" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="1004.5" y="1556" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="kK_saXuroscAapvJbY5S-84" value="game.py" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="601.5" y="666" width="60" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
