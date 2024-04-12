@@ -4,7 +4,10 @@ Usage:
 The files which need data to SEND & READ data simultaneously
 """
 import time
+from os import getenv
 from threading import Thread
+from dotenv import load_dotenv
+from paho.mqtt import MQTTException
 from paho.mqtt.client import Client
 from typing import Any
 
@@ -14,8 +17,12 @@ class DataManager:
                  processing_func: Any = None, close_after_first_list: bool = False):
         super().__init__()
 
-        self.host = "127.0.0.1"  # localhost
-        self.port = 3000
+        load_dotenv("./config.env")
+
+        self.host = getenv("host")
+        self.port = int(getenv("port"))
+
+        print(self.host, self.port)
 
         self.client = Client(client_id)
         self.close_after_first_list = close_after_first_list
@@ -26,7 +33,11 @@ class DataManager:
 
         self.data = None
 
-        self.client.connect(self.host, self.port)
+        try:
+            self.client.connect(self.host, self.port)
+
+        except MQTTException:
+            raise MQTTException
 
         if topic_sub is None:
             pass
@@ -79,4 +90,4 @@ class DataManager:
             pass
 
     def on_disconnect(self, client, userdata, flags, rc):
-        print(f"{client.client_id} disconnected from {self.host}")
+        raise Exception("Disconnected from host")
