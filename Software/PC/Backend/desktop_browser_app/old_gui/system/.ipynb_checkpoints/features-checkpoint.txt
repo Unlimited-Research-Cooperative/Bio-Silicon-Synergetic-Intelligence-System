@@ -1,9 +1,0 @@
-live:
-detect_peak_heights, calculate_variance_std_dev, calculate_rms, detect_peaks, freq_bands, calculate_spectral_entropy, spectral_centroids, spectral_edge_density, phase_synchronization, calculate_higuchi_fractal_dimension, calculate_zero_crossing_rate, perform_empirical_mode_decomposition, time_warping_factor, evolution_rate, analyze_signals, 
-
-
-
-
-
-nighly:
-arnold_tongues, multifractal_detrended_fluctation, phase_space, recurrence_quantification, welchsPSD, STFT, coherence, freq_max_power, continuous_wavelet_transform, transfer_entropy, joint_entropy, von_neumann_entropy, shannon_entropy, relative_entropy, choi_williams_distribution, moving_average, signal_variance, hilbert_transform, hermitian_matrices, evolved_states, symbolic_dynamics, hilber_huang_transformm, phase_amplitude_coupling, ganger_causality, dynamic_time_warping, 
