@@ -20,7 +20,7 @@
     
     
       
-        <title>Scripts Monitor - Bio-Silicon Synergetic Intelligence System</title>
+        <title>Event Monitor - Bio-Silicon Synergetic Intelligence System</title>
       
     
     
@@ -112,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Scripts Monitor
+              Event Monitor
             
           </span>
         </div>
@@ -343,7 +343,7 @@
         
   
   <span class="md-ellipsis">
-    Scripts Monitor
+    Event Monitor
   </span>
   
 
@@ -627,9 +627,20 @@
   
 
 
-  <h1>Scripts Monitor</h1>
+  <h1>Event Monitor</h1>
 
+<p>Event monitor tools monitors the event. The signals sent on the topic <strong>SIGNALS</strong> are received by other scripts that extract features from it. These features are then translated into game commands that VizDoom can understand. With this tools you just need to start a local MQTT broker and then you can look on the events. This tool is helpful in keeping records for observation purposes.</p>
+<p align="center">
+  <a class="glightbox" href="https://raw.githubusercontent.com/Raghav67816/Bio-Silicon-Synergetic-Intelligence-System/main/images/Signals%20Monitor.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img src="https://raw.githubusercontent.com/Raghav67816/Bio-Silicon-Synergetic-Intelligence-System/main/images/Signals%20Monitor.png" /></a>
+  <a class="glightbox" href="https://raw.githubusercontent.com/Raghav67816/Bio-Silicon-Synergetic-Intelligence-System/main/images/Signals%20Monitor.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img src="https://raw.githubusercontent.com/Raghav67816/Bio-Silicon-Synergetic-Intelligence-System/main/images/Signals%20Monitor.png" /></a>
+</p>
 
+<p>You need to enter the host and port of your MQTT broker, topics are already defined as constants in constanst.py file. After, setting them up just click <code>Start</code> button under <code>Settings</code> tab.</p>
+<p>You will now recieve the inputs for the game that are extracted from the signals. Also, you can export the data with timestamp by clicking <code>Export</code> button under <code>Settings</code> tab.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You must create a file in which you want to write data the data. The tools does not create a new file.</p>
+</div>
 
 
 

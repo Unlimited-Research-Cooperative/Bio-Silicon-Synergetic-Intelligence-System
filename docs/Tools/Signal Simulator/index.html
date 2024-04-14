@@ -9,7 +9,7 @@
       
       
       
-        <link rel="prev" href="../Scripts%20Monitor/">
+        <link rel="prev" href="../Event%20Monitor/">
       
       
         <link rel="next" href="../../UI%20Toolkit/Design%20Scheme/">
@@ -337,11 +337,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../Scripts%20Monitor/" class="md-nav__link">
+      <a href="../Event%20Monitor/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Scripts Monitor
+    Event Monitor
   </span>
   
 
@@ -713,17 +713,13 @@
 </div>
 <p><a class="glightbox" href="https://raw.githubusercontent.com/Raghav67816/Bio-Silicon-Synergetic-Intelligence-System/main/images/Signal%20Simulator%20UI.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="text" src="https://raw.githubusercontent.com/Raghav67816/Bio-Silicon-Synergetic-Intelligence-System/main/images/Signal%20Simulator%20UI.png" /></a></p>
 <p>The UI is simple but it has a lot of parameter to input by the user. To make this process more simpler you have to input the values once, then you <code>Save</code> &amp; <code>Load</code> your configurations.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>The Signals Simulator has some bugs and also we have not implemented error handling. See progress below.</p>
-</div>
 <h3 id="progress">Progress</h3>
 <ul class="task-list">
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Basic user interface</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Error handling</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Error handling</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Publish Messages</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Save &amp; Get values</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Stable Release</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Stable Release</li>
 </ul>
 <h3 id="parameters-discription">Parameters &amp; Discription</h3>
 <table>
@@ -844,7 +840,36 @@
 </tr>
 </tbody>
 </table>
-<p>A dialog will open up asking for some more parameters <img alt="😫" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.0.3/assets/svg/1f62b.svg" title=":tired_face:" /></p>
+<p>A dialog will open up asking for some more parameters. These parameters define signals.</p>
+<p><a class="glightbox" href="https://raw.githubusercontent.com/Raghav67816/Bio-Silicon-Synergetic-Intelligence-System/main/images/Signal%20Simulator%20UI.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="text" src="https://raw.githubusercontent.com/Raghav67816/Bio-Silicon-Synergetic-Intelligence-System/main/images/Signal%20Simulator%20UI.png" /></a></p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>num_signals</code></td>
+<td>Number of signals you want to generate</td>
+</tr>
+<tr>
+<td><code>bit_depth</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>duration</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>sampling_frequency</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>After you provide all the inputs, it will generate the signals and send <strong>transformed signals</strong> to topic <strong>SIGNALS</strong>. Then it will plot these signals and write them to your current directory as image files.</p>
+<p><a class="glightbox" href="https://raw.githubusercontent.com/Unlimited-Research-Cooperative/Human-Brain-Rat/main/images/biomimetic_signals.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="text" src="https://raw.githubusercontent.com/Unlimited-Research-Cooperative/Human-Brain-Rat/main/images/biomimetic_signals.png" /></a></p>
 
 
 
@@ -874,7 +899,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../Scripts%20Monitor/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Scripts Monitor">
+          <a href="../Event%20Monitor/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Event Monitor">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
@@ -884,7 +909,7 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                Scripts Monitor
+                Event Monitor
               </div>
             </div>
           </a>
