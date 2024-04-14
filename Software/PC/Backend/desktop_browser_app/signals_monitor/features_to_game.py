@@ -1,3 +1,5 @@
+import constants
+from json import loads, dumps
 from data_manager import DataManager
 from constants import ActionMap, Actions
 
@@ -49,14 +51,27 @@ class SignalDecoder:
             if actions[action]:
                 action_dict[action] = True  # Update action dictionary based on decoded actions
 
-        numeric_actions = [action_dict[action] for action in self.action_map.keys()]
-        return numeric_actions
+        # numeric_actions = [action_dict[action] for action in self.action_map.keys()]
+        return action_dict
 
 
-if __name__ == "__main__":
-    """
-    must define client_id
-    define topic_sub if you want this class to listen for messages
-    define topic_pub if you want this class to publish messages
-    """
-    data_m = DataManager("FTG", None, "actions")
+class Executor:
+    def __init__(self):
+        self.encoder = ActionEncoder()
+        self.decoder = SignalDecoder()
+        self.data_m = DataManager("feature to game sub", constants.DECODED_FEATURES, constants.GAME_INPUTS,
+                                  self.helper_func)
+
+    def helper_func(self, payload: str):
+        encoder = ActionEncoder()
+        decoder = SignalDecoder()
+        analyzed_features = loads(payload)
+        decoded_actions = decoder.decode_features_to_actions(analyzed_features)
+        action = encoder.execute_actions(decoded_actions)
+        action_msg = dumps(action)
+        self.set_game_input(action_msg)
+        self.data_m.set_data(action_msg)
+        self.data_m.publish(1)
+#
+# if __name__ == "__main__":
+#     executor = Executor()
