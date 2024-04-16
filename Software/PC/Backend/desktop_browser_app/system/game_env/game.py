@@ -2,8 +2,10 @@
 Vizdoom game environment
 """
 # Import dependencies
+import constants
 import vizdoom as vzd
 from time import sleep
+from data_manager import DataManager
 from containers import EnemyState, GameState
 
 
@@ -13,6 +15,9 @@ class Game:
         self.config_path = "./config.cfg"
         self.scenario = "./basic.wad"
         self.state = None
+
+        data_m = DataManager("GAME", constants.GAME_INPUTS, None, self.process_cmd)
+        data_m.listen()
 
         # Initial setting
         self.game_ctx.set_render_hud(True)
@@ -26,6 +31,12 @@ class Game:
 
     def init_game(self):
         return self.game_ctx.init()
+    
+    def process_cmd(self, payload):
+        cmd = None  # None for this time, we first need to process payload into command that VizDoom can understand.
+        # https://zdoom.org/wiki/CCMDs
+        self.game_ctx.send_command(cmd)
+
 
     def run(self):
         self.state = self.game_ctx.get_state()
