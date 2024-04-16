@@ -34,7 +34,9 @@
 ## 🧠 Project Overview
 At Synthetic Intelligence Labs, our mission is to harmonize biological cognition with computational rigor. We have embarked on an innovative venture that intricately fuses human cortical organoids with rat brains, unveiling a new era of bio-silicon synergetic learning. Our bespoke BCI system is a testament to this, with carbon nanotube-coated electrodes at its core, enhancing the fidelity of neural interfacing through self-optimizing signal pathways.
 
-Our methodology is deeply rooted in bidirectional communication, leveraging AI to map cerebral signals onto interactive platforms, exemplified by our translation of neural impulses into gameplay dynamics. This iterative learning cycle commences at the cortical interface, progressing through a FreeEEG32 board, interfacing with our proprietary BrainFlow acquisition system, and culminating in our custom software. Here, our GUI provides an immersive analytical experience, inclusive of innovative visualizations such as the phase synchronization vortex.
+Our methodology is deeply rooted in bidirectional communication, leveraging AI to map cerebral signals onto interactive platforms, exemplified by our translation of neural impulses into gameplay dynamics. This iterative learning cycle commences at the cortical interface, progressing through a FreeEEG32 board, culminating in our custom software, and returning electrical signals back to the brain. Here, our GUI provides an immersive analytical experience, inclusive of innovative visualizations such as the phase synchronization vortex.
+
+[**Documentation**](https://unlimited-research-cooperative.github.io/Bio-Silicon-Synergetic-Intelligence-System/)
 
 ## System Configuration
 
