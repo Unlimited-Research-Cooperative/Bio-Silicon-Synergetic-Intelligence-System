@@ -29,3 +29,6 @@ lab_equipment_designs/
 
 # ecog data
 Software/PC/Backend/desktop_browser_app/signals_monitor/CNN_feature_extraction_project/sub-01_ses-task_task-game_run-01_ieeg.edf
+
+# npz file of ecog data
+Software/PC/Backend/desktop_browser_app/signals_monitor/CNN_feature_extraction_project/all_channels_data.npz
