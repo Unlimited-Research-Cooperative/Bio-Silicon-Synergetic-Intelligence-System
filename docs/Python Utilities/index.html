@@ -414,6 +414,48 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#logging-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      Logging Service
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Logging Service">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#formats" class="md-nav__link">
+    <span class="md-ellipsis">
+      Formats
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logging-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Logging data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#convert-to-database" class="md-nav__link">
+    <span class="md-ellipsis">
+      Convert to database
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -633,6 +675,48 @@
   <a href="#sending-receving-data-concurrently" class="md-nav__link">
     <span class="md-ellipsis">
       Sending &amp; Receving Data Concurrently
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#logging-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      Logging Service
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Logging Service">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#formats" class="md-nav__link">
+    <span class="md-ellipsis">
+      Formats
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logging-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Logging data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#convert-to-database" class="md-nav__link">
+    <span class="md-ellipsis">
+      Convert to database
     </span>
   </a>
   
@@ -1015,6 +1099,27 @@ For now lets keep all the parameters to default i.e None, in this way create a c
 <span class="c1"># Your code ......</span>
 <span class="c1"># And it will not be blocked</span>
 </code></pre></div>
+<h2 id="logging-service">Logging Service</h2>
+<p>Our system is wide and complex so it becomes really important to keep records of events being fired behind the scene. So, to save logs we implemented a <code>LoggingService</code> class that uses <code>DataManager</code> and listens for logging data on topic <strong>logs</strong>. This includes a <code>RotatingFileHandler</code> that means if the size of log file reaches the limit a new file will be created and data will be written to it. The limit set is 200 MB for each file.</p>
+<h3 id="formats">Formats</h3>
+<p>The format in which we want to save our logs is an important parameter, we have provided a class containing string of all formats available with python's built-in package <code>logging</code></p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Formats</span><span class="p">:</span>
+    <span class="n">BASIC_FMT</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%(asctime)s</span><span class="s2"> </span><span class="si">%(levelname)s</span><span class="s2"> </span><span class="si">%(message)s</span><span class="s2">&quot;</span>
+    <span class="n">FUNC_FMT</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%(asctime)s</span><span class="s2">: </span><span class="si">%(levelname)s</span><span class="s2"> - </span><span class="si">%(funcName)s</span><span class="s2"> - </span><span class="si">%(message)s</span><span class="s2">&quot;</span>
+    <span class="n">LINE_NO_FMT</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%(asctime)s</span><span class="s2">: </span><span class="si">%(levelname)s</span><span class="s2"> -</span><span class="si">%(lineno)d</span><span class="s2"> - </span><span class="si">%(message)s</span><span class="s2">&quot;</span>
+</code></pre></div>
+<h3 id="logging-data">Logging data</h3>
+<p>To log data you need to send a dictionary converted into json as string on topic <strong>logs</strong>. The logger will automatically log the data whenever you send a json on the topic. Make sure to follow the given format for dictionary.</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="err">&#39;level&#39;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;LEVEL_INT&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="err">&#39;msg&#39;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;YOUR_MESSAGE_OR_EVENT&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="err">&#39;</span><span class="kc">fun</span><span class="err">cName&#39;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="err">&#39;NAME_OF_THE_FUNCTION&#39;</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="err">pu</span><span class="kc">t</span><span class="w"> </span><span class="err">as</span><span class="w"> </span><span class="err">&#39;NA&#39;</span><span class="w"> </span><span class="err">i</span><span class="kc">f</span><span class="w"> </span><span class="err">you</span><span class="w"> </span><span class="err">do</span><span class="kc">nt</span><span class="w"> </span><span class="err">wa</span><span class="kc">nt</span><span class="w"> </span><span class="kc">t</span><span class="err">o</span><span class="w"> </span><span class="err">use</span><span class="w"> </span><span class="err">i</span><span class="kc">t</span><span class="err">.</span>
+<span class="w">    </span><span class="err">&#39;li</span><span class="kc">nen</span><span class="err">o&#39;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="err">&#39;LINE_NUMBER&#39;</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="err">pu</span><span class="kc">t</span><span class="w"> </span><span class="err">as</span><span class="w"> </span><span class="err">&#39;NA&#39;</span><span class="w"> </span><span class="err">i</span><span class="kc">f</span><span class="w"> </span><span class="err">you</span><span class="w"> </span><span class="err">do</span><span class="kc">nt</span><span class="w"> </span><span class="err">wa</span><span class="kc">nt</span><span class="w"> </span><span class="kc">t</span><span class="err">o</span><span class="w"> </span><span class="err">use</span><span class="w"> </span><span class="err">i</span><span class="kc">t</span><span class="err">.</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The parameters <code>level</code>, <code>msg</code> are important and cannot be set NA.</p>
+<h3 id="convert-to-database">Convert to database</h3>
+<p>If you have a lot of logs then it might be difficul to read that through the file itself, to make analysing the logs easy we provide a function <code>convert_to_database()</code> which takes no argument and converts the log file into a sqlite3 database file. Also make sure to follow the given template for .db file. You can download the template.db file from <a href="https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/raw/main/docs/assets/template.db">here</a>.</p>
 
 
 
