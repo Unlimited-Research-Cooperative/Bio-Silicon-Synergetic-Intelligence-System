@@ -4,7 +4,7 @@ Usage:
 The files which need data to SEND & READ data simultaneously
 """
 import time
-from os import getenv
+from os import getenv, path
 from threading import Thread
 from dotenv import load_dotenv
 from paho.mqtt import MQTTException
@@ -13,16 +13,20 @@ from typing import Any
 
 
 class DataManager:
-    def __init__(self, client_id: str, topic_sub: str | None, topic_pub: str | None,
+    def __init__(self, client_id: str, config_file_path: str, topic_sub: str | None, topic_pub: str | None,
                  processing_func: Any = None, close_after_first_list: bool = False):
         super().__init__()
 
-        load_dotenv("./config.env")
+        if topic_pub == None and topic_sub == None:
+            raise Exception("Must provide either topic_sub or topic_pub")
+
+        if not path.exists(config_file_path):
+            raise FileExistsError("Config file does not exists.")
+        else:
+            load_dotenv(config_file_path)
 
         self.host = getenv("host")
         self.port = int(getenv("port"))
-
-        print(self.host, self.port)
 
         self.client = Client(client_id)
         self.close_after_first_list = close_after_first_list
