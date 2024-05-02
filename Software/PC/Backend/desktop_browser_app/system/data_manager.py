@@ -3,58 +3,75 @@ The DataManager class is a data transmitter and receiver
 Usage:
 The files which need data to SEND & READ data simultaneously
 """
-import time
-from os import getenv, path
+
+# Import dependencies
+from os import path
+from time import sleep
+from typing import Any
 from threading import Thread
-from dotenv import load_dotenv
 from paho.mqtt import MQTTException
 from paho.mqtt.client import Client
-from typing import Any
+from configparser import ConfigParser
 
 
 class DataManager:
-    def __init__(self, client_id: str, config_file_path: str, topic_sub: str | None, topic_pub: str | None,
-                 processing_func: Any = None, close_after_first_list: bool = False):
+    def __init__(self, profile: str, func: Any = None):
         super().__init__()
 
-        if topic_pub == None and topic_sub == None:
-            raise Exception("Must provide either topic_sub or topic_pub")
-
-        if not path.exists(config_file_path):
-            raise FileExistsError("Config file does not exists.")
-        else:
-            load_dotenv(config_file_path)
-
-        self.host = getenv("host")
-        self.port = int(getenv("port"))
-
-        self.client = Client(client_id)
-        self.close_after_first_list = close_after_first_list
-
-        self.client.on_connect = self.on_connect
-        self.client.on_disconnect = self.on_disconnect
-        self.client.on_message = self.on_message
+        # Default variables
+        self.host = "127.0.0.1"
+        self.port = 8000
+        self.topic_sub = None
+        self.topic_pub = None
+        self.client = None
+        self.func = func
 
         self.data = None
 
+        # Check path existence
+        if path.exists(profile):
+            config_obj = ConfigParser()
+            config_obj.read(profile)
+            self.host = config_obj['General']['host']
+            self.port = int(config_obj['General']['port'])
+            self.client = Client(config_obj["General"]['client_id'])
+
+            if config_obj["General"]['topic_sub'] == None:
+                self.topic_sub = None
+
+            else:
+                self.topic_sub = config_obj["General"]['topic_sub']
+
+            if config_obj['General']['topic_pub'] == None:
+                self.topic_pub = None
+            else:
+                self.topic_pub = config_obj["General"]['topic_pub']
+
+            print(self.host, self.port)
+
+        else:
+            raise FileNotFoundError("Profile not found.")
+        
+
+        # Connect to broker
         try:
             self.client.connect(self.host, self.port)
 
         except MQTTException:
             raise MQTTException
 
-        if topic_sub is None:
+        if self.topic_sub is None:
             pass
         else:
-            self.client.subscribe(topic_sub)
+            self.client.subscribe(self.topic_sub)
+        
+        self.client.on_connect = self.on_connect
+        self.client.on_disconnect = self.on_disconnect
+        self.client.on_message = self.on_message
 
-        self.helper_func = processing_func
-        self.topic_pub = topic_pub
-        self.topic_sub = topic_sub
-
-    def server_loop(self):
-        self.client.loop_forever()
-
+    def stop_loop(self):
+        self.client.loop_stop()
+        
     def listen(self):
         if self.topic_sub is None:
             raise Exception("Instance cannot subscribe to topic. Set topic_sub parameter to subscribe")
@@ -80,18 +97,21 @@ class DataManager:
             self.client.publish(topic=self.topic_pub, payload="NaN")
         elif data is not None:
             self.client.publish(topic=self.topic_pub, payload=data)
-        time.sleep(sleep_time)
+        sleep(sleep_time)
+
+    def server_loop(self):
+        self.client.loop_forever()
 
     # Callbacks
     def on_connect(self, client, userdata, flags, rc):
         print("connected to host")
 
     def on_message(self, client, userdata, message):
-        self.helper_func(message.payload.decode("utf-8"))
-        if self.close_after_first_list:
-            self.client.unsubscribe(self.topic_sub)
-        else:
+        if self.func == None:
             pass
+        else:
+            self.func(message.payload.decode("utf-8"))
 
     def on_disconnect(self, client, userdata, flags, rc):
         raise Exception("Disconnected from host")
+
