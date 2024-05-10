@@ -1,0 +1,13 @@
+# Jupyter Notebook
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+
+# Ignore .pkl files
+**/*.pkl
+
+# Ignore .npz files
+**/*.npz
+
+# Ignore .edf files
+**/*.edf
+
