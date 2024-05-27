@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SettingsDialog</class>
+ <widget class="QDialog" name="SettingsDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>459</width>
+    <height>420</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>459</width>
+    <height>420</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Settings</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QTabWidget" name="tabWidget">
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="generalTab">
+      <attribute name="title">
+       <string>General</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QFrame" name="frame">
+         <property name="frameShape">
+          <enum>QFrame::Shape::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Shadow::Raised</enum>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <widget class="QComboBox" name="featuresBox">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="editable">
+             <bool>true</bool>
+            </property>
+            <item>
+             <property name="text">
+              <string>--Select-Feature--</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Minimum Frequency</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Maximum Frequency</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Low Frequency</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>High Frequency</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Minimum Voltage</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Maximum Voltage</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Blend Factor</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Casuality Strength</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Centroid Factor</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Complexity Factor</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Edge Density Factor</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Evolution Rate</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Fractal Dimension</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Global Sync Level</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Influence Factor</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Maximum Influence</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Number Of IMFS</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Number Of Peaks</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Pairwise Sync Level</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Peak Height</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>RMS Value</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Standard Deviation</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Sync Factor</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Target Rate</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Variability Factor</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Variance</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Window Size</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="addFeatureBtn">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>100</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Add</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPlainTextEdit" name="currentFeatures">
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+         <property name="plainText">
+          <string>Current Features:</string>
+         </property>
+        </widget>
+       </item>
+       <item alignment="Qt::AlignmentFlag::AlignRight">
+        <widget class="QFrame" name="frame_3">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>30</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QFrame{
+	border: 0px solid;
+}</string>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::Shape::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Shadow::Raised</enum>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item>
+           <widget class="QPushButton" name="apply_feature_btn">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Apply</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="reset_features_btn">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Reset</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="connTab">
+      <attribute name="title">
+       <string>Connection</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_5">
+       <item>
+        <widget class="QFrame" name="frame_2">
+         <property name="frameShape">
+          <enum>QFrame::Shape::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Shadow::Raised</enum>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_3">
+          <item>
+           <layout class="QFormLayout" name="formLayout">
+            <item row="0" column="0">
+             <widget class="QLabel" name="hostLabel">
+              <property name="text">
+               <string>Host: </string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QLineEdit" name="hostLineEdit"/>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="portLabel">
+              <property name="text">
+               <string>Port: </string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QLineEdit" name="portLineEdit"/>
+            </item>
+           </layout>
+          </item>
+          <item alignment="Qt::AlignmentFlag::AlignRight">
+           <widget class="QPushButton" name="apply_conn_btn">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Apply</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupBox">
+         <property name="title">
+          <string>Data Manager - Create Profile</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_4">
+          <item>
+           <layout class="QFormLayout" name="formLayout_2">
+            <item row="0" column="0">
+             <widget class="QLabel" name="hostLabel_2">
+              <property name="text">
+               <string>Host: </string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QLineEdit" name="hostManagerInput"/>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="portLabel_2">
+              <property name="text">
+               <string>Port: </string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QLineEdit" name="portManagerInput">
+              <property name="cursorMoveStyle">
+               <enum>Qt::CursorMoveStyle::LogicalMoveStyle</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QLabel" name="subscriptionTopicLabel">
+              <property name="text">
+               <string>Subscription Topic: </string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QLineEdit" name="subscriptionTopicLineEdit"/>
+            </item>
+            <item row="3" column="0">
+             <widget class="QLabel" name="publishingTopicLabel">
+              <property name="text">
+               <string>Publishing Topic: </string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1">
+             <widget class="QLineEdit" name="publishingTopicLineEdit"/>
+            </item>
+            <item row="4" column="0">
+             <widget class="QLabel" name="clientNameLabel">
+              <property name="text">
+               <string>Client Name: </string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="1">
+             <widget class="QLineEdit" name="clientNameLineEdit"/>
+            </item>
+           </layout>
+          </item>
+          <item alignment="Qt::AlignmentFlag::AlignRight">
+           <widget class="QPushButton" name="createBtn">
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Create</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
