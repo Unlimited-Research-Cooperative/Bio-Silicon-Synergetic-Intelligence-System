@@ -1,0 +1,7 @@
+numpy
+scipy
+matplotlib
+mne
+pyedflib
+fastdtw
+EMD-signal
