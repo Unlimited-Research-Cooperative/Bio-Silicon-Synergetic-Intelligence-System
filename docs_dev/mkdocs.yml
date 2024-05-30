@@ -1,0 +1,80 @@
+site_name: Bio-Silicon Synergetic Intelligence System
+
+theme:
+  name: material
+  palette: 
+
+    # Palette toggle for light mode
+    - scheme: pink
+      toggle:
+        icon: material/brightness-7 
+        name: Switch to dark mode
+
+    # Palette toggle for dark mode
+    - scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+  features:
+    - navigation.footer
+    - content.code.copy
+
+markdown_extensions:
+  - pymdownx.highlight:
+        anchor_linenums: true
+        line_spans: __span
+        pygments_lang_class: true
+  - attr_list
+  - md_in_html
+  - def_list
+  - pymdownx.tasklist
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+
+plugins:
+  - glightbox
+  - search
+  - table-reader
+  - macros
+
+repo_url: https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/tree/main
+
+extra:
+  social:
+    - icon: fontawesome/brands/discord 
+      link: https://fosstodon.org/@squidfunk
+
+    - icon: fontawesome/brands/github
+      link: https://fosstodon.org/@squidfunk
+
+
+markdown_extensions:
+  - pymdownx.critic
+  - pymdownx.caret
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.tilde
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - attr_list
+  - def_list
+  - md_in_html
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.tasklist:
+          custom_checkbox: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+markdown_extensions:
+  - pymdownx.arithmatex:
+      generic: true
+
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
