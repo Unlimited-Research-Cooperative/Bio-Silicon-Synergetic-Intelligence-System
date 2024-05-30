@@ -1,0 +1,351 @@
+graphs:
+
+  # The publish/subscribe broker graph
+  - id: PubSubBroker
+    nodes:
+    # Allow communication between graphs
+    - id: Broker
+      module: timeflux.nodes.zmq
+      class: Broker
+#      class: BrokerLVC
+#    rate: 512
+    rate: 25
+
+  # The main processing graph
+  - id: AcquireEEG
+    nodes:
+#    - id: LSL
+#      module: timeflux.nodes.lsl
+#      class: Receive
+#      params:
+#        prop: name
+#        value: openvibeSignal
+#        unit: s
+#        sync: network
+#        prop: name
+#        value: EEG
+#        prop: type
+#        value: random
+#        unit: ns
+#        sync: None
+#        name: EEG
+#        name: signal
+#        channels: [ Fp1, AF3, F7, F3, FC1, FC5, T7, C3, CP1, CP5, P7, P3, Pz, PO3, O1, Oz, O2, PO4, P4, P8, CP6, CP2, C4, T8, FC6, FC2, F4, F8, AF4, Fp2, Fz, Cz ]
+#        channels: [sin]
+#    - id: random
+#      module: timeflux.nodes.random
+#      class: Random
+#      params:
+#        columns: 2
+#        seed: 1
+#    - id: acquire0
+#      module: timeflux_neurofeedback_inverse_gamepad.nodes.hdf5
+#      module: timeflux.nodes.hdf5
+#      class: Replay
+#      params:
+#        filename: /tmp/20221217-195349.hdf5
+#        keys:
+#          - /eeg/raw
+#          - Fp1
+#        keys: [ Fp1, AF3 ]
+#        resync: False
+#    - id: replay
+#      module: timeflux_neurofeedback_inverse_gamepad.nodes.bdf
+#      class: Replay
+#      params:
+#        filename: eeg/PAC_IMtest.bdf
+#        filename: eeg/no_missing_samples_-_recorded_with_BDFrecorder.bdf
+#        filename: eeg/no_missing_samples_-_recorded_with_Python_Ray_coherence_cirlce.bdf
+#        keys: [ eeg ]
+#        resync: False
+    - id: acquire
+      module: timeflux_brainflow.nodes.driver
+      class: BrainFlow
+      params:
+        board: freeeeg32
+        channels: [ ch1, ch2, ch3, ch4, ch5, ch6, ch7, ch8, ch9, ch10, ch11, ch12, ch13, ch14, ch15, ch16, ch17, ch18, ch19, ch20, ch21, ch22, ch23, ch24, ch25, ch26, ch27, ch28, ch29, ch30, ch31, ch32 ]
+#        channels: [ Fp1, AF3, F7, F3, FC1, FC5, T7, C3, CP1, CP5, P7, P3, Pz, PO3, O1, Oz, O2, PO4, P4, P8, CP6, CP2, C4, T8, FC6, FC2, F4, F8, AF4, Fp2, Fz, Cz ]
+#        board: freeeeg128
+#        channels: [ Fp1, AF3, F7, F3, FC1, FC5, T7, C3, CP1, CP5, P7, P3, Pz, PO3, O1, Oz, O2, PO4, P4, P8, CP6, CP2, C4, T8, FC6, FC2, F4, F8, AF4, Fp2, Fz, Cz ]
+        #serial_port: /dev/cu.usbmodem3067384E33301 # USB
+#        serial_port: /dev/cu.SLAB_USBtoUART # Optical
+#        serial_port: /dev/ttyS20
+#        serial_port: /dev/ttyACM0
+        serial_port: /dev/ttyUSB0
+#        debug: true
+#    - id: dejitter
+#      module: timeflux.nodes.dejitter
+#      class: Interpolate
+#      params:
+#        rate: 200
+#        rate: 64
+#        rate: 512
+    - id: LocQuery
+      module: timeflux.nodes.query
+      class: LocQuery
+      params:
+        key: [ ch17 ]
+#        key: [ Oz ]
+#        key: [ C3, Cz, C4, O1, Oz, O2 ]
+#        key: [ Fp1, AF3, F7, F3, FC1, FC5, T7, C3, CP1, CP5, P7, P3, Pz, PO3, O1, Oz, O2, PO4, P4, P8, CP6, CP2, C4, T8, FC6, FC2, F4, F8, AF4, Fp2, Fz, Cz ]
+#        key: [ AF3, F7, F3, FC1, FC5, T7, C3, CP1, CP5, P7, P3, Pz, PO3, O1, Oz, O2, PO4, P4, P8, CP6, CP2, C4, T8, FC6, FC2, F4, F8, AF4, Fp2, Fz, Cz ]
+        axis: 1
+   # Publish the raw EEG signal
+    - id: PublisherRaw
+      module: timeflux.nodes.zmq
+      class: Pub
+      params:
+        topic: raw
+    # Connect nodes
+    edges:
+#      - source: random
+      - source: acquire
+#      - source: replay:eeg
+#      - source: LSL
+#        target: LocQuery
+#      - source: LocQuery
+#        target: RenameColumns
+#      - source: RenameColumns
+#        target: LocQuery
+#      - source: LocQuery
+#        target: dejitter
+#      - source: dejitter
+#      - source: replay:eeg
+#      - source: LSL
+        target: PublisherRaw
+    # Run this graph 25 times per second
+#    rate: 3
+#    rate: 10
+#    rate: 25
+#    rate: 512
+#    rate: 64
+    rate: 25
+
+  - id: Sender
+    nodes:
+#    - id: random
+#      module: timeflux.nodes.random
+#      class: Random
+    - id: Subscriber
+      module: timeflux.nodes.zmq
+      class: Sub
+      params:
+        topics:
+        - raw
+        - raw2
+    - id: outlet
+      module: timeflux.nodes.lsl
+      class: Send
+      params:
+        name: openvibeSignal
+        type: EEG
+#        format: string
+    edges:
+#      - source: random
+      - source: Subscriber:raw
+        target: outlet
+#    rate: 1
+    rate: 25
+#    rate: 512
+
+  # The main processing graph
+  - id: AcquireEEG2
+    nodes:
+    - id: LSL
+      module: timeflux.nodes.lsl
+      class: Receive
+      params:
+        prop: name
+        value: openvibeSignal
+#        unit: s
+#        sync: network
+#        clocksync: false
+#        prop: name
+#        value: EEG
+#        prop: type
+#        value: random
+#        unit: ns
+#        sync: None
+#        name: EEG
+#        name: signal
+#        channels: [ Fp1, AF3, F7, F3, FC1, FC5, T7, C3, CP1, CP5, P7, P3, Pz, PO3, O1, Oz, O2, PO4, P4, P8, CP6, CP2, C4, T8, FC6, FC2, F4, F8, AF4, Fp2, Fz, Cz ]
+#        channels: [sin]
+#        channels: [ch17]
+#    - id: random
+#      module: timeflux.nodes.random
+#      class: Random
+#      params:
+#        columns: 2
+#        seed: 1
+#    - id: acquire0
+#      module: timeflux_neurofeedback_inverse_gamepad.nodes.hdf5
+#      module: timeflux.nodes.hdf5
+#      class: Replay
+#      params:
+#        filename: /tmp/20221217-195349.hdf5
+#        keys:
+#          - /eeg/raw
+#          - Fp1
+#        keys: [ Fp1, AF3 ]
+#        resync: False
+#    - id: replay
+#      module: timeflux_neurofeedback_inverse_gamepad.nodes.bdf
+#      class: Replay
+#      params:
+#        filename: eeg/PAC_IMtest.bdf
+#        filename: eeg/no_missing_samples_-_recorded_with_BDFrecorder.bdf
+#        filename: eeg/no_missing_samples_-_recorded_with_Python_Ray_coherence_cirlce.bdf
+#        keys: [ eeg ]
+#        resync: False
+#    - id: acquire
+#      module: timeflux_brainflow.nodes.driver
+#      class: BrainFlow
+#      params:
+#        board: freeeeg32
+#        channels: [ ch1, ch2, ch3, ch4, ch5, ch6, ch7, ch8, ch9, ch10, ch11, ch12, ch13, ch14, ch15, ch16, ch17, ch18, ch19, ch20, ch21, ch22, ch23, ch24, ch25, ch26, ch27, ch28, ch29, ch30, ch31, ch32 ]
+#        channels: [ Fp1, AF3, F7, F3, FC1, FC5, T7, C3, CP1, CP5, P7, P3, Pz, PO3, O1, Oz, O2, PO4, P4, P8, CP6, CP2, C4, T8, FC6, FC2, F4, F8, AF4, Fp2, Fz, Cz ]
+#        board: freeeeg128
+#        channels: [ Fp1, AF3, F7, F3, FC1, FC5, T7, C3, CP1, CP5, P7, P3, Pz, PO3, O1, Oz, O2, PO4, P4, P8, CP6, CP2, C4, T8, FC6, FC2, F4, F8, AF4, Fp2, Fz, Cz ]
+        #serial_port: /dev/cu.usbmodem3067384E33301 # USB
+#        serial_port: /dev/cu.SLAB_USBtoUART # Optical
+#        serial_port: /dev/ttyS20
+#        serial_port: /dev/ttyACM0
+#        serial_port: /dev/ttyUSB0
+#        debug: true
+#    - id: dejitter
+#      module: timeflux.nodes.dejitter
+#      class: Interpolate
+#      params:
+#        rate: 200
+#        rate: 64
+#        rate: 512
+   # Publish the raw EEG signal
+    - id: PublisherRaw
+      module: timeflux.nodes.zmq
+      class: Pub
+      params:
+        topic: raw2
+    # Connect nodes
+    edges:
+#      - source: random
+#      - source: acquire
+#      - source: replay:eeg
+      - source: LSL
+#        target: LocQuery
+#      - source: LocQuery
+#        target: RenameColumns
+#      - source: RenameColumns
+#        target: LocQuery
+#      - source: LocQuery
+#        target: dejitter
+#      - source: dejitter
+#      - source: replay:eeg
+#      - source: LSL
+        target: PublisherRaw
+    # Run this graph 25 times per second
+#    rate: 1
+#    rate: 3
+#    rate: 10
+#    rate: 25
+#    rate: 512
+#    rate: 64
+    rate: 25
+
+  - id: StreamToBrowser
+    nodes:
+    # Receive data streams from the broker
+    - id: Subscriber
+      module: timeflux.nodes.zmq
+      class: Sub
+      params:
+        topics:
+#        topics: [ raw, bands ]
+#        - bdf
+        - raw
+        - raw2
+        - iapf
+    - id: monitor
+      module: timeflux_ui.nodes.ui
+      class: UI
+    edges:
+#      - source: Subscriber:iapf
+#        target: monitor:eeg_iapf
+
+#      - source: Subscriber:bdf
+#        target: monitor:eeg_bdf
+#      - source: Subscriber:bands
+#        target: Recorder:eeg_bands
+#      - source: Subscriber:iirfilter
+#        target: Recorder:eeg_iirfilter
+      - source: Subscriber:raw
+        target: monitor:eeg_raw
+      - source: Subscriber:raw2
+        target: monitor:eeg_raw2
+#      - source: Subscriber:bands
+#        target: monitor:eeg_bands
+#      - source: Subscriber:iirfilter
+#        target: monitor:eeg_iirfilter
+    # Update file every second
+#    rate: 1
+#    rate: 64
+#    rate: 512
+#    rate: 3
+    rate: 25
+
+  # The recorder graph
+  - id: StreamToBDF
+    nodes:
+    # Receive data streams from the broker
+    - id: Subscriber
+      module: timeflux.nodes.zmq
+      class: Sub
+      params:
+        topics:
+        - raw
+        - raw2
+    - id: WriteBDFWindow
+      module: timeflux.nodes.window
+      class: Window
+      params:
+#        length: 1.0
+        length: 512
+#        step: 1.0
+#        step: 1
+        step: 512
+#        index: time
+        index: sample
+#        epochs: true
+    # Record to file
+    - id: Recorder
+      module: timeflux_neurofeedback_inverse_gamepad.nodes.bdf
+      class: Save
+      params:
+        file_type: 2
+        eeg_channels: [ch17]
+#        eeg_channels: [sin]
+#        eeg_channels: [O2,P8,A2,F8,Fp2,F4,C4,P4,FC6,CP6,CP2,PO4,Pz,POz,FC2,AF4,Fz,Cz,FC1,AF3,FC5,CP5,CP1,PO3,Fp1,F3,C3,P3,O1,P7,A1,F7]
+#        eeg_channels: ['Fp1','AF3','F7','F3','FC1','FC5','T7','C3','CP1','CP5','P7','P3','Pz','PO3','O1','Oz','O2','PO4','P4','P8','CP6','CP2','C4','T8','FC6','FC2','F4','F8','AF4','Fp2','Fz','Cz']
+#        eeg_channels: [O2,P8,A2,F8,Fp2,F4,C4,P4,FC6,CP6,CP2,PO4,Pz,POz,FC2,AF4,Fz,Cz,FC1,AF3,FC5,CP5,CP1,PO3,Fp1,F3,C3,P3,O1,P7,A1,F7]
+        sample_rate: 512
+#    - id: dejitter
+#      module: timeflux.nodes.dejitter
+#      class: Interpolate
+#      params:
+#        rate: 200
+#        rate: 64
+#        rate: 512
+    edges:
+      - source: Subscriber:raw
+#      - source: Subscriber:raw2
+#        target: dejitter
+#      - source: dejitter
+        target: WriteBDFWindow
+      - source: WriteBDFWindow
+        target: Recorder
+    # Update file every second
+#    rate: 1
+#    rate: 64
+#    rate: 512
+#    rate: 3
+    rate: 25
+
