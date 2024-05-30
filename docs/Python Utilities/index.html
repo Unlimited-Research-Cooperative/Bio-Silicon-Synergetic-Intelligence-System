@@ -1,0 +1,1359 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../Mathetmatical%20Tools/">
+      
+      
+        <link rel="next" href="../System%20Design/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.25">
+    
+    
+      
+        <title>Python Utilities - Bio-Silicon Synergetic Intelligence System</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.6543a935.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+   <link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="pink" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#constants" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Bio-Silicon Synergetic Intelligence System" class="md-header__button md-logo" aria-label="Bio-Silicon Synergetic Intelligence System" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Bio-Silicon Synergetic Intelligence System
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Python Utilities
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="pink" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/tree/main" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Bio-Silicon Synergetic Intelligence System" class="md-nav__button md-logo" aria-label="Bio-Silicon Synergetic Intelligence System" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Bio-Silicon Synergetic Intelligence System
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/tree/main" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Mathetmatical%20Tools/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Mathematical Tools
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Python Utilities
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Python Utilities
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#constants" class="md-nav__link">
+    <span class="md-ellipsis">
+      Constants
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Constants">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#action" class="md-nav__link">
+    <span class="md-ellipsis">
+      Action
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#actionmap" class="md-nav__link">
+    <span class="md-ellipsis">
+      ActionMap
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#analyzesignalsresult" class="md-nav__link">
+    <span class="md-ellipsis">
+      AnalyzeSignalsResult
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-manager" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Manager
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Data Manager">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example Profile
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#constructing-client" class="md-nav__link">
+    <span class="md-ellipsis">
+      Constructing client
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#receiving-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Receiving data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sending-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sending data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sending-receving-data-concurrently" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sending &amp; Receving Data Concurrently
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#logging-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      Logging Service
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Logging Service">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#formats" class="md-nav__link">
+    <span class="md-ellipsis">
+      Formats
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logging-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Logging data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#convert-to-database" class="md-nav__link">
+    <span class="md-ellipsis">
+      Convert to database
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../System%20Design/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    System Design
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Tools
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Tools
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Tools/Event%20Monitor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Event Monitor
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Tools/Signal%20Simulator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Signal Simulator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Unified Software
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Unified Software
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Unified%20Software/For%20Developers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    For Developers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#constants" class="md-nav__link">
+    <span class="md-ellipsis">
+      Constants
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Constants">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#action" class="md-nav__link">
+    <span class="md-ellipsis">
+      Action
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#actionmap" class="md-nav__link">
+    <span class="md-ellipsis">
+      ActionMap
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#analyzesignalsresult" class="md-nav__link">
+    <span class="md-ellipsis">
+      AnalyzeSignalsResult
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-manager" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Manager
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Data Manager">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example Profile
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#constructing-client" class="md-nav__link">
+    <span class="md-ellipsis">
+      Constructing client
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#receiving-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Receiving data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sending-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sending data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sending-receving-data-concurrently" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sending &amp; Receving Data Concurrently
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#logging-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      Logging Service
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Logging Service">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#formats" class="md-nav__link">
+    <span class="md-ellipsis">
+      Formats
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logging-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Logging data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#convert-to-database" class="md-nav__link">
+    <span class="md-ellipsis">
+      Convert to database
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+  <h1>Python Utilities</h1>
+
+<p>Our system mainly uses Python, thanks to its readability and wide range of packages in the field of data science, embedded and communication.</p>
+<p>Our project implements some utilities that makes the workflow simple and efficient. In this page you will get to know about it each utility.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We are planning to publish these utilities as a python package to make it easy to develop the main dashboard. Once, all the code seems stable, it will be released as a package on GitHub. However, the documentation for that package remain the same.</p>
+</div>
+<h2 id="constants">Constants</h2>
+<p>All the constant values are defined in the <code>constants.py</code>, it also contains some data structures. You can import these constants and use the values. It helps in maintaining code quality and prevents repetition.</p>
+<h3 id="action">Action</h3>
+<p>These are defined actions that are used in mainly used with VizDoom game.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Value</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MOVE_FORWARD</td>
+<td>MOVE_FORWARD</td>
+<td>str</td>
+</tr>
+<tr>
+<td>MOVE_BACKWARD</td>
+<td>MOVE_BACKWARD</td>
+<td>str</td>
+</tr>
+<tr>
+<td>TURN_LEFT</td>
+<td>TURN_LEFT</td>
+<td>str</td>
+</tr>
+<tr>
+<td>TURN RIGHT</td>
+<td>TURN RIGHT</td>
+<td>str</td>
+</tr>
+<tr>
+<td>USE</td>
+<td>USE</td>
+<td>str</td>
+</tr>
+<tr>
+<td>ATTACK</td>
+<td>ATTACK</td>
+<td>str</td>
+</tr>
+</tbody>
+</table>
+<p>This class also has a classmethod <strong>to_dict()</strong>. This method returns this constant data structure as a dictionary, this allows flexibility to system where it is being used.</p>
+<p>Example usage:
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">constants</span> <span class="kn">import</span> <span class="n">Action</span>
+
+<span class="n">actions</span> <span class="o">=</span> <span class="n">Action</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">actions</span><span class="o">.</span><span class="n">MOVE_FORWARD</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">actions</span><span class="o">.</span><span class="n">to_dict</span><span class="p">())</span>
+</code></pre></div></p>
+<p>You might think that why we would just define constants and create a classmethod to convert it to dictionary. Well, our system used these constants very often and at some point they were also required as a dictionary.</p>
+<h3 id="actionmap">ActionMap</h3>
+<p>When we decode features into <code>Actions</code> i.e move forward, backward or turn left or right etc. The actions are returned with some properties. This ActionMap class holds the same properties.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Value</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>rms</td>
+<td>(Actions.MOVE_FORWARD, 3.96e-07)</td>
+<td>tuple</td>
+</tr>
+<tr>
+<td>variance</td>
+<td>(Actions.TURN_LEFT, 1.074e-26)</td>
+<td>tuple</td>
+</tr>
+<tr>
+<td>spectral_entropy</td>
+<td>(Actions.USE, 0.7)</td>
+<td>tuple</td>
+</tr>
+<tr>
+<td>peak_counts</td>
+<td>(Actions.ATTACK, 3)</td>
+<td>tuple</td>
+</tr>
+<tr>
+<td>higuchi_fractal_dimension</td>
+<td>(Actions.TURN_RIGHT, 1.35e-15)</td>
+<td>tuple</td>
+</tr>
+<tr>
+<td>zero_crossing_rate</td>
+<td>(Actions.MOVE_FORWARD, 0.1)</td>
+<td>tuple</td>
+</tr>
+<tr>
+<td>delta_band_power</td>
+<td>(Actions.MOVE_FORWARD, 0.5)</td>
+<td>tuple</td>
+</tr>
+<tr>
+<td>theta_band_power</td>
+<td>(Actions.MOVE_FORWARD, 0.5)</td>
+<td>tuple</td>
+</tr>
+<tr>
+<td>alpha_band_power</td>
+<td>(Actions.MOVE_FORWARD, 0.5)</td>
+<td>tuple</td>
+</tr>
+<tr>
+<td>beta_band_power</td>
+<td>(Actions.MOVE_FORWARD, 0.5)</td>
+<td>tuple</td>
+</tr>
+<tr>
+<td>peak_heights</td>
+<td>(Actions.MOVE_FORWARD, 0.5)</td>
+<td>tuple</td>
+</tr>
+<tr>
+<td>std_dev</td>
+<td>(Actions.MOVE_FORWARD, 7.5e-14)</td>
+<td>tuple</td>
+</tr>
+<tr>
+<td>centroids</td>
+<td>(Actions.MOVE_FORWARD, 0.5)</td>
+<td>tuple</td>
+</tr>
+<tr>
+<td>spectral_edge_density</td>
+<td>(Actions.MOVE_FORWARD, 0.5)</td>
+<td>tuple</td>
+</tr>
+<tr>
+<td>evolution_rate</td>
+<td>(Actions.MOVE_FORWARD, 0.5)</td>
+<td>tuple</td>
+</tr>
+</tbody>
+</table>
+<p>You can learn about the terms used in this project from the page <code>Frequent Terms</code></p>
+<p>This data structure contains all data to be tuple, this class also has a <code>to_dict()</code> method wich converts they keys and the values set by the user to a dictionary.</p>
+<p>Example Usage:
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">constants</span> <span class="kn">import</span> <span class="n">ActionMap</span>
+
+<span class="n">action_map</span> <span class="o">=</span> <span class="n">ActionMap</span><span class="p">()</span>
+<span class="n">actions_default</span> <span class="o">=</span> <span class="n">action_map</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>  <span class="c1"># Action map with default values</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">action_default</span><span class="p">)</span>
+</code></pre></div>
+<strong>Output:</strong>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="s1">&#39;rms&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;MOVE_FORWARD&#39;</span><span class="p">,</span> <span class="mf">3.96e-07</span><span class="p">),</span> <span class="s1">&#39;variance&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;TURN_LEFT&#39;</span><span class="p">,</span> <span class="mf">1.074e-26</span><span class="p">),</span> <span class="s1">&#39;spectral_entropy&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;USE&#39;</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">),</span> <span class="s1">&#39;peak_counts&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;ATTACK&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="s1">&#39;higuchi_fractal_dimension&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;TURN_RIGHT&#39;</span><span class="p">,</span> <span class="mf">1.35e-15</span><span class="p">),</span> <span class="s1">&#39;zero_crossing_rate&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;MOVE_FORWARD&#39;</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span> <span class="s1">&#39;delta_band_power&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;MOVE_FORWARD&#39;</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="s1">&#39;theta_band_power&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;MOVE_FORWARD&#39;</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="s1">&#39;alpha_band_power&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;MOVE_FORWARD&#39;</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="s1">&#39;beta_band_power&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;MOVE_FORWARD&#39;</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="s1">&#39;peak_heights&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;MOVE_FORWARD&#39;</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="s1">&#39;std_dev&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;MOVE_FORWARD&#39;</span><span class="p">,</span> <span class="mf">7.5e-14</span><span class="p">),</span> <span class="s1">&#39;centroids&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;MOVE_FORWARD&#39;</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="s1">&#39;spectral_edge_density&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;MOVE_FORWARD&#39;</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="s1">&#39;evolution_rate&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s1">&#39;MOVE_FORWARD&#39;</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)}</span>
+</code></pre></div></p>
+<h3 id="analyzesignalsresult">AnalyzeSignalsResult</h3>
+<p>The signals received from MEAs are analysed to understand the nature of incoming data and the data we will be working further with. Many mathematical formulas are used to determine the features of signals.</p>
+<p>You can find these mathematical formulas in <code>Mathematical Formulas</code> section. </p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Value</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>peak_height</td>
+<td>-</td>
+<td>Any</td>
+</tr>
+<tr>
+<td>peak_counts</td>
+<td>-</td>
+<td>int</td>
+</tr>
+<tr>
+<td>variance</td>
+<td>-</td>
+<td>float</td>
+</tr>
+<tr>
+<td>std_dev</td>
+<td>-</td>
+<td>float</td>
+</tr>
+<tr>
+<td>rms</td>
+<td>-</td>
+<td>float</td>
+</tr>
+<tr>
+<td>band_features</td>
+<td>-</td>
+<td>Any</td>
+</tr>
+<tr>
+<td>delta_band_power</td>
+<td>-</td>
+<td>Any</td>
+</tr>
+<tr>
+<td>theta_band_power</td>
+<td>-</td>
+<td>Any</td>
+</tr>
+<tr>
+<td>alpha_band_power</td>
+<td>-</td>
+<td>Any</td>
+</tr>
+<tr>
+<td>beta_band_power</td>
+<td>-</td>
+<td>Any</td>
+</tr>
+<tr>
+<td>centroids</td>
+<td>-</td>
+<td>Any</td>
+</tr>
+<tr>
+<td>spectral_edge_densities</td>
+<td>-</td>
+<td>Any</td>
+</tr>
+<tr>
+<td>higuchi_fractal_dimension</td>
+<td>-</td>
+<td>Any</td>
+</tr>
+<tr>
+<td>zero_crossing_rate</td>
+<td>-</td>
+<td>Any</td>
+</tr>
+<tr>
+<td>evolution_rate</td>
+<td>-</td>
+<td>Any</td>
+</tr>
+</tbody>
+</table>
+<p>This method also contains <code>to_dict()</code> method but it also contains a <code>to_python_float()</code> method. The <code>to_python_float()</code> convert <strong>numpy.float64</strong> to a python float if there is any.</p>
+<h2 id="data-manager">Data Manager</h2>
+<p>The system involves transmitting and receiving data alot. Currently, we are using <strong>Paho MQTT</strong> for this purpose. The scripts in themselves need to send data from one to another. To facilitate this complex movement of data we implemented a <code>DataManager</code> class which handles these tasks seamlessly.</p>
+<p>It has the following features:</p>
+<ul>
+<li>Multi-threaded / Non-Blocking</li>
+<li>Transmit &amp; Receive Concurrently</li>
+<li>Flexible</li>
+<li>Easy to Setup</li>
+</ul>
+<p>Because we will be having a lot of data manager classes in different parts of the system it might become difficult to provide arguments to each class and changing them would be a time-consuming task. To overcome this issue, we have designed data manager to take a <code>profile</code> and a function as an argument. Profile is simply a <code>.ini</code> file containing the keys.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Default Value</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>client_id</td>
+<td>None</td>
+<td>str</td>
+<td>A client name to be used as an identifier for the client</td>
+</tr>
+<tr>
+<td>topic_sub</td>
+<td>None</td>
+<td>str</td>
+<td>A topic to subscribe, let it be None if client is only for receiving messages</td>
+</tr>
+<tr>
+<td>topic_pub</td>
+<td>None</td>
+<td>str</td>
+<td>A topic to publish message on, let it be None if client is only for sending messages</td>
+</tr>
+<tr>
+<td>function</td>
+<td>None</td>
+<td>function: Any</td>
+<td>A function you want to execute when message is received</td>
+</tr>
+</tbody>
+</table>
+<h4 id="example-profile">Example Profile</h4>
+<div class="highlight"><pre><span></span><code><span class="k">[General]</span>
+<span class="na">client_id</span><span class="o">=</span><span class="s">SampleClient</span>
+<span class="na">topic_sub</span><span class="o">=</span><span class="s">SomeTopicA</span>
+<span class="na">topic_pub</span><span class="o">=</span><span class="s">SomeTopicB</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Make sure that you put all the keys in the General section.</p>
+</div>
+<h3 id="constructing-client">Constructing client</h3>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">data_manager</span> <span class="kn">import</span> <span class="n">DataManager</span>
+
+<span class="n">data_m</span> <span class="o">=</span> <span class="n">DataManager</span><span class="p">(</span><span class="s2">&quot;$PATH_TO_INI_FILE&quot;</span><span class="p">)</span>  <span class="c1"># Without processing function</span>
+<span class="n">data_m</span> <span class="o">=</span> <span class="n">DataManager</span><span class="p">(</span><span class="s2">&quot;$PATH_TO_INI_FILE&quot;</span><span class="p">,</span> <span class="n">some_function</span><span class="p">)</span>  <span class="c1"># With a processing function</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Make sure that you are running a local or cloud MQTT broker at the defined host and port else, this will raise a <strong>Connection Refused</strong> error.</p>
+</div>
+<h3 id="receiving-data">Receiving data</h3>
+<p>For only recieving messages you need to specify <code>topic_sub</code> and leave <code>topic_pub</code> to None.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">data_manager</span> <span class="kn">import</span> <span class="n">DataManager</span>
+
+<span class="n">data_m</span> <span class="o">=</span> <span class="n">DataManager</span><span class="p">(</span><span class="s2">&quot;$PATH_TO_INI_FILE&quot;</span><span class="p">,</span> <span class="n">some_function</span><span class="p">)</span> 
+<span class="n">data_m</span><span class="o">.</span><span class="n">listen</span><span class="p">()</span>
+</code></pre></div>
+<p><strong>Just 2 lines</strong>, yeah just 2 lines to start receiving messages. This starts the server loop on a new thread which prevents blocking main thread. You can also pass a function that you want to execute when you receive any data, this also helps you to utilise data that you will be receving. </p>
+<p>For example, lets say we will be receving a string on <strong>test_topic</strong> and to that we string we want to append <strong>foo</strong> and print it.</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="n">msg</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">msg</span><span class="si">}</span><span class="s2"> foo&quot;</span><span class="p">)</span>
+
+<span class="n">data_m</span> <span class="o">=</span> <span class="n">DataManager</span><span class="p">(</span><span class="s2">&quot;$PATH_TO_INI_FILE&quot;</span><span class="p">,</span> <span class="n">foo</span><span class="p">)</span> 
+<span class="n">data_m</span><span class="o">.</span><span class="n">listen</span><span class="p">()</span>
+</code></pre></div>
+<p>Now this will print a string that will have <strong>foo</strong> in it. You can pass your own function but make sure you take the incoming message as the first argument of your custom function.</p>
+<h3 id="sending-data">Sending data</h3>
+<p>Sending data is simple, you need to specify <code>topic_pub</code> for the client. For such case you don't need to specify <code>processing_func</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">data_manager</span> <span class="kn">import</span> <span class="n">DataManager</span>
+
+<span class="n">data_m</span> <span class="o">=</span> <span class="n">DataManager</span><span class="p">(</span><span class="s2">&quot;$PATH_TO_INI_FILE&quot;</span><span class="p">,</span> <span class="n">foo</span><span class="p">)</span> 
+<span class="n">data_m</span><span class="o">.</span><span class="n">set_data</span><span class="p">(</span><span class="s2">&quot;This is the message I want to send.&quot;</span><span class="p">)</span>
+<span class="n">data_m</span><span class="o">.</span><span class="n">publish</span><span class="p">()</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>There are two function <code>publish</code> and <code>publish_data</code> both are different, you need to call <code>publish</code> function not <code>publish_data</code></p>
+</div>
+<p>In this way you send data in just 3 lines. But, you need to be carefull while sending data. Firstly, you need to specify data through <code>set_data()</code> function, <code>self.data</code> is the property of DataManager class which is set by the user through this function. Then you need to call the function <code>publish(sleep_time: float)</code></p>
+<p>Data Manager also has a <code>publish_data()</code> function, but the function <code>publish()</code> executes publish_data() function on a new thread so that main thread is not blocked.</p>
+<h3 id="sending-receving-data-concurrently">Sending &amp; Receving Data Concurrently</h3>
+<p>We are not done yet, you can also receive and set data <strong>concurrently</strong> through <strong>same class</strong>. You just need to specify both <code>topic_sub</code> and <code>topic_pub</code></p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="n">msg</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">msg</span><span class="si">}</span><span class="s2"> foo&quot;</span><span class="p">)</span>
+
+<span class="n">data_m</span> <span class="o">=</span> <span class="n">DataManager</span><span class="p">(</span><span class="s2">&quot;$PATH_TO_INI_FILE&quot;</span><span class="p">,</span> <span class="n">foo</span><span class="p">)</span> 
+<span class="n">data_m</span><span class="o">.</span><span class="n">listen</span><span class="p">()</span>
+
+<span class="n">data_m</span><span class="o">.</span><span class="n">set_data</span><span class="p">(</span><span class="s2">&quot;I am sending this message&quot;</span><span class="p">)</span>
+<span class="n">data_m</span><span class="o">.</span><span class="n">publish</span><span class="p">()</span>
+
+<span class="c1"># Your code ......</span>
+<span class="c1"># And it will not be blocked</span>
+</code></pre></div>
+<h2 id="logging-service">Logging Service</h2>
+<p>Our system is wide and complex so it becomes really important to keep records of events being fired behind the scene. So, to save logs we implemented a <code>LoggingService</code> class that uses <code>DataManager</code> and listens for logging data on topic <strong>logs</strong>. This includes a <code>RotatingFileHandler</code> that means if the size of log file reaches the limit a new file will be created and data will be written to it. The limit set is 200 MB for each file.</p>
+<h3 id="formats">Formats</h3>
+<p>The format in which we want to save our logs is an important parameter, we have provided a class containing string of all formats available with python's built-in package <code>logging</code></p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Formats</span><span class="p">:</span>
+    <span class="n">BASIC_FMT</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%(asctime)s</span><span class="s2"> </span><span class="si">%(levelname)s</span><span class="s2"> </span><span class="si">%(message)s</span><span class="s2">&quot;</span>
+    <span class="n">FUNC_FMT</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%(asctime)s</span><span class="s2">: </span><span class="si">%(levelname)s</span><span class="s2"> - </span><span class="si">%(funcName)s</span><span class="s2"> - </span><span class="si">%(message)s</span><span class="s2">&quot;</span>
+    <span class="n">LINE_NO_FMT</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%(asctime)s</span><span class="s2">: </span><span class="si">%(levelname)s</span><span class="s2"> -</span><span class="si">%(lineno)d</span><span class="s2"> - </span><span class="si">%(message)s</span><span class="s2">&quot;</span>
+</code></pre></div>
+<h3 id="logging-data">Logging data</h3>
+<p>To log data you need to send a dictionary converted into json as string on topic <strong>logs</strong>. The logger will automatically log the data whenever you send a json on the topic. Make sure to follow the given format for dictionary.</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="err">&#39;level&#39;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;LEVEL_INT&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="err">&#39;msg&#39;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;YOUR_MESSAGE_OR_EVENT&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="err">&#39;</span><span class="kc">fun</span><span class="err">cName&#39;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="err">&#39;NAME_OF_THE_FUNCTION&#39;</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="err">pu</span><span class="kc">t</span><span class="w"> </span><span class="err">as</span><span class="w"> </span><span class="err">&#39;NA&#39;</span><span class="w"> </span><span class="err">i</span><span class="kc">f</span><span class="w"> </span><span class="err">you</span><span class="w"> </span><span class="err">do</span><span class="kc">nt</span><span class="w"> </span><span class="err">wa</span><span class="kc">nt</span><span class="w"> </span><span class="kc">t</span><span class="err">o</span><span class="w"> </span><span class="err">use</span><span class="w"> </span><span class="err">i</span><span class="kc">t</span><span class="err">.</span>
+<span class="w">    </span><span class="err">&#39;li</span><span class="kc">nen</span><span class="err">o&#39;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="err">&#39;LINE_NUMBER&#39;</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="err">pu</span><span class="kc">t</span><span class="w"> </span><span class="err">as</span><span class="w"> </span><span class="err">&#39;NA&#39;</span><span class="w"> </span><span class="err">i</span><span class="kc">f</span><span class="w"> </span><span class="err">you</span><span class="w"> </span><span class="err">do</span><span class="kc">nt</span><span class="w"> </span><span class="err">wa</span><span class="kc">nt</span><span class="w"> </span><span class="kc">t</span><span class="err">o</span><span class="w"> </span><span class="err">use</span><span class="w"> </span><span class="err">i</span><span class="kc">t</span><span class="err">.</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The parameters <code>level</code>, <code>msg</code> are important and cannot be set NA.</p>
+<h3 id="convert-to-database">Convert to database</h3>
+<p>If you have a lot of logs then it might be difficul to read that through the file itself, to make analysing the logs easy we provide a function <code>convert_to_database()</code> which takes no argument and converts the log file into a sqlite3 database file. Also make sure to follow the given template for .db file. You can download the template.db file from <a href="https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/raw/main/docs/assets/template.db">here</a>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../Mathetmatical%20Tools/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Mathematical Tools">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Mathematical Tools
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../System%20Design/" class="md-footer__link md-footer__link--next" aria-label="Next: System Design">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                System Design
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://fosstodon.org/@squidfunk" target="_blank" rel="noopener" title="fosstodon.org" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M524.531 69.836a1.5 1.5 0 0 0-.764-.7A485.065 485.065 0 0 0 404.081 32.03a1.816 1.816 0 0 0-1.923.91 337.461 337.461 0 0 0-14.9 30.6 447.848 447.848 0 0 0-134.426 0 309.541 309.541 0 0 0-15.135-30.6 1.89 1.89 0 0 0-1.924-.91 483.689 483.689 0 0 0-119.688 37.107 1.712 1.712 0 0 0-.788.676C39.068 183.651 18.186 294.69 28.43 404.354a2.016 2.016 0 0 0 .765 1.375 487.666 487.666 0 0 0 146.825 74.189 1.9 1.9 0 0 0 2.063-.676A348.2 348.2 0 0 0 208.12 430.4a1.86 1.86 0 0 0-1.019-2.588 321.173 321.173 0 0 1-45.868-21.853 1.885 1.885 0 0 1-.185-3.126 251.047 251.047 0 0 0 9.109-7.137 1.819 1.819 0 0 1 1.9-.256c96.229 43.917 200.41 43.917 295.5 0a1.812 1.812 0 0 1 1.924.233 234.533 234.533 0 0 0 9.132 7.16 1.884 1.884 0 0 1-.162 3.126 301.407 301.407 0 0 1-45.89 21.83 1.875 1.875 0 0 0-1 2.611 391.055 391.055 0 0 0 30.014 48.815 1.864 1.864 0 0 0 2.063.7A486.048 486.048 0 0 0 610.7 405.729a1.882 1.882 0 0 0 .765-1.352c12.264-126.783-20.532-236.912-86.934-334.541ZM222.491 337.58c-28.972 0-52.844-26.587-52.844-59.239s23.409-59.241 52.844-59.241c29.665 0 53.306 26.82 52.843 59.239 0 32.654-23.41 59.241-52.843 59.241Zm195.38 0c-28.971 0-52.843-26.587-52.843-59.239s23.409-59.241 52.843-59.241c29.667 0 53.307 26.82 52.844 59.239 0 32.654-23.177 59.241-52.844 59.241Z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://fosstodon.org/@squidfunk" target="_blank" rel="noopener" title="fosstodon.org" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.footer", "content.code.copy"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.081f42fc.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>
