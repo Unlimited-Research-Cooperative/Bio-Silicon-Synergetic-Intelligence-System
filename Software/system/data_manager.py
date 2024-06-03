@@ -6,10 +6,10 @@ The files which need data to SEND & READ data simultaneously
 
 # Import dependencies
 from os import path
+from sys import exit
 from time import sleep
 from typing import Any
 from threading import Thread
-from paho.mqtt import MQTTException
 from paho.mqtt.client import Client
 from configparser import ConfigParser
 
@@ -25,6 +25,8 @@ class DataManager:
         self.topic_pub = None
         self.client = None
         self.func = func
+        self.isConnected = False
+
 
         self.data = None
 
@@ -47,8 +49,6 @@ class DataManager:
             else:
                 self.topic_pub = config_obj["General"]['topic_pub']
 
-            print(self.host, self.port)
-
         else:
             raise FileNotFoundError("Profile not found.")
         
@@ -56,9 +56,10 @@ class DataManager:
         # Connect to broker
         try:
             self.client.connect(self.host, self.port)
+            self.isConnected = True
 
-        except MQTTException:
-            raise MQTTException
+        except ConnectionRefusedError:
+            print(f"Connection refused, make sure the broker is running at {self.host}:{self.port}")
 
         if self.topic_sub is None:
             pass
@@ -77,6 +78,7 @@ class DataManager:
             raise Exception("Instance cannot subscribe to topic. Set topic_sub parameter to subscribe")
         else:
             thread = Thread(target=self.server_loop)
+            thread.daemon = True
             thread.start()
 
     def set_data(self, data: Any):
@@ -89,6 +91,7 @@ class DataManager:
         if self.topic_pub is None:
             raise Exception("Instance cannot publish data. Provide topic_pub parameter.")
         thread = Thread(target=self.publish_data, args=[sleep_time])
+        thread.daemon = True
         thread.start()
 
     def publish_data(self, sleep_time: float = 0):
@@ -101,10 +104,11 @@ class DataManager:
 
     def server_loop(self):
         self.client.loop_forever()
+        exit(1)
 
     # Callbacks
     def on_connect(self, client, userdata, flags, rc):
-        print("connected to host")
+        return "connected to host"
 
     def on_message(self, client, userdata, message):
         if self.func == None:
@@ -114,4 +118,3 @@ class DataManager:
 
     def on_disconnect(self, client, userdata, flags, rc):
         raise Exception("Disconnected from host")
-
