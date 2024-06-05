@@ -9,14 +9,14 @@ from PySide6.QtWidgets import QMainWindow, QApplication, QLabel
 class UnifiedApp(QMainWindow):
     def __init__(self):
         super().__init__()
-
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-
+        self.textColor = "white"
+        self.backgroundColor = "#3f3f42"
+        self.setColors(self.textColor,self.backgroundColor)
         self.settings_obj = QSettings("./config/default.ini", QSettings.Format.IniFormat)
 
         self.featureDisplayed = False
-
         self.ui.settingsBtn.clicked.connect(self.handle_settings_app)
 
     # handle settings dialog events
@@ -66,6 +66,14 @@ class UnifiedApp(QMainWindow):
 
     Remove all features
     """
+    def setColors(self,textColor,backgroundColor):
+        app.setStyleSheet("""
+        * {{
+            color: {};
+            background-color: {};
+        }}
+    """.format(textColor,backgroundColor))
+		
     def clear_features(self):
         labels = self.ui.extFeaturesGBox.findChildren(QLabel)
         if len(labels) == 0:
@@ -78,6 +86,7 @@ class UnifiedApp(QMainWindow):
 
 
 app = QApplication(argv)
+
 window = UnifiedApp()
 window.show()
 exit(app.exec())
