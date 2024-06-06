@@ -25,10 +25,10 @@ lab_equipment_designs/
 ./Software/PC/Backend/desktop_browser_app/basic_gui/.ipynb_checkpoints
 ./Software/PC/Backend/.ipynb_checkpoints
 ./images/.ipynb_checkpoints
+Software/CNN_feature_extraction_project/**/.ipynb_checkpoints/**
 
-
-# ecog data
-Software/PC/Backend/desktop_browser_app/signals_monitor/CNN_feature_extraction_project/sub-01_ses-task_task-game_run-01_ieeg.edf
-
-# npz file of ecog data
-Software/PC/Backend/desktop_browser_app/signals_monitor/CNN_feature_extraction_project/all_channels_data.npz
+# CNN project 
+Software/CNN_feature_extraction_project/**/*.pkl
+Software/CNN_feature_extraction_project/**/*.edf
+Software/CNN_feature_extraction_project/**/*.npz
+Software/CNN_feature_extraction_project/**/*.h5
