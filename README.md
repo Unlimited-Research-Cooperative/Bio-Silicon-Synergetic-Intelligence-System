@@ -146,7 +146,7 @@ We're reaching out to like-minded researchers and innovators to join us on this 
 </p>
 <h1 align="center">Hardware System Design</h1>
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Unlimited-Research-Cooperative/Human-Brain-Rat/main/images/bidirectional_brain_computer_communication.jpg" alt="bidirectional brain computer_communication.png">
+  <img src="https://raw.githubusercontent.com/Unlimited-Research-Cooperative/Human-Brain-Rat/main/Hardware/bci_hardware.drawio.png" alt="bidirectional brain computer_communication.png">
 <h1 align="center">Class III Glovebox Design</h1>
 <p align="center">
   <img src="images/classIII_glovebox.png" alt="class III glovebox">
