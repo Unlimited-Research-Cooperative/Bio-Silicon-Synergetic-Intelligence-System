@@ -117,10 +117,8 @@ We're reaching out to like-minded researchers and innovators to join us on this 
 - **Discord**: Connect with us on [Discord](https://discord.gg/GVyaBEjCY2) and become part of a vibrant community shaping the future.
 
 
-</p>
-<h1 align="center">Class III Glovebox Design</h1>
-<p align="center">
-  <img src="images/classIII_glovebox.png" alt="class III glovebox">
+
+
 </p>
 <h1 align="center">System High Level Schematic</h1>
 <p align="center">
@@ -146,7 +144,13 @@ We're reaching out to like-minded researchers and innovators to join us on this 
 <p align="center">
   <img src="https://raw.githubusercontent.com/Unlimited-Research-Cooperative/Human-Brain-Rat/main/images/rewards_and_mappings.png" alt="Reward System and Feature Mappings.png">
 </p>
-
+<h1 align="center">Hardware System Design</h1>
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Unlimited-Research-Cooperative/Human-Brain-Rat/main/images/bidirectional_brain_computer_communication.jpg" alt="bidirectional brain computer_communication.png">
+<h1 align="center">Class III Glovebox Design</h1>
+<p align="center">
+  <img src="images/classIII_glovebox.png" alt="class III glovebox">
+</p>
 
 ## 🤝 Connect
 We're more than a project; we're a movement. Let's make history together. [Get in touch](https://github.com/Synthetic-Intelligence-Labs)!
