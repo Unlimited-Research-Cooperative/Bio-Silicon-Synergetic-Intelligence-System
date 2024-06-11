@@ -5,18 +5,87 @@ from PySide6.QtCore import QSettings
 from settings_app import open_settings
 from PySide6.QtWidgets import QMainWindow, QApplication, QLabel
 
-
 class UnifiedApp(QMainWindow):
     def __init__(self):
         super().__init__()
-
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+        self.stylesheets = {"dark":"""
+      * QPushButton {
+    color: #1f1f1f;
+    background-color: #296dff;
+    
+}
+ QMainWindow {
+    background-color: #1f1f1f;
+    
+}
+QApplication {
+    background-color: #1f1f1f;
+    
+    
+}
+QFrame {
+    color: #ebebeb;
+    background-color: #1f1f1f;
+}
+QTabWidget {
+    color: #ebebeb;
+    background-color: #1f1f1f;
+}
+QTabBar {
+    color: #ebebeb;
+    background-color: #1f1f1f;
+    
+}
+QGroupBox {
+    color: #ebebeb;
+    background-color: #1f1f1f;
+    
+}
+QDialog {
+   background-color: #1f1f1f;
+    
+}
+QFileDialog {
+    background-color: #1f1f1f;
+    
+}
+QLineEdit{
+    background-color: #ebebeb;
+    
+}
+QComboBox{
+    background-color: #ebebeb;
+    
+}
+    QComboBox QAbstractItemView {
+        background-color: #ebebeb; 
+        color: #1f1f1f; 
+        selection-background-color: #296dff; 
+        selection-color:#ebebeb;  
+    }
 
+QPushButton:hover {
+    color:#1f1f1f;
+    background-color: #80a8ff;
+}
+
+QToolButton {
+    background-color: #80a8ff;
+}
+QProgressBar {
+     background-color: #ebebeb;
+ }
+
+ QProgressBar::chunk {
+     background-color: #05B8CC;
+ }
+    """}
+        self.setColorPalette(self.stylesheets["dark"])
         self.settings_obj = QSettings("./config/default.ini", QSettings.Format.IniFormat)
-
+        
         self.featureDisplayed = False
-
         self.ui.settingsBtn.clicked.connect(self.handle_settings_app)
 
     # handle settings dialog events
@@ -27,7 +96,6 @@ class UnifiedApp(QMainWindow):
         else:
             pass
 
-    
     """
     add_features_to_display
 
@@ -66,6 +134,9 @@ class UnifiedApp(QMainWindow):
 
     Remove all features
     """
+    def setColorPalette(self,stylesheet):
+        app.setStyleSheet(stylesheet)
+		
     def clear_features(self):
         labels = self.ui.extFeaturesGBox.findChildren(QLabel)
         if len(labels) == 0:
@@ -77,7 +148,10 @@ class UnifiedApp(QMainWindow):
             self.featureDisplayed = False
 
 
+
+#main_window = uic.loadUi('ui files/app.ui')
 app = QApplication(argv)
+# Find all buttons in the main window
 window = UnifiedApp()
 window.show()
 exit(app.exec())
