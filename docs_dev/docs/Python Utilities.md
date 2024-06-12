@@ -114,23 +114,33 @@ It has the following features:
 - Flexible
 - Easy to Setup
 
-The `DataManager` needs to be instantiated directly with the following parameters:
+Because we will be having a lot of data manager classes in different parts of the system it might become difficult to provide arguments to each class and changing them would be a time-consuming task. To overcome this issue, we have designed data manager to take a `profile` and a function as an argument. Profile is simply a `.ini` file containing the keys.
 
 | Name                   | Default Value | Type          | Description                                                                                    |
 |------------------------|---------------|---------------|------------------------------------------------------------------------------------------------|
 | client_id              |      None     |      str      | A client name to be used as an identifier for the client                                       |
 | topic_sub              | None          | str           | A topic to subscribe, let it be None if client is only for receiving messages                  |
 | topic_pub              | None          | str           | A topic to publish message on, let it be None if client is only for sending messages           |
-| processing_func        | None          | function: Any | A function you want to execute when message is received                                        |
-| close_after_first_list | False         | bool          | Set to True if you want to destroy client after receiving single message, else let it be False |
+| function               | None          | function: Any | A function you want to execute when message is received                                        |
+
+#### Example Profile
+``` ini
+[General]
+client_id=SampleClient
+topic_sub=SomeTopicA
+topic_pub=SomeTopicB
+```
+!!! note 
+    Make sure that you put all the keys in the General section.
 
 ### Constructing client
 ```py
 from data_manager import DataManager
 
-data_m = DataManager("example_client")
+data_m = DataManager("$PATH_TO_INI_FILE")  # Without processing function
+data_m = DataManager("$PATH_TO_INI_FILE", some_function)  # With a processing function
 ```
-For now lets keep all the parameters to default i.e None, in this way create a client that does nothing. DataManager needs a `config.env` file which consist two variable `host` and `port`.
+
 
 !!! note
     Make sure that you are running a local or cloud MQTT broker at the defined host and port else, this will raise a **Connection Refused** error.
@@ -141,7 +151,7 @@ For only recieving messages you need to specify `topic_sub` and leave `topic_pub
 ```py
 from data_manager import DataManager
 
-data_m = DataManager("example_client", topic_sub="test_topic")
+data_m = DataManager("$PATH_TO_INI_FILE", some_function) 
 data_m.listen()
 ```
 
@@ -154,7 +164,7 @@ For example, lets say we will be receving a string on **test_topic** and to that
 def foo(msg):
     print(f"{msg} foo")
 
-data_m = DataManager("example_client", topic_sub="test_topic", processing_func=foo)
+data_m = DataManager("$PATH_TO_INI_FILE", foo) 
 data_m.listen()
 
 ```
@@ -168,11 +178,14 @@ Sending data is simple, you need to specify `topic_pub` for the client. For such
 
 from data_manager import DataManager
 
-data_m = DataManager("example_client", topic_pub="test_pub_topic")
+data_m = DataManager("$PATH_TO_INI_FILE", foo) 
 data_m.set_data("This is the message I want to send.")
 data_m.publish()
 
 ```
+
+!!! note
+    There are two function `publish` and `publish_data` both are different, you need to call `publish` function not `publish_data`
 
 In this way you send data in just 3 lines. But, you need to be carefull while sending data. Firstly, you need to specify data through `set_data()` function, `self.data` is the property of DataManager class which is set by the user through this function. Then you need to call the function `publish(sleep_time: float)`
 
@@ -187,7 +200,7 @@ We are not done yet, you can also receive and set data **concurrently** through 
 def foo(msg):
     print(f"{msg} foo")
 
-data_m = DataManager("example_client", topic_sub="test_topic", topic_pub="test_pub_topic" ,processing_func=foo)
+data_m = DataManager("$PATH_TO_INI_FILE", foo) 
 data_m.listen()
 
 data_m.set_data("I am sending this message")

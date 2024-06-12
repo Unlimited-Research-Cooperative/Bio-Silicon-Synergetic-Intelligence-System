@@ -19,26 +19,6 @@ Currently, we have two tools
 
 - Scripts Monitor - The data is being published on different Mqtt topics by scripts and some scripts simultaneously. While development it becomes messy to open multiple terminal windows and look at each of them one by one. This tools lets you see what's being published on topics continously.
 
-## Dashboard
-
-The main software has a sci-fi user interface and delivers expectional performance. This is used to monitor everything including the subject's stress, reward, signals, data visualization, data logging etc. 
-
-<figure markdown="span">
-  ![User Inteface](https://raw.githubusercontent.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/main/images/ui.png)
-  <figcaption>UI under development</figcaption>
-</figure>
-
-The interface is built using [React JS](https://react.dev/) and CSS. To make it run out-of-browser we use [Electron JS](https://electronjs.org). The application communicates with the backend written in Python using WebSockets and the scripts communicates through `Mqtt` Pub-Sub system.
-
-There are following files:
-
-- **data_manager.py**: It has `DataManager` class which provides functions to publish data and listen to incoming messages concurrently. For more details refer to **Data Manager**.
-
-- **constants.py**: This file in the root directory contains constants and data strcutures with appropraite class methods for their conversion.
-
-- **signal_simulator.py**: It generates synthetic signals for testing purposes.
-
-- **signals_to_features.py**: It receives the generated signals through topic **simulated signals**, upon receiving signals it extract features from it and send them to **features_to_game.py**
-
-- **features_to_game.py**: VizDoom has its own set of commands. The features that are translated into actions are in raw form, which might not be understood by the Doom Engine. It converts these raw actions into game commands that are known by VizDoom.
+!!! warning ""
+    We are now dropping the support of Scripts Monitor tool because it will be intergrated within the first version of Unified Software.
 
