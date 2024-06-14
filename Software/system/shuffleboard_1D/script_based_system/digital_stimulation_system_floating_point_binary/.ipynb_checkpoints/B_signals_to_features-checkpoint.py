@@ -1,22 +1,29 @@
+import sys
+import json
+import logging
 import numpy as np
 import paho.mqtt.client as mqtt
-import json
-from scipy.signal import find_peaks, hilbert, welch
+import time
+
+from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QHBoxLayout, QLabel, QGridLayout, QTableWidget, QTableWidgetItem
+from PyQt5.QtCore import QTimer
+from PyQt5.QtGui import QColor, QPalette
+import pyqtgraph as pg
+from scipy.signal import resample, find_peaks, hilbert, welch
 from scipy.fft import fft, fftfreq
-import itertools
-from scipy.spatial.distance import euclidean
-from fastdtw import fastdtw
-import logging
+
+logging.basicConfig(level=logging.DEBUG)
 
 # Constants
 NUM_CHANNELS = 32
-FS = 500  # Sampling rate in Hz
+FS_ORIGINAL = 512  # Original sampling rate in Hz
+FS_DOWNSAMPLED = 500  # Downsampled rate in Hz
 UPDATE_RATE = 4  # Update rate in Hz
-BUFFER_SIZE = int(FS // UPDATE_RATE)  # Size of buffer corresponding to update rate
+BUFFER_SIZE = int(FS_DOWNSAMPLED // UPDATE_RATE)  # Size of buffer corresponding to update rate
 MQTT_BROKER = "127.0.0.1"
 MQTT_PORT = 1883
-MQTT_INPUT_TOPIC = "processed_neural_data"
-MQTT_OUTPUT_TOPIC = "analyzed_neural_data"
+MQTT_INPUT_TOPIC = "INCOMING NEURAL SIGNALS"
+MQTT_OUTPUT_TOPIC = "EXTRACTED FEATURES"
 
 # Global buffer to hold data
 buffer = np.zeros((NUM_CHANNELS, BUFFER_SIZE), dtype=np.float32)
@@ -29,31 +36,27 @@ def on_message(client, userdata, message):
     global buffer
     try:
         payload = message.payload.decode('utf-8')
-        neural_data = json.loads(payload)
-        data = np.array(neural_data['data'], dtype=np.float32)
+        data = np.array(json.loads(payload), dtype=np.float32)
         if data.ndim == 1:
-            data = data.reshape(-1, 1)
-        scaled_data = scale_data(data)
-        buffer = buffer_data(scaled_data, buffer)
+            data = data.reshape(NUM_CHANNELS, -1)
+        downsampled_data = downsample(data, FS_ORIGINAL, FS_DOWNSAMPLED)
+        buffer = buffer_data(downsampled_data, buffer)
         if np.all(buffer != 0):
             analysis_results = analyze_signals(buffer)
             client.publish(MQTT_OUTPUT_TOPIC, json.dumps(analysis_results))
+            visualizer.update_results(analysis_results)
     except Exception as e:
         print(f"Error processing message: {e}")
+
+def downsample(data, original_fs, target_fs):
+    num_samples = int(data.shape[1] * target_fs / original_fs)
+    downsampled_data = resample(data, num_samples, axis=1)
+    return downsampled_data
 
 def buffer_data(data, buffer):
     buffer = np.roll(buffer, -data.shape[1], axis=1)
     buffer[:, -data.shape[1]:] = data
     return buffer
-
-def scale_data(data, fs=FS, factor=2):
-    if data.ndim != 2 or data.shape[0] != NUM_CHANNELS:
-        raise ValueError(f"Unexpected data shape: {data.shape}. Expected ({NUM_CHANNELS}, number_of_samples).")
-    subsampled_data = data[:, ::factor]
-    data_min = np.min(subsampled_data, axis=1, keepdims=True)
-    data_max = np.max(subsampled_data, axis=1, keepdims=True)
-    scaled_data = (subsampled_data - data_min) / np.where(data_max > data_min, data_max - data_min, 1)
-    return scaled_data
 
 def detect_peaks(signals):
     peaks_results = []
@@ -91,11 +94,11 @@ def calculate_rms(signals):
     rms = np.sqrt(np.mean(signals**2, axis=1))
     return rms
 
-def freq_bands(signals, fs=FS):
+def freq_bands(signals, fs=FS_DOWNSAMPLED):
     band_features = np.zeros((signals.shape[0], 4))
     for i, signal in enumerate(signals):
         nperseg = min(32, len(signal))
-        frequencies, psd = welch(signal, fs=FS, nperseg=nperseg)
+        frequencies, psd = welch(signal, fs=fs, nperseg=nperseg)
         bands = {'delta': (1, 4), 'theta': (4, 8), 'alpha': (8, 13), 'beta': (13, 30)}
         for j, (name, (low, high)) in enumerate(bands.items()):
             idx = np.logical_and(frequencies >= low, frequencies <= high)
@@ -105,7 +108,7 @@ def freq_bands(signals, fs=FS):
                 band_features[i, j] = 0.0
     return band_features
 
-def spectral_centroids(signals, fs):
+def spectral_centroids(signals, fs=FS_DOWNSAMPLED):
     centroids = []
     for signal in signals:
         fft_result = fft(signal)
@@ -115,7 +118,7 @@ def spectral_centroids(signals, fs):
         centroids.append(centroid)
     return centroids
 
-def spectral_edge_density(signals, fs, percentage=95):
+def spectral_edge_density(signals, fs=FS_DOWNSAMPLED, percentage=95):
     spectral_edge_densities = []
     for signal in signals:
         fft_result = fft(signal)
@@ -179,13 +182,13 @@ def analyze_signals(buffer):
     peaks = detect_peaks(signals)
     variance, std_dev = calculate_variance_std_dev(signals)
     rms = calculate_rms(signals)
-    band_features = freq_bands(signals, FS)
+    band_features = freq_bands(signals, FS_DOWNSAMPLED)
     delta_band_power = band_features[:, 0]
     theta_band_power = band_features[:, 1]
     alpha_band_power = band_features[:, 2]
     beta_band_power = band_features[:, 3]
-    centroids = spectral_centroids(signals, FS)
-    spectral_edge_densities = spectral_edge_density(signals, FS, 95)
+    centroids = spectral_centroids(signals, FS_DOWNSAMPLED)
+    spectral_edge_densities = spectral_edge_density(signals, FS_DOWNSAMPLED, 95)
     hfd_values = calculate_higuchi_fractal_dimension(signals, k_max=10)
     zero_crossing_rate = calculate_zero_crossing_rate(signals)
     rates = evolution_rate(signals)
@@ -206,7 +209,49 @@ def analyze_signals(buffer):
     }
     return results
 
+class ResultVisualizer(QWidget):
+    def __init__(self, num_channels):
+        super().__init__()
+        self.num_channels = num_channels
+        self.init_ui()
+
+    def init_ui(self):
+        self.setWindowTitle('EXTRACTED FEATURES')
+        self.setStyleSheet("background-color: black; color: #00D8D8;")
+
+        self.results_table = QTableWidget()
+        self.results_table.setRowCount(self.num_channels)
+        self.results_table.setColumnCount(12)
+        self.results_table.setHorizontalHeaderLabels(['Peaks', 'Var', 'Std Dev', 'RMS', 'Delta', 'Theta', 'Alpha', 'Beta', 'Centroid', 'Spec Edge', 'HFD', 'ZCR'])
+        self.results_table.setStyleSheet("background-color: black; color: #00D8D8;")
+
+        layout = QVBoxLayout()
+        layout.addWidget(self.results_table)
+        self.setLayout(layout)
+
+        self.show()
+
+    def update_results(self, results):
+        for i in range(self.num_channels):
+            self.results_table.setItem(i, 0, QTableWidgetItem(str(results['peaks'][i]['peak_count'])))
+            self.results_table.setItem(i, 1, QTableWidgetItem(f"{results['variance'][i]:.2f}"))
+            self.results_table.setItem(i, 2, QTableWidgetItem(f"{results['std_dev'][i]:.2f}"))
+            self.results_table.setItem(i, 3, QTableWidgetItem(f"{results['rms'][i]:.2f}"))
+            self.results_table.setItem(i, 4, QTableWidgetItem(f"{results['delta_band_power'][i]:.2f}"))
+            self.results_table.setItem(i, 5, QTableWidgetItem(f"{results['theta_band_power'][i]:.2f}"))
+            self.results_table.setItem(i, 6, QTableWidgetItem(f"{results['alpha_band_power'][i]:.2f}"))
+            self.results_table.setItem(i, 7, QTableWidgetItem(f"{results['beta_band_power'][i]:.2f}"))
+            self.results_table.setItem(i, 8, QTableWidgetItem(f"{results['centroids'][i]:.2f}"))
+            self.results_table.setItem(i, 9, QTableWidgetItem(f"{results['spectral_edge_densities'][i]:.2f}"))
+            self.results_table.setItem(i, 10, QTableWidgetItem(f"{results['higuchi_fractal_dimension'][i]:.2f}"))
+            self.results_table.setItem(i, 11, QTableWidgetItem(f"{results['zero_crossing_rate'][i]:.2f}"))
+
 def main():
+    app = QApplication(sys.argv)
+
+    global visualizer
+    visualizer = ResultVisualizer(num_channels=32)
+
     client = mqtt.Client()
     client.on_connect = on_connect
     client.on_message = on_message
@@ -214,8 +259,7 @@ def main():
     client.loop_start()
 
     try:
-        while True:
-            time.sleep(1 / UPDATE_RATE)
+        sys.exit(app.exec_())
     except KeyboardInterrupt:
         print("Stopping...")
         client.loop_stop()

@@ -1,10 +1,15 @@
-import paho.mqtt.client as mqtt
-import jack
-import numpy as np
-import threading
-import time
+import sys
 import json
-import matplotlib.pyplot as plt
+import logging
+import numpy as np
+import paho.mqtt.client as mqtt
+import time
+
+from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QHBoxLayout
+from PyQt5.QtCore import QTimer
+import pyqtgraph as pg
+
+logging.basicConfig(level=logging.DEBUG)
 
 # Constants
 MQTT_BROKER = "127.0.0.1"
@@ -12,6 +17,7 @@ MQTT_PORT = 1883
 MQTT_TOPIC = "digital_signals"
 PACKET_DURATION = 0.25  # 250 ms packets
 BIT_DURATION = 0.0125  # 12.5 ms per bit (for 16 bits in 200 ms)
+NUM_CHANNELS = 4
 
 # Global variable to store the latest digital waveform for visualization
 latest_waveform = None
@@ -31,90 +37,96 @@ def on_message(client, userdata, msg):
         # Parse the JSON data
         digital_data = json.loads(payload)["stim_signals"]
         
-        # Convert digital data (list of lists) to a NumPy array
-        digital_waveform = np.array([1 if bit == 150 else -1 for signal in digital_data for bit in signal])
+        # Convert digital data (list of lists) to a NumPy array for each channel
+        digital_waveform = [np.array([1 if bit == 150 else -1 for bit in signal]) for signal in digital_data]
         
         # Store the latest waveform for visualization
         latest_waveform = digital_waveform
+        print(f"Latest waveform: {latest_waveform}")  # Debug statement
         
-        # Send the digital waveform to the USB hub via JACK
-        send_data_to_audio_hub(digital_waveform)
     except Exception as e:
         print(f"Error processing message: {e}")
 
-# Function to send data to the USB hub via JACK
-def send_data_to_audio_hub(digital_waveform):
-    # Set up the JACK client
-    client = jack.Client("DigitalDataSender")
-    outport = client.outports.register("output_0")
-
-    # Activating the client
-    with client:
-        # Send the digital waveform to the output port
-        buffer_size = outport.get_buffer_size()
-        start_index = 0
+class DigitalSignalVisualizer(QWidget):
+    def __init__(self, num_channels, mqtt_client):
+        super().__init__()
+        self.num_channels = num_channels
+        self.data = [np.zeros(500) for _ in range(num_channels)]  # Initialize with zeros for 500 samples per channel
+        self.ptr = 0
+        self.mqtt_client = mqtt_client
         
-        while start_index < len(digital_waveform):
-            end_index = start_index + buffer_size
-            packet = digital_waveform[start_index:end_index]
+        self.init_ui()
+        
+    def init_ui(self):
+        self.setWindowTitle('Digital Signal Visualizer')
+        self.setStyleSheet("background-color: black;")
+        
+        main_layout = QVBoxLayout()
+        self.setLayout(main_layout)
+        
+        self.plots = []
+        self.curves = []  # To store PlotDataItem objects for each curve
+        
+        num_plots_per_row = 2
+        num_rows = int(np.ceil(self.num_channels / num_plots_per_row))
+        
+        for i in range(num_rows):
+            row_layout = QHBoxLayout()
+            main_layout.addLayout(row_layout)
             
-            # Ensure the waveform length does not exceed the port buffer size
-            outport.get_buffer()[:len(packet)] = packet
-            start_index += buffer_size
-
-            # Wait for the duration of the packet
-            time.sleep(PACKET_DURATION)
-
-# Function to visualize the signals
-def visualize_signals():
-    global latest_waveform
-    
-    plt.ion()
-    fig, ax = plt.subplots()
-    line, = ax.plot([], [])
-    
-    ax.set_xlim(0, 16 * len(latest_waveform) // 4)
-    ax.set_ylim(-1.5, 1.5)
-    
-    while True:
+            for j in range(num_plots_per_row):
+                channel_index = i * num_plots_per_row + j
+                if channel_index < self.num_channels:
+                    plot = pg.PlotWidget()
+                    plot.setBackground('k')  # Set plot background to black
+                    plot.setTitle(f'Channel {channel_index + 1}', color='#00D8D8')  # Bright turquoise color
+                    plot.setLabel('left', 'Signal Value', color='#00D8D8')
+                    plot.setLabel('bottom', 'Sample Index', color='#00D8D8')
+                    plot.setMinimumHeight(200)  # Adjust plot height
+                    plot.setMinimumWidth(400)   # Adjust plot width
+                    
+                    plot.getAxis('left').setPen(pg.mkPen(color='#00D8D8'))  # Set left axis pen color
+                    plot.getAxis('bottom').setPen(pg.mkPen(color='#00D8D8'))  # Set bottom axis pen color
+                    plot.getAxis('left').setTextPen(pg.mkPen(color='#00D8D8'))  # Set left axis text color
+                    plot.getAxis('bottom').setTextPen(pg.mkPen(color='#00D8D8'))  # Set bottom axis text color
+                    
+                    row_layout.addWidget(plot)
+                    self.plots.append(plot)
+                    
+                    # Initialize PlotDataItem and add to the plot
+                    curve = plot.plot(pen=pg.mkPen(color='#00D8D8', width=1))  # Bright turquoise color
+                    self.curves.append(curve)
+        
+        self.timer = QTimer()
+        self.timer.timeout.connect(self.update_plot)
+        self.timer.start(100)
+        
+        self.show()
+        
+    def update_plot(self):
+        global latest_waveform
         if latest_waveform is not None:
-            # Update the plot with the latest waveform
-            line.set_xdata(np.arange(len(latest_waveform)))
-            line.set_ydata(latest_waveform)
-            ax.set_xlim(0, len(latest_waveform))
-            fig.canvas.draw()
-            fig.canvas.flush_events()
-        time.sleep(0.1)
+            for i in range(self.num_channels):
+                self.data[i] = np.roll(self.data[i], -len(latest_waveform[i]))
+                self.data[i][-len(latest_waveform[i]):] = latest_waveform[i]
+                self.curves[i].setData(self.data[i])
 
-# Main function to set up MQTT client and start the loop
 def main():
-    # Set up MQTT client
     mqtt_client = mqtt.Client()
     mqtt_client.on_connect = on_connect
     mqtt_client.on_message = on_message
     mqtt_client.connect(MQTT_BROKER, MQTT_PORT, 60)
-    
-    # Start MQTT loop
     mqtt_client.loop_start()
     
-    # Start the visualization in a separate thread
-    vis_thread = threading.Thread(target=visualize_signals)
-    vis_thread.start()
+    app = QApplication(sys.argv)
+    visualizer = DigitalSignalVisualizer(num_channels=NUM_CHANNELS, mqtt_client=mqtt_client)
     
     try:
-        # Keep the script running
-        while True:
-            time.sleep(1)
+        sys.exit(app.exec_())
     except KeyboardInterrupt:
         print("Stopping...")
         mqtt_client.loop_stop()
         mqtt_client.disconnect()
-        vis_thread.join()
 
-# Run the main function in a thread
-send_thread = threading.Thread(target=main)
-send_thread.start()
-
-# Main execution
 if __name__ == "__main__":
-    send_thread.join()
+    main()

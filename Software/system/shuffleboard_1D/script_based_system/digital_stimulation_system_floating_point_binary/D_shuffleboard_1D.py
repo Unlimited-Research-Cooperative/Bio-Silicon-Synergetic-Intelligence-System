@@ -1,5 +1,4 @@
 import paho.mqtt.client as mqtt
-import zmq
 import time
 import json
 
@@ -10,17 +9,13 @@ class ShuffleboardGame:
         self.performance_threshold = performance_threshold
         self.reset_game()
 
-        # ZeroMQ setup for receiving actions
-        self.context = zmq.Context()
-        self.sub_socket = self.context.socket(zmq.SUB)
-        self.sub_socket.connect("tcp://localhost:5446")
-        self.sub_socket.setsockopt_string(zmq.SUBSCRIBE, '')
-
-        # MQTT setup for publishing metadata and outcomes
+        # MQTT setup for subscribing to actions and publishing metadata and outcomes
         self.mqtt_client = mqtt.Client()
+        self.mqtt_client.on_connect = self.on_connect
+        self.mqtt_client.on_message = self.on_message
         self.mqtt_client.connect("127.0.0.1", 1883, 60)
-        self.metadata_topic = "game_metadata"
-        self.outcome_topic = "game_outcome"
+        self.metadata_topic = "metadata"
+        self.outcome_topic = "outcome"
         self.historic_data_topic = "historic_data"
 
     def reset_game(self):
@@ -30,13 +25,30 @@ class ShuffleboardGame:
         self.history = []
         self.start_time = time.time()
 
-    def receive_action(self):
+    def on_connect(self, client, userdata, flags, rc):
+        print(f"Connected to MQTT broker with result code {rc}")
+        client.subscribe("GAME ACTIONS")
+
+    def on_message(self, client, userdata, message):
         try:
-            action_message = self.sub_socket.recv_string(zmq.NOBLOCK)
-            action = json.loads(action_message).get("action")
-            return action
-        except zmq.Again:
-            return None
+            payload = message.payload.decode('utf-8')
+            action = json.loads(payload).get("action")
+            print(f"Received action: {action}")  # Debug statement
+            self.process_action(action)
+        except Exception as e:
+            print(f"Error processing message: {e}")
+
+    def process_action(self, action):
+        if action:
+            result = self.apply_action(action)
+            if result is not None:
+                print(f"Shot executed with distance {result} and force {self.player_force}")
+            self.publish_metadata()
+            metadata = self.generate_metadata()
+            print(f"Metadata: {metadata}")  # Debug statement
+
+        if self.round > self.max_rounds or self.score >= self.performance_threshold:
+            self.end_game()
 
     def apply_action(self, action):
         if action == 'adjust_force':
@@ -113,6 +125,7 @@ class ShuffleboardGame:
         metadata = self.generate_metadata()
         metadata_json = json.dumps(metadata)
         self.mqtt_client.publish(self.metadata_topic, metadata_json)
+        print(f"Published metadata: {metadata_json}")  # Debug statement
 
     def publish_historic_data(self):
         duration = time.time() - self.start_time
@@ -124,17 +137,7 @@ class ShuffleboardGame:
         self.mqtt_client.publish(self.historic_data_topic, historic_data_json)
 
     def play_round(self):
-        action = self.receive_action()
-        if action:
-            result = self.apply_action(action)
-            if result is not None:
-                print(f"Shot executed with distance {result} and force {self.player_force}")
-            self.publish_metadata()
-            metadata = self.generate_metadata()
-            print(f"Metadata: {metadata}")
-
-        if self.round > self.max_rounds or self.score >= self.performance_threshold:
-            self.end_game()
+        pass  # No need to do anything here since actions are processed via MQTT
 
     def end_game(self):
         duration = time.time() - self.start_time
@@ -144,11 +147,17 @@ class ShuffleboardGame:
 
 def main():
     target_distance = 50  # Preset target distance from player
-    game = ShuffleboardGame(target_distance, max_rounds=10, performance_threshold=80)
+    game = ShuffleboardGame(target_distance, max_rounds=20, performance_threshold=80)
 
-    while True:
-        game.play_round()
-        time.sleep(1)  # Control the pace of game rounds
+    game.mqtt_client.loop_start()
+
+    try:
+        while True:
+            time.sleep(1)  # Control the pace of game rounds
+    except KeyboardInterrupt:
+        print("Stopping...")
+        game.mqtt_client.loop_stop()
+        game.mqtt_client.disconnect()
 
 if __name__ == "__main__":
     main()

@@ -1,11 +1,10 @@
 import paho.mqtt.client as mqtt
 import json
 import time
-import zmq
 
 class FeaturesToGameAction:
-    def __init__(self, pub_socket):
-        self.pub_socket = pub_socket  # Publisher socket for ZMQ
+    def __init__(self, mqtt_client):
+        self.mqtt_client = mqtt_client  # MQTT client for publishing actions
 
         # Adjusted feature-to-action mappings for 1D shuffleboard
         self.feature_to_action_map = {
@@ -22,19 +21,24 @@ class FeaturesToGameAction:
         """
         if feature in self.feature_to_action_map:
             action, threshold = self.feature_to_action_map[feature]
-            if value > threshold:
-                return action
+            # Handle list or single value comparison
+            if isinstance(value, list):
+                if any(v > threshold for v in value):
+                    return action
+            else:
+                if value > threshold:
+                    return action
         return 'maintain_force'
 
     def process_actions(self, action):
         print(f"Action to perform: {action}")
-        # Convert action to a JSON string and publish via ZMQ
+        # Convert action to a JSON string and publish via MQTT
         action_message = json.dumps({"action": action})
-        self.pub_socket.send_string(action_message)
+        self.mqtt_client.publish("GAME ACTIONS", action_message)
 
 def on_connect(client, userdata, flags, rc):
     print(f"Connected to MQTT broker with result code {rc}")
-    client.subscribe("analyzed_neural_data")
+    client.subscribe("EXTRACTED FEATURES")
 
 def on_message(client, userdata, message):
     try:
@@ -49,11 +53,7 @@ def on_message(client, userdata, message):
         print(f"Error processing message: {e}")
 
 def main():
-    context = zmq.Context()
-    publisher = context.socket(zmq.PUB)
-    publisher.bind("tcp://*:5446")
-
-    features_to_action = FeaturesToGameAction(publisher)
+    features_to_action = FeaturesToGameAction(None)
 
     # Set up MQTT client
     mqtt_client = mqtt.Client(userdata=features_to_action)
@@ -61,6 +61,8 @@ def main():
     mqtt_client.on_message = on_message
     mqtt_client.connect("127.0.0.1", 1883, 60)
     mqtt_client.loop_start()
+
+    features_to_action.mqtt_client = mqtt_client  # Set the mqtt_client after initialization
 
     try:
         while True:

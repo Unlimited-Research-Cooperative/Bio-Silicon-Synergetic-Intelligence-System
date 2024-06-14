@@ -1,6 +1,5 @@
 import paho.mqtt.client as mqtt
 import json
-import struct
 import time
 
 # Constants for digital signal
@@ -14,8 +13,10 @@ NUM_CHANNELS = 4
 
 def float_to_binary(value, bits=BITS_PER_FEATURE):
     """Converts a floating point number to a binary string of specified length."""
+    if value is None:
+        value = 0.0
     max_val = (1 << bits) - 1
-    scaled_value = int((value / max(value, 1.0)) * max_val)
+    scaled_value = int((value / 100.0) * max_val)  # Assuming the value is between 0 and 100
     return f'{scaled_value:0{bits}b}'
 
 def generate_digital_signals(features):
@@ -24,6 +25,7 @@ def generate_digital_signals(features):
     for feature_value in features:
         # Convert each feature value to binary string with the specified number of bits
         binary_feature = float_to_binary(feature_value)
+        print(f"Feature value: {feature_value}, Binary: {binary_feature}")  # Debug statement
         # Convert binary strings to list of signals (ON_SIGNAL or OFF_SIGNAL)
         digital_signals_feature = [ON_SIGNAL if bit == '1' else OFF_SIGNAL for bit in binary_feature]
         digital_signals_per_channel.append(digital_signals_feature)
@@ -37,7 +39,7 @@ def calculate_packet_length(features):
 
 def on_connect(client, userdata, flags, rc):
     print(f"Connected to MQTT broker with result code {rc}")
-    client.subscribe("game_metadata")
+    client.subscribe("metadata")
 
 def on_message(client, userdata, message):
     try:
@@ -52,12 +54,16 @@ def on_message(client, userdata, message):
             game_state.get('player_force', 0.0)
         ]
         
+        # Print received features for debugging
+        print(f"Received features: {features}")
+        
         # Calculate packet length in seconds
         packet_length = calculate_packet_length(features)
         print(f"Packet length: {packet_length} seconds")
         
         # Generate the digital signals for each feature
         digital_signals_per_channel = generate_digital_signals(features)
+        print(f"Digital signals: {digital_signals_per_channel}")  # Debug statement
         
         # Create a list of 192 ms long signals for each channel
         stim_signals = []
@@ -72,6 +78,7 @@ def on_message(client, userdata, message):
         # Publish the stimulation signals to the MQTT topic "digital_signals"
         stim_signals_data = json.dumps({"stim_signals": stim_signals})
         client.publish("digital_signals", stim_signals_data)
+        print(f"Published digital signals: {stim_signals_data}")  # Debug statement
         
     except Exception as e:
         print(f"Error processing message: {e}")

@@ -1,10 +1,15 @@
 import paho.mqtt.client as mqtt
 import json
 import time
+import os
 from datetime import datetime
 
 # Directory to save the historic data files
 output_dir = "/home/vincent/MySSD/JupyterProjects/AAA_projects/UnlimitedResearchCooperative/Synthetic_Intelligence_Labs/Bio-Silicon-Synergetic-Intelligence-System/Software/system/shuffleboard_1D/script_based_system/digital_stimulation_system_floating_point_binary/sessions"
+
+# Ensure the directory exists
+if not os.path.exists(output_dir):
+    os.makedirs(output_dir)
 
 # Callback when the client receives a connection acknowledgment from the server
 def on_connect(client, userdata, flags, rc):
