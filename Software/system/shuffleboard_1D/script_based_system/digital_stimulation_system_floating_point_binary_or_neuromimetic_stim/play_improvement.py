@@ -1,0 +1,1 @@
+take sessions info and visualize the number of closer distance to target plays vs furhter distance to target plays (Y axis) in each game, games in time sequence (X axis), total score per game (Y axis), total plays per game (Y axis)
