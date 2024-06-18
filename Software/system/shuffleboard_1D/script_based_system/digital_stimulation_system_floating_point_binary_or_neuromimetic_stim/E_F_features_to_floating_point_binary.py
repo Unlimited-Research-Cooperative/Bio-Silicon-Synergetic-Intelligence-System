@@ -75,9 +75,9 @@ def on_message(client, userdata, message):
         while len(stim_signals) < NUM_CHANNELS:
             stim_signals.append([OFF_SIGNAL] * int(STIM_DURATION / BIT_DURATION))
         
-        # Publish the stimulation signals to the MQTT topic "digital_signals"
+        # Publish the stimulation signals to the MQTT topic "DIGITAL SIGNALS"
         stim_signals_data = json.dumps({"stim_signals": stim_signals})
-        client.publish("digital_signals", stim_signals_data)
+        client.publish("DIGITAL SIGNALS", stim_signals_data)
         print(f"Published digital signals: {stim_signals_data}")  # Debug statement
         
     except Exception as e:
