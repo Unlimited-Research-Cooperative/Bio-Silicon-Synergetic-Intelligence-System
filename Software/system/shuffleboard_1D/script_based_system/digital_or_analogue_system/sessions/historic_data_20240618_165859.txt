@@ -1,0 +1,142 @@
+Game Duration: 4.997590065002441 seconds
+History:
+Round: 1
+  Action: execute_shot
+  Result: Distance - 12, Force - 12
+  Timestamp: 2024-06-18 16:58:54
+  Distance to Target: 38
+  Player Force: 12
+
+Round: 2
+  Action: execute_shot
+  Result: Distance - 19, Force - 19
+  Timestamp: 2024-06-18 16:58:54
+  Distance to Target: 31
+  Player Force: 19
+
+Round: 3
+  Action: execute_shot
+  Result: Distance - 21, Force - 21
+  Timestamp: 2024-06-18 16:58:55
+  Distance to Target: 29
+  Player Force: 21
+
+Round: 4
+  Action: execute_shot
+  Result: Distance - 28, Force - 28
+  Timestamp: 2024-06-18 16:58:55
+  Distance to Target: 22
+  Player Force: 28
+
+Round: 5
+  Action: execute_shot
+  Result: Distance - 30, Force - 30
+  Timestamp: 2024-06-18 16:58:55
+  Distance to Target: 20
+  Player Force: 30
+
+Round: 6
+  Action: execute_shot
+  Result: Distance - 32, Force - 32
+  Timestamp: 2024-06-18 16:58:55
+  Distance to Target: 18
+  Player Force: 32
+
+Round: 7
+  Action: execute_shot
+  Result: Distance - 34, Force - 34
+  Timestamp: 2024-06-18 16:58:56
+  Distance to Target: 16
+  Player Force: 34
+
+Round: 8
+  Action: execute_shot
+  Result: Distance - 41, Force - 41
+  Timestamp: 2024-06-18 16:58:56
+  Distance to Target: 9
+  Player Force: 41
+
+Round: 9
+  Action: execute_shot
+  Result: Distance - 48, Force - 48
+  Timestamp: 2024-06-18 16:58:56
+  Distance to Target: 2
+  Player Force: 48
+
+Round: 10
+  Action: execute_shot
+  Result: Distance - 55, Force - 55
+  Timestamp: 2024-06-18 16:58:56
+  Distance to Target: 5
+  Player Force: 55
+
+Round: 11
+  Action: execute_shot
+  Result: Distance - 62, Force - 62
+  Timestamp: 2024-06-18 16:58:57
+  Distance to Target: 12
+  Player Force: 62
+
+Round: 12
+  Action: execute_shot
+  Result: Distance - 69, Force - 69
+  Timestamp: 2024-06-18 16:58:57
+  Distance to Target: 19
+  Player Force: 69
+
+Round: 13
+  Action: execute_shot
+  Result: Distance - 71, Force - 71
+  Timestamp: 2024-06-18 16:58:57
+  Distance to Target: 21
+  Player Force: 71
+
+Round: 14
+  Action: execute_shot
+  Result: Distance - 78, Force - 78
+  Timestamp: 2024-06-18 16:58:57
+  Distance to Target: 28
+  Player Force: 78
+
+Round: 15
+  Action: execute_shot
+  Result: Distance - 85, Force - 85
+  Timestamp: 2024-06-18 16:58:58
+  Distance to Target: 35
+  Player Force: 85
+
+Round: 16
+  Action: execute_shot
+  Result: Distance - 87, Force - 87
+  Timestamp: 2024-06-18 16:58:58
+  Distance to Target: 37
+  Player Force: 87
+
+Round: 17
+  Action: execute_shot
+  Result: Distance - 94, Force - 94
+  Timestamp: 2024-06-18 16:58:58
+  Distance to Target: 44
+  Player Force: 94
+
+Round: 18
+  Action: execute_shot
+  Result: Distance - 101, Force - 101
+  Timestamp: 2024-06-18 16:58:58
+  Distance to Target: 51
+  Player Force: 101
+
+Round: 19
+  Action: execute_shot
+  Result: Distance - 108, Force - 108
+  Timestamp: 2024-06-18 16:58:59
+  Distance to Target: 58
+  Player Force: 108
+
+Round: 20
+  Action: execute_shot
+  Result: Distance - 110, Force - 110
+  Timestamp: 2024-06-18 16:58:59
+  Distance to Target: 60
+  Player Force: 110
+
