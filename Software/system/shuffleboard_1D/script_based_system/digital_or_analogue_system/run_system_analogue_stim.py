@@ -28,7 +28,6 @@ def start_scripts(real, duration_minutes):
         "Neuromimetic_E_game_to_features.py",
         "Neuromimetic_F_signals_generator.py",
         "Neuromimetic_F1_Signals_Visualiser.py",
-        "Neuromimetic_G_send_signals_to_usb_hub.py",
         "I_rewards_and_mappings.py"
     ]
 

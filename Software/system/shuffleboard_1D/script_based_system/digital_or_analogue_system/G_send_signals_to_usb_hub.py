@@ -26,12 +26,16 @@ latest_waveform = None
 # Start the JACK server and connect to USB audio devices
 def start_jack():
     # Start JACK server if not already running
-    subprocess.Popen(['jackd', '-d', 'alsa', '-d', 'hw:6', '-r', '48000', '-p', '512', '-n', '3'])
+    subprocess.Popen(['jackd', '-d', 'alsa', '-d', 'hw:0', '-r', '48000', '-p', '512', '-n', '3', '-S', '-P', '4', '-C', '4'])
     time.sleep(5)  # Wait for JACK to start
 
+    # List of USB audio device symlinks
+    usb_devices = ["/dev/USB16_usb2", "/dev/USB16_usb3", "/dev/USB16_usb4", "/dev/USB16_usb5"]
+
     # Connect JACK ports to USB audio devices
-    for i in range(NUM_CHANNELS):
-        subprocess.call(['jack_connect', f'system:playback_{i+1}', f'system:playback_{i+1}'])
+    for i, device in enumerate(usb_devices):
+        subprocess.call(['jack_connect', f'system:playback_{i*2+1}', f'{device}:playback_1'])
+        subprocess.call(['jack_connect', f'system:playback_{i*2+2}', f'{device}:playback_2'])
 
 # Callback when the client receives a connection acknowledgment from the server
 def on_connect(client, userdata, flags, rc):
@@ -69,7 +73,7 @@ class DigitalSignalVisualizer(QWidget):
         self.init_ui()
         
     def init_ui(self):
-        self.setWindowTitle('Digital Signal Visualizer')
+        self.setWindowTitle('ANALOGUE SIGNAL VISUALISER')
         self.setStyleSheet("background-color: black;")
         
         main_layout = QVBoxLayout()
@@ -126,6 +130,8 @@ class DigitalSignalVisualizer(QWidget):
 
     def send_to_jack(self, channel_index, data):
         # Replace with your actual logic to send data to JACK
+        # Example: Use subprocess to call an external script that handles JACK communication
+        # This is a placeholder
         jack_client = subprocess.Popen(['jack_simple_client', str(channel_index)], stdin=subprocess.PIPE)
         jack_client.stdin.write(data.tobytes())
         jack_client.stdin.close()

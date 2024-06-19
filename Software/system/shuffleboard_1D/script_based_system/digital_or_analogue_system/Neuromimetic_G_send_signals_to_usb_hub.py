@@ -1,46 +1,33 @@
-import sys
-import json
-import logging
 import numpy as np
 import paho.mqtt.client as mqtt
+import json
+import pyaudio
+import threading
 import time
-import subprocess
-
-from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QHBoxLayout
-from PyQt5.QtCore import QTimer
-import pyqtgraph as pg
-
-logging.basicConfig(level=logging.DEBUG)
+from scipy.signal import resample_poly
 
 # Constants
-MQTT_BROKER = "127.0.0.1"
-MQTT_PORT = 1883
-MQTT_TOPIC = "ANALOGUE SIGNALS"
 PACKET_DURATION = 0.25  # 250 ms packets
-BIT_DURATION = 0.0125  # 12.5 ms per bit (for 16 bits in 200 ms)
 NUM_CHANNELS = 4
+AMPLITUDE = 32767  # Max value for 16-bit audio
+INPUT_SAMPLE_RATE = 500
+OUTPUT_SAMPLE_RATE = 48000  # Common sample rate for audio playback
+BUFFER_SIZE = int(OUTPUT_SAMPLE_RATE * PACKET_DURATION)  # Number of samples per packet
+RING_BUFFER_SIZE = BUFFER_SIZE * 4  # Larger buffer for more continuous playback
 
-# Global variable to store the latest digital waveform for visualization
+# PyAudio device indices for the output channels
+pyaudio_devices = [18, 19, 20, 21]  # Replace with actual indices if needed
+
+# Global variables
 latest_waveform = None
-
-# Start the JACK server and connect to USB audio devices
-def start_jack():
-    # Start JACK server if not already running
-    subprocess.Popen(['jackd', '-d', 'alsa', '-d', 'hw:0', '-r', '48000', '-p', '512', '-n', '3', '-S', '-P', '4', '-C', '4'])
-    time.sleep(5)  # Wait for JACK to start
-
-    # List of USB audio device names (replace these with the actual device names)
-    usb_devices = ["USB-Audio-1", "USB-Audio-2", "USB-Audio-3", "USB-Audio-4"]
-
-    # Connect JACK ports to USB audio devices
-    for i, device in enumerate(usb_devices):
-        subprocess.call(['jack_connect', f'system:playback_{i*2+1}', f'{device}:playback_1'])
-        subprocess.call(['jack_connect', f'system:playback_{i*2+2}', f'{device}:playback_2'])
+ring_buffers = [np.zeros(RING_BUFFER_SIZE, dtype=np.float32) for _ in range(NUM_CHANNELS)]
+ring_buffer_write_positions = [0 for _ in range(NUM_CHANNELS)]
+lock = threading.Lock()
 
 # Callback when the client receives a connection acknowledgment from the server
 def on_connect(client, userdata, flags, rc):
     print(f"Connected with result code {rc}")
-    client.subscribe(MQTT_TOPIC)
+    client.subscribe("ANALOGUE SIGNALS")
 
 # Callback when a PUBLISH message is received from the server
 def on_message(client, userdata, msg):
@@ -50,111 +37,101 @@ def on_message(client, userdata, msg):
         payload = msg.payload.decode('utf-8')
         
         # Parse the JSON data
-        digital_data = json.loads(payload)["stim_signals"]
+        analogue_data = json.loads(payload)["signals"]
         
-        # Convert digital data (list of lists) to a NumPy array for each channel
-        digital_waveform = [np.array([1 if bit == 150 else -1 for bit in signal]) for signal in digital_data]
+        # Convert analogue data (list of lists) to a NumPy array for each channel
+        analogue_waveform = [np.array(signal) for signal in analogue_data]
         
-        # Store the latest waveform for visualization
-        latest_waveform = digital_waveform
-        print(f"Latest waveform: {latest_waveform}")  # Debug statement
+        # Scale the signals to the appropriate range
+        scaled_waveform = [np.clip(signal * 4000, -1, 1) for signal in analogue_waveform]
+        
+        with lock:
+            latest_waveform = np.array(scaled_waveform)
+        
+        print(f"Received waveform (1 data point per channel): {[waveform[0] for waveform in latest_waveform]}")
+        for i, waveform in enumerate(latest_waveform):
+            print(f"Channel {i} - Min: {waveform.min()}, Max: {waveform.max()}")
         
     except Exception as e:
         print(f"Error processing message: {e}")
 
-class DigitalSignalVisualizer(QWidget):
-    def __init__(self, num_channels, mqtt_client):
-        super().__init__()
-        self.num_channels = num_channels
-        self.data = [np.zeros(500) for _ in range(num_channels)]  # Initialize with zeros for 500 samples per channel
-        self.ptr = 0
-        self.mqtt_client = mqtt_client
+def audio_callback_factory(channel):
+    def audio_callback(in_data, frame_count, time_info, status):
+        global ring_buffers, ring_buffer_write_positions, lock
         
-        self.init_ui()
-        
-    def init_ui(self):
-        self.setWindowTitle('ANALOGUE SIGNAL VISUALISER')
-        self.setStyleSheet("background-color: black;")
-        
-        main_layout = QVBoxLayout()
-        self.setLayout(main_layout)
-        
-        self.plots = []
-        self.curves = []  # To store PlotDataItem objects for each curve
-        
-        num_plots_per_row = 2
-        num_rows = int(np.ceil(self.num_channels / num_plots_per_row))
-        
-        for i in range(num_rows):
-            row_layout = QHBoxLayout()
-            main_layout.addLayout(row_layout)
+        with lock:
+            start_pos = ring_buffer_write_positions[channel]
+            end_pos = start_pos + frame_count
             
-            for j in range(num_plots_per_row):
-                channel_index = i * num_plots_per_row + j
-                if channel_index < self.num_channels:
-                    plot = pg.PlotWidget()
-                    plot.setBackground('k')  # Set plot background to black
-                    plot.setTitle(f'Channel {channel_index + 1}', color='#00D8D8')  # Bright turquoise color
-                    plot.setLabel('left', 'Signal Value', color='#00D8D8')
-                    plot.setLabel('bottom', 'Sample Index', color='#00D8D8')
-                    plot.setMinimumHeight(200)  # Adjust plot height
-                    plot.setMinimumWidth(400)   # Adjust plot width
-                    
-                    plot.getAxis('left').setPen(pg.mkPen(color='#00D8D8'))  # Set left axis pen color
-                    plot.getAxis('bottom').setPen(pg.mkPen(color='#00D8D8'))  # Set bottom axis pen color
-                    plot.getAxis('left').setTextPen(pg.mkPen(color='#00D8D8'))  # Set left axis text color
-                    plot.getAxis('bottom').setTextPen(pg.mkPen(color='#00D8D8'))  # Set bottom axis text color
-                    
-                    row_layout.addWidget(plot)
-                    self.plots.append(plot)
-                    
-                    # Initialize PlotDataItem and add to the plot
-                    curve = plot.plot(pen=pg.mkPen(color='#00D8D8', width=1))  # Bright turquoise color
-                    self.curves.append(curve)
-        
-        self.timer = QTimer()
-        self.timer.timeout.connect(self.update_plot)
-        self.timer.start(100)
-        
-        self.show()
-        
-    def update_plot(self):
-        global latest_waveform
-        if latest_waveform is not None:
-            for i in range(self.num_channels):
-                self.data[i] = np.roll(self.data[i], -len(latest_waveform[i]))
-                self.data[i][-len(latest_waveform[i]):] = latest_waveform[i]
-                self.curves[i].setData(self.data[i])
-                # Send the data to JACK ports
-                self.send_to_jack(i, self.data[i])
+            if end_pos <= RING_BUFFER_SIZE:
+                chunk = ring_buffers[channel][start_pos:end_pos]
+            else:
+                chunk = np.concatenate((ring_buffers[channel][start_pos:], ring_buffers[channel][:end_pos % RING_BUFFER_SIZE]))
 
-    def send_to_jack(self, channel_index, data):
-        # Replace with your actual logic to send data to JACK
-        # Example: Use subprocess to call an external script that handles JACK communication
-        # This is a placeholder
-        jack_client = subprocess.Popen(['jack_simple_client', str(channel_index)], stdin=subprocess.PIPE)
-        jack_client.stdin.write(data.tobytes())
-        jack_client.stdin.close()
+            ring_buffer_write_positions[channel] = end_pos % RING_BUFFER_SIZE
+        
+        int_waveform = (chunk * AMPLITUDE).astype(np.int16)
+        
+        # Logging to confirm each device is playing the respective channel signal
+        print(f"Device {pyaudio_devices[channel]} playing channel {channel} data: {int_waveform[:10]}...")
+
+        return (int_waveform.tobytes(), pyaudio.paContinue)
+    return audio_callback
 
 def main():
-    # Start the JACK server and set up connections
-    start_jack()
+    global latest_waveform, ring_buffers, ring_buffer_write_positions
 
-    mqtt_client = mqtt.Client()
-    mqtt_client.on_connect = on_connect
-    mqtt_client.on_message = on_message
-    mqtt_client.connect(MQTT_BROKER, MQTT_PORT, 60)
-    mqtt_client.loop_start()
+    # Set up MQTT client
+    client = mqtt.Client()
+    client.on_connect = on_connect
+    client.on_message = on_message
     
-    app = QApplication(sys.argv)
-    visualizer = DigitalSignalVisualizer(num_channels=NUM_CHANNELS, mqtt_client=mqtt_client)
+    client.connect("127.0.0.1", 1883, 60)
+    client.loop_start()
+
+    # Set up audio streams with callback
+    p = pyaudio.PyAudio()
+    streams = []
     
+    for i, device_index in enumerate(pyaudio_devices):
+        try:
+            stream = p.open(format=pyaudio.paInt16,
+                            channels=1,
+                            rate=OUTPUT_SAMPLE_RATE,
+                            output=True,
+                            output_device_index=device_index,
+                            stream_callback=audio_callback_factory(i))
+            streams.append(stream)
+            stream.start_stream()
+        except Exception as e:
+            print(f"Error opening stream for device {device_index}: {e}")
+
     try:
-        sys.exit(app.exec_())
+        while True:
+            if latest_waveform is not None:
+                with lock:
+                    resampled_waveform = [resample_poly(channel, OUTPUT_SAMPLE_RATE, INPUT_SAMPLE_RATE) for channel in latest_waveform]
+                    for i in range(NUM_CHANNELS):
+                        write_pos = ring_buffer_write_positions[i]
+                        to_write = resampled_waveform[i]
+                        available_space = RING_BUFFER_SIZE - write_pos
+                        if len(to_write) > available_space:
+                            ring_buffers[i][write_pos:] = to_write[:available_space]
+                            ring_buffers[i][:len(to_write) - available_space] = to_write[available_space:]
+                        else:
+                            ring_buffers[i][write_pos:write_pos + len(to_write)] = to_write
+                        ring_buffer_write_positions[i] = (write_pos + len(to_write)) % RING_BUFFER_SIZE
+                latest_waveform = None
+            
+            time.sleep(PACKET_DURATION / 2)  # Reduce sleep time to ensure buffer is updated more frequently
     except KeyboardInterrupt:
         print("Stopping...")
-        mqtt_client.loop_stop()
-        mqtt_client.disconnect()
+        client.loop_stop()
+        client.disconnect()
+        for stream in streams:
+            stream.stop_stream()
+            stream.close()
+        p.terminate()
 
 if __name__ == "__main__":
     main()
