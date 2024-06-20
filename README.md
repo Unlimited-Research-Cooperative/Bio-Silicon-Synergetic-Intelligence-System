@@ -42,18 +42,15 @@ Our methodology is deeply rooted in bidirectional communication, leveraging AI t
 
 - **Brain Surface Communication**: Neural activities are mapped via AI, translating into game movements and vice versa.
 - **Signal Transmission**: The process begins with brain surface signals, read from our MEA, transmitted through a FreeEEG32 board, to BrainFlow for acquisition, then into our custom software for analysis.
-- **Neuromimetic Feedback**: Neural signals are decoded into game actions, with game and in-game rat movement data (facilitating a self-loop learning concept) encoded back into neuromimetic signals. These signals are then fed back into the rat brain.
-- **Signal Processing**: The 32 signals are sent to two 16 port usb hubs, connected to modified usb-audio converters, followed by resistors for voltage division to match ECoG voltage levels.
+- **Neuromimetic Feedback**: Neural signals are decoded into game actions, with game and in-game action data (facilitating a self-loop learning concept) encoded back into neuromimetic signals. These signals are then fed back into the rat brain.
+- **Signal Processing**: The signals are sent to a usb hub, connected to modified usb-audio converters, followed by resistors for voltage division to match ECoG voltage levels.
 
 ## Microelectrode Array (MEA) Specifications
 
 ### Electrode Specifications
 
-- **Type**: 64 electrodes (32 input/recording, 32 output/stimulation).
 - **Wire Gauge**: 30 AWG (254.6 micrometers diameter).
-- **Array Area**: 3 cm² total coverage.
-- **Spatial Resolution**: 400-500 micrometers.
-- **Temporal Resolution**: 1000 - 2000 Hz.
+- **Temporal Resolution**: 512hz
 
 ### Encasement and Design
 
@@ -61,6 +58,11 @@ Our methodology is deeply rooted in bidirectional communication, leveraging AI t
 - **Thickness**: 0.1 mm, accommodating brain tissue growth.
 - **Shape**: Two connected trapezoids for conforming to brain curvature.
 - **Wiring**: Twisted pair configuration for each electrode, reducing interference.
+
+## Additional Experiments
+
+- **Self-Organizing Neural Interface Materials**: We will experiment with various combinations of multiwall carbon nanotubes, chitosan, collagen, whey, and Lactobacillus, to observe any improvements with the learning. The Lactobacillus is included to test the hypothesis of possible bio based neural interfacing between electrodes and neurons.
+- **Psilocybin for Neural Plasticity**: We will also experiment with administering Psilocybin to the rats orally to test our hypothesis of possible system improvement through Psilocybin consumption correlated to neural plasticity.
 
 ### Papers:
 - [**Phase 1**](https://www.researchgate.net/publication/379048160_Bio-Silicon_Synergetic_Intelligence_System_Phase_1_Software_Development_and_Prospective_Implantation_of_Microelectrode_Arrays_and_Human_Cortical_Organoids_into_Rat_Brains
