@@ -8,7 +8,7 @@
 </div>
 
 <div align="center">
-  <a href="https://discord.gg/GVyaBEjCY2">
+  <a href="https://discord.gg/weGGNWScUr">
     <img src="https://img.shields.io/static/v1?label=Unlimited%20Research%20Cooperative&message=Join%20Now&color=7289DA&logo=discord&style=for-the-badge" alt="Discord server">
   </a>
 </div>
