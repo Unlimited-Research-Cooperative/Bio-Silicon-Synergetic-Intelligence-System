@@ -31,4 +31,5 @@ Software/CNN_feature_extraction_project/**/.ipynb_checkpoints/**
 Software/CNN_feature_extraction_project/**/*.pkl
 Software/CNN_feature_extraction_project/**/*.edf
 Software/CNN_feature_extraction_project/**/*.npz
+Software/CNN_feature_extraction_project/**/*.pt
 Software/CNN_feature_extraction_project/**/*.h5
