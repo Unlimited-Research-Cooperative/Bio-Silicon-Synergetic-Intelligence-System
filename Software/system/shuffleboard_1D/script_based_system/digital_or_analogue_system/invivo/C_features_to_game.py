@@ -11,13 +11,8 @@ class FeaturesToGameAction(QWidget):
         self.mqtt_client = mqtt_client  # MQTT client for publishing actions
         self.selected_channels = selected_channels if selected_channels else list(range(32))  # Default to all 32 channels
 
-        # Adjusted feature-to-action mappings for 1D shuffleboard
-        self.feature_to_action_map = {
-            'variance': ('adjust_force', 0.2),
-            'std_dev': ('fine_tune_force', 0.1),
-            'rms': ('execute_shot', 0.5),
-            'peak_count': ('retry_shot', 3),
-        }
+        # To store previous values for comparison
+        self.previous_values = {'variance': None, 'std_dev': None, 'rms': None, 'peak_count': None}
 
         # Setup UI
         self.init_ui()
@@ -27,7 +22,7 @@ class FeaturesToGameAction(QWidget):
         self.setStyleSheet("background-color: black; color: #00D8D8;")
 
         self.results_table = QTableWidget()
-        self.results_table.setRowCount(len(self.feature_to_action_map))
+        self.results_table.setRowCount(4)
         self.results_table.setColumnCount(3)
         self.results_table.setHorizontalHeaderLabels(['Feature', 'Value', 'Action'])
         self.results_table.setStyleSheet("background-color: black; color: #00D8D8;")
@@ -45,38 +40,51 @@ class FeaturesToGameAction(QWidget):
 
     def decode_signal_features(self, feature, value):
         """
-        Translate the decoded signal feature into a game action,
-        using the feature_to_action_map.
+        Translate the decoded signal feature into a game action
+        based on whether the feature value has increased or decreased.
         """
-        if feature in self.feature_to_action_map:
-            action, threshold = self.feature_to_action_map[feature]
-            if isinstance(value, dict):  # Special handling for peaks
-                peak_count = value['peak_count']
-                if peak_count > threshold:
-                    return action
-            else:
-                # Handle list or single value comparison
-                if isinstance(value, list):
-                    avg_value = sum(value) / len(value)
-                    if avg_value > threshold:
-                        return action
-                else:
-                    if value > threshold:
-                        return action
-        return 'maintain_force'
+        previous_value = self.previous_values.get(feature)
+        if previous_value is None:
+            self.previous_values[feature] = value
+            return 'maintain_force', 0
+        
+        force_adjustment = 0
+        if feature == 'variance':
+            if value > previous_value:
+                force_adjustment += 5
+            elif value < previous_value:
+                force_adjustment -= 5
+        elif feature == 'std_dev':
+            if value > previous_value:
+                force_adjustment += 1
+            elif value < previous_value:
+                force_adjustment -= 1
+        elif feature == 'rms':
+            if value > previous_value:
+                force_adjustment += 3
+            elif value < previous_value:
+                force_adjustment -= 3
+        elif feature == 'peak_count':
+            if value > previous_value:
+                force_adjustment += 2
+            elif value < previous_value:
+                force_adjustment -= 2
 
-    def process_actions(self, action):
-        print(f"Action to perform: {action}")
+        self.previous_values[feature] = value
+        return 'adjust_force', force_adjustment
+
+    def process_actions(self, total_force_adjustment):
+        print(f"Total force adjustment: {total_force_adjustment}")
         # Convert action to a JSON string and publish via MQTT
-        action_message = json.dumps({"action": action})
+        action_message = json.dumps({"action": "adjust_force", "force_adjustment": total_force_adjustment})
         self.mqtt_client.publish("GAME ACTIONS", action_message)
 
-    def update_results(self, feature, value, action):
-        row = list(self.feature_to_action_map.keys()).index(feature)
+    def update_results(self, feature, value, action, force_adjustment):
+        row = list(self.previous_values.keys()).index(feature)
         display_value = str(value['peak_count']) if isinstance(value, dict) else str(value)
         self.results_table.setItem(row, 0, QTableWidgetItem(feature))
         self.results_table.setItem(row, 1, QTableWidgetItem(display_value))
-        self.results_table.setItem(row, 2, QTableWidgetItem(action))
+        self.results_table.setItem(row, 2, QTableWidgetItem(f"{action} ({force_adjustment})"))
 
 def on_connect(client, userdata, flags, rc):
     print(f"Connected to MQTT broker with result code {rc}")
@@ -102,11 +110,15 @@ def on_message(client, userdata, message):
                 aggregated_data[feature] = sum(selected_values) / len(selected_values)
 
         # Process each feature in the aggregated data
+        total_force_adjustment = 0
         for feature, value in aggregated_data.items():
-            action = userdata.decode_signal_features(feature, value)
-            if action:
-                userdata.process_actions(action)
-                userdata.update_results(feature, value, action)
+            action, force_adjustment = userdata.decode_signal_features(feature, value)
+            total_force_adjustment += force_adjustment
+            userdata.update_results(feature, value, action, force_adjustment)
+
+        # Perform the action with the total force adjustment
+        if total_force_adjustment != 0:
+            userdata.process_actions(total_force_adjustment)
     except Exception as e:
         print(f"Error processing message: {e}")
 
