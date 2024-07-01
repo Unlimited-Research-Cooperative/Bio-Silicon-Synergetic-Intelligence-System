@@ -2,8 +2,7 @@ import sys
 import json
 import time
 import paho.mqtt.client as mqtt
-
-from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QTableWidget, QTableWidgetItem
+from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QTableWidget, QTableWidgetItem, QLabel
 
 class FeaturesToGameAction(QWidget):
     def __init__(self, mqtt_client, selected_channels=None):
@@ -32,8 +31,12 @@ class FeaturesToGameAction(QWidget):
         self.results_table.setColumnWidth(1, 150)  # Value column
         self.results_table.setColumnWidth(2, 300)  # Action column, doubled the width
 
+        self.total_force_label = QLabel("Total Force Adjustment: 0")
+        self.total_force_label.setStyleSheet("color: #00D8D8; font-size: 16px;")
+
         layout = QVBoxLayout()
         layout.addWidget(self.results_table)
+        layout.addWidget(self.total_force_label)
         self.setLayout(layout)
 
         self.show()
@@ -78,6 +81,7 @@ class FeaturesToGameAction(QWidget):
         # Convert action to a JSON string and publish via MQTT
         action_message = json.dumps({"action": "adjust_force", "force_adjustment": total_force_adjustment})
         self.mqtt_client.publish("GAME ACTIONS", action_message)
+        self.total_force_label.setText(f"Total Force Adjustment: {total_force_adjustment}")
 
     def update_results(self, feature, value, action, force_adjustment):
         row = list(self.previous_values.keys()).index(feature)

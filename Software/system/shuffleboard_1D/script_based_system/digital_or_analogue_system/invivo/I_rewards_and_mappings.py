@@ -4,23 +4,35 @@ import time
 import json
 import pygame
 from collections import defaultdict
-import usbrelaymodule  # Assuming this is the correct module for USB relay
+import subprocess  # To control the USB power
+import usbrelaymodule 
 
 class FeedbackSystem:
-    def __init__(self, usb_relay):
+    def __init__(self, hub, port, usb_relay):
         # Initialize pygame for audio output
         pygame.mixer.init()
         self.reward_sound_path = "reward_sound.wav"  # Path to the reward sound file
-        self.distress_sound_path = "distress_sound.wav"  # Path to the distress sound, inaudible to humans
 
-        # USB relay for solenoid valve control
+        # Parameters for USB hub and port
+        self.hub = hub
+        self.port = port
+
+        # USB relay for feeder control
         self.usb_relay = usb_relay
+
+    def turn_repeller_on(self):
+        # Turn on the USB power to the repeller
+        subprocess.run(['uhubctl', '-l', self.hub, '-p', self.port, '-a', 'on'])
+
+    def turn_repeller_off(self):
+        # Turn off the USB power to the repeller
+        subprocess.run(['uhubctl', '-l', self.hub, '-p', self.port, '-a', 'off'])
 
     def play_sound(self, sound_path):
         # Play a sound from the specified path
         pygame.mixer.music.load(sound_path)
         pygame.mixer.music.play()
-
+        
     def activate_feeder(self):
         # Activate the feeder to dispense the reward mix using the USB relay
         self.usb_relay.turn_on()  # Turn on the USB relay to activate the feeder
@@ -33,24 +45,9 @@ class FeedbackSystem:
             self.play_sound(self.reward_sound_path)
             self.activate_feeder()  # Also activate the feeder for positive reinforcement
         elif outcome == "distress":
-            self.play_sound(self.distress_sound_path)
-
-class ActionSuccessLogger:
-    def __init__(self):
-        self.action_log = defaultdict(list)
-
-    def log_action(self, action, success, context=None, feedback=None):
-        self.action_log[action].append({
-            'success': success,
-            'context': context,
-            'user_feedback': feedback
-        })
-
-    def get_action_success_rate(self, action):
-        if action not in self.action_log or not self.action_log[action]:
-            return 0
-        successes = [entry['success'] for entry in self.action_log[action]]
-        return sum(successes) / len(successes)
+            self.turn_repeller_on()
+            time.sleep(0.5)  # Keep the repeller on for 0.5 seconds
+            self.turn_repeller_off()
 
 '''        
 class NeuralMappingVisualizer:
@@ -107,6 +104,25 @@ class DynamicSignalDecoder(SignalDecoder):
             success_rate = self.action_logger.get_action_success_rate(action)
             # Implement logic for adjusting thresholds and mappings based on success_rate 
 '''
+
+
+class ActionSuccessLogger:
+    def __init__(self):
+        self.action_log = defaultdict(list)
+
+    def log_action(self, action, success, context=None, feedback=None):
+        self.action_log[action].append({
+            'success': success,
+            'context': context,
+            'user_feedback': feedback
+        })
+
+    def get_action_success_rate(self, action):
+        if action not in self.action_log or not self.action_log[action]:
+            return 0
+        successes = [entry['success'] for entry in self.action_log[action]]
+        return sum(successes) / len(successes)
+
 class GameController:
     def __init__(self, feedback_system, action_logger):
         self.feedback_system = feedback_system
@@ -156,8 +172,12 @@ class GameController:
             self.mqtt_client.disconnect()
 
 if __name__ == "__main__":
+    hub = "1-1"  # Example hub identifier, replace with your actual hub
+    port = "2"   # Example port number, replace with your actual port
     usb_relay = usbrelaymodule.Relay("relay_device_identifier")  # Initialize with appropriate identifier
-    feedback_system = FeedbackSystem(usb_relay=usb_relay)
+    feedback_system = FeedbackSystem(hub=hub, port=port, usb_relay=usb_relay)
     action_logger = ActionSuccessLogger()
     controller = GameController(feedback_system, action_logger)
     controller.run()
+
+
