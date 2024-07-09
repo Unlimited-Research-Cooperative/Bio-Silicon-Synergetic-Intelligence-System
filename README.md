@@ -38,6 +38,11 @@ Our methodology is deeply rooted in bidirectional communication, leveraging AI t
 
 [**Documentation**](https://unlimited-research-cooperative.github.io/Bio-Silicon-Synergetic-Intelligence-System/)
 
+</p>
+<h1 align="center">Poster</h1>
+<p align="center">
+  <img src="https://github.com/Unlimited-Research-Cooperative/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/blob/main/images/BSIS_research_poster.pdf" alt="bidirectional brain computer_communication.png">
+
 ## System Configuration
 
 - **Brain Surface Communication**: Neural activities are mapped via AI, translating into game movements and vice versa.
@@ -120,35 +125,31 @@ We're reaching out to like-minded researchers and innovators to join us on this 
 
 
 
-https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/blob/main/images/BSIS_research_poster.pdf
-</p>
-<h1 align="center">Poster</h1>
-<p align="center">
-  <img src="https://raw.githubusercontent.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/blob/main/images/BSIS_research_poster.pdf" alt="bidirectional brain computer_communication.png">
+
 </p>
 <h1 align="center">System High Level Schematic</h1>
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/main/images/bidirectional_brain_computer_communication.jpg" alt="bidirectional brain computer_communication.png">
+  <img src="https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/blob/main/images/bidirectional_brain_computer_communication.jpg" alt="bidirectional brain computer_communication.png">
 </p>
 <h1 align="center">Software With Modern GUI for Digita Stim</h1>
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/blob/main/images/digital_stim_system_gui.png">
+  <img src="https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/blob/main/images/digital_stim_system_gui.png">
 </p>
 <h1 align="center">Software With Modern GUI for Analogue Stim</h1>
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/blob/main/images/analogue_stim_system_gui.png">
+  <img src="https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/blob/main/images/analogue_stim_system_gui.png">
 </p>
 <h1 align="center">Software Data Pipeline</h1>
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/main/images/software_flowchart.png" alt="Software Data Pipeline.png">
+  <img src="https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/main/images/software_flowchart.png" alt="Software Data Pipeline.png">
 </p>
 <h1 align="center">Reward System and Feature Mappings</h1>
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/main/images/rewards_and_mappings.png" alt="Reward System and Feature Mappings.png">
+  <img src="https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/main/images/rewards_and_mappings.png" alt="Reward System and Feature Mappings.png">
 </p>
 <h1 align="center">Hardware System Design</h1>
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/main/Hardware/bci_hardware.png" alt="bci_hardware.png">
+  <img src="https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/main/Hardware/bci_hardware.png" alt="bci_hardware.png">
 </p>
 
 ## 🤝 Connect
