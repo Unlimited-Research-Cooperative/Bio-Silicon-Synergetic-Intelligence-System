@@ -38,9 +38,9 @@ Our methodology is deeply rooted in bidirectional communication, leveraging AI t
 
 [**Documentation**](https://unlimited-research-cooperative.github.io/Bio-Silicon-Synergetic-Intelligence-System/)
 
+SIL-BSIS-01
 
 [![Bio-Silicon Synergetic Intelligence System Poster](https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/blob/main/images/BSIS_poster_lowerres.png)](https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/blob/main/images/BSIS_research_poster.pdf)
-
 
 
 
@@ -132,7 +132,7 @@ We're reaching out to like-minded researchers and innovators to join us on this 
 <p align="center">
   <img src="https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/blob/main/images/bidirectional_brain_computer_communication.jpg" alt="bidirectional brain computer_communication.png">
 </p>
-<h1 align="center">Software With Modern GUI for Digita Stim</h1>
+<h1 align="center">Software With Modern GUI for Digital Stim</h1>
 <p align="center">
   <img src="https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/blob/main/images/digital_stim_system_gui.png">
 </p>
