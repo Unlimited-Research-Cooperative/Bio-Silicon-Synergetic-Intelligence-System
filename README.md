@@ -42,9 +42,10 @@ Our methodology is deeply rooted in bidirectional communication, leveraging AI t
 <h1 align="center">Poster</h1>
 <p align="center">
   <a href="https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/blob/main/images/BSIS_research_poster.pdf">
-    <img src="https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/blob/main/images/BSIS_poster_lowerres.png" alt="Bio-Silicon Synergetic Intelligence System Poster" style="width: 100%;">
+    <img src="https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/blob/main/images/BSIS_poster_lowerres.png" alt="Bio-Silicon Synergetic Intelligence System Poster">
   </a>
 </p>
+
 
 
 ## System Configuration
