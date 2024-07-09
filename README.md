@@ -126,17 +126,13 @@ We're reaching out to like-minded researchers and innovators to join us on this 
 <p align="center">
   <img src="https://raw.githubusercontent.com/Unlimited-Research-Cooperative/Human-Brain-Rat/main/images/bidirectional_brain_computer_communication.jpg" alt="bidirectional brain computer_communication.png">
 </p>
-<h1 align="center">Current Software With Modern GUI</h1>
+<h1 align="center">Software With Modern GUI for Digita Stim</h1>
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Raghav67816/Bio-Silicon-Synergetic-Intelligence-System/main/images/ui.png" alt="bio silicon synergetic intelligence GUI work_in_progress.png">
+  <img src="https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/blob/main/images/digital_stim_system_gui.png">
 </p>
-<h1 align="center">Biomimetic Signals Generator</h1>
+<h1 align="center">Software With Modern GUI for Analogue Stim</h1>
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Unlimited-Research-Cooperative/Human-Brain-Rat/main/images/biomimetic_signals.png" alt="biomimetic signals.png">
-</p>
-<h1 align="center">Biomimetic Signals Overlay</h1>
-<p align="center">
-  <img src="https://raw.githubusercontent.com/Unlimited-Research-Cooperative/Human-Brain-Rat/main/images/biomimetic_signals_overlayed.png" alt="biomimetic signals overlay.png">
+  <img src="https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/blob/main/images/analogue_stim_system_gui.png">
 </p>
 <h1 align="center">Software Data Pipeline</h1>
 <p align="center">
@@ -149,9 +145,6 @@ We're reaching out to like-minded researchers and innovators to join us on this 
 <h1 align="center">Hardware System Design</h1>
 <p align="center">
   <img src="https://raw.githubusercontent.com/Unlimited-Research-Cooperative/Human-Brain-Rat/main/Hardware/bci_hardware.png" alt="bci_hardware.png">
-<h1 align="center">Class III Glovebox Design</h1>
-<p align="center">
-  <img src="images/classIII_glovebox.png" alt="class III glovebox">
 </p>
 
 ## 🤝 Connect
