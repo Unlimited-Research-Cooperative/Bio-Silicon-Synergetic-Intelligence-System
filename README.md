@@ -156,6 +156,10 @@ We're reaching out to like-minded researchers and innovators to join us on this 
 <p align="center">
   <img src="https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/blob/main/Hardware/bci_hardware.png" alt="bci hardware.png">
 </p>
+<h1 align="center">Proprietary System Design Overview</h1>
+<p align="center">
+  <img src="https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/blob/main/Hardware/proprietary_system_design.png" alt="proprietary bio silicon intelligence system design">
+</p>
 
 ## 🤝 Connect
 We're more than a project; we're a movement. Let's make history together. [Get in touch](https://github.com/Synthetic-Intelligence-Labs)!
