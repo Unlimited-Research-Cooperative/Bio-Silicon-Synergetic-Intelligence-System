@@ -130,27 +130,31 @@ We're reaching out to like-minded researchers and innovators to join us on this 
 </p>
 <h1 align="center">System High Level Schematic</h1>
 <p align="center">
-  <img src="https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/blob/main/images/bidirectional_brain_computer_communication.jpg" alt="bidirectional brain computer_communication.png">
+  <img src="https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/blob/main/images/bidirectional_brain_computer_communication.jpg" alt="bidirectional brain computer communication.png">
 </p>
-<h1 align="center">Software With Modern GUI for Digital Stim</h1>
+<h1 align="center">System High Level Schematic 2</h1>
 <p align="center">
-  <img src="https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/blob/main/images/digital_stim_system_gui.png">
+  <img src="https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/blob/main/images/high_level_design.png" alt="bidirectional brain computer communication.png">
 </p>
-<h1 align="center">Software With Modern GUI for Analogue Stim</h1>
+<h1 align="center">Open Source Software With Modern GUI for Digital Stim</h1>
 <p align="center">
-  <img src="https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/blob/main/images/analogue_stim_system_gui.png">
+  <img src="https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/blob/main/images/digital stimulation system gui.png">
 </p>
-<h1 align="center">Software Data Pipeline</h1>
+<h1 align="center">Open Source Software With Modern GUI for Analogue Stim</h1>
+<p align="center">
+  <img src="https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/blob/main/images/analogue stimulation system gui.png">
+</p>
+<h1 align="center">Open Source Software Data Pipeline</h1>
 <p align="center">
   <img src="https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/blob/main/images/software_flowchart.png" alt="Software Data Pipeline.png">
 </p>
-<h1 align="center">Reward System and Feature Mappings</h1>
+<h1 align="center">Open Source Reward System and Feature Mappings</h1>
 <p align="center">
   <img src="https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/blob/main/images/rewards_and_mappings.png" alt="Reward System and Feature Mappings.png">
 </p>
-<h1 align="center">Hardware System Design</h1>
+<h1 align="center">Open Source Hardware System Design</h1>
 <p align="center">
-  <img src="https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/blob/main/Hardware/bci_hardware.png" alt="bci_hardware.png">
+  <img src="https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/blob/main/Hardware/bci_hardware.png" alt="bci hardware.png">
 </p>
 
 ## 🤝 Connect
