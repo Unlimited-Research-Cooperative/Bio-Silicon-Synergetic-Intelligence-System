@@ -138,11 +138,11 @@ We're reaching out to like-minded researchers and innovators to join us on this 
 </p>
 <h1 align="center">Open Source Software With Modern GUI for Digital Stim</h1>
 <p align="center">
-  <img src="https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/blob/main/images/digital stimulation system gui.png">
+  <img src="https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/blob/main/images/digital_stim_system_gui.png" alt="Modern GUI for Digital Brain Stimulation System">
 </p>
 <h1 align="center">Open Source Software With Modern GUI for Analogue Stim</h1>
 <p align="center">
-  <img src="https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/blob/main/images/analogue stimulation system gui.png">
+  <img src="https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/blob/main/images/analogue_stim_system_gui.png" alt="Modern GUI for Analogue Brain Stimulation System">
 </p>
 <h1 align="center">Open Source Software Data Pipeline</h1>
 <p align="center">
