@@ -29,14 +29,37 @@ SIL-BSIS-01
 
 [![Bio-Silicon Synergetic Intelligence System Poster](https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/blob/main/images/BSIS_poster_lowerres.png)](https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/blob/main/images/BSIS_research_poster.pdf)
 
+## Open Source Software Usage Instructions
 
+To use this software (open source version), follow these steps:
+
+1. **Download the Software**: 
+   Download the software from the following link: [Bio-Silicon Synergetic Intelligence System - Shuffleboard 1D Script-Based System](https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/tree/6e07ada38bbe4444384b36da36a1215c6b8c5275/Software/system/shuffleboard_1D/script_based_system/digital_or_analogue_system)
+
+2. **Gather Real Data**: 
+   Real data can be gathered from a FreeEEG32 board. You can find more information here: [FreeEEG32](https://github.com/neuroidss/FreeEEG32-beta).
+
+3. **Use Simulation Data**: 
+   Alternatively, you can use simulation data from [OpenNeuro](https://openneuro.org/datasets/ds004770/versions/1.0.0). Look for `sub-01_ses-task_task-game_run-01_ieeg.edf` and download it.
+
+4. **Set the EDF File Path**: 
+   To simulate the data, you must set the EDF file path in the `SimulateNeuralData` script located in the `digital_or_analogue_system` directory to the correct location in your system. Change the file path after this line:
+   ```python
+   # Path to your EDF file
+   file_path = "path_to_your_edf_file"
+    
+   ```
+   
+5. **Run Software**:
+    You can then run the software by executing either run_system_analogue_stim_invivo.py or run_system_digital_stim_invivo.py.
 
 ## System Configuration
 
 - **Brain Surface Communication**: Neural activities are mapped via AI, translating into game movements and vice versa.
-- **Signal Transmission**: The process begins with brain surface signals, read from our MEA, transmitted through a FreeEEG32 board, to BrainFlow for acquisition, then into our custom software for analysis.
-- **Neuromimetic Feedback**: Neural signals are decoded into game actions, with game and in-game action data (facilitating a self-loop learning concept) encoded back into neuromimetic signals. These signals are then fed back into the rat brain.
-- **Signal Processing**: The signals are sent to a usb hub, connected to modified usb-audio converters, followed by resistors for voltage division to match ECoG voltage levels.
+- **Signal Transmission**: The process begins with brain surface signals, read from our MEA, transmitted through a FreeEEG32 board to BrainFlow for acquisition, then into our custom software for analysis.
+- **Analogue Data Encoded Electrical Brain Stimulation**: Neural signals are decoded into game actions. Game and in-game action data are encoded back into analogue electrical signals, which are then fed back into the rat brain.
+- **Digital Data Encoded Electrical Brain Stimulation**: Similar to the analogue process, game actions and in-game data are encoded into digital electrical signals and fed back into the rat brain.
+- **Signal Processing**: The signals are sent to a USB hub, connected to modified USB-audio converters, followed by resistors for voltage division to match ECoG voltage levels.
 
 ## Microelectrode Array (MEA) Specifications
 
@@ -50,12 +73,11 @@ SIL-BSIS-01
 - **Material**: Medical-grade silicone for flexibility and biocompatibility.
 - **Thickness**: 0.1 mm, accommodating brain tissue growth.
 - **Shape**: Two connected trapezoids for conforming to brain curvature.
-- **Wiring**: Twisted pair configuration for each electrode, reducing interference.
 
 ## Additional Experiments
 
-- **Self-Organizing Neural Interface Materials**: We will experiment with various combinations of multiwall carbon nanotubes, chitosan, collagen, whey, and Lactobacillus, to observe any improvements with the learning. The Lactobacillus is included to test the hypothesis of possible bio based neural interfacing between electrodes and neurons.
-- **Psilocybin for Neural Plasticity**: We will also experiment with administering Psilocybin to the rats orally to test our hypothesis of possible system improvement through Psilocybin consumption correlated to neural plasticity.
+- **Self-Organizing Neural Interface Materials**: We are experimenting with various combinations of multiwall carbon nanotubes, chitosan, collagen, whey, and Lactobacillus to optimize system performance. The inclusion of Lactobacillus is to test the hypothesis of potential bio-based neural interfacing between electrodes and neurons.
+- **Psilocybin for Neural Plasticity**: We are also conducting experiments by administering Psilocybin orally to rats. This is to test our hypothesis that Psilocybin consumption may enhance neural plasticity, leading to potential system improvements.
 
 ### Papers:
 - [**Phase 1**](https://www.researchgate.net/publication/379048160_Bio-Silicon_Synergetic_Intelligence_System_Phase_1_Software_Development_and_Prospective_Implantation_of_Microelectrode_Arrays_and_Human_Cortical_Organoids_into_Rat_Brains
@@ -74,10 +96,9 @@ AI-Driven Supervised Learning Framework: The convergence of these two systems is
 In essence, our system represents a harmonious fusion of biotechnology and artificial intelligence, designed to explore and expand the boundaries of neuroscientific research and animal behavior understanding. This dynamic, responsive system is poised to offer unprecedented insights into neural processing, learning mechanisms, and the complex interplay between biological entities and computational intelligence.
 
 
-## DOOM system
+## DOOM System
 
-In our system, we will leverage the combined capabilities of VizDoom and Gymnasium to access and utilize comprehensive game state information for effective decision-making and analysis. VizDoom will serve as our primary interface for interacting with the Doom game engine, providing us with rich access to various game state data such as player status, enemy positions, level layouts, weapon information, and observation spaces. Through Gymnasium, we will create custom gym environments tailored to our specific scenarios and objectives, allowing us to seamlessly integrate VizDoom's functionalities into our reinforcement learning pipelines. By harnessing the power of VizDoom and Gymnasium together, we aim to develop robust AI agents capable of understanding and navigating complex game environments, adapting their strategies based on real-time game state observations, and ultimately achieving specified objectives within the Doom universe.
-
+Our system leverages VizDoom to access and utilize comprehensive game state information for effective decision-making and analysis. VizDoom serves as our primary interface for interacting with the Doom game engine, providing rich access to various game state data such as player status, enemy positions, level layouts, weapon information, observation spaces, and more. By harnessing the power of [VizDoom](https://vizdoom.farama.org/), we aim to develop a robust digital and analogue AI and synthetic biological intelligence system capable of understanding and navigating complex game environments. These system adapts its strategies based on real-time game state observations and ultimately achieve specified objectives within the Doom universe.
 
 ## Rat Health and Wellbeing
 
