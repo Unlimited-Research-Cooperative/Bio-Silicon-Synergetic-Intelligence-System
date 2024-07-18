@@ -40,4 +40,15 @@ jobs:
       run: |
         curl -s "http://www.google.com/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
         curl -s "http://www.bing.com/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "http://www.duckduckgo.com/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "http://www.yandex.com/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "http://www.baidu.com/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "http://www.sogou.com/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "http://www.so.com/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://search.mail.ru/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+      shell: bash
+
+    - name: Ping academic search engines
+      run: |
+        curl -s "http://www.scholar.google.com/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
       shell: bash
