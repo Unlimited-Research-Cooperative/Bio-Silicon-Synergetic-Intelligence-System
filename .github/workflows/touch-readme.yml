@@ -1,0 +1,20 @@
+name: Touch README to Refresh Cache
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Update README
+        run: touch README.md
+      - name: Commit changes
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git commit -am "Touch README to refresh cache"
+          git push
