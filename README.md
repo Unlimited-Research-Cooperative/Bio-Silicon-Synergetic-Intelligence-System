@@ -1,5 +1,5 @@
+![Image](images/analogue_stim_system_gui.png)
 <h1 align="center">Bio-Silicon Synergetic Intelligence System</h1>
-
 
 <div align="center">
   <a href="https://www.tiktok.com/@synthetic_intelligence">
@@ -12,19 +12,6 @@
     <img src="https://img.shields.io/static/v1?label=Unlimited%20Research%20Cooperative&message=Join%20Now&color=7289DA&logo=discord&style=for-the-badge" alt="Discord server">
   </a>
 </div>
-<div align="center">
-  <a href="https://discord.gg/HBHGvDxDmt">
-    <img src="https://img.shields.io/static/v1?label=Metaverse%20Crowdsource&message=450%20Members&color=7289DA&logo=discord&style=for-the-badge" alt="Discord server">
-  </a>
-</div>
-
-<div align="center">
-  <a href="https://www.tiktok.com/@metaversecrowdsourcebr">
-    <img src="https://img.shields.io/badge/TikTok-metaverse_crowdsource-ff0080?style=for-the-badge&logo=tiktok&logoColor=white&labelColor=000000" alt="TikTok Profile">
-  </a>
-</div>
-
-
 
 <br>
 <br>
