@@ -1,20 +1,43 @@
-name: Touch README to Refresh Cache
+name: Update README and Sitemap
 
 on:
   schedule:
-    - cron: '0 0 * * *'
+    - cron: '0 0 * * *'  # Daily at midnight UTC
 
 jobs:
-  refresh:
+  update:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Update README
-        run: touch README.md
-      - name: Commit changes
-        run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git commit -am "Touch README to refresh cache"
-          git push
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Update README
+      run: touch README.md
+
+    - name: Update sitemap
+      run: |
+        echo "<?xml version='1.0' encoding='UTF-8'?>" > sitemap.xml
+        echo "<urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>" >> sitemap.xml
+        echo "  <url>" >> sitemap.xml
+        echo "    <loc>https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System</loc>" >> sitemap.xml
+        echo "    <lastmod>$(date --utc +%Y-%m-%dT%H:%M:%S+00:00)</lastmod>" >> sitemap.xml
+        echo "    <changefreq>daily</changefreq>" >> sitemap.xml
+        echo "    <priority>1.0</priority>" >> sitemap.xml
+        echo "  </url>" >> sitemap.xml
+        echo "</urlset>" >> sitemap.xml
+      shell: bash
+
+    - name: Commit and push changes
+      run: |
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+        git add README.md sitemap.xml
+        git commit -m "Update README and sitemap"
+        git push
+
+    - name: Ping search engines
+      run: |
+        curl -s "http://www.google.com/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "http://www.bing.com/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+      shell: bash
