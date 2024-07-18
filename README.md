@@ -82,6 +82,7 @@ To use this software (open source version), follow these steps:
 ### Papers:
 - [**Phase 1**](https://www.researchgate.net/publication/379048160_Bio-Silicon_Synergetic_Intelligence_System_Phase_1_Software_Development_and_Prospective_Implantation_of_Microelectrode_Arrays_and_Human_Cortical_Organoids_into_Rat_Brains
 ): Bio-Silicon Synergetic Intelligence System (Phase 1): Software Development and Prospective Implantation of Microelectrode Arrays and Human Cortical Organoids into Rat Brains
+- [**Preprint draft 1 of hardware and software system**](https://arxiv.org/abs/2407.11939): AI-Driven Bio-Silicon Intelligence System: Integrating Hybrid Systems, Biocomputing, Neural Networks, and Machine Learning, for Advanced Neurotechnology
 
 ## Rat and Computer Learning
 
