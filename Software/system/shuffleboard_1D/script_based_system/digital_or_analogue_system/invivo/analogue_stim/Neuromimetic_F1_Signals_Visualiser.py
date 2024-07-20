@@ -3,7 +3,6 @@ import json
 import logging
 import numpy as np
 import paho.mqtt.client as mqtt
-
 from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QHBoxLayout
 import pyqtgraph as pg
 
@@ -13,7 +12,7 @@ class SignalGeneratorVisualiser(QWidget):
     def __init__(self, num_channels, mqtt_client):
         super().__init__()
         self.num_channels = num_channels
-        self.sample_size = 1000  # Display 1000 samples at a time
+        self.sample_size = 500  # Display 500 samples at a time
         self.data = [np.zeros(self.sample_size) for _ in range(num_channels)]  # Initialize with zeros
         self.mqtt_client = mqtt_client
         
@@ -43,8 +42,8 @@ class SignalGeneratorVisualiser(QWidget):
                     plot = pg.PlotWidget()
                     plot.setBackground('k')  # Set plot background to black
                     plot.setTitle(f'Channel {channel_index + 1}', color='#00D8D8')  # Bright turquoise color
-                    plot.setMinimumHeight(100)  # Halve plot height
-                    plot.setMinimumWidth(200)   # Halve plot width
+                    plot.setMinimumHeight(25)  # Set the height to be 2 times shorter (previously 50)
+                    plot.setMinimumWidth(500)  
                     
                     plot.getAxis('left').setPen(pg.mkPen(color='#00D8D8'))  # Set left axis pen color
                     plot.getAxis('bottom').setPen(pg.mkPen(color='#00D8D8'))  # Set bottom axis pen color

@@ -11,7 +11,18 @@ class FeaturesToGameAction(QWidget):
         self.selected_channels = selected_channels if selected_channels else list(range(32))  # Default to all 32 channels
 
         # To store previous values for comparison
-        self.previous_values = {'variance': None, 'std_dev': None, 'rms': None, 'peak_count': None}
+        self.previous_values = {
+            'variance': None, 'std_dev': None, 'rms': None, 'peak_count': None,
+            'average_peak_height': None, 'average_distance': None, 'average_prominence': None,
+            'beta_band_power': None, 'centroids': None, 'spectral_edge_densities': None,
+            'higuchi_fractal_dimension': None, 'zero_crossing_rate': None,
+            'magnitudes_diff_mean': None, 'magnitudes_diff_std': None,
+            'cumulative_sums_diff_mean': None, 'cumulative_sums_diff_std': None,
+            'log_means_diff_mean': None, 'log_means_diff_std': None,
+            'analytic_signals_diff_mean': None, 'analytic_signals_diff_std': None,
+            'envelopes_diff_mean': None, 'envelopes_diff_std': None,
+            'derivatives_diff_mean': None, 'derivatives_diff_std': None
+        }
 
         # Setup UI
         self.init_ui()
@@ -21,15 +32,15 @@ class FeaturesToGameAction(QWidget):
         self.setStyleSheet("background-color: black; color: #00D8D8;")
 
         self.results_table = QTableWidget()
-        self.results_table.setRowCount(4)
+        self.results_table.setRowCount(len(self.previous_values))
         self.results_table.setColumnCount(3)
         self.results_table.setHorizontalHeaderLabels(['Feature', 'Value', 'Action'])
         self.results_table.setStyleSheet("background-color: black; color: #00D8D8;")
 
         # Adjust column widths
-        self.results_table.setColumnWidth(0, 150)  # Feature column
-        self.results_table.setColumnWidth(1, 150)  # Value column
-        self.results_table.setColumnWidth(2, 300)  # Action column, doubled the width
+        self.results_table.setColumnWidth(0, 200)  # Feature column
+        self.results_table.setColumnWidth(1, 300)  # Value column
+        self.results_table.setColumnWidth(2, 300)  # Action column, increased the width
 
         self.total_force_label = QLabel("Total Force Adjustment: 0")
         self.total_force_label.setStyleSheet("color: #00D8D8; font-size: 16px;")
@@ -52,40 +63,48 @@ class FeaturesToGameAction(QWidget):
             return 'maintain_force', 0
         
         force_adjustment = 0
-        if feature == 'variance':
-            if value > previous_value:
-                force_adjustment += 5
-            elif value < previous_value:
-                force_adjustment -= 5
-        elif feature == 'std_dev':
-            if value > previous_value:
-                force_adjustment += 1
-            elif value < previous_value:
-                force_adjustment -= 1
-        elif feature == 'rms':
-            if value > previous_value:
-                force_adjustment += 3
-            elif value < previous_value:
-                force_adjustment -= 3
-        elif feature == 'peak_count':
-            if value > previous_value:
-                force_adjustment += 2
-            elif value < previous_value:
-                force_adjustment -= 2
+        adjustment_map = {
+            'variance': -1, 'std_dev': -1, 'rms': -1, 'peak_count': -1,
+            'average_peak_height': 1, 'average_distance': -1, 'average_prominence': -1,
+            'beta_band_power': -1, 'centroids': 1, 'spectral_edge_densities': -1,
+            'higuchi_fractal_dimension': 1, 'zero_crossing_rate': -1,
+            'magnitudes_diff_mean': -1, 'magnitudes_diff_std': -1,
+            'cumulative_sums_diff_mean': 1, 'cumulative_sums_diff_std': 1,
+            'log_means_diff_mean': 1, 'log_means_diff_std': -1,
+            'analytic_signals_diff_mean': 1, 'analytic_signals_diff_std': 1,
+            'envelopes_diff_mean': 1, 'envelopes_diff_std': -1,
+            'derivatives_diff_mean': 1, 'derivatives_diff_std': 1
+        }
+
+        adjustment_factor = adjustment_map.get(feature, 0)
+        if value > previous_value:
+            force_adjustment += adjustment_factor
+        elif value < previous_value:
+            force_adjustment -= adjustment_factor
 
         self.previous_values[feature] = value
         return 'adjust_force', force_adjustment
 
+    def normalize_force_adjustment(self, total_force_adjustment, num_features):
+        # Scale to the range of -5 to 5
+        max_force_adjustment = num_features
+        scaled_adjustment = (total_force_adjustment / max_force_adjustment) * 5
+
+
+
+        return scaled_adjustment
+
     def process_actions(self, total_force_adjustment):
-        print(f"Total force adjustment: {total_force_adjustment}")
+        normalized_adjustment = self.normalize_force_adjustment(total_force_adjustment, len(self.previous_values))
+        print(f"Total force adjustment: {normalized_adjustment}")
         # Convert action to a JSON string and publish via MQTT
-        action_message = json.dumps({"action": "adjust_force", "force_adjustment": total_force_adjustment})
+        action_message = json.dumps({"action": "adjust_force", "force_adjustment": normalized_adjustment})
         self.mqtt_client.publish("GAME ACTIONS", action_message)
-        self.total_force_label.setText(f"Total Force Adjustment: {total_force_adjustment}")
+        self.total_force_label.setText(f"Total Force Adjustment: {normalized_adjustment:.2f}")
 
     def update_results(self, feature, value, action, force_adjustment):
         row = list(self.previous_values.keys()).index(feature)
-        display_value = str(value['peak_count']) if isinstance(value, dict) else str(value)
+        display_value = f"{value:.4f}"  # Format the value to 4 decimal places
         self.results_table.setItem(row, 0, QTableWidgetItem(feature))
         self.results_table.setItem(row, 1, QTableWidgetItem(display_value))
         self.results_table.setItem(row, 2, QTableWidgetItem(f"{action} ({force_adjustment})"))
@@ -99,26 +118,26 @@ def on_message(client, userdata, message):
         payload = message.payload.decode('utf-8')
         analyzed_data = json.loads(payload)
 
-        # Filter out unnecessary features
-        features_of_interest = ['variance', 'std_dev', 'rms', 'peaks']
+        # List of features to process
+        features_of_interest = [
+            'variance', 'std_dev', 'rms', 'peak_count', 'average_peak_height',
+            'average_distance', 'average_prominence', 'beta_band_power', 'centroids', 'spectral_edge_densities',
+            'higuchi_fractal_dimension', 'zero_crossing_rate', 'magnitudes_diff_mean',
+            'magnitudes_diff_std', 'cumulative_sums_diff_mean', 'cumulative_sums_diff_std',
+            'log_means_diff_mean', 'log_means_diff_std', 'analytic_signals_diff_mean',
+            'analytic_signals_diff_std', 'envelopes_diff_mean', 'envelopes_diff_std',
+            'derivatives_diff_mean', 'derivatives_diff_std'
+        ]
         filtered_data = {feature: analyzed_data[feature] for feature in features_of_interest if feature in analyzed_data}
 
-        # Aggregate feature values for the selected channels
-        aggregated_data = {}
-        for feature, values in filtered_data.items():
-            if feature == 'peaks':
-                peak_counts = [values[i]['peak_count'] for i in userdata.selected_channels]
-                aggregated_data['peak_count'] = sum(peak_counts) / len(peak_counts)
-            else:
-                selected_values = [values[i] for i in userdata.selected_channels]
-                aggregated_data[feature] = sum(selected_values) / len(selected_values)
-
-        # Process each feature in the aggregated data
+        # Process each feature for the selected channels
         total_force_adjustment = 0
-        for feature, value in aggregated_data.items():
-            action, force_adjustment = userdata.decode_signal_features(feature, value)
-            total_force_adjustment += force_adjustment
-            userdata.update_results(feature, value, action, force_adjustment)
+        for feature, values in filtered_data.items():
+            for channel in userdata.selected_channels:
+                value = values[channel]
+                action, force_adjustment = userdata.decode_signal_features(feature, value)
+                total_force_adjustment += force_adjustment
+                userdata.update_results(feature, value, action, force_adjustment)
 
         # Perform the action with the total force adjustment
         if total_force_adjustment != 0:

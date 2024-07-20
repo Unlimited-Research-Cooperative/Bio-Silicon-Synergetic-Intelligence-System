@@ -23,7 +23,6 @@ def start_scripts(real, duration_minutes):
         "B_signals_to_features.py",
         "invivo/C_features_to_game.py",
         "shuffleboard1d/D_shuffleboard_1D.py",
-        "shuffleboard1d/D1_session_history.py",
         "invivo/digital_stim/E_F_features_to_floating_point_binary.py",
         "invivo/digital_stim/G_send_signals_to_usb_hub.py",
         "I_rewards_and_mappings.py"

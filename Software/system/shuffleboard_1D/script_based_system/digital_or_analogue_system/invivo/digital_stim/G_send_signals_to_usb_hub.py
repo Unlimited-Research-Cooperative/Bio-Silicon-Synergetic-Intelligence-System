@@ -4,7 +4,6 @@ import logging
 import numpy as np
 import paho.mqtt.client as mqtt
 import time
-import subprocess
 import pyaudio
 import threading
 
@@ -19,12 +18,11 @@ MQTT_BROKER = "127.0.0.1"
 MQTT_PORT = 1883
 MQTT_TOPIC = "DIGITAL SIGNALS"
 PACKET_DURATION = 0.25  # 250 ms packets
-BIT_DURATION = 0.0125  # 12.5 ms per bit (for 16 bits in 200 ms)
 NUM_CHANNELS = 4
 AMPLITUDE = 32767  # Max value for 16-bit audio
 OUTPUT_SAMPLE_RATE = 48000  # Common sample rate for audio playback
 BUFFER_SIZE = int(OUTPUT_SAMPLE_RATE * PACKET_DURATION)  # Number of samples per packet
-RING_BUFFER_SIZE = BUFFER_SIZE * 8  # Larger buffer for more continuous playback
+RING_BUFFER_SIZE = BUFFER_SIZE # Reduced size for lower latency
 
 # PyAudio device indices for the output channels
 pyaudio_devices = [18, 19, 20, 21]  # Replace with actual indices if needed
@@ -52,8 +50,15 @@ def on_message(client, userdata, msg):
         # Parse the JSON data
         digital_data = json.loads(payload)["stim_signals"]
         
-        # Convert digital data (list of lists) to a NumPy array for each channel
-        digital_waveform = [np.array([1 if bit == 150 else -1 for bit in signal]) for signal in digital_data]
+        # Debug: Print received digital data
+        print(f"Received digital data: {digital_data}")
+        
+        # Resample digital data to match the audio sample rate
+        samples_per_bit = int(OUTPUT_SAMPLE_RATE * PACKET_DURATION / len(digital_data[0]))
+        digital_waveform = [np.repeat(signal, samples_per_bit) for signal in digital_data]
+        
+        # Debug: Print resampled digital waveform
+        print(f"Resampled digital waveform: {[waveform[:10] for waveform in digital_waveform]}")
         
         # Store the latest waveform for visualization
         with lock:
@@ -82,11 +87,14 @@ def audio_callback_factory(channel):
 
             ring_buffer_write_positions[channel] = end_pos % RING_BUFFER_SIZE
         
-        int_waveform = (chunk * AMPLITUDE).astype(np.int16)
+        int_waveform = chunk.astype(np.int16)
         
         # Logging to confirm each device is playing the respective channel signal
         print(f"Device {pyaudio_devices[channel]} playing channel {channel} data: {int_waveform[:10]}...")
 
+        # Debug: Print audio data being sent to the device
+        print(f"Audio data being sent to device {pyaudio_devices[channel]} (first 10 samples): {int_waveform[:10]}")
+        
         return (int_waveform.tobytes(), pyaudio.paContinue)
     return audio_callback
 
@@ -94,7 +102,7 @@ class DigitalSignalVisualizer(QWidget):
     def __init__(self, num_channels, mqtt_client):
         super().__init__()
         self.num_channels = num_channels
-        self.data = [np.zeros(500) for _ in range(num_channels)]  # Initialize with zeros for 500 samples per channel
+        self.data = [np.zeros(BUFFER_SIZE) for _ in range(num_channels)]  # Initialize with zeros for BUFFER_SIZE samples per channel
         self.ptr = 0
         self.mqtt_client = mqtt_client
         

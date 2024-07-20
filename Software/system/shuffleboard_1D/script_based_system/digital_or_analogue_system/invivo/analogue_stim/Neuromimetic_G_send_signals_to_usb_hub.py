@@ -13,7 +13,7 @@ AMPLITUDE = 32767  # Max value for 16-bit audio
 INPUT_SAMPLE_RATE = 500
 OUTPUT_SAMPLE_RATE = 48000  # Common sample rate for audio playback
 BUFFER_SIZE = int(OUTPUT_SAMPLE_RATE * PACKET_DURATION)  # Number of samples per packet
-RING_BUFFER_SIZE = BUFFER_SIZE * 8  # Larger buffer for more continuous playback
+RING_BUFFER_SIZE = BUFFER_SIZE  # Larger buffer for more continuous playback
 
 # PyAudio device indices for the output channels
 pyaudio_devices = [18, 19, 20, 21]  # Replace with actual indices if needed
@@ -114,6 +114,7 @@ def main():
                     # Resample the waveform for each channel and update the ring buffer
                     resampled_waveform = [resample_poly(channel, OUTPUT_SAMPLE_RATE, INPUT_SAMPLE_RATE) for channel in latest_waveform]
                     for i in range(NUM_CHANNELS):
+                        print(f"Original length: {len(latest_waveform[i])}, Resampled length: {len(resampled_waveform[i])}")  # Verification line
                         write_pos = ring_buffer_write_positions[i]
                         to_write = resampled_waveform[i]
                         available_space = RING_BUFFER_SIZE - write_pos
@@ -124,7 +125,7 @@ def main():
                             ring_buffers[i][write_pos:write_pos + len(to_write)] = to_write
                         ring_buffer_write_positions[i] = (write_pos + len(to_write)) % RING_BUFFER_SIZE
                         print(f"Updated ring buffer for channel {i} with first 5 data points: {ring_buffers[i][:5]}")
-                latest_waveform = None
+                latest_waveform = None  # Clear the latest_waveform after processing
             
     except KeyboardInterrupt:
         print("Stopping...")
