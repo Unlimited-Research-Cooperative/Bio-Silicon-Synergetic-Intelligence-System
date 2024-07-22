@@ -188,7 +188,7 @@ def evolution_rate(signals):
         envelope = np.abs(analytic_signal)
         derivative = np.diff(envelope)
         rates[i] = np.mean(np.abs(derivative))
-        analytic_signals.append(envelope.astype(float).tolist())  # Use envelope instead of analytic_signal
+        analytic_signals.append(analytic_signal.astype(float).tolist()) 
         envelopes.append(envelope.astype(float).tolist())
         derivatives.append(derivative.astype(float).tolist())
     return rates, analytic_signals, envelopes, derivatives

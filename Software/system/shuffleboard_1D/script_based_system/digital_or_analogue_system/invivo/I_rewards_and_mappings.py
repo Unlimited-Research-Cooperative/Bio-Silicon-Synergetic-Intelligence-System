@@ -2,53 +2,118 @@ import paho.mqtt.client as mqtt
 import numpy as np
 import time
 import json
-import pygame
-from collections import defaultdict
 import subprocess  # To control the USB power
-import usbrelaymodule 
+import serial  # To communicate with the USB relay
+import pyaudio
+import wave
+import os
+from collections import defaultdict  # Ensure defaultdict is imported
+
+class USBRelay:
+    def __init__(self, port):
+        self.port = port
+        try:
+            self.ser = serial.Serial(self.port, 9600, timeout=1)
+            self.relay_on = bytes.fromhex('A0 01 01 A2')
+            self.relay_off = bytes.fromhex('A0 01 00 A1')
+        except serial.SerialException as e:
+            print(f"Error opening serial port: {e}")
+            self.ser = None
+
+    def turn_on(self):
+        if self.ser:
+            try:
+                self.ser.write(self.relay_on)
+                print("Relay is turned ON")
+            except serial.SerialException as e:
+                print(f"Error writing to serial port: {e}")
+
+    def turn_off(self):
+        if self.ser:
+            try:
+                self.ser.write(self.relay_off)
+                print("Relay is turned OFF")
+            except serial.SerialException as e:
+                print(f"Error writing to serial port: {e}")
+
+    def close(self):
+        if self.ser:
+            try:
+                self.ser.close()
+            except serial.SerialException as e:
+                print(f"Error closing serial port: {e}")
 
 class FeedbackSystem:
-    def __init__(self, hub, port, usb_relay):
-        # Initialize pygame for audio output
-        pygame.mixer.init()
-        self.reward_sound_path = "reward_sound.wav"  # Path to the reward sound file
-
-        # Parameters for USB hub and port
+    def __init__(self, hub, port, usb_relay, sound_file, audio_device_index):
         self.hub = hub
         self.port = port
-
-        # USB relay for feeder control
         self.usb_relay = usb_relay
+        self.last_distance_to_target = None
 
-    def turn_repeller_on(self):
-        # Turn on the USB power to the repeller
-        subprocess.run(['uhubctl', '-l', self.hub, '-p', self.port, '-a', 'on'])
+        # Initialize PyAudio for audio output
+        self.p = pyaudio.PyAudio()
+        self.stream = None
+        self.sound_file = sound_file
+        self.audio_device_index = audio_device_index
+        self.load_sound()
 
-    def turn_repeller_off(self):
-        # Turn off the USB power to the repeller
-        subprocess.run(['uhubctl', '-l', self.hub, '-p', self.port, '-a', 'off'])
+    def load_sound(self):
+        # Open the sound file
+        self.wf = wave.open(self.sound_file, 'rb')
+        # Open a stream with the specified audio device
+        try:
+            self.stream = self.p.open(format=self.p.get_format_from_width(self.wf.getsampwidth()),
+                                      channels=self.wf.getnchannels(),
+                                      rate=self.wf.getframerate(),
+                                      output=True,
+                                      output_device_index=self.audio_device_index)
+            print("Sound loaded and stream opened.")
+        except Exception as e:
+            print(f"Error opening audio stream: {e}")
 
-    def play_sound(self, sound_path):
-        # Play a sound from the specified path
-        pygame.mixer.music.load(sound_path)
-        pygame.mixer.music.play()
-        
+    def play_sound(self):
+        if self.stream:
+            # Rewind the wave file
+            self.wf.rewind()
+            data = self.wf.readframes(1024)
+            start_time = time.time()
+            while data and (time.time() - start_time) < 0.03:
+                self.stream.write(data)
+                data = self.wf.readframes(1024)
+            print("Sound played.")
+
+    # def turn_repeller_on(self):
+    #     # Turn on the USB power to the repeller
+    #     subprocess.run(['uhubctl', '-l', self.hub, '-p', self.port, '-a', 'on'])
+
+    # def turn_repeller_off(self):
+    #     # Turn off the USB power to the repeller
+    #     subprocess.run(['uhubctl', '-l', self.hub, '-p', self.port, '-a', 'off'])
+
     def activate_feeder(self):
         # Activate the feeder to dispense the reward mix using the USB relay
         self.usb_relay.turn_on()  # Turn on the USB relay to activate the feeder
-        time.sleep(0.5)  # Keep the feeder active for 0.5 second
+        time.sleep(0.1)  # Keep the feeder active for 0.1 seconds
         self.usb_relay.turn_off()  # Turn off the USB relay to deactivate the feeder
 
-    def provide_feedback(self, outcome):
-        # Provide feedback based on whether the player is getting closer or further from the target
-        if outcome == "reward":
-            self.play_sound(self.reward_sound_path)
-            self.activate_feeder()  # Also activate the feeder for positive reinforcement
-        elif outcome == "distress":
-            self.turn_repeller_on()
-            time.sleep(0.5)  # Keep the repeller on for 0.5 seconds
-            self.turn_repeller_off()
+    def provide_feedback(self, distance_to_target):
+        # Provide feedback based on the change in distance to the target
+        if self.last_distance_to_target is not None:
+            if distance_to_target < self.last_distance_to_target:
+                print(f"Distance decreased from {self.last_distance_to_target} to {distance_to_target}, playing sound and activating feeder...")
+                self.play_sound()
+                self.activate_feeder()  # Also activate the feeder for positive reinforcement
+            # elif distance_to_target > self.last_distance_to_target:
+            #     print(f"Distance increased from {self.last_distance_to_target} to {distance_to_target}, activating repeller...")
+            #     self.turn_repeller_on()
+            #     time.sleep(0.03)  # Keep the repeller on for 0.03 seconds
+            #     self.turn_repeller_off()
+        else:
+            print(f"Initial distance to target: {distance_to_target}")
 
+        self.last_distance_to_target = distance_to_target
+
+        
 '''        
 class NeuralMappingVisualizer:
     def __init__(self, processor):
@@ -133,39 +198,48 @@ class GameController:
         self.mqtt_client.on_connect = self.on_connect
         self.mqtt_client.on_message = self.on_message
         self.mqtt_client.connect("127.0.0.1", 1883, 60)
-        self.outcome_topic = "game_outcome"
+        self.metadata_topic = "metadata"
+        self.distance_buffer = []
 
     def on_connect(self, client, userdata, flags, rc):
         print(f"Connected to MQTT broker with result code {rc}")
-        client.subscribe(self.outcome_topic)
+        client.subscribe(self.metadata_topic)
 
     def on_message(self, client, userdata, message):
         try:
             payload = message.payload.decode('utf-8')
-            outcome_data = json.loads(payload)
-            outcome = outcome_data.get("outcome")
-            if outcome:
-                self.feedback_system.provide_feedback(outcome)
-                self.log_action(outcome_data, outcome)
+            metadata = json.loads(payload)
+            distance_to_target = metadata.get("distance_to_target")
+            
+            if distance_to_target is not None:
+                self.distance_buffer.append(distance_to_target)
+                if len(self.distance_buffer) > 1:
+                    last_distance = self.distance_buffer[-2]
+                    self.feedback_system.provide_feedback(distance_to_target)
+                    self.log_action(metadata, distance_to_target, last_distance)
+                else:
+                    print(f"Initial distance to target: {distance_to_target}")
         except Exception as e:
             print(f"Error processing message: {e}")
 
-    def log_action(self, outcome_data, outcome):
+    def log_action(self, metadata, distance_to_target, last_distance):
         # Log the action outcome
-        round_num = outcome_data.get('round')
-        distance_to_target = outcome_data.get('distance_to_target')
+        adjusted_force = metadata.get('adjusted_force')
+        player_force = metadata.get('player_force')
         context = {
-            'round': round_num,
-            'distance_to_target': distance_to_target
+            'adjusted_force': adjusted_force,
+            'player_force': player_force,
+            'last_distance_to_target': last_distance,
+            'current_distance_to_target': distance_to_target
         }
-        success = outcome == "reward"
-        self.action_logger.log_action("execute_shot", success, context=context, feedback=outcome)
+        success = distance_to_target < last_distance
+        self.action_logger.log_action("distance_change", success, context=context, feedback="reward" if success else "distress")
 
     def run(self):
         self.mqtt_client.loop_start()
         try:
             while True:
-                time.sleep(1)  # Keep the script running
+                time.sleep(0.25)  # Adjust the sleep interval to 0.25 seconds
         except KeyboardInterrupt:
             print("Stopping...")
             self.mqtt_client.loop_stop()
@@ -174,10 +248,11 @@ class GameController:
 if __name__ == "__main__":
     hub = "1-1"  # Example hub identifier, replace with your actual hub
     port = "2"   # Example port number, replace with your actual port
-    usb_relay = usbrelaymodule.Relay("relay_device_identifier")  # Initialize with appropriate identifier
-    feedback_system = FeedbackSystem(hub=hub, port=port, usb_relay=usb_relay)
+    usb_relay = USBRelay("/dev/ttyUSB0")  # Initialize with the correct USB port
+    script_path = os.path.dirname(os.path.abspath(__file__))
+    sound_file = os.path.join(script_path, "3khz_beep.wav")
+    audio_device_index = 9  # Replace with the correct device index that supports audio output
+    feedback_system = FeedbackSystem(hub=hub, port=port, usb_relay=usb_relay, sound_file=sound_file, audio_device_index=audio_device_index)
     action_logger = ActionSuccessLogger()
     controller = GameController(feedback_system, action_logger)
     controller.run()
-
-
