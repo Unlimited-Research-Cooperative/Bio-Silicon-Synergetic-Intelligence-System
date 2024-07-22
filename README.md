@@ -44,14 +44,54 @@ To use this software (open source version), follow these steps:
 
 4. **Set the EDF File Path**: 
    To simulate the data, you must set the EDF file path in the `SimulateNeuralData` script located in the `digital_or_analogue_system` directory to the correct location in your system. Change the file path after this line:
-   ```python
-   # Path to your EDF file
-   file_path = "path_to_your_edf_file"
+    ```python
+    # Path to your EDF file
+    file_path = "path_to_your_edf_file"
+     
     
-   ```
-   
+    ```
+     
+5. **Set the Output USB Audio Ports**:
+    Update the output USB audio ports in the script by updating this line:
+    ```python
+    pyaudio_devices = [18, 19, 20, 21]  # Replace with actual indices if needed
+      
+ 
+    ```
+ 
+6. **Set the Correct USB Hub/Port/Relay for Reward Feeder Solenoid Valve Opening:**
+    Update the following lines in the script:
+
+    ```python
+    hub = "1-1"  # Example hub identifier, replace with your actual hub
+    port = "2"   # Example port number, replace with your actual port
+    usb_relay = USBRelay("/dev/ttyUSB0")  # Initialize with the correct USB port
+     
+    
+    ```
+     
+ 
+7. **Set the Output USB Audio Beep Reward:**
+    Update the following line in the script to set the audio device index for the beep reward:
+
+    ```python
+    audio_device_index = 9  # Replace with the correct device index that supports audio output
+ 
+
+    ```
+ 
+8. **Find the Audio Ports:**
+If you need to find which audio ports to use as output, you can use the scripts in the following Jupyter notebook:
+
+```
+randomstuff/stim_signal_troubleshoot.ipynb
+```
+
+    
 5. **Run Software**:
-    You can then run the software by executing either run_system_analogue_stim_invivo.py or run_system_digital_stim_invivo.py.
+    You can then run the software by executing either
+   ```run_system_analogue_stim_invivo.py```
+   or ```run_system_digital_stim_invivo.py.```
 
 ## System Configuration
 
