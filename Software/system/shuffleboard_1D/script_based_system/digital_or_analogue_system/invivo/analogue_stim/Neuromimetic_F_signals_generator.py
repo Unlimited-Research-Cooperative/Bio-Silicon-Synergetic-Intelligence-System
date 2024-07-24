@@ -282,34 +282,40 @@ def apply_spectral_centroids(modified_signals, centroid_factor, edge_density_fac
     return modified_signals
 
 # Function to apply dynamic time warping
-def apply_dynamic_time_warping(modified_signals, warping_factor, reference_signal, min_volt, max_volt):
+def apply_dynamic_time_warping(modified_signals, warping_factor, min_volt, max_volt):
     modified_signals_aligned = []
-
-    reference_signal = np.array(reference_signal)  # Convert the reference signal to a numpy array
 
     for signal in modified_signals:
         signal = np.array(signal)  # Convert the signal to a numpy array
 
-        # Perform dynamic time warping
+        # Generate a smooth warping path
         signal_length = len(signal)
         time_vector = np.linspace(0, 1, signal_length)
-        reference_time_vector = np.linspace(0, 1, len(reference_signal)) * warping_factor
-        modified_signal = np.interp(time_vector, reference_time_vector, reference_signal)
+        warping_path = time_vector + warping_factor * np.sin(2 * np.pi * np.random.rand() * time_vector)
+        
+        # Ensure the warping path is monotonic
+        warping_path = np.sort(warping_path)
+
+        modified_signal = np.interp(time_vector, warping_path, signal)
+
+        # Introduce small-scale perturbations
+        perturbation = 0.005 * np.random.randn(signal_length)
+        modified_signal += perturbation
 
         # Normalize the signal to stay within the desired range
         current_min = np.min(modified_signal)
         current_max = np.max(modified_signal)
-
-        # Calculate the scaling factor to keep the signal within the specified range
-        scaling_factor = (max_volt - min_volt) / (current_max - current_min)
-
-        # Apply the scaling factor while preserving the signal's shape
-        modified_signal = (modified_signal - current_min) * scaling_factor + min_volt
+        if current_max != current_min:
+            scaling_factor = (max_volt - min_volt) / (current_max - current_min)
+            modified_signal = (modified_signal - current_min) * scaling_factor + min_volt
+        else:
+            modified_signal = np.full_like(modified_signal, min_volt)
 
         modified_signals_aligned.append(modified_signal)
 
-    return np.array(modified_signals)
+    return np.array(modified_signals_aligned)
 
+    return np.array(modified_signals_aligned)
 def apply_fft(modified_signals, complexity_factor):
     modified_signals_complexity = []
 
@@ -318,13 +324,19 @@ def apply_fft(modified_signals, complexity_factor):
         freq = np.fft.fftfreq(len(signal))
         current_max = np.max(signal)
         current_min = np.min(signal)
-        scaling_factor = max_volt / (current_max - current_min)
-        modified_spectrum = spectrum * (1 + np.random.randn(len(spectrum)) * complexity_factor)
-        modified_signal = np.fft.ifft(modified_spectrum).real
-        modified_signal = (modified_signal - current_min) * scaling_factor + min_volt
+        
+        if current_max != current_min:
+            scaling_factor = max_volt / (current_max - current_min)
+            modified_spectrum = spectrum * (1 + np.random.randn(len(spectrum)) * complexity_factor)
+            modified_signal = np.fft.ifft(modified_spectrum).real
+            modified_signal = (modified_signal - current_min) * scaling_factor + min_volt
+        else:
+            # If current_max == current_min, add a small random noise to avoid flat lines
+            modified_signal = signal + np.random.normal(0, 1e-12, len(signal))
+
         modified_signals_complexity.append(modified_signal)
 
-    return np.array(modified_signals)
+    return np.array(modified_signals_complexity)
 
 def apply_signal_evolution(modified_signals, evolution_rate):
     modified_signals_evolution = np.zeros_like(modified_signals)
@@ -441,7 +453,7 @@ def generate_transformed_signals(signal_length, num_signals, fs, min_volt, max_v
             lambda x: apply_phase_synchronization(x[np.newaxis, :], channel_features["global_sync_level"], channel_features["pairwise_sync_level"], channel_features["sync_factor"])[0],
             lambda x: apply_transfer_entropy(x[np.newaxis, :], channel_features["influence_factor"], channel_features["max_influence"])[0],
             lambda x: apply_spectral_centroids(x[np.newaxis, :], channel_features["centroid_factor"], channel_features["edge_density_factor"])[0],
-            lambda x: apply_dynamic_time_warping(x[np.newaxis, :], channel_features["warping_factor"], reference_signal=np.mean(x[np.newaxis, :], axis=0), min_volt=min_volt, max_volt=max_volt)[0],
+            #lambda x: apply_dynamic_time_warping(x[np.newaxis, :], channel_features["warping_factor"], min_volt=min_volt, max_volt=max_volt)[0],
             lambda x: apply_fft(x[np.newaxis, :], channel_features["complexity_factor"])[0],
             lambda x: apply_signal_evolution(x[np.newaxis, :], channel_features["evolution_rate"])[0],
             #lambda x: apply_phase_amplitude_coupling(x[np.newaxis, :], channel_features["low_freq"], channel_features["high_freq"], fs)[0],

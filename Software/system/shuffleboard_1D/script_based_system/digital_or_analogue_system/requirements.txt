@@ -5,7 +5,7 @@ numpy
 paho-mqtt
 pyaudio
 pyqtgraph
+pyserial
 scipy
-serial
 soundfile
 zmq

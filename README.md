@@ -87,8 +87,13 @@ If you need to find which audio ports to use as output, you can use the scripts 
 randomstuff/stim_signal_troubleshoot.ipynb
 ```
 
+9. 2. **Install the Requirements**: 
+   Make sure to install all required dependencies at ```digital_or_analogue_system/requirements.ipynb``` by running the following command in your terminal:
+   ```bash
+   pip install -r requirements.ipynb
+   ```
     
-5. **Run Software**:
+10. **Run Software**:
     You can then run the software by executing either
    ```run_system_analogue_stim_invivo.py```
    or ```run_system_digital_stim_invivo.py.```
@@ -226,8 +231,8 @@ This project is licensed under the [Creative Commons Attribution-ShareAlike 4.0 
   
 ## 📩 Contact
 For collaborations, press inquiries, or questions:
-- Email: [soul.syrup@yandex.com](mailto:soul.syrup@yandex.com) or [soul.syrupp@gmail.com](mailto:soul.syrupp@gmail.com)
-- Discord: soul_syrup
+- Email: [info@syntheticintelligencelabs.com](mailto:info@syntheticintelligencelabs.com)
+
 
 
 ## 📚 Library Testing Invitation
