@@ -184,19 +184,39 @@ We're reaching out to like-minded researchers and innovators to join us on this 
 </p>
 <h1 align="center">System High Level Schematic</h1>
 <p align="center">
-  <img src="https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/blob/main/images/bidirectional_brain_computer_communication.jpg" alt="bidirectional brain computer communication.png">
+  <img src="https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/blob/main/images/bidirectional_brain_computer_communication.jpg" alt="bidirectional brain computer communication">
 </p>
 <h1 align="center">System High Level Schematic 2</h1>
 <p align="center">
-  <img src="https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/blob/main/images/high_level_design.png" alt="bidirectional brain computer communication.png">
+  <img src="https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/blob/main/images/high_level_design.png" alt="bidirectional brain computer communication">
 </p>
-<h1 align="center">Open Source Software With Modern GUI for Digital Stim</h1>
+<h1 align="center">Neural Signals Visualiser</h1>
 <p align="center">
-  <img src="https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/blob/main/images/digital_stim_system_gui.png" alt="Modern GUI for Digital Brain Stimulation System">
+  <img src="https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/blob/main/images/fig3_neural_signals.jpg" alt="Neural Signals Reading">
 </p>
-<h1 align="center">Open Source Software With Modern GUI for Analogue Stim</h1>
+<h1 align="center">Feature Extractor Visualiser</h1>
 <p align="center">
-  <img src="https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/blob/main/images/analogue_stim_system_gui.png" alt="Modern GUI for Analogue Brain Stimulation System">
+  <img src="https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/blob/main/images/fig4_extracted_features.jpg" alt="eature Extractor Visualiser">
+</p>
+<h1 align="center">Features and Subfeatures to Game Action Mapping Visualiser</h1>
+<p align="center">
+  <img src="https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/blob/main/images/fig9_force_adjustment.jpg" alt="Features and Subfeatures to Game Action Mapping Visualiser">
+</p>
+<h1 align="center">Game Force Adjustments and Distance to Target Over Time Visualiser</h1>
+<p align="center">
+  <img src="https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/blob/main/images/fig10_shuffleboardgame_distance_forceadjustments.jpg" alt="Game Force Adjustments and Distance to Target Over Time Visualiser">
+</p>
+<h1 align="center">Analogue Signal (Neuromimetic) Electrical Stimulation Visualiser</h1>
+<p align="center">
+  <img src="https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/blob/main/images/fig11_generated_analogue_signals.jpg" alt="Analogue Signal (Neuromimetic) Electrical Stimulation Visualiser">
+</p>
+<h1 align="center">Digital Signal (Binary) Electrical Stimulation Visualiser</h1>
+<p align="center">
+  <img src="https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/blob/main/images/fig12_generated_digital_signals.jpg" alt="Digital Signal (Binary) Electrical Stimulation Visualiser">
+</p>
+<h1 align="center">Physics Informed Hybrid Hierarchical Reinforcement Learning State Machine</h1>
+<p align="center">
+  <img src="https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/blob/main/images/state_machine.jpg" alt="Digital Signal (Binary) Electrical Stimulation Visualiser">    
 </p>
 <h1 align="center">Open Source Software Data Pipeline</h1>
 <p align="center">
