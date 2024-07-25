@@ -87,10 +87,10 @@ If you need to find which audio ports to use as output, you can use the scripts 
 randomstuff/stim_signal_troubleshoot.ipynb
 ```
 
-9. 2. **Install the Requirements**: 
+9. **Install the Requirements**: 
    Make sure to install all required dependencies at ```digital_or_analogue_system/requirements.txt``` by running the following command in your terminal:
    ```bash
-   pip install -r requirements.ipynb
+   pip install -r requirements.txt
    ```
     
 10. **Run Software**:
