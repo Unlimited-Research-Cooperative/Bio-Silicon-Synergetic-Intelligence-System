@@ -34,7 +34,7 @@ SIL-BSIS-01
 To use this software (open source version), follow these steps:
 
 1. **Download the Software**: 
-   Download the software from the following link: [Bio-Silicon Synergetic Intelligence System - Shuffleboard 1D Script-Based System](https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/tree/6e07ada38bbe4444384b36da36a1215c6b8c5275/Software/system/shuffleboard_1D/script_based_system/digital_or_analogue_system)
+   Download the software from the following link: [Bio-Silicon Synergetic Intelligence System - Shuffleboard 1D Script-Based System](https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/tree/main/Software/system/shuffleboard_1D/script_based_system/digital_or_analogue_system)
 
 2. **Gather Real Data**: 
    Real data can be gathered from a FreeEEG32 board. You can find more information here: [FreeEEG32](https://github.com/neuroidss/FreeEEG32-beta).
