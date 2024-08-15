@@ -13,7 +13,15 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Update README
-      run: touch README.md
+      run: |
+        echo "# Bio-Silicon Synergetic Intelligence System" > README.md
+        echo "Synthetic Intelligence Labs focuses on bio-silicon intelligence systems and advanced AI, catering to government research, defense, and cybersecurity agencies." >> README.md
+        echo "" >> README.md
+        echo "## Meta Information" >> README.md
+        echo "- Keywords: DARPA, BMBF, MOST, Minobrnauki, government research, defense applications, AI, cybersecurity, synthetic intelligence, advanced technology, bio-silicon, deep web, darknet, encryption, AI defense, AI research" >> README.md
+        echo "- Description: Synthetic Intelligence Labs is leading the way in developing bio-silicon intelligence systems. Explore how we bridge biological cognition with silicon-based computational power." >> README.md
+        echo "- Author: Synthetic Intelligence Labs" >> README.md
+        echo "- Subject: Advanced AI and Bio-Silicon Systems for Government Research and Defense Applications" >> README.md
 
     - name: Update sitemap
       run: |
@@ -25,6 +33,19 @@ jobs:
         echo "    <changefreq>daily</changefreq>" >> sitemap.xml
         echo "    <priority>1.0</priority>" >> sitemap.xml
         echo "  </url>" >> sitemap.xml
+        echo "  <url>" >> sitemap.xml
+        echo "    <loc>https://synthetic-intelligence-labs.github.io/SIL-website/</loc>" >> sitemap.xml
+        echo "    <lastmod>$(date --utc +%Y-%m-%dT%H:%M:%S+00:00)</lastmod>" >> sitemap.xml
+        echo "    <changefreq>daily</changefreq>" >> sitemap.xml
+        echo "    <priority>1.0</priority>" >> sitemap.xml
+        echo "  </url>" >> sitemap.xml
+        echo "  <url>" >> sitemap.xml
+        echo "    <loc>https://synthetic-intelligence-labs.github.io/SIL-website/about-us</loc>" >> sitemap.xml
+        echo "    <lastmod>$(date --utc +%Y-%m-%dT%H:%M:%S+00:00)</lastmod>" >> sitemap.xml
+        echo "    <changefreq>weekly</changefreq>" >> sitemap.xml
+        echo "    <priority>0.8</priority>" >> sitemap.xml
+        echo "  </url>" >> sitemap.xml
+        # Add more URLs based on your project structure
         echo "</urlset>" >> sitemap.xml
       shell: bash
 
@@ -36,8 +57,9 @@ jobs:
         git commit -m "Update README and sitemap"
         git push
 
-    - name: Ping search engines
+    - name: Ping search engines and platforms
       run: |
+        # General search engines
         curl -s "http://www.google.com/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
         curl -s "http://www.bing.com/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
         curl -s "http://www.duckduckgo.com/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
@@ -46,9 +68,39 @@ jobs:
         curl -s "http://www.sogou.com/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
         curl -s "http://www.so.com/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
         curl -s "https://search.mail.ru/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
-      shell: bash
 
-    - name: Ping academic search engines
-      run: |
+        # Social platforms
+        curl -s "https://www.weibo.com/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://weixin.qq.com/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://vk.com/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://www.bilibili.com/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://line.me/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+
+        # Academic search engines
         curl -s "http://www.scholar.google.com/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+
+        curl -s "http://english.ia.cas.cn/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://www.baai.ac.cn/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "http://www.tnlist.tsinghua.edu.cn/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "http://www.calt.com/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+
+        curl -s "http://keldysh.ru/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://www.ispras.ru/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "http://www.ibch.ru/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "http://rri-ai.ru/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+
+        curl -s "https://www.media.mit.edu/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+         curl -s "https://allenai.org/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://www.sri.com/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://wyss.harvard.edu/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+
+        curl -s "https://www.is.mpg.de/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://www.fzi.de/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://www.dfki.de/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://www.iao.fraunhofer.de/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+
+        curl -s "https://www.atr.jp/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://aip.riken.jp/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://www.nii.ac.jp/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://www.airc.aist.go.jp/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
       shell: bash
