@@ -1,4 +1,4 @@
-name: Update README and Sitemap
+name: Update README, Sitemap, and Website
 
 on:
   schedule:
@@ -13,94 +13,339 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Update README
-      run: |
-        echo "# Bio-Silicon Synergetic Intelligence System" > README.md
-        echo "Synthetic Intelligence Labs focuses on bio-silicon intelligence systems and advanced AI, catering to government research, defense, and cybersecurity agencies." >> README.md
-        echo "" >> README.md
-        echo "## Meta Information" >> README.md
-        echo "- Keywords: DARPA, BMBF, MOST, Minobrnauki, government research, defense applications, AI, cybersecurity, synthetic intelligence, advanced technology, bio-silicon, deep web, darknet, encryption, AI defense, AI research" >> README.md
-        echo "- Description: Synthetic Intelligence Labs is leading the way in developing bio-silicon intelligence systems. Explore how we bridge biological cognition with silicon-based computational power." >> README.md
-        echo "- Author: Synthetic Intelligence Labs" >> README.md
-        echo "- Subject: Advanced AI and Bio-Silicon Systems for Government Research and Defense Applications" >> README.md
+      run: touch README.md
 
     - name: Update sitemap
       run: |
         echo "<?xml version='1.0' encoding='UTF-8'?>" > sitemap.xml
-        echo "<urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>" >> sitemap.xml
+        echo "<urlset xmlns='https://www.sitemaps.org/schemas/sitemap/0.9'>" >> sitemap.xml
         echo "  <url>" >> sitemap.xml
-        echo "    <loc>https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System</loc>" >> sitemap.xml
+        echo "    <loc>https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/</loc>" >> sitemap.xml
         echo "    <lastmod>$(date --utc +%Y-%m-%dT%H:%M:%S+00:00)</lastmod>" >> sitemap.xml
         echo "    <changefreq>daily</changefreq>" >> sitemap.xml
         echo "    <priority>1.0</priority>" >> sitemap.xml
         echo "  </url>" >> sitemap.xml
         echo "  <url>" >> sitemap.xml
-        echo "    <loc>https://synthetic-intelligence-labs.github.io/SIL-website/</loc>" >> sitemap.xml
+        echo "    <loc>https://arxiv.org/abs/2407.11939</loc>" >> sitemap.xml
         echo "    <lastmod>$(date --utc +%Y-%m-%dT%H:%M:%S+00:00)</lastmod>" >> sitemap.xml
         echo "    <changefreq>daily</changefreq>" >> sitemap.xml
         echo "    <priority>1.0</priority>" >> sitemap.xml
         echo "  </url>" >> sitemap.xml
-        echo "  <url>" >> sitemap.xml
-        echo "    <loc>https://synthetic-intelligence-labs.github.io/SIL-website/about-us</loc>" >> sitemap.xml
-        echo "    <lastmod>$(date --utc +%Y-%m-%dT%H:%M:%S+00:00)</lastmod>" >> sitemap.xml
-        echo "    <changefreq>weekly</changefreq>" >> sitemap.xml
-        echo "    <priority>0.8</priority>" >> sitemap.xml
-        echo "  </url>" >> sitemap.xml
-        # Add more URLs based on your project structure
         echo "</urlset>" >> sitemap.xml
+      shell: bash
+
+    - name: Generate robots.txt
+      run: |
+        echo "User-agent: *" > robots.txt
+        echo "Disallow:" >> robots.txt
+        echo "Sitemap: https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml" >> robots.txt
+      shell: bash
+
+    - name: Update index.html with SEO and sitemap reference
+      run: |
+        sed -i '/<\/head>/i <link rel="sitemap" type="application/xml" title="Sitemap" href="sitemap.xml" />' index.html
+        sed -i '/<\/head>/i <meta name="description" content="Bio-Silicon Synergetic Intelligence System focuses on bio-silicon intelligence systems and advanced AI, catering to government research, defense, and cybersecurity agencies.">' index.html
+        sed -i '/<\/head>/i <meta name="description" lang="de" content="Das Bio-Silicon Synergetic Intelligence System konzentriert sich auf bio-siliciumbasierte Intelligenzsysteme und fortschrittliche KI, die sich an Regierungsforschung, Verteidigung und Cybersicherheitsbehörden richten.">' index.html
+        sed -i '/<\/head>/i <meta name="description" lang="ru" content="Система синергетического интеллекта на основе био-силикона сосредоточена на био-силиконовых интеллектуальных системах и передовом ИИ, обслуживающем правительственные исследования, оборонные и кибербезопасные агентства.">' index.html
+        sed -i '/<\/head>/i <meta name="description" lang="zh" content="生物硅协同智能系统专注于生物硅智能系统和先进的人工智能，服务于政府研究、国防和网络安全机构。">' index.html
+        sed -i '/<\/head>/i <meta name="description" lang="ja" content="バイオシリコン協調型インテリジェンスシステムは、生体シリコンインテリジェンスシステムと高度なAIに焦点を当てており、政府の研究、防衛、およびサイバーセキュリティ機関に対応しています。">' index.html
+        sed -i '/<\/head>/i <meta name="keywords" content="DARPA, BMBF, government research, defense applications, AI, cybersecurity, synthetic intelligence, advanced technology, bio-silicon, darknet, AI defense, AI research, innovation grants, public funding, research funding, government contracts, national security, strategic technologies, cutting-edge research, intelligent systems, emerging technologies, sustainable development, military technology, dual-use technologies, UKRI, Horizon Europe, CERN, NSF (National Science Foundation), NIH (National Institutes of Health), DoD (Department of Defense), DoE (Department of Energy), cybersecurity R&D, DARPA challenges, homeland security, AI-enabled systems, edge computing, Bio-cybernetic systems, hybrid intelligence, neural interface technologies, autonomous AI, neuromorphic computing, bioinformatics for defense, AI-assisted decision-making, critical infrastructure protection, cross-domain AI solutions, disruptive technologies, autonomous systems, secure AI, quantum cryptography, AI ethics, bio-inspired computing, deep learning models, government innovation, AI policy, defense technology innovation, advanced materials research, sustainable AI, defense R&D, precision AI, high-performance computing, neural augmentation, adaptive systems, critical infrastructure AI, AI in healthcare, public-private partnerships, smart defense, bio-silicon research">' index.html
+        sed -i '/<\/head>/i <meta name="robots" content="index, follow">' index.html
+        sed -i '/<\/head>/i <meta name="author" content="Bio-Silicon Synergetic Intelligence System">' index.html
+        sed -i '/<\/head>/i <meta name="target" content="government, military, research, cybersecurity">' index.html
+        sed -i '/<\/head>/i <meta name="subject" content="Advanced AI and Bio-Silicon Systems for Government Research and Defense Applications">' index.html
+        sed -i '/<\/head>/i <meta name="coverage" content="Worldwide">' index.html
+        sed -i '/<\/head>/i <meta name="distribution" content="global">' index.html
+        sed -i '/<\/head>/i <meta name="cybersecurity" content="Cyber Defense, Secure Communications, Data Encryption, AES-256, Government Research">' index.html
+        sed -i '/<\/head>/i <meta name="security" content="high">' index.html
+        sed -i '/<\/head>/i <meta name="classification" content="Top Secret, Defense, Cybersecurity, Research, Advanced AI">' index.html
+        sed -i '/<\/head>/i <link rel="canonical" href="https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/">' index.html
+        sed -i 's/https:\/\/synthetic-intelligence-labs.github.io\/SIL-website\//https:\/\/github.com\/Unlimited-Research-Cooperative\/Bio-Silicon-Synergetic-Intelligence-System\//g' index.html
+        sed -i '/<\/head>/i <link rel="alternate" hreflang="en" href="https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/" />' index.html
+        sed -i '/<\/head>/i <link rel="alternate" hreflang="de" href="https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/de/" />' index.html
+        sed -i '/<\/head>/i <link rel="alternate" hreflang="ru" href="https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/ru/" />' index.html
+        sed -i '/<\/head>/i <link rel="alternate" hreflang="zh" href="https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/zh/" />' index.html
+        sed -i '/<\/head>/i <link rel="alternate" hreflang="ja" href="https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/ja/" />' index.html
+        sed -i '/<\/head>/i <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System; style-src 'self' 'unsafe-inline'; script-src 'self' https://cdnjs.cloudflare.com;">' index.html
+        sed -i '/<\/head>/i <meta http-equiv="X-Frame-Options" content="DENY">' index.html
+        sed -i '/<\/head>/i <meta http-equiv="X-Content-Type-Options" content="nosniff">' index.html
+        sed -i '/<\/head>/i <meta http-equiv="Referrer-Policy" content="no-referrer">' index.html
+        sed -i '/<\/head>/i <meta http-equiv="Permissions-Policy" content="geolocation=(self), microphone=(self)">' index.html
+        sed -i '/<\/head>/i <meta http-equiv="Strict-Transport-Security" content="max-age=31536000; includeSubDomains; preload">' index.html
+        sed -i '/<\/head>/i <meta http-equiv="Expect-CT" content="enforce, max-age=86400, report-uri='https://your-report-uri.com/'">' index.html
+      shell: bash
+
+    - name: Create structured data (JSON-LD)
+      run: |
+        echo '<script type="application/ld+json">' > structured-data.json
+        echo '{' >> structured-data.json
+        echo '"@context": "https://schema.org",' >> structured-data.json
+        echo '"@type": "Organization",' >> structured-data.json
+        echo '"name": "Bio-Silicon Synergetic Intelligence System",' >> structured-data.json
+        echo '"url": "https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System",' >> structured-data.json
+        echo '"logo": "https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/images/logo.png",' >> structured-data.json
+        echo '"sameAs": [' >> structured-data.json
+        echo '"https://www.tiktok.com/@bio_silicon_synergetic_intelligence_system",' >> structured-data.json
+        echo '"https://www.linkedin.com/company/bio_silicon_synergetic_intelligence_system",' >> structured-data.json
+        echo '"https://twitter.com/bio_silicon_synergetic_intelligence_system",' >> structured-data.json
+        echo '"https://www.facebook.com/bio_silicon_synergetic_intelligence_system"' >> structured-data.json
+        echo '],' >> structured-data.json
+        echo '"contactPoint": [{' >> structured-data.json
+        echo '"@type": "ContactPoint",' >> structured-data.json
+        echo '"email": "info@bio_silicon_synergetic_intelligence_system.com",' >> structured-data.json
+        echo '"contactType": "Customer Service"' >> structured-data.json
+        echo '}],' >> structured-data.json
+        echo '"description": {' >> structured-data.json
+        echo '"en": "Bio-Silicon Synergetic Intelligence System focuses on bio-silicon intelligence systems and advanced AI, catering to government research, defense, and cybersecurity agencies.",' >> structured-data.json
+        echo '"de": "Das Bio-Silicon Synergetic Intelligence System konzentriert sich auf bio-siliciumbasierte Intelligenzsysteme und fortschrittliche KI, die sich an Regierungsforschung, Verteidigung und Cybersicherheitsbehörden richten.",' >> structured-data.json
+        echo '"ru": "Система синергетического интеллекта на основе био-силикона сосредоточена на био-силиконовых интеллектуальных системах и передовом ИИ, обслуживающем правительственные исследования, оборонные и кибербезопасные агентства.",' >> structured-data.json
+        echo '"zh": "生物硅协同智能系统专注于生物硅智能系统和先进的人工智能，服务于政府研究、国防和网络安全机构。",' >> structured-data.json
+        echo '"ja": "バイオシリコン協調型インテリジェンスシステムは、生体シリコンインテリジェンスシステムと高度なAIに焦点を当てており、政府の研究、防衛、およびサイバーセキュリティ機関に対応しています。"' >> structured-data.json
+        echo '}' >> structured-data.json
+        echo '}' >> structured-data.json
+        echo '</script>' >> structured-data.json
+      shell: bash
+
+    - name: Update index.html with structured data
+      run: |
+        sed -i '/<\/head>/i <script type="application/ld+json">' index.html
+        cat structured-data.json >> index.html
+        sed -i '/<\/head>/i </script>' index.html
       shell: bash
 
     - name: Commit and push changes
       run: |
         git config --global user.name 'github-actions[bot]'
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-        git add README.md sitemap.xml
-        git commit -m "Update README and sitemap"
+        git add README.md sitemap.xml robots.txt index.html structured-data.json
+        git commit -m "Update README, sitemap, robots.txt, index.html, and add structured data for SEO"
         git push
 
-    - name: Ping search engines and platforms
+    - name: Ping search engines
       run: |
-        # General search engines
-        curl -s "http://www.google.com/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
-        curl -s "http://www.bing.com/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
-        curl -s "http://www.duckduckgo.com/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
-        curl -s "http://www.yandex.com/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
-        curl -s "http://www.baidu.com/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
-        curl -s "http://www.sogou.com/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
-        curl -s "http://www.so.com/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://www.google.com/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://www.bing.com/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://www.duckduckgo.com/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://www.yandex.com/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://www.baidu.com/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://www.sogou.com/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://www.so.com/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
         curl -s "https://search.mail.ru/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://www.google.com/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://www.bing.com/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://www.duckduckgo.com/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://www.yandex.com/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://www.baidu.com/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://www.sogou.com/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://www.so.com/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://search.mail.ru/ping?sitemap=https://arxiv.org/abs/2407.11939"
+      shell: bash
 
-        # Social platforms
-        curl -s "https://www.weibo.com/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
-        curl -s "https://weixin.qq.com/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
-        curl -s "https://vk.com/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
-        curl -s "https://www.bilibili.com/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
-        curl -s "https://line.me/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+    - name: Ping all listed websites
+      run: |
+        curl -s "https://www.scopus.com/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://www.webofscience.com/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://ieeexplore.ieee.org/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://www.darpa.mil/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://pubmed.ncbi.nlm.nih.gov/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://www.sciencedirect.com/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://www.jstor.org/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://scholar.google.com/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://www.ebscohost.com/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://www.proquest.com/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://www.ebsco.com/academic-libraries/subjects/academic-search-premier/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://www.proquest.com/products-services/dissertations/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://eric.ed.gov/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://www.apa.org/pubs/databases/psycinfo/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://www.nih.gov/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://www.ncbi.nlm.nih.gov/pmc/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://pubs.acs.org/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://iopscience.iop.org/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://www.ssrn.com/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://ethos.bl.uk/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://oatd.org/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://core.ac.uk/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://www.base-search.net/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://cds.cern.ch/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://europepmc.org/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://academic.oup.com/journals/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://www.cambridge.org/core/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://www.scopus.com/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://www.webofscience.com/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://ieeexplore.ieee.org/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://www.darpa.mil/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://pubmed.ncbi.nlm.nih.gov/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://www.sciencedirect.com/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://www.jstor.org/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://scholar.google.com/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://www.ebscohost.com/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://www.proquest.com/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://www.ebsco.com/academic-libraries/subjects/academic-search-premier/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://www.proquest.com/products-services/dissertations/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://eric.ed.gov/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://www.apa.org/pubs/databases/psycinfo/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://www.nih.gov/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://www.ncbi.nlm.nih.gov/pmc/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://pubs.acs.org/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://iopscience.iop.org/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://www.ssrn.com/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://ethos.bl.uk/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://oatd.org/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://core.ac.uk/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://www.base-search.net/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://cds.cern.ch/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://europepmc.org/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://academic.oup.com/journals/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://www.cambridge.org/core/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://arxiv.org/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://arxiv.org/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://www.cnki.net/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "http://www.wanfangdata.com.cn/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "http://www.wanfangdata.com.cn/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "http://www.paper.edu.cn/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "http://www.paper.edu.cn/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "http://www.cqvip.com/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "http://www.cqvip.com/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "http://www.nstl.gov.cn/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "http://www.nstl.gov.cn/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://elibrary.ru/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://elibrary.ru/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://cyberleninka.ru/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://cyberleninka.ru/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://elibrary.ru/project_risc.asp/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://elibrary.ru/project_risc.asp/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://www.neicon.ru/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://www.neicon.ru/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "http://www.sel.org.ru/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "http://www.sel.org.ru/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://www.tib.eu/en/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://www.tib.eu/en/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://www.dart-europe.eu/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://www.dart-europe.eu/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://www.dimdi.de/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://www.dimdi.de/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://link.springer.com/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://link.springer.com/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://www.dfg.de/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://www.dfg.de/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://www.narcis.nl/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://www.narcis.nl/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://www.knaw.nl/en/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://www.knaw.nl/en/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://www.elsevier.com/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://www.elsevier.com/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://www.wageningenacademic.com/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://www.wageningenacademic.com/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://ci.nii.ac.jp/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://ci.nii.ac.jp/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://www.jstage.jst.go.jp/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://www.jstage.jst.go.jp/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://reo.nii.ac.jp/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://reo.nii.ac.jp/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://japanlinkcenter.org/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://japanlinkcenter.org/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://kaken.nii.ac.jp/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://kaken.nii.ac.jp/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://www.goszakupki.ru/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://www.goszakupki.ru/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://www.grants.gov.ru/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://www.grants.gov.ru/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://www.rscf.ru/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://www.rscf.ru/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://budget.gov.ru/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://budget.gov.ru/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://www.minobrnauki.gov.ru/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://www.minobrnauki.gov.ru/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "http://www.ccgp.gov.cn/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "http://www.ccgp.gov.cn/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "http://www.nsfc.gov.cn/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "http://www.nsfc.gov.cn/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "http://www.most.gov.cn/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "http://www.most.gov.cn/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "http://service.most.gov.cn/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "http://service.most.gov.cn/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "http://www.spacechina.com/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "http://www.spacechina.com/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "http://www.cetc.com.cn/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "http://www.cetc.com.cn/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "http://www.nudt.edu.cn/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "http://www.nudt.edu.cn/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "http://www.cas.cn/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "http://www.cas.cn/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "http://www.mod.gov.cn/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "http://www.mod.gov.cn/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://www.tsinghua.edu.cn/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://www.tsinghua.edu.cn/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://svr.gov.ru/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://svr.gov.ru/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://mil.ru/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://mil.ru/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://www.rosatom.ru/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://www.rosatom.ru/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://rostec.ru/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://rostec.ru/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "http://fpi.gov.ru/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "http://fpi.gov.ru/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "http://www.nrcki.ru/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "http://www.nrcki.ru/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "http://www.csc.edu.cn/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "http://www.csc.edu.cn/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://www.grants.gov/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://www.grants.gov/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://www.sam.gov/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://www.sam.gov/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://projectreporter.nih.gov/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://projectreporter.nih.gov/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://www.nsf.gov/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://www.nsf.gov/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://www.bund.de/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://www.bund.de/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://www.elfi.info/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://www.elfi.info/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://www.dfg.de/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://www.dfg.de/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://www.bmwi.de/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://www.bmwi.de/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://www.kfw.de/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://www.kfw.de/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://jglobal.jst.go.jp/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://jglobal.jst.go.jp/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://kaken.nii.ac.jp/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://kaken.nii.ac.jp/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://www.japan.go.jp/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://www.japan.go.jp/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://www.jst.go.jp/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://www.jst.go.jp/ping?sitemap=https://arxiv.org/abs/2407.11939"
+        curl -s "https://www.nedo.go.jp/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+        curl -s "https://www.nedo.go.jp/ping?sitemap=https://arxiv.org/abs/2407.11939"
+      shell: bash
 
-        # Academic search engines
-        curl -s "http://www.scholar.google.com/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+    - name: Monitor site performance with Lighthouse
+      uses: actions/github-script@v4
+      with:
+        script: |
+          const { context } = require('@actions/github');
+          const lighthouse = require('lighthouse');
+          const chromeLauncher = require('chrome-launcher');
 
-        curl -s "http://english.ia.cas.cn/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
-        curl -s "https://www.baai.ac.cn/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
-        curl -s "http://www.tnlist.tsinghua.edu.cn/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
-        curl -s "http://www.calt.com/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+          (async () => {
+            const chrome = await chromeLauncher.launch({ chromeFlags: ['--headless'] });
+            const options = { logLevel: 'info', output: 'json', onlyCategories: ['performance'], port: chrome.port };
+            const runnerResult = await lighthouse('https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System', options);
 
-        curl -s "http://keldysh.ru/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
-        curl -s "https://www.ispras.ru/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
-        curl -s "http://www.ibch.ru/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
-        curl -s "http://rri-ai.ru/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+            const report = runnerResult.report;
+            fs.writeFileSync('lighthouse-report.json', report);
 
-        curl -s "https://www.media.mit.edu/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
-         curl -s "https://allenai.org/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
-        curl -s "https://www.sri.com/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
-        curl -s "https://wyss.harvard.edu/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+            console.log('Performance score was', runnerResult.lhr.categories.performance.score * 100);
 
-        curl -s "https://www.is.mpg.de/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
-        curl -s "https://www.fzi.de/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
-        curl -s "https://www.dfki.de/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
-        curl -s "https://www.iao.fraunhofer.de/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+            await chrome.kill();
+          })();
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-        curl -s "https://www.atr.jp/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
-        curl -s "https://aip.riken.jp/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
-        curl -s "https://www.nii.ac.jp/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
-        curl -s "https://www.airc.aist.go.jp/ping?sitemap=https://github.com/Unlimited-Research-Cooperative/Bio-Silicon-Synergetic-Intelligence-System/sitemap.xml"
+    - name: Commit and push Lighthouse report
+      run: |
+        git add lighthouse-report.json
+        git commit -m "Add Lighthouse performance report"
+        git push
       shell: bash
